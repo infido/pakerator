@@ -14,12 +14,15 @@ namespace Pakerator
     {
         public ConnectionDB polaczenie;
         private FbDataAdapter fda;
+        private Login logowanie;
         
         public Pulpit()
         {
             InitializeComponent();
             Text = "Pakerator " + Application.ProductVersion;
             polaczenie = new ConnectionDB();
+            logowanie = new Login(polaczenie);
+            logowanie.ShowDialog();
         }
 
         private void Pulpit_Load(object sender, EventArgs e)

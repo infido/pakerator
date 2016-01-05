@@ -107,7 +107,7 @@ namespace Pakerator
         private String getConnectionString()
         {
             String[] setloc = new String[6];
-            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\InventorRaksSQL");
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
             if (rejestr == null)
             {
                 setConnectionStringToRegistry();
@@ -145,7 +145,6 @@ namespace Pakerator
             }
             else
             {
-                //setloc[3] = "DataSource=\\\\infra05;";
                 //setloc[3] = "DataSource=10.6.3.9;";
                 //setloc[3] = "DataSource=localhost;";
                 
@@ -210,11 +209,11 @@ namespace Pakerator
             //wpis do rejestru ustawień połączenia
             try
             {
-                RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\InventorRaksSQL",true);
+                RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator",true);
                 if (rejestr == null)
                 {
-                    RegistryKey rejestrNew = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Infido\\InventorRaksSQL");
-                    rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\InventorRaksSQL", true);
+                    RegistryKey rejestrNew = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Infido\\Pakerator");
+                    rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
                 }
 
                 rejestr.SetValue("User", tUser.Text);
@@ -244,7 +243,7 @@ namespace Pakerator
             //wpis do rejestru ustawień połączenia
             try
             {
-                RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\InventorRaksSQL");
+                RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
             if (rejestr == null)
             {
                 setConnectionStringToRegistry();
