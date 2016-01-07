@@ -14,6 +14,8 @@ namespace Pakerator
     {
         public ConnectionDB polaczenie;
         private FbDataAdapter fda;
+        private DataSet fds;
+        private DataView fDataView;
         private Login logowanie;
         int dokId = 0;
         
@@ -65,6 +67,28 @@ namespace Pakerator
 
                     //Tu wczytujemy pozycje dokumentu
 
+                    sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI ";
+                    sql += "from GM_FSPOZ ";
+                    sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
+                    sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
+
+                    fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
+                    fds = new DataSet();
+                    fDataView = new DataView();
+                    fds.Tables.Add("POZ");
+                    try
+                    {
+                        fda.Fill(fds.Tables["POZ"]);
+                    }
+                    catch (Exception ex)
+                    {
+                        setLog("ERROR", "Nieudane zapytanie o pozycjie dokumentu dla listy: " + ex.Message, kodKreskowy, kodKreskowy, lDokument.Text);
+                        throw;
+                    }
+                    fDataView.Table = fds.Tables["POZ"];
+                    dataGridViewPozycje.DataSource = fDataView;
+
+                    dataGridViewPozycje.Columns["ID"].Visible = false;
                 }
                 else
                 {
@@ -92,6 +116,29 @@ namespace Pakerator
                 {
                     //skanowanie towaru
                     textHistoria.Text = "Towar: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
+                    foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
+                    {
+                        if (row.Cells["KOD_KRESKOWY"].Value.Equals(tToSkan.Text))
+                        {
+                            //zapis do bazy
+                            row.Cells["SKANOWANE"].Value = (int)row.Cells["SKANOWANE"].Value + 1;
+
+                            //updatsw
+                            FbCommand cdk = new FbCommand("UPDATE GM_FSPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                            try
+                            {
+                                cdk.ExecuteNonQuery();
+                            }
+                            catch (FbException ex)
+                            {
+                                setLog("ERROR","Bład zapytania: " + ex.Message, tToSkan.Text,lListPrzewozowy.Text,lDokument.Text);
+                                throw;
+                            }
+                            break;
+                        }
+                    }
+                    dataGridViewPozycje.Refresh();
+                    tToSkan.Text = "";
                 }
             }
         }

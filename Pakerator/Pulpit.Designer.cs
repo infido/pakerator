@@ -49,11 +49,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.textHistoria = new System.Windows.Forms.TextBox();
+            this.dataGridViewPozycje = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panelHistoria.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPozycje)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -199,6 +202,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.dataGridViewPozycje);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 124);
             this.panel2.Name = "panel2";
@@ -254,6 +258,20 @@
             this.textHistoria.Size = new System.Drawing.Size(829, 59);
             this.textHistoria.TabIndex = 0;
             // 
+            // dataGridViewPozycje
+            // 
+            this.dataGridViewPozycje.AllowUserToAddRows = false;
+            this.dataGridViewPozycje.AllowUserToDeleteRows = false;
+            this.dataGridViewPozycje.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewPozycje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPozycje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPozycje.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewPozycje.Name = "dataGridViewPozycje";
+            this.dataGridViewPozycje.ReadOnly = true;
+            this.dataGridViewPozycje.RowHeadersVisible = false;
+            this.dataGridViewPozycje.Size = new System.Drawing.Size(829, 399);
+            this.dataGridViewPozycje.TabIndex = 0;
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -273,11 +291,13 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.panelHistoria.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPozycje)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,6 +325,7 @@
         private System.Windows.Forms.TextBox textHistoria;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridViewPozycje;
     }
 }
 

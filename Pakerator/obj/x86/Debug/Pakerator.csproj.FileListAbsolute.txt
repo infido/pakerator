@@ -10,3 +10,7 @@ c:\documents and settings\user\moje dokumenty\visual studio 2010\Projects\Pakera
 c:\documents and settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.exe
 c:\documents and settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.pdb
 C:\Documents and Settings\user\Moje dokumenty\Visual Studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.Login.resources
+C:\Documents and Settings\user\Moje dokumenty\Visual Studio 2010\Projects\Pakerator\Pakerator\bin\Debug\Pakerator.exe.manifest
+C:\Documents and Settings\user\Moje dokumenty\Visual Studio 2010\Projects\Pakerator\Pakerator\bin\Debug\Pakerator.application
+C:\Documents and Settings\user\Moje dokumenty\Visual Studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.exe.manifest
+C:\Documents and Settings\user\Moje dokumenty\Visual Studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.application
