@@ -41,6 +41,8 @@
             this.lnabywcaLabel = new System.Windows.Forms.Label();
             this.lOdbiorcaTresc = new System.Windows.Forms.Label();
             this.lNabywcaTresc = new System.Windows.Forms.Label();
+            this.wyczyśćToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lListPrzewozowy = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -48,6 +50,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wyczyśćToolStripMenuItem,
             this.konfiguracjaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -64,6 +67,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lListPrzewozowy);
             this.panel1.Controls.Add(this.lNabywcaTresc);
             this.panel1.Controls.Add(this.lOdbiorcaTresc);
             this.panel1.Controls.Add(this.lnabywcaLabel);
@@ -112,7 +116,7 @@
             // 
             this.lDokument.AutoSize = true;
             this.lDokument.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lDokument.Location = new System.Drawing.Point(194, 63);
+            this.lDokument.Location = new System.Drawing.Point(197, 49);
             this.lDokument.Name = "lDokument";
             this.lDokument.Size = new System.Drawing.Size(83, 20);
             this.lDokument.TabIndex = 3;
@@ -122,7 +126,7 @@
             // 
             this.lOdbiorcaLabel.AutoSize = true;
             this.lOdbiorcaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lOdbiorcaLabel.Location = new System.Drawing.Point(381, 55);
+            this.lOdbiorcaLabel.Location = new System.Drawing.Point(381, 49);
             this.lOdbiorcaLabel.Name = "lOdbiorcaLabel";
             this.lOdbiorcaLabel.Size = new System.Drawing.Size(62, 13);
             this.lOdbiorcaLabel.TabIndex = 4;
@@ -132,17 +136,17 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(197, 46);
+            this.label2.Location = new System.Drawing.Point(197, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.Size = new System.Drawing.Size(124, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Nr dokumentu:";
+            this.label2.Text = "Nr dokumentu i listu:";
             // 
             // lnabywcaLabel
             // 
             this.lnabywcaLabel.AutoSize = true;
             this.lnabywcaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lnabywcaLabel.Location = new System.Drawing.Point(381, 39);
+            this.lnabywcaLabel.Location = new System.Drawing.Point(381, 33);
             this.lnabywcaLabel.Name = "lnabywcaLabel";
             this.lnabywcaLabel.Size = new System.Drawing.Size(112, 13);
             this.lnabywcaLabel.TabIndex = 6;
@@ -151,7 +155,7 @@
             // lOdbiorcaTresc
             // 
             this.lOdbiorcaTresc.AutoSize = true;
-            this.lOdbiorcaTresc.Location = new System.Drawing.Point(499, 55);
+            this.lOdbiorcaTresc.Location = new System.Drawing.Point(499, 49);
             this.lOdbiorcaTresc.Name = "lOdbiorcaTresc";
             this.lOdbiorcaTresc.Size = new System.Drawing.Size(16, 13);
             this.lOdbiorcaTresc.TabIndex = 7;
@@ -160,11 +164,28 @@
             // lNabywcaTresc
             // 
             this.lNabywcaTresc.AutoSize = true;
-            this.lNabywcaTresc.Location = new System.Drawing.Point(499, 39);
+            this.lNabywcaTresc.Location = new System.Drawing.Point(499, 33);
             this.lNabywcaTresc.Name = "lNabywcaTresc";
             this.lNabywcaTresc.Size = new System.Drawing.Size(16, 13);
             this.lNabywcaTresc.TabIndex = 8;
             this.lNabywcaTresc.Text = "...";
+            // 
+            // wyczyśćToolStripMenuItem
+            // 
+            this.wyczyśćToolStripMenuItem.Name = "wyczyśćToolStripMenuItem";
+            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.wyczyśćToolStripMenuItem.Text = "&Wyczyść";
+            this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
+            // 
+            // lListPrzewozowy
+            // 
+            this.lListPrzewozowy.AutoSize = true;
+            this.lListPrzewozowy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lListPrzewozowy.Location = new System.Drawing.Point(197, 71);
+            this.lListPrzewozowy.Name = "lListPrzewozowy";
+            this.lListPrzewozowy.Size = new System.Drawing.Size(125, 20);
+            this.lListPrzewozowy.TabIndex = 9;
+            this.lListPrzewozowy.Text = "List Przewozowy";
             // 
             // Pulpit
             // 
@@ -202,6 +223,8 @@
         private System.Windows.Forms.Label lnabywcaLabel;
         private System.Windows.Forms.Label lNabywcaTresc;
         private System.Windows.Forms.Label lOdbiorcaTresc;
+        private System.Windows.Forms.ToolStripMenuItem wyczyśćToolStripMenuItem;
+        private System.Windows.Forms.Label lListPrzewozowy;
     }
 }
 

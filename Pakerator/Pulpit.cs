@@ -57,14 +57,18 @@ namespace Pakerator
                 {
                     dokId = (int)fdk["ID"];
                     lDokument.Text = (string)fdk["NUMER"];
+                    lListPrzewozowy.Text = kodKreskowy;
                     lNabywcaTresc.Text = (string)fdk["NAZWA_PELNA_PLATNIKA"];
                     lOdbiorcaTresc.Text = (string)fdk["NAZWA_PELNA_ODBIORCY"] + Environment.NewLine + (string)fdk["PANSTWO_ODBIORCY"] + "; " + (string)fdk["KOD_ODBIORCY"] + " " + (string)fdk["MIEJSCOWOSC_ODBIORCY"] + Environment.NewLine;
                     lOdbiorcaTresc.Text += (string)fdk["ULICA_ODBIORCY"] + " " + (string)fdk["NRDOMU_ODBIORCY"] + " " + (string)fdk["NRLOKALU_ODBIORCY"];
-                    setLog("LOG",lOdbiorcaTresc.Text, kodKreskowy, kodKreskowy, lDokument.Text);
+                    setLog("LOG", lOdbiorcaTresc.Text, kodKreskowy, kodKreskowy, lDokument.Text);
 
                     //Tu wczytujemy pozycje dokumentu
 
-                    tToSkan.Text = "";
+                }
+                else
+                {
+                    setLog("WARNING", "Nie znaleziono dokumentu dla listu przewozowego", kodKreskowy, kodKreskowy, "");
                 }
             }
             catch (FbException ex)
@@ -81,6 +85,7 @@ namespace Pakerator
                 {
                     //wybór dokumentu
                     SetDokument(tToSkan.Text);
+                    tToSkan.Text = "";
                 }
                 else
                 {
@@ -99,6 +104,15 @@ namespace Pakerator
             }
             Console.WriteLine(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + logowanie.magID);
             
+        }
+
+        private void wyczyśćToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dokId = 0;
+            lDokument.Text = "";
+            lNabywcaTresc.Text = "";
+            lOdbiorcaTresc.Text = "";
+            lListPrzewozowy.Text = "";
         }
     }
 }

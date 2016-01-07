@@ -39,6 +39,7 @@
             // 
             // tUser
             // 
+            this.tUser.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tUser.Location = new System.Drawing.Point(80, 16);
             this.tUser.Name = "tUser";
             this.tUser.Size = new System.Drawing.Size(121, 20);
