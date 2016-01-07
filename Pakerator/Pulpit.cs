@@ -84,12 +84,14 @@ namespace Pakerator
                 if (dokId == 0)
                 {
                     //wybór dokumentu
+                    textHistoria.Text = "List przewozowy: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
                     SetDokument(tToSkan.Text);
                     tToSkan.Text = "";
                 }
                 else
                 {
                     //skanowanie towaru
+                    textHistoria.Text = "Towar: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
                 }
             }
         }
