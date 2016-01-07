@@ -14,9 +14,9 @@ namespace Pakerator
     {
         ConnectionDB polaczenie;
         Dictionary<int, string> listMagazyny;
-        int magID;
-        string magNazwa;
-        string userName;
+        public int magID;
+        public string magNazwa;
+        public string userName;
  
         public Login(ConnectionDB polaczenie)
         {
