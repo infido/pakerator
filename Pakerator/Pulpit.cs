@@ -67,7 +67,7 @@ namespace Pakerator
 
                     //Tu wczytujemy pozycje dokumentu
 
-                    sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI ";
+                    sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI ";
                     sql += "from GM_FSPOZ ";
                     sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
                     sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
@@ -89,6 +89,7 @@ namespace Pakerator
                     dataGridViewPozycje.DataSource = fDataView;
 
                     dataGridViewPozycje.Columns["ID"].Visible = false;
+                    kolorowanieRekordow();
                 }
                 else
                 {
@@ -139,6 +140,7 @@ namespace Pakerator
                     }
                     dataGridViewPozycje.Refresh();
                     tToSkan.Text = "";
+                    kolorowanieRekordow();
                 }
             }
         }
@@ -162,6 +164,31 @@ namespace Pakerator
             lNabywcaTresc.Text = "";
             lOdbiorcaTresc.Text = "";
             lListPrzewozowy.Text = "";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Media.SystemSounds.Hand.Play();
+
+        }
+
+        private void kolorowanieRekordow()
+        {
+            foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
+            {
+                if (!row.Cells["TYP"].Value.Equals("Towar"))
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Gray;
+                }
+                else if (row.Cells["SKANOWANE"].Value == row.Cells["ILOSC"].Value)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Green;
+                }
+                //else if ((int)(row.Cells["SKANOWANE"].Value.ToString()) > (int)(row.Cells["ILOSC"].Value.ToString()))
+                //{
+                //    row.DefaultCellStyle.ForeColor = Color.Red;
+                //}
+            }
         }
     }
 }
