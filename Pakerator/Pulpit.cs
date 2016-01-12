@@ -18,6 +18,7 @@ namespace Pakerator
         private DataView fDataView;
         private Login logowanie;
         int dokId = 0;
+        private bool jestSkonczone = false;
         
         public Pulpit()
         {
@@ -178,16 +179,34 @@ namespace Pakerator
             {
                 if (!row.Cells["TYP"].Value.Equals("Towar"))
                 {
-                    row.DefaultCellStyle.ForeColor = Color.Gray;
+                    row.DefaultCellStyle.BackColor = Color.Gray;
                 }
-                else if (row.Cells["SKANOWANE"].Value == row.Cells["ILOSC"].Value)
+                else if (row.Cells["SKANOWANE"].Value.ToString().Equals(row.Cells["ILOSC"].Value.ToString()))
                 {
-                    row.DefaultCellStyle.ForeColor = Color.Green;
+                    row.DefaultCellStyle.BackColor = Color.Green;
                 }
-                //else if ((int)(row.Cells["SKANOWANE"].Value.ToString()) > (int)(row.Cells["ILOSC"].Value.ToString()))
-                //{
-                //    row.DefaultCellStyle.ForeColor = Color.Red;
-                //}
+                else if (Int32.Parse(row.Cells["SKANOWANE"].Value.ToString()) != 0 &&
+                    Int32.Parse(row.Cells["SKANOWANE"].Value.ToString()) < Int32.Parse(row.Cells["ILOSC"].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Azure;
+                }
+                else if (Int32.Parse(row.Cells["SKANOWANE"].Value.ToString()) > Int32.Parse(row.Cells["ILOSC"].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void sprawdzenieCzySkonczone()
+        {
+            foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
+            {
+                if (!row.Cells["TYP"].Value.ToString().Equals("Towar") &&
+                    row.Cells["SKANOWANE"].Value.ToString().Equals(row.Cells["ILOSC"].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Gray;
+                }
+               
             }
         }
     }
