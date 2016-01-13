@@ -92,6 +92,18 @@ namespace Pakerator
 
                     dataGridViewPozycje.Columns["ID"].Visible = false;
                     kolorowanieRekordow();
+
+                    cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                    DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
+                    try
+                    {
+                        cdk.ExecuteNonQuery();
+                    }
+                    catch (FbException ex)
+                    {
+                        setLog("ERROR", "Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text);
+                        throw;
+                    }
                     
                 }
                 else
@@ -219,8 +231,8 @@ namespace Pakerator
 
             if (jestSkonczone)
             {
-                FbCommand cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Zapakował:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                    DateTime.Now.ToShortTimeString() + "' where ID=" + dokId, polaczenie.getConnection());
+                FbCommand cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Zapakował:" + DateTime.Now.ToShortDateString() + " " +
+                    DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
                 try
                 {
                     cdk.ExecuteNonQuery();
