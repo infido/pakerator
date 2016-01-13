@@ -8,14 +8,14 @@
     <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Pakerator.exe.manifest" size="4234">
+    <dependentAssembly dependencyType="install" codebase="Pakerator.exe.manifest" size="4608">
       <assemblyIdentity name="Pakerator.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ssei7QM2K12oRJ7xcyRsmoftbfk=</dsig:DigestValue>
+        <dsig:DigestValue>NBVzAJqTZCH3k4AL+6jdag8zhv4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

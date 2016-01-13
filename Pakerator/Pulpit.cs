@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FirebirdSql.Data.FirebirdClient;
+using System.Media;
 
 namespace Pakerator
 {
@@ -171,7 +172,11 @@ namespace Pakerator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            System.Media.SystemSounds.Hand.Play();
+            //System.Media.SystemSounds.Hand.Play();
+            SoundPlayer player = new SoundPlayer();
+            player.SoundLocation = Application.StartupPath + "\\fanfare_x.wav";
+            player.Load();
+            player.Play();
 
         }
 
@@ -214,9 +219,25 @@ namespace Pakerator
 
             if (jestSkonczone)
             {
-                MessageBox.Show("Dokument jest skończony!","Potwierdzenie",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                FbCommand cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Zapakował:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                    DateTime.Now.ToShortTimeString() + "' where ID=" + dokId, polaczenie.getConnection());
+                try
+                {
+                    cdk.ExecuteNonQuery();
+                }
+                catch (FbException ex)
+                {
+                    setLog("ERROR", "Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text);
+                    throw;
+                }
 
-                //TODO: Ustawineie zapisu w bazie o gotowosci dokumentu i kto pakowal
+                SoundPlayer player = new SoundPlayer();
+                player.SoundLocation = Application.StartupPath + "\\fanfare_x.wav";
+                player.Load();
+                player.Play();
+
+                MessageBox.Show("Dokument jest skończony!", "Potwierdzenie", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             }
         }
     }
