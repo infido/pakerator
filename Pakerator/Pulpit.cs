@@ -91,6 +91,7 @@ namespace Pakerator
 
                     dataGridViewPozycje.Columns["ID"].Visible = false;
                     kolorowanieRekordow();
+                    
                 }
                 else
                 {
@@ -142,6 +143,7 @@ namespace Pakerator
                     dataGridViewPozycje.Refresh();
                     tToSkan.Text = "";
                     kolorowanieRekordow();
+                    sprawdzenieCzySkonczone();
                 }
             }
         }
@@ -199,14 +201,22 @@ namespace Pakerator
 
         private void sprawdzenieCzySkonczone()
         {
+            jestSkonczone = true;
             foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
             {
-                if (!row.Cells["TYP"].Value.ToString().Equals("Towar") &&
-                    row.Cells["SKANOWANE"].Value.ToString().Equals(row.Cells["ILOSC"].Value.ToString()))
+                if (row.Cells["TYP"].Value.ToString().Equals("Towar") && jestSkonczone &&
+                    Int32.Parse(row.Cells["SKANOWANE"].Value.ToString()) < Int32.Parse(row.Cells["ILOSC"].Value.ToString()))
                 {
-                    row.DefaultCellStyle.BackColor = Color.Gray;
+                    jestSkonczone = false;
                 }
                
+            }
+
+            if (jestSkonczone)
+            {
+                MessageBox.Show("Dokument jest skończony!","Potwierdzenie",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+
+                //TODO: Ustawineie zapisu w bazie o gotowosci dokumentu i kto pakowal
             }
         }
     }
