@@ -57,6 +57,7 @@ namespace Pakerator
                     sql += " magazyn_nazwa varchar(150), ";
                     sql += " magazyn_id int, ";
                     sql += " kontrahent varchar(255), ";
+                    sql += " ip varchar(25), ";
                     sql += " odbiorca int, ";
                     sql += " platnik int, ";
                     sql += " utworzono timestamp default current_timestamp); ";
