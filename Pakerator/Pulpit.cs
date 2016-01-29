@@ -139,7 +139,7 @@ namespace Pakerator
 
                     //Tu wczytujemy pozycje dokumentu
 
-                    sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI ";
+                    sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
                     sql += "from GM_FSPOZ ";
                     sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
                     sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
@@ -161,6 +161,7 @@ namespace Pakerator
                     dataGridViewPozycje.DataSource = fDataView;
 
                     dataGridViewPozycje.Columns["ID"].Visible = false;
+                    dataGridViewPozycje.Columns["ID_TOWARU"].Visible = false;
                     kolorowanieRekordow();
 
                     cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
@@ -216,6 +217,7 @@ namespace Pakerator
                             try
                             {
                                 cdk.ExecuteNonQuery();
+                                setLog("LOG", "Skanowanie towaru znajdującego sie na dokumencie. Ilość po skanowaniu " + (int)row.Cells["SKANOWANE"].Value, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, (int)row.Cells["ID_TOWARU"].Value);
                             }
                             catch (FbException ex)
                             {
@@ -240,6 +242,7 @@ namespace Pakerator
                         player.Load();
                         player.Play();
 
+                        //TODO: dodanie obsługi odnalezienia id towaru skanowanego do wpisania w LOG
                         setLog("MESSAGE", "Nie znaleziono kodu kreskowego na dokumencie", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text);
 
                     }
@@ -250,6 +253,11 @@ namespace Pakerator
         }
 
         private void setLog(string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu)
+        {
+            setLog(typ, tresc, kodKreskowy, listPrzewozowy, nrDokumentu, 0);
+        }
+
+        private void setLog(string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu, int idTowaru )
         {
             //TODO: użytkownika
             //TODO: adres IP z jakiego jest to robione
@@ -273,8 +281,7 @@ namespace Pakerator
             sql += ", magazyn_nazwa, magazyn_id, kontrahent, ip, host, odbiorca, platnik ) ";
             sql += " values ";
             sql += " ('" + logowanie.userName + "','" + tToSkan.Text + "','" + lListPrzewozowy.Text +"'," + dokId + ",0,0,"; //zera mm_id i zo_id 
-            //towar
-            sql += " 0,'" + tresc + "','" + typ + "','" + logowanie.magNazwa + "'," + logowanie.getIdMagazynAsString() + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");"; 
+            sql += idTowaru + ",'" + tresc + "','" + typ + "','" + logowanie.magNazwa + "'," + logowanie.getIdMagazynAsString() + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");"; 
             FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
             try
             {
