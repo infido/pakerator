@@ -108,9 +108,9 @@
             this.lListPrzewozowy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lListPrzewozowy.Location = new System.Drawing.Point(197, 71);
             this.lListPrzewozowy.Name = "lListPrzewozowy";
-            this.lListPrzewozowy.Size = new System.Drawing.Size(125, 20);
+            this.lListPrzewozowy.Size = new System.Drawing.Size(120, 20);
             this.lListPrzewozowy.TabIndex = 9;
-            this.lListPrzewozowy.Text = "List Przewozowy";
+            this.lListPrzewozowy.Text = "Nie wczytano nr";
             // 
             // lNabywcaTresc
             // 

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FirebirdSql.Data.FirebirdClient;
 using System.Media;
 using System.IO;
+using System.Net;
 
 namespace Pakerator
 {
@@ -20,6 +21,8 @@ namespace Pakerator
         private DataView fDataView;
         private Login logowanie;
         int dokId = 0;
+        int odbiorca = 0;
+        int platnik = 0;
         private bool jestSkonczone = false;
         
         public Pulpit()
@@ -49,25 +52,36 @@ namespace Pakerator
                     sql += " id int primary key, ";
                     sql += " pracownik varchar(30), ";
                     sql += " kodkreskowy varchar(100), ";
-                    sql += " dokument_nr varchar(30), ";
-                    sql += " dokument_id int, ";
+                    sql += " list_przewozowy varchar(30), ";
+                    sql += " dokument_fs_id int, ";
+                    sql += " dokument_mm_id int, ";
+                    sql += " dokument_zo_id int, ";
                     sql += " towar_id int, ";
                     sql += " komunikat varchar(800), ";
                     sql += " operacja varchar(30), ";
-                    sql += " magazyn_nazwa varchar(150), ";
+                    sql += " magazyn_nazwa varchar(255), ";
                     sql += " magazyn_id int, ";
                     sql += " kontrahent varchar(255), ";
-                    sql += " ip varchar(25), ";
+                    sql += " ip varchar(60), ";
+                    sql += " host varchar(60), ";
                     sql += " odbiorca int, ";
                     sql += " platnik int, ";
                     sql += " utworzono timestamp default current_timestamp); ";
                     cdk = new FbCommand(sql, polaczenie.getConnection());
                     cdk.ExecuteNonQuery();
 
-                    sql = " create INDEX logskan_ndx1 on LOGSKAN (dokument_id);";
+                    sql = " create INDEX logskan_ndx1fs on LOGSKAN (dokument_fs_id);";
                     cdk = new FbCommand(sql, polaczenie.getConnection());
                     cdk.ExecuteNonQuery();
 
+                    sql = " create INDEX logskan_ndx1mm on LOGSKAN (dokument_mm_id);";
+                    cdk = new FbCommand(sql, polaczenie.getConnection());
+                    cdk.ExecuteNonQuery();
+
+                    sql = " create INDEX logskan_ndx1zo on LOGSKAN (dokument_zo_id);";
+                    cdk = new FbCommand(sql, polaczenie.getConnection());
+                    cdk.ExecuteNonQuery();
+                    
                     sql = " create INDEX logskan_ndx2 on LOGSKAN (id,utworzono);";
                     cdk = new FbCommand(sql, polaczenie.getConnection());
                     cdk.ExecuteNonQuery();
@@ -104,7 +118,7 @@ namespace Pakerator
         {
             string sql = "select ID, NUMER, NAZWA_PELNA_PLATNIKA, NAZWA_PELNA_ODBIORCY, ";
             sql += "COALESCE(ULICA_ODBIORCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_ODBIORCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_ODBIORCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_ODBIORCY,'') as MIEJSCOWOSC_ODBIORCY, ";
-            sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI ";
+            sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_ODBIORCY, ID_PLATNIKA ";
             sql += "from GM_FS ";
             sql += "where MAGNUM=" + logowanie.magID + " and SYGNATURA='" + tToSkan.Text + "';";
             FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
@@ -116,7 +130,9 @@ namespace Pakerator
                     dokId = (int)fdk["ID"];
                     lDokument.Text = (string)fdk["NUMER"];
                     lListPrzewozowy.Text = kodKreskowy;
+                    platnik = (int)fdk["ID_PLATNIKA"];
                     lNabywcaTresc.Text = (string)fdk["NAZWA_PELNA_PLATNIKA"];
+                    odbiorca = (int)fdk["ID_ODBIORCY"];
                     lOdbiorcaTresc.Text = (string)fdk["NAZWA_PELNA_ODBIORCY"] + Environment.NewLine + (string)fdk["PANSTWO_ODBIORCY"] + "; " + (string)fdk["KOD_ODBIORCY"] + " " + (string)fdk["MIEJSCOWOSC_ODBIORCY"] + Environment.NewLine;
                     lOdbiorcaTresc.Text += (string)fdk["ULICA_ODBIORCY"] + " " + (string)fdk["NRDOMU_ODBIORCY"] + " " + (string)fdk["NRLOKALU_ODBIORCY"];
                     setLog("LOG", lOdbiorcaTresc.Text, kodKreskowy, kodKreskowy, lDokument.Text);
@@ -252,39 +268,69 @@ namespace Pakerator
                 //Bład skanowania, np brak kodu na dokumencie
             }
 
-            //string sql = "INSERT INTO LOGSKAN ";
-            //sql += "(DATA,TIME,DOKID) ";
-            //sql += " values ";
-            //sql += " (" + DateTime.Now.ToShortDateString() + "," + DateTime.Now.ToShortTimeString() + "," + dokId + ")";
-            //FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
-            //try
-            //{
-            //    cdk.ExecuteNonQuery();
-            //}
-            //catch (FbException ex)
-            //{
-            //    StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_" + DateTime.Now.ToShortDateString() + ".log", true);
-            //    try
-            //    {
-            //        writer.WriteLine(DateTime.Now.ToString() + "; User:" + logowanie.userName + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text+ "; Bład zapytania: " + ex.Message);
+            string sql = "INSERT INTO LOGSKAN ";
+            sql += "(pracownik, kodkreskowy, list_przewozowy , dokument_fs_id, dokument_mm_id, dokument_zo_id ,towar_id, komunikat, operacja";
+            sql += ", magazyn_nazwa, magazyn_id, kontrahent, ip, host, odbiorca, platnik ) ";
+            sql += " values ";
+            sql += " ('" + logowanie.userName + "','" + tToSkan.Text + "','" + lListPrzewozowy.Text +"'," + dokId + ",0,0,"; //zera mm_id i zo_id 
+            //towar
+            sql += " 0,'" + tresc + "','" + typ + "','" + logowanie.magNazwa + "'," + logowanie.getIdMagazynAsString() + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");"; 
+            FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+            try
+            {
+                cdk.ExecuteNonQuery();
+            }
+            catch (FbException ex)
+            {
+                StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_" + DateTime.Now.ToShortDateString() + ".log", true);
+                try
+                {
+                    writer.WriteLine(DateTime.Now.ToString() + "; User:" + logowanie.userName + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text + "; Bład zapytania: " + ex.Message);
 
-            //    }
-            //    catch (Exception exf)
-            //    {
-            //        //wyłączone na chwilę MessageBox.Show(exf.Message);
-            //        throw;
-            //    }
-            //    finally
-            //    {
-            //        writer.Close();
-            //    }
-            //    throw;
-            //}
+                }
+                catch (Exception exf)
+                {
+                    MessageBox.Show("Błąd zapisu błedu: " + exf.Message);
+                    throw;
+                }
+                finally
+                {
+                    writer.Close();
+                }
+                throw;
+            }
 
-            Console.WriteLine(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + logowanie.magID);
+            //Console.WriteLine(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + logowanie.magID);
 
             textHistoria.Text = tresc + " ,kod: " + kodKreskowy + "; Dok.: " + lDokument.Text + Environment.NewLine + textHistoria.Text;
             
+        }
+
+        private string getIpAdress()
+        {
+            string wynik = "";
+            try
+            { // get local IP addresses
+                IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+
+                foreach (IPAddress localIP in localIPs)
+                {
+                    if (localIP.Equals("127.0.0.1") || localIP.Equals("localhost"))
+                    {
+                        //nie rób nic
+                    }
+                    else
+                    {
+                        if (wynik.Length != 0)
+                        {
+                            wynik += "; ";
+                        }
+                        wynik += localIP.ToString();
+                    }
+                }
+            }
+            catch { }
+            return wynik;
         }
 
         private void wyczyśćToolStripMenuItem_Click(object sender, EventArgs e)

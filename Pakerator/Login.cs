@@ -69,6 +69,10 @@ namespace Pakerator
             cMagazyn.ValueMember = "Key";
         }
 
+        public string getIdMagazynAsString()
+        {
+            return magID.ToString();
+        }
 
     }
 }
