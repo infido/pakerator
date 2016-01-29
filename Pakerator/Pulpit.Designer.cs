@@ -50,7 +50,6 @@
             this.textHistoria = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -87,7 +86,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.lListPrzewozowy);
             this.panel1.Controls.Add(this.lNabywcaTresc);
             this.panel1.Controls.Add(this.lOdbiorcaTresc);
@@ -274,16 +272,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Historia:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(743, 63);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,7 +286,6 @@
             this.Name = "Pulpit";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Pulpit_FormClosed);
-            this.Load += new System.EventHandler(this.Pulpit_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -338,7 +325,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewPozycje;
-        private System.Windows.Forms.Button button1;
     }
 }
 
