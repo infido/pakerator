@@ -120,7 +120,7 @@ namespace Pakerator
             sql += "COALESCE(ULICA_ODBIORCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_ODBIORCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_ODBIORCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_ODBIORCY,'') as MIEJSCOWOSC_ODBIORCY, ";
             sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_ODBIORCY, ID_PLATNIKA ";
             sql += "from GM_FS ";
-            sql += "where MAGNUM=" + logowanie.magID + " and SYGNATURA='" + tToSkan.Text + "';";
+            sql += "where MAGNUM=" + logowanie.magID + " and SYGNATURA like'" + tToSkan.Text + "%';";
             FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
             try
             {
@@ -135,7 +135,7 @@ namespace Pakerator
                     odbiorca = (int)fdk["ID_ODBIORCY"];
                     lOdbiorcaTresc.Text = (string)fdk["NAZWA_PELNA_ODBIORCY"] + Environment.NewLine + (string)fdk["PANSTWO_ODBIORCY"] + "; " + (string)fdk["KOD_ODBIORCY"] + " " + (string)fdk["MIEJSCOWOSC_ODBIORCY"] + Environment.NewLine;
                     lOdbiorcaTresc.Text += (string)fdk["ULICA_ODBIORCY"] + " " + (string)fdk["NRDOMU_ODBIORCY"] + " " + (string)fdk["NRLOKALU_ODBIORCY"];
-                    setLog("LOG", lOdbiorcaTresc.Text, kodKreskowy, kodKreskowy, lDokument.Text);
+                    setLog("LOG", "Ustawienie dokumentu i odbiorcy", kodKreskowy, kodKreskowy, lDokument.Text);
 
                     //Tu wczytujemy pozycje dokumentu
 
