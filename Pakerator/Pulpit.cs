@@ -415,5 +415,11 @@ namespace Pakerator
                 wyczyśćToolStripMenuItem.PerformClick();
             }
         }
+
+        private void historiaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Historia hist = new Historia(polaczenie);
+            hist.Show();
+        }
     }
 }

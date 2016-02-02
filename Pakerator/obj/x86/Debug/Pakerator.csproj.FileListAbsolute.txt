@@ -17,3 +17,4 @@ C:\Documents and Settings\user\Moje dokumenty\Visual Studio 2010\Projects\Pakera
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Debug\fanfare_x.wav
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Debug\gun_44mag_11.wav
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Debug\klaxon_ahooga.wav
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.Historia.resources

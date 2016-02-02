@@ -90,6 +90,12 @@
     <Compile Include="ConnectionDB.Designer.cs">
       <DependentUpon>ConnectionDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Historia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Historia.Designer.cs">
+      <DependentUpon>Historia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnectionDB.resx">
       <DependentUpon>ConnectionDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historia.resx">
+      <DependentUpon>Historia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
