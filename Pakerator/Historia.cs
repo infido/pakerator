@@ -30,10 +30,21 @@ namespace Pakerator
 
         private void bSzukaj_Click(object sender, EventArgs e)
         {
-            string sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, ";
-            sql += "GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
+            dataGridView1.DataSource = null;
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Refresh();
+            
+            string sql = "SELECT LOGSKAN.PRACOWNIK, LOGSKAN.KODKRESKOWY, LOGSKAN.LIST_PRZEWOZOWY, gm_FS.NUMER, GM_TOWARY.SKROT, GM_TOWARY.NAZWA, ";
+            sql += "LOGSKAN.KOMUNIKAT, LOGSKAN.OPERACJA, LOGSKAN.MAGAZYN_NAZWA, LOGSKAN.KONTRAHENT, LOGSKAN.IP, LOGSKAN.HOST, LOGSKAN.UTWORZONO";
+            sql += " from LOGSKAN ";
             sql += "left join GM_FS on LOGSKAN.DOKUMENT_FS_ID=GM_FS.ID ";
-            sql += "left join GM_TOWARY on LOGSKAN.TOWAR_ID=GM_TOWARY.ID_TOWARU";
+            sql += "left join GM_TOWARY on LOGSKAN.TOWAR_ID=GM_TOWARY.ID_TOWARU ";
+            //if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0)
+            //{
+            //    sql += " where ";
+            //    sql += "( )";
+            //}
 
             fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
             fds = new DataSet();
@@ -45,10 +56,11 @@ namespace Pakerator
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Błąd przy wyoełnianiu listy hirtorią");
+                MessageBox.Show("Błąd przy wyoełnianiu listy hirtorią: " + ex.Message);
                 throw;
             }
             fDataView.Table = fds.Tables["HIST"];
+            dataGridView1.DataSource = fDataView;
         }
     }
 }
