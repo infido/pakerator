@@ -40,11 +40,45 @@ namespace Pakerator
             sql += " from LOGSKAN ";
             sql += "left join GM_FS on LOGSKAN.DOKUMENT_FS_ID=GM_FS.ID ";
             sql += "left join GM_TOWARY on LOGSKAN.TOWAR_ID=GM_TOWARY.ID_TOWARU ";
-            //if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0)
-            //{
-            //    sql += " where ";
-            //    sql += "( )";
-            //}
+            if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0)
+            {
+                sql += " where ";
+
+                if (tDokument.Text.Length != 0)
+                {
+                    sql += " GM_FS.NUMER like '%" + tDokument.Text +"%' " ;
+                    //Dodanie obsługi pozostałych dokumentów
+                    //MM i Zlecenia wewnętrznego
+                }
+
+                //string test = sql.Substring(sql.Length - 7);
+                if (tUser.Text.Length != 0 && sql.Substring(sql.Length - 7).Equals(" where "))
+                {
+                    sql += " LOGSKAN.PRACOWNIK like '%" + tUser.Text + "%' ";
+                }
+                else if (tUser.Text.Length != 0)
+                {
+                    sql += " AND LOGSKAN.PRACOWNIK like '%" + tUser.Text + "%' "; 
+                }
+
+                if (tList.Text.Length != 0 && sql.Substring(sql.Length - 7).Equals(" where "))
+                {
+                    sql += " LOGSKAN.LIST_PRZEWOZOWY like '%" + tList.Text + "%' ";
+                }
+                else if (tList.Text.Length != 0)
+                {
+                    sql += " AND LOGSKAN.LIST_PRZEWOZOWY like '%" + tList.Text + "%' ";
+                }
+
+                if (tKontrahent.Text.Length != 0 && sql.Substring(sql.Length - 7).Equals(" where "))
+                {
+                    sql += " LOGSKAN.KONTRAHENT like '%" + tKontrahent.Text + "%' ";
+                }
+                else if (tKontrahent.Text.Length != 0)
+                {
+                    sql += " AND LOGSKAN.KONTRAHENT like '%" + tKontrahent.Text + "%' ";
+                }
+            }
 
             fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
             fds = new DataSet();
