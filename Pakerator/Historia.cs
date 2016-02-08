@@ -40,7 +40,8 @@ namespace Pakerator
             sql += " from LOGSKAN ";
             sql += "left join GM_FS on LOGSKAN.DOKUMENT_FS_ID=GM_FS.ID ";
             sql += "left join GM_TOWARY on LOGSKAN.TOWAR_ID=GM_TOWARY.ID_TOWARU ";
-            if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0)
+            if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0
+                 || tKK.Text.Length != 0 || tOperacja.Text.Length != 0)
             {
                 sql += " where ";
 
@@ -77,6 +78,24 @@ namespace Pakerator
                 else if (tKontrahent.Text.Length != 0)
                 {
                     sql += " AND LOGSKAN.KONTRAHENT like '%" + tKontrahent.Text + "%' ";
+                }
+
+                if (tKK.Text.Length != 0 && sql.Substring(sql.Length - 7).Equals(" where "))
+                {
+                    sql += " LOGSKAN.KODKRESKOWY like '%" + tKK.Text + "%' ";
+                }
+                else if (tKK.Text.Length != 0)
+                {
+                    sql += " AND LOGSKAN.KODKRESKOWY like '%" + tKK.Text + "%' ";
+                }
+
+                if (tOperacja.Text.Length != 0 && sql.Substring(sql.Length - 7).Equals(" where "))
+                {
+                    sql += " LOGSKAN.OPERACJA like '%" + tOperacja.Text + "%' ";
+                }
+                else if (tOperacja.Text.Length != 0)
+                {
+                    sql += " AND LOGSKAN.OPERACJA like '%" + tOperacja.Text + "%' ";
                 }
             }
 
