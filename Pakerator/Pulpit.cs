@@ -116,11 +116,77 @@ namespace Pakerator
 
         private void SetDokument(string kodKreskowy)
         {
-            string sql = "select ID, NUMER, NAZWA_PELNA_PLATNIKA, NAZWA_PELNA_ODBIORCY, ";
-            sql += "COALESCE(ULICA_ODBIORCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_ODBIORCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_ODBIORCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_ODBIORCY,'') as MIEJSCOWOSC_ODBIORCY, ";
-            sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_ODBIORCY, ID_PLATNIKA ";
-            sql += "from GM_FS ";
-            sql += "where MAGNUM=" + logowanie.magID + " and SYGNATURA='" + tToSkan.Text + "';";
+            bool czyToJestListPrzewozowy = kodKreskowy.Substring(0, 2).Equals("MM") ? false : true;
+            string sql = "";
+            int corectDocID = 0; 
+            bool toJestMMP = true;
+
+            if (czyToJestListPrzewozowy)
+            {
+                sql = "select ID, NUMER, NAZWA_PELNA_PLATNIKA, NAZWA_PELNA_ODBIORCY, ";
+                sql += "COALESCE(ULICA_ODBIORCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_ODBIORCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_ODBIORCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_ODBIORCY,'') as MIEJSCOWOSC_ODBIORCY, ";
+                sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_ODBIORCY, ID_PLATNIKA ";
+                sql += "from GM_FS ";
+                sql += "where MAGNUM=" + logowanie.magID + " and SYGNATURA='" + tToSkan.Text + "';";
+            }
+            else
+            {
+                //ma być niezlależne, jak skanujemy MMR a jesteśmy na przyjeciu to robimy przyjęcie
+                sql = "select ID, MAGNUM, ZRODLO_CEL, ID_MM, KOD from GM_MM where NUMER ='" + kodKreskowy + "'";
+                FbCommand cdktmp = new FbCommand(sql, polaczenie.getConnection());
+                try
+                {
+                    
+                    FbDataReader fdktmp = cdktmp.ExecuteReader();
+                    if (fdktmp.Read())
+                    {
+                        int magnum = (int)fdktmp["MAGNUM"];
+                        int magnum2 = (int)fdktmp["ZRODLO_CEL"];
+                        if (magnum == logowanie.magID)
+                        {
+                            //Dokument z bieżącego magazynu
+                            corectDocID = (int)fdktmp["ID"];
+                            
+                            //Typ dokumentu jest brany z rekordu
+                            string tmpkod = (string)fdktmp["KOD"];
+                            toJestMMP = tmpkod.Equals("MMP") ? true : false;
+                        }
+                        else if (magnum2 == logowanie.magID)
+                        {
+                            //zeskanowano dokument z przeciwnego magazynu
+                            corectDocID = (int)fdktmp["ID_MM"];
+
+                            //Typ dokumentu jest zamieniany na przeciwny bo jest odczyt z przeciwnego dokumentu
+                            string tmpkod = (string)fdktmp["KOD"];
+                            toJestMMP = tmpkod.Equals("MMP") ? false : true;
+                        }
+                        fdktmp.Close();
+                    }
+                }
+                catch (Exception ee)
+                {
+                    setLog("ERROR", "Błąd przy wysukiwaniu dokumentu przesunięcia MM: " + ee.Message, kodKreskowy, kodKreskowy, "");
+                    throw;
+                }
+                sql = "select GM_MM.ID, GM_MM.NUMER, ";
+                sql += " case GM_MM.KOD ";
+                sql += "  when 'MMP' then (MAG2.NUMER || ' ' || MAG2.NAZWA) ";
+                sql += "  when 'MMR' then (MAG1.NUMER || ' ' || MAG1.NAZWA) ";
+                sql += "  else '' ";
+                sql += " end as NAZWA_PELNA_PLATNIKA, ";
+                sql += " case GM_MM.KOD ";
+                sql += "  when 'MMP' then (MAG1.NUMER || ' ' || MAG1.NAZWA) ";
+                sql += "  when 'MMR' then (MAG2.NUMER || ' ' || MAG2.NAZWA) ";
+                sql += "  else '' ";
+                sql += " end as  NAZWA_PELNA_ODBIORCY, ";
+                sql += "'' as ULICA_ODBIORCY, '' as NRDOMU_ODBIORCY, '' as NRLOKALU_ODBIORCY, '' as MIEJSCOWOSC_ODBIORCY, ";
+                sql += "'' as PANSTWO_ODBIORCY, '' as KOD_ODBIORCY, GM_MM.OPERATOR, GM_MM.SYGNATURA, COALESCE(GM_MM.UWAGI,'') as UWAGI, 0 as ID_ODBIORCY, 0 as ID_PLATNIKA ";
+                sql += "from GM_MM ";
+                sql += "join GM_MAGAZYNY as MAG1 on GM_MM.MAGNUM = MAG1.ID ";
+                sql += "join GM_MAGAZYNY as MAG2 on GM_MM.ZRODLO_CEL = MAG2.ID ";
+                sql += "where GM_MM.ID=" + corectDocID + ";";
+
+            }
             FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
             try
             {
@@ -138,11 +204,34 @@ namespace Pakerator
                     setLog("LOG", "Ustawienie dokumentu i odbiorcy", kodKreskowy, kodKreskowy, lDokument.Text);
 
                     //Tu wczytujemy pozycje dokumentu
-
-                    sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
-                    sql += "from GM_FSPOZ ";
-                    sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
-                    sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
+                    if (czyToJestListPrzewozowy)
+                    {
+                        //Dla faktury
+                        sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
+                        sql += "from GM_FSPOZ ";
+                        sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
+                        sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
+                    }
+                    else if (toJestMMP)
+                    {
+                        //Dla przesunięcia między magazynowego MMP
+                        sql =  "select GM_MMPPOZ.ID, GM_MMPPOZ.LP, ";
+                        sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
+                        sql += "GM_MMPPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMPPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMPPOZ.ID_TOWARU ";
+                        sql += " from GM_MMPPOZ";
+                        sql += " join GM_TOWARY ON GM_MMPPOZ.ID_TOWARU=GM_TOWARY.ID ";
+                        sql += " where GM_MMPPOZ.ID_GLOWKI=" + dokId;
+                    }
+                    else if (!toJestMMP)
+                    {
+                        //Dla przesunięcia między magazynowego MMP
+                        sql = "select GM_MMRPOZ.ID, GM_MMRPOZ.LP, ";
+                        sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
+                        sql += "GM_MMRPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMRPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMRPOZ.ID_TOWARU ";
+                        sql += " from GM_MMRPOZ";
+                        sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
+                        sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
+                    }
 
                     fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
                     fds = new DataSet();
@@ -164,11 +253,19 @@ namespace Pakerator
                     dataGridViewPozycje.Columns["ID_TOWARU"].Visible = false;
                     kolorowanieRekordow();
 
+                    if (czyToJestListPrzewozowy)
+                    {
                     cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
                     DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
+                    }else if (toJestMMP){
+                        //aktualizauje pozycje MMP
+                    }else if (!toJestMMP){
+                        //aktualizacja pozycji MMR
+                    }
+
                     try
                     {
-                        cdk.ExecuteNonQuery();
+                        //cdk.ExecuteNonQuery();
                     }
                     catch (FbException ex)
                     {
@@ -179,7 +276,7 @@ namespace Pakerator
                 }
                 else
                 {
-                    setLog("WARNING", "Nie znaleziono dokumentu dla listu przewozowego", kodKreskowy, kodKreskowy, "");
+                    setLog("WARNING", "Nie znaleziono dokumentu dla listu przewozowego, ani MM", kodKreskowy, kodKreskowy, "");
                 }
             }
             catch (FbException ex)
