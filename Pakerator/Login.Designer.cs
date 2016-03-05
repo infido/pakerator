@@ -42,7 +42,7 @@
             this.tUser.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tUser.Location = new System.Drawing.Point(80, 16);
             this.tUser.Name = "tUser";
-            this.tUser.Size = new System.Drawing.Size(185, 20);
+            this.tUser.Size = new System.Drawing.Size(103, 20);
             this.tUser.TabIndex = 0;
             // 
             // cMagazyn
@@ -50,7 +50,7 @@
             this.cMagazyn.FormattingEnabled = true;
             this.cMagazyn.Location = new System.Drawing.Point(80, 48);
             this.cMagazyn.Name = "cMagazyn";
-            this.cMagazyn.Size = new System.Drawing.Size(185, 21);
+            this.cMagazyn.Size = new System.Drawing.Size(253, 21);
             this.cMagazyn.TabIndex = 1;
             // 
             // label1
@@ -73,7 +73,7 @@
             // 
             // bOK
             // 
-            this.bOK.Location = new System.Drawing.Point(60, 87);
+            this.bOK.Location = new System.Drawing.Point(98, 87);
             this.bOK.Name = "bOK";
             this.bOK.Size = new System.Drawing.Size(75, 33);
             this.bOK.TabIndex = 4;
@@ -84,7 +84,7 @@
             // bAnuluj
             // 
             this.bAnuluj.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bAnuluj.Location = new System.Drawing.Point(141, 87);
+            this.bAnuluj.Location = new System.Drawing.Point(179, 87);
             this.bAnuluj.Name = "bAnuluj";
             this.bAnuluj.Size = new System.Drawing.Size(75, 33);
             this.bAnuluj.TabIndex = 5;
@@ -98,7 +98,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bAnuluj;
-            this.ClientSize = new System.Drawing.Size(277, 132);
+            this.ClientSize = new System.Drawing.Size(345, 132);
             this.Controls.Add(this.bAnuluj);
             this.Controls.Add(this.bOK);
             this.Controls.Add(this.label2);
