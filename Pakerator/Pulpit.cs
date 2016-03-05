@@ -116,10 +116,15 @@ namespace Pakerator
 
         private void SetDokument(string kodKreskowy)
         {
-            bool czyToJestListPrzewozowy = kodKreskowy.Substring(0, 2).Equals("MM") ? false : true;
+            bool czyToJestListPrzewozowy = true; 
             string sql = "";
             int corectDocID = 0; 
             bool toJestMMP = true;
+
+            if (kodKreskowy.Length > 0)
+            {
+                czyToJestListPrzewozowy = kodKreskowy.Substring(0, 2).Equals("MM") ? false : true;
+            }
 
             if (czyToJestListPrzewozowy)
             {
@@ -382,7 +387,9 @@ namespace Pakerator
         {
             //TODO: użytkownika
             //TODO: adres IP z jakiego jest to robione
-            
+
+            string sql = "";
+
             //dodanie obsługi logowania w bazie
             if (!typ.Equals("LOG"))
             {
@@ -397,12 +404,27 @@ namespace Pakerator
                 //Bład skanowania, np brak kodu na dokumencie
             }
 
-            string sql = "INSERT INTO LOGSKAN ";
-            sql += "(pracownik, kodkreskowy, list_przewozowy , dokument_fs_id, dokument_mm_id, dokument_zo_id ,towar_id, komunikat, operacja";
-            sql += ", magazyn_nazwa, magazyn_id, kontrahent, ip, host, odbiorca, platnik ) ";
-            sql += " values ";
-            sql += " ('" + logowanie.userName + "','" + tToSkan.Text + "','" + lListPrzewozowy.Text +"'," + dokId + ",0,0,"; //zera mm_id i zo_id 
-            sql += idTowaru + ",'" + tresc + "','" + typ + "','" + logowanie.magNazwa + "'," + logowanie.getIdMagazynAsString() + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");"; 
+
+                sql = "INSERT INTO LOGSKAN ";
+                sql += "(pracownik, kodkreskowy, list_przewozowy , dokument_fs_id, dokument_mm_id, dokument_zo_id ,towar_id, komunikat, operacja";
+                sql += ", magazyn_nazwa, magazyn_id, kontrahent, ip, host, odbiorca, platnik ) ";
+                sql += " values ";
+                sql += " ('" + logowanie.userName + "','" + tToSkan.Text + "','" + lListPrzewozowy.Text + "',";
+                if (typDok.Equals("FS"))
+                {
+                    sql += dokId + ",0,0,"; //zera mm_id i zo_id 
+                }
+                else if (typDok.Contains("MM"))
+                {
+                    sql +=  "0," + dokId + ",0,"; //zera mm_id i zo_id
+                }
+                else
+                {
+                    sql += "0,0,0,"; //zera mm_id i zo_id
+                }
+                sql += idTowaru + ",'" + tresc + "','" + typ + "','" + logowanie.magNazwa + "'," + logowanie.getIdMagazynAsString() + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");";
+
+
             FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
             try
             {

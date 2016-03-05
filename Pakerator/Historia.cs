@@ -35,10 +35,11 @@ namespace Pakerator
             dataGridView1.Columns.Clear();
             dataGridView1.Refresh();
             
-            string sql = "SELECT LOGSKAN.PRACOWNIK, LOGSKAN.KODKRESKOWY, LOGSKAN.LIST_PRZEWOZOWY, gm_FS.NUMER, GM_TOWARY.SKROT, GM_TOWARY.NAZWA, ";
+            string sql = "SELECT LOGSKAN.PRACOWNIK, LOGSKAN.KODKRESKOWY, LOGSKAN.LIST_PRZEWOZOWY, gm_FS.NUMER as FAKTURA, gm_MM.NUMER as MM, GM_TOWARY.SKROT, GM_TOWARY.NAZWA, ";
             sql += "LOGSKAN.KOMUNIKAT, LOGSKAN.OPERACJA, LOGSKAN.MAGAZYN_NAZWA, LOGSKAN.KONTRAHENT, LOGSKAN.IP, LOGSKAN.HOST, LOGSKAN.UTWORZONO";
             sql += " from LOGSKAN ";
             sql += "left join GM_FS on LOGSKAN.DOKUMENT_FS_ID=GM_FS.ID ";
+            sql += "left join GM_MM on LOGSKAN.DOKUMENT_MM_ID=GM_MM.ID ";
             sql += "left join GM_TOWARY on LOGSKAN.TOWAR_ID=GM_TOWARY.ID_TOWARU ";
             if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0
                  || tKK.Text.Length != 0 || tOperacja.Text.Length != 0)
@@ -47,9 +48,9 @@ namespace Pakerator
 
                 if (tDokument.Text.Length != 0)
                 {
-                    sql += " GM_FS.NUMER like '%" + tDokument.Text +"%' " ;
+                    sql += " (GM_FS.NUMER like '%" + tDokument.Text + "%' OR GM_MM.NUMER like '%" + tDokument.Text + "%' OR LOGSKAN.LIST_PRZEWOZOWY like '%" + tDokument.Text + "%') ";
                     //Dodanie obsługi pozostałych dokumentów
-                    //MM i Zlecenia wewnętrznego
+                    //Zlecenia wewnętrznego
                 }
 
                 //string test = sql.Substring(sql.Length - 7);
