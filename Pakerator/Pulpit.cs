@@ -255,17 +255,17 @@ namespace Pakerator
 
                     if (czyToJestListPrzewozowy)
                     {
-                    cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                    DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
-                    }else if (toJestMMP){
-                        //aktualizauje pozycje MMP
-                    }else if (!toJestMMP){
-                        //aktualizacja pozycji MMR
+                        cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                        DateTime.Now.ToShortTimeString() + "; ' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
+                    }else {
+                        //aktualizauje nagłówka MM
+                        cdk = new FbCommand("UPDATE GM_MM SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                        DateTime.Now.ToShortTimeString() + "; ' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
                     }
 
                     try
                     {
-                        //cdk.ExecuteNonQuery();
+                        cdk.ExecuteNonQuery();
                     }
                     catch (FbException ex)
                     {
