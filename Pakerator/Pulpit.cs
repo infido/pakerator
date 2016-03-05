@@ -207,6 +207,7 @@ namespace Pakerator
                     if (czyToJestListPrzewozowy)
                     {
                         //Dla faktury
+                        ltypdok.Text = "FS";
                         sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
                         sql += "from GM_FSPOZ ";
                         sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
@@ -215,6 +216,7 @@ namespace Pakerator
                     else if (toJestMMP)
                     {
                         //Dla przesunięcia między magazynowego MMP
+                        ltypdok.Text = "MMP";
                         sql =  "select GM_MMPPOZ.ID, GM_MMPPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMPPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMPPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMPPOZ.ID_TOWARU ";
@@ -224,7 +226,8 @@ namespace Pakerator
                     }
                     else if (!toJestMMP)
                     {
-                        //Dla przesunięcia między magazynowego MMP
+                        //Dla przesunięcia między magazynowego MMR
+                        ltypdok.Text = "MMR";
                         sql = "select GM_MMRPOZ.ID, GM_MMRPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMRPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMRPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMRPOZ.ID_TOWARU ";
@@ -444,6 +447,7 @@ namespace Pakerator
             lNabywcaTresc.Text = "";
             lOdbiorcaTresc.Text = "";
             lListPrzewozowy.Text = "";
+            ltypdok.Text = "";
             dataGridViewPozycje.DataSource = null;
             dataGridViewPozycje.Rows.Clear();
             dataGridViewPozycje.Columns.Clear();

@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.wyczyśćToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lListPrzewozowy = new System.Windows.Forms.Label();
             this.lNabywcaTresc = new System.Windows.Forms.Label();
@@ -50,7 +51,7 @@
             this.textHistoria = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ltypdok = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -86,8 +87,16 @@
             this.konfiguracjaToolStripMenuItem.Text = "&Konfiguracja";
             this.konfiguracjaToolStripMenuItem.Click += new System.EventHandler(this.konfiguracjaToolStripMenuItem_Click);
             // 
+            // historiaToolStripMenuItem
+            // 
+            this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
+            this.historiaToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.historiaToolStripMenuItem.Text = "&Historia";
+            this.historiaToolStripMenuItem.Click += new System.EventHandler(this.historiaToolStripMenuItem_Click);
+            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ltypdok);
             this.panel1.Controls.Add(this.lListPrzewozowy);
             this.panel1.Controls.Add(this.lNabywcaTresc);
             this.panel1.Controls.Add(this.lOdbiorcaTresc);
@@ -274,12 +283,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Historia:";
             // 
-            // historiaToolStripMenuItem
+            // ltypdok
             // 
-            this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
-            this.historiaToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.historiaToolStripMenuItem.Text = "&Historia";
-            this.historiaToolStripMenuItem.Click += new System.EventHandler(this.historiaToolStripMenuItem_Click);
+            this.ltypdok.AutoSize = true;
+            this.ltypdok.Location = new System.Drawing.Point(327, 33);
+            this.ltypdok.Name = "ltypdok";
+            this.ltypdok.Size = new System.Drawing.Size(0, 13);
+            this.ltypdok.TabIndex = 10;
             // 
             // Pulpit
             // 
@@ -335,6 +345,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewPozycje;
         private System.Windows.Forms.ToolStripMenuItem historiaToolStripMenuItem;
+        private System.Windows.Forms.Label ltypdok;
     }
 }
 
