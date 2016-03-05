@@ -113,6 +113,7 @@
             // 
             // tKK
             // 
+            this.tKK.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tKK.Location = new System.Drawing.Point(907, 16);
             this.tKK.Name = "tKK";
             this.tKK.Size = new System.Drawing.Size(146, 20);
