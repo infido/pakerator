@@ -123,7 +123,14 @@ namespace Pakerator
 
             if (kodKreskowy.Length > 0)
             {
-                czyToJestListPrzewozowy = kodKreskowy.Substring(0, 2).Equals("MM") ? false : true;
+                if (kodKreskowy.Contains("/P/") || kodKreskowy.Contains("/R/") || kodKreskowy.Contains("MM"))
+                {
+                    czyToJestListPrzewozowy = false;
+                }
+                else
+                {
+                    czyToJestListPrzewozowy = true;
+                }
             }
 
             if (czyToJestListPrzewozowy)
