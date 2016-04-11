@@ -443,6 +443,13 @@ namespace Pakerator
                 try
                 {
                     writer.WriteLine(DateTime.Now.ToString() + "; User:" + logowanie.userName + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text + "; Bład zapytania: " + ex.Message);
+                    writer.WriteLine("Weryfikacja polaczenia, ststus: " + polaczenie.getConnectioState());
+                    if (polaczenie.getConnectioState() <= 0)
+                    {
+                        writer.WriteLine("Proba zakniecia systemu z braku polaczenia do bazy danych");
+                        MessageBox.Show("Błąd połączenia, program zostanie zamknięty, prosze uruchomić go ponownie.");
+                        Application.Exit();
+                    }
 
                 }
                 catch (Exception exf)

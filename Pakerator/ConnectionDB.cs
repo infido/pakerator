@@ -371,5 +371,10 @@ namespace Pakerator
                 tPort.Text = (String)xDoc.Root.Element("tPort");
             }
         }
+
+        public int getConnectioState()
+        {
+            return (int)conn.State;
+        }
     }
 }
