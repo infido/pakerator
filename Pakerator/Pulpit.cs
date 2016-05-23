@@ -178,7 +178,7 @@ namespace Pakerator
                 }
                 catch (Exception ee)
                 {
-                    setLog("ERROR", "Błąd przy wysukiwaniu dokumentu przesunięcia MM: " + ee.Message, kodKreskowy, kodKreskowy, "", tmpkod);
+                    setLog("ERROR", "005 Błąd przy wysukiwaniu dokumentu przesunięcia MM: " + ee.Message, kodKreskowy, kodKreskowy, "", tmpkod);
                     throw;
                 }
                 sql = "select GM_MM.ID, GM_MM.NUMER, ";
@@ -200,9 +200,10 @@ namespace Pakerator
                 sql += "where GM_MM.ID=" + corectDocID + ";";
 
             }
-            FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+            
             try
             {
+                FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
                 FbDataReader fdk = cdk.ExecuteReader();
                 if (fdk.Read())
                 {
@@ -247,7 +248,7 @@ namespace Pakerator
                         sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
                     }
-                    setLog("LOG", "Ustawienie dokumentu i odbiorcy", kodKreskowy, kodKreskowy, lDokument.Text, ltypdok.Text);
+                    setLog("LOG", "006 Ustawienie dokumentu i odbiorcy", kodKreskowy, kodKreskowy, lDokument.Text, ltypdok.Text);
 
                     fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
                     fds = new DataSet();
@@ -259,7 +260,7 @@ namespace Pakerator
                     }
                     catch (Exception ex)
                     {
-                        setLog("ERROR", "Nieudane zapytanie o pozycjie dokumentu dla listy: " + ex.Message, kodKreskowy, kodKreskowy, lDokument.Text, ltypdok.Text);
+                        setLog("ERROR", "007 Nieudane zapytanie o pozycjie dokumentu dla listy: " + ex.Message, kodKreskowy, kodKreskowy, lDokument.Text, ltypdok.Text);
                         throw;
                     }
                     fDataView.Table = fds.Tables["POZ"];
@@ -269,23 +270,24 @@ namespace Pakerator
                     dataGridViewPozycje.Columns["ID_TOWARU"].Visible = false;
                     kolorowanieRekordow();
 
+                    string tab = "";
                     if (czyToJestListPrzewozowy)
                     {
-                        cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                        DateTime.Now.ToShortTimeString() + "; ' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
+                        tab = "GM_FS";
                     }
                     else if (toJestMMP)
                     {
                         //aktualizauje nagłówka MMP
-                        cdk = new FbCommand("UPDATE GM_MM SET ZNACZNIKI='Rozpakowuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                        DateTime.Now.ToShortTimeString() + "; ' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
+                        tab = "GM_MM";
                     }
                     else
                     {
                         //aktualizauje nagłówka MMR
-                        cdk = new FbCommand("UPDATE GM_MM SET ZNACZNIKI='Pakuje:" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                        DateTime.Now.ToShortTimeString() + "; ' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
+                        tab = "GM_MM";
                     }
+
+                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI=COALESCE('" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                            DateTime.Now.ToShortTimeString() + ";',ZNACZNIKI)where ID=" + dokId, polaczenie.getConnection());
 
                     try
                     {
@@ -293,19 +295,29 @@ namespace Pakerator
                     }
                     catch (FbException ex)
                     {
-                        setLog("ERROR", "Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
-                        throw;
+                        if (ex.ErrorCode == 335544345)
+                        {
+                            if (tab.Equals("GM_FS"))
+                              setLog("ERROR", "011 Dokument faktury: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                            else
+                                setLog("ERROR", "012 Dokument przesunięcia międzymagazynowego: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                        }
+                        else
+                        {
+                            setLog("ERROR", "008 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                            throw;
+                        }
                     }
                     
                 }
                 else
                 {
-                    setLog("WARNING", "Nie znaleziono dokumentu dla listu przewozowego, ani MM", kodKreskowy, kodKreskowy, "", "");
+                    setLog("WARNING", "009 Nie znaleziono dokumentu dla listu przewozowego, ani MM", kodKreskowy, kodKreskowy, "", "");
                 }
             }
             catch (FbException ex)
             {
-                setLog("ERR","Błąd zapytania SQL001: " + ex.Message, kodKreskowy, kodKreskowy, "","");
+                setLog("ERR","010 Błąd zapytania SQL001: " + ex.Message, kodKreskowy, kodKreskowy, "","");
             }
         }
 
@@ -316,7 +328,8 @@ namespace Pakerator
                 if (dokId == 0)
                 {
                     //wybór dokumentu
-                    textHistoria.Text = "List przewozowy: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
+                    //textHistoria.Text = "List przewozowy: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
+                    zapiszHistoria("001 Wybór dokumentu >> List przewozowy: " + tToSkan.Text); 
                     SetDokument(tToSkan.Text);
                     tToSkan.Text = "";
                 }
@@ -325,7 +338,8 @@ namespace Pakerator
                     //skanowanie towaru
                     bool znalazlem = false;
 
-                    textHistoria.Text = "Towar: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
+                    //textHistoria.Text = "Towar: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
+                    zapiszHistoria("002 Skanowanie towaru: " + tToSkan.Text);
                     foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
                     {
                         if (row.Cells["KOD_KRESKOWY"].Value.Equals(tToSkan.Text))
@@ -350,11 +364,11 @@ namespace Pakerator
                             try
                             {
                                 cdk.ExecuteNonQuery();
-                                setLog("LOG", "Skanowanie towaru znajdującego sie na dokumencie. Ilość po skanowaniu " + (int)row.Cells["SKANOWANE"].Value, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, (int)row.Cells["ID_TOWARU"].Value, ltypdok.Text);
+                                setLog("LOG", "011 Skanowanie towaru znajdującego sie na dokumencie. Ilość po skanowaniu " + (int)row.Cells["SKANOWANE"].Value, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, (int)row.Cells["ID_TOWARU"].Value, ltypdok.Text);
                             }
                             catch (FbException ex)
                             {
-                                setLog("ERROR", "Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                                setLog("ERROR", "012 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                                 throw;
                             }
                             znalazlem = true;
@@ -376,7 +390,7 @@ namespace Pakerator
                         player.Play();
 
                         //TODO: dodanie obsługi odnalezienia id towaru skanowanego do wpisania w LOG
-                        setLog("MESSAGE", "Nie znaleziono kodu kreskowego na dokumencie", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                        setLog("MESSAGE", "013 Nie znaleziono kodu kreskowego na dokumencie", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
 
                     }
                     dataGridViewPozycje.Refresh();
@@ -392,6 +406,8 @@ namespace Pakerator
 
         private void setLog(string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu, int idTowaru, string typDok )
         {
+            zapiszHistoriaTryb("Typ:" + typ + "; Treść:" + tresc + "; Kod kreskowy:" + kodKreskowy + "; List przewozowy:" + listPrzewozowy + "; Nr Dok.:" + nrDokumentu + "; Id towaru:" + idTowaru + "; Typ Dok." + typDok, false);   
+            
             //TODO: użytkownika
             //TODO: adres IP z jakiego jest to robione
 
@@ -439,35 +455,61 @@ namespace Pakerator
             }
             catch (FbException ex)
             {
-                StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_" + DateTime.Now.ToShortDateString() + ".log", true);
-                try
-                {
-                    writer.WriteLine(DateTime.Now.ToString() + "; User:" + logowanie.userName + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text + "; Bład zapytania: " + ex.Message);
-                    writer.WriteLine("Weryfikacja polaczenia, ststus: " + polaczenie.getConnectioState());
-                    if (polaczenie.getConnectioState() <= 0)
-                    {
-                        writer.WriteLine("Proba zakniecia systemu z braku polaczenia do bazy danych");
-                        MessageBox.Show("Błąd połączenia, program zostanie zamknięty, prosze uruchomić go ponownie.");
-                        Application.Exit();
-                    }
-
-                }
-                catch (Exception exf)
-                {
-                    MessageBox.Show("Błąd zapisu błedu: " + exf.Message);
-                    throw;
-                }
-                finally
-                {
-                    writer.Close();
-                }
+                zapiszDoLOG(ex.Message);
                 throw;
             }
 
             //Console.WriteLine(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + logowanie.magID);
 
-            textHistoria.Text = tresc + " ,kod: " + kodKreskowy + "; Dok.: " + lDokument.Text + Environment.NewLine + textHistoria.Text;
+            zapiszHistoria(tresc + " ,kod: " + kodKreskowy + "; Dok.: " + lDokument.Text);
+        }
+
+        private void zapiszHistoria(string linia)
+        {
+            zapiszHistoriaTryb(linia, true);
+        }
+
+        private void zapiszHistoriaTryb(string linia,bool wyswietlWHistorii)
+        {
+            if (wyswietlWHistorii)
+            {
+                textHistoria.Text = linia + Environment.NewLine + textHistoria.Text;
+            }
+            StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_historia_" + DateTime.Now.ToShortDateString() + ".log", true);
+            try
+            {
+                writer.WriteLine(DateTime.Now.ToString() + "; " + linia);
+            }
+            finally
+            {
+                writer.Close();
+            }
             
+        }
+
+        private void zapiszDoLOG(string tekst)
+        {
+            StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_" + DateTime.Now.ToShortDateString() + ".log", true);
+            try
+            {
+                writer.WriteLine(DateTime.Now.ToString() + "; User:" + logowanie.userName + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text + "; ststus połączenia: " + polaczenie.getConnectioState() + " Bład zapytania: " + tekst);
+                if (polaczenie.getConnectioState() <= 0)
+                {
+                    writer.WriteLine("Proba zakniecia systemu z braku polaczenia do bazy danych");
+                    MessageBox.Show("Błąd połączenia, program zostanie zamknięty, prosze uruchomić go ponownie.");
+                    Application.Exit();
+                }
+
+            }
+            catch (Exception exf)
+            {
+                MessageBox.Show("Błąd zapisu błedu: " + exf.Message);
+                throw;
+            }
+            finally
+            {
+                writer.Close();
+            }
         }
 
         private string getIpAdress()
@@ -550,7 +592,8 @@ namespace Pakerator
 
             if (jestSkonczone)
             {
-                textHistoria.Text = "Dokument zakończony poprawnie: " + lDokument.Text + Environment.NewLine + textHistoria.Text;
+                //textHistoria.Text = "Dokument zakończony poprawnie: " + lDokument.Text + Environment.NewLine + textHistoria.Text;
+                zapiszHistoria("003 Dokument zakończony poprawnie: " + lDokument.Text);
                 FbCommand cdk = null;
                 if (ltypdok.Text.Equals("FS"))
                 {
@@ -573,7 +616,7 @@ namespace Pakerator
                 }
                 catch (FbException ex)
                 {
-                    setLog("ERROR", "Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                    setLog("ERROR", "004 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                     throw;
                 }
 
@@ -583,6 +626,7 @@ namespace Pakerator
                 player.Play();
 
                 MessageBox.Show("Dokument jest skończony!", "Potwierdzenie", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                zapiszHistoriaTryb("Do skanowania" + tToSkan.Text + "; List przewozowy " + lListPrzewozowy.Text + "; Dokument " + lDokument.Text +"; Typ dokumentu  " + ltypdok.Text, false);
                 wyczyśćToolStripMenuItem.PerformClick();
             }
         }
@@ -591,6 +635,21 @@ namespace Pakerator
         {
             Historia hist = new Historia(polaczenie);
             hist.Show();
+        }
+
+        private void Pulpit_Shown(object sender, EventArgs e)
+        {
+            zapiszHistoriaTryb("Pokazano pulpit...", false);
+        }
+
+        private void Pulpit_Leave(object sender, EventArgs e)
+        {
+            zapiszHistoriaTryb("Opuszczono pulpit...", false);
+        }
+
+        private void Pulpit_Activated(object sender, EventArgs e)
+        {
+            zapiszHistoriaTryb("Aktywacja pulpitu...", false);
         }
     }
 }

@@ -34,6 +34,7 @@
             this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ltypdok = new System.Windows.Forms.Label();
             this.lListPrzewozowy = new System.Windows.Forms.Label();
             this.lNabywcaTresc = new System.Windows.Forms.Label();
             this.lOdbiorcaTresc = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.textHistoria = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.ltypdok = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -69,7 +69,7 @@
             this.historiaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(829, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1044, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -110,8 +110,16 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(829, 100);
+            this.panel1.Size = new System.Drawing.Size(1044, 100);
             this.panel1.TabIndex = 1;
+            // 
+            // ltypdok
+            // 
+            this.ltypdok.AutoSize = true;
+            this.ltypdok.Location = new System.Drawing.Point(327, 33);
+            this.ltypdok.Name = "ltypdok";
+            this.ltypdok.Size = new System.Drawing.Size(0, 13);
+            this.ltypdok.TabIndex = 10;
             // 
             // lListPrzewozowy
             // 
@@ -218,7 +226,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 124);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(829, 399);
+            this.panel2.Size = new System.Drawing.Size(1044, 399);
             this.panel2.TabIndex = 2;
             // 
             // dataGridViewPozycje
@@ -232,7 +240,7 @@
             this.dataGridViewPozycje.Name = "dataGridViewPozycje";
             this.dataGridViewPozycje.ReadOnly = true;
             this.dataGridViewPozycje.RowHeadersVisible = false;
-            this.dataGridViewPozycje.Size = new System.Drawing.Size(829, 399);
+            this.dataGridViewPozycje.Size = new System.Drawing.Size(1044, 399);
             this.dataGridViewPozycje.TabIndex = 0;
             // 
             // panelHistoria
@@ -242,7 +250,7 @@
             this.panelHistoria.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelHistoria.Location = new System.Drawing.Point(0, 439);
             this.panelHistoria.Name = "panelHistoria";
-            this.panelHistoria.Size = new System.Drawing.Size(829, 84);
+            this.panelHistoria.Size = new System.Drawing.Size(1044, 84);
             this.panelHistoria.TabIndex = 3;
             // 
             // panel4
@@ -252,7 +260,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 25);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(829, 59);
+            this.panel4.Size = new System.Drawing.Size(1044, 59);
             this.panel4.TabIndex = 1;
             // 
             // textHistoria
@@ -263,7 +271,7 @@
             this.textHistoria.Name = "textHistoria";
             this.textHistoria.ReadOnly = true;
             this.textHistoria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textHistoria.Size = new System.Drawing.Size(829, 59);
+            this.textHistoria.Size = new System.Drawing.Size(1044, 59);
             this.textHistoria.TabIndex = 0;
             // 
             // panel3
@@ -272,7 +280,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(829, 25);
+            this.panel3.Size = new System.Drawing.Size(1044, 25);
             this.panel3.TabIndex = 0;
             // 
             // label1
@@ -284,19 +292,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Historia:";
             // 
-            // ltypdok
-            // 
-            this.ltypdok.AutoSize = true;
-            this.ltypdok.Location = new System.Drawing.Point(327, 33);
-            this.ltypdok.Name = "ltypdok";
-            this.ltypdok.Size = new System.Drawing.Size(0, 13);
-            this.ltypdok.TabIndex = 10;
-            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 523);
+            this.ClientSize = new System.Drawing.Size(1044, 523);
             this.Controls.Add(this.panelHistoria);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -305,7 +305,10 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Pulpit";
             this.Text = "Form1";
+            this.Activated += new System.EventHandler(this.Pulpit_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Pulpit_FormClosed);
+            this.Shown += new System.EventHandler(this.Pulpit_Shown);
+            this.Leave += new System.EventHandler(this.Pulpit_Leave);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
