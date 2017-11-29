@@ -1,8 +1,6 @@
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\fanfare_x.wav
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\gun_44mag_11.wav
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\klaxon_ahooga.wav
-C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.exe.manifest
-C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.application
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.exe
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.pdb
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\FirebirdSql.Data.FirebirdClient.dll
@@ -14,8 +12,12 @@ C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakera
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.Properties.Resources.resources
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\GenerateResource.read.1.tlog
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\GenerateResource.write.1.tlog
-C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.exe.manifest
-C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.application
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.exe
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.pdb
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\FirebirdSql.Data.FirebirdClient.pdb
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.exe.config
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.exe.manifest
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Release\Pakerator.application
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.TrustInfo.xml
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.exe.manifest
+C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.application
