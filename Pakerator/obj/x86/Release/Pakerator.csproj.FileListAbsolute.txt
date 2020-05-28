@@ -21,3 +21,39 @@ C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakera
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.TrustInfo.xml
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.exe.manifest
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Release\Pakerator.application
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\fanfare_x.wav
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\gun_44mag_11.wav
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\klaxon_ahooga.wav
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Pakerator.exe.config
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Pakerator.exe.manifest
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Pakerator.application
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Pakerator.exe
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Pakerator.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Microsoft.Threading.Tasks.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Microsoft.Threading.Tasks.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.ConnectionDB.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Historia.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Login.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Pulpit.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Properties.Resources.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csproj.GenerateResource.cache
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csproj.CoreCompileInputs.cache
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.TrustInfo.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.exe.manifest
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.application
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csproj.CopyComplete
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.exe
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.pdb
+C:\imex\!pakerator\fanfare_x.wav
+C:\imex\!pakerator\gun_44mag_11.wav
+C:\imex\!pakerator\klaxon_ahooga.wav
+C:\imex\!pakerator\Pakerator.exe.config
+C:\imex\!pakerator\Pakerator.exe.manifest
+C:\imex\!pakerator\Pakerator.application
+C:\imex\!pakerator\Pakerator.exe
+C:\imex\!pakerator\Pakerator.pdb

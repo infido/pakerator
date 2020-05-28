@@ -61,7 +61,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1332, 73);
+            this.panel1.Size = new System.Drawing.Size(1478, 73);
             this.panel1.TabIndex = 0;
             // 
             // groupBox1
@@ -81,7 +81,7 @@
             this.groupBox1.Controls.Add(this.tDokument);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1307, 43);
+            this.groupBox1.Size = new System.Drawing.Size(1314, 43);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Szukaj";
@@ -89,7 +89,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1050, 19);
+            this.label6.Location = new System.Drawing.Point(1059, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 12;
@@ -97,7 +97,7 @@
             // 
             // tOperacja
             // 
-            this.tOperacja.Location = new System.Drawing.Point(1106, 16);
+            this.tOperacja.Location = new System.Drawing.Point(1115, 16);
             this.tOperacja.Name = "tOperacja";
             this.tOperacja.Size = new System.Drawing.Size(114, 20);
             this.tOperacja.TabIndex = 11;
@@ -178,7 +178,7 @@
             // 
             // bSzukaj
             // 
-            this.bSzukaj.Location = new System.Drawing.Point(1226, 14);
+            this.bSzukaj.Location = new System.Drawing.Point(1235, 14);
             this.bSzukaj.Name = "bSzukaj";
             this.bSzukaj.Size = new System.Drawing.Size(75, 23);
             this.bSzukaj.TabIndex = 1;
@@ -199,13 +199,13 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 543);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1332, 34);
+            this.panel2.Size = new System.Drawing.Size(1478, 34);
             this.panel2.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(1245, 6);
+            this.button1.Location = new System.Drawing.Point(1391, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -219,7 +219,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 73);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1332, 470);
+            this.panel3.Size = new System.Drawing.Size(1478, 470);
             this.panel3.TabIndex = 2;
             // 
             // dataGridView1
@@ -233,7 +233,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1332, 470);
+            this.dataGridView1.Size = new System.Drawing.Size(1478, 470);
             this.dataGridView1.TabIndex = 0;
             // 
             // Historia
@@ -241,7 +241,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button1;
-            this.ClientSize = new System.Drawing.Size(1332, 577);
+            this.ClientSize = new System.Drawing.Size(1478, 577);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

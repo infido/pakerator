@@ -4,7 +4,7 @@
   <description asmv2:iconFile="wood_box_opened.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Pakerator" version="1.9.0.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="Pakerator" version="1.10.0.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="Pakerator.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -92,13 +92,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1429504">
-      <assemblyIdentity name="Pakerator" version="1.9.0.0" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="Pakerator" version="1.10.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6busaC+QTqtI5MI3J8oql7iYOumI3+g8MbAn0V7Vaoo=</dsig:DigestValue>
+        <dsig:DigestValue>ntu6cWkZCHF4psaC03zZY9ioD8bnH5KDiXlQThRbcKc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
