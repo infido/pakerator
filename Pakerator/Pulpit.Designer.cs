@@ -52,6 +52,8 @@
             this.textHistoria = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.lBlokadaDokwRaks = new System.Windows.Forms.Label();
+            this.bSetStatusAgain = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -96,6 +98,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.bSetStatusAgain);
+            this.panel1.Controls.Add(this.lBlokadaDokwRaks);
             this.panel1.Controls.Add(this.ltypdok);
             this.panel1.Controls.Add(this.lListPrzewozowy);
             this.panel1.Controls.Add(this.lNabywcaTresc);
@@ -293,6 +297,30 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Historia:";
             // 
+            // lBlokadaDokwRaks
+            // 
+            this.lBlokadaDokwRaks.AutoSize = true;
+            this.lBlokadaDokwRaks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lBlokadaDokwRaks.ForeColor = System.Drawing.Color.Red;
+            this.lBlokadaDokwRaks.Location = new System.Drawing.Point(13, 30);
+            this.lBlokadaDokwRaks.Name = "lBlokadaDokwRaks";
+            this.lBlokadaDokwRaks.Size = new System.Drawing.Size(365, 13);
+            this.lBlokadaDokwRaks.TabIndex = 11;
+            this.lBlokadaDokwRaks.Text = "Dokument zablokowany przez innego uzytkownika w RaksSQL!";
+            this.lBlokadaDokwRaks.Visible = false;
+            // 
+            // bSetStatusAgain
+            // 
+            this.bSetStatusAgain.BackColor = System.Drawing.Color.Orange;
+            this.bSetStatusAgain.Location = new System.Drawing.Point(939, 71);
+            this.bSetStatusAgain.Name = "bSetStatusAgain";
+            this.bSetStatusAgain.Size = new System.Drawing.Size(88, 46);
+            this.bSetStatusAgain.TabIndex = 12;
+            this.bSetStatusAgain.Text = "Ponownie ustaw status";
+            this.bSetStatusAgain.UseVisualStyleBackColor = false;
+            this.bSetStatusAgain.Visible = false;
+            this.bSetStatusAgain.Click += new System.EventHandler(this.bSetStatusAgain_Click);
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,6 +379,8 @@
         private System.Windows.Forms.DataGridView dataGridViewPozycje;
         private System.Windows.Forms.ToolStripMenuItem historiaToolStripMenuItem;
         private System.Windows.Forms.Label ltypdok;
+        private System.Windows.Forms.Label lBlokadaDokwRaks;
+        private System.Windows.Forms.Button bSetStatusAgain;
     }
 }
 

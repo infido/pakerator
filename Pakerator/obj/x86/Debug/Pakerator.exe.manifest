@@ -91,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1427968">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1429504">
       <assemblyIdentity name="Pakerator" version="1.9.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0pW0Mf5u5hNOIA4ovmg5R/fvB+bW02zdZJqOPODltnI=</dsig:DigestValue>
+        <dsig:DigestValue>6busaC+QTqtI5MI3J8oql7iYOumI3+g8MbAn0V7Vaoo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

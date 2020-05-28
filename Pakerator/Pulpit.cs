@@ -297,6 +297,10 @@ namespace Pakerator
                     {
                         if (ex.ErrorCode == 335544345)
                         {
+                            //blokowanie dalszych operacji - zablokowany dokument w Raks
+                            tToSkan.Enabled = false;
+                            lBlokadaDokwRaks.Visible = true;
+                            
                             if (tab.Equals("GM_FS"))
                               setLog("ERROR", "011 Dokument faktury: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                             else
@@ -541,6 +545,10 @@ namespace Pakerator
 
         private void wyczyśćToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            tToSkan.Enabled = true;
+            lBlokadaDokwRaks.Visible = false;
+            bSetStatusAgain.Visible = false;
+
             dokId = 0;
             lDokument.Text = "";
             lNabywcaTresc.Text = "";
@@ -595,8 +603,10 @@ namespace Pakerator
                 //textHistoria.Text = "Dokument zakończony poprawnie: " + lDokument.Text + Environment.NewLine + textHistoria.Text;
                 zapiszHistoria("003 Dokument zakończony poprawnie: " + lDokument.Text);
                 FbCommand cdk = null;
+                FbCommand controlCdk = null;
                 if (ltypdok.Text.Equals("FS"))
                 {
+                    controlCdk = new FbCommand(" SELECT ZNACZNIKI from GM_FS where ID=" + dokId + " WITH LOCK;", polaczenie.getConnection());
                     cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Zapakował:" + DateTime.Now.ToShortDateString() + " " +
                           DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
                 }
@@ -610,15 +620,28 @@ namespace Pakerator
                     cdk = new FbCommand("UPDATE GM_MM SET ZNACZNIKI='Rozpakował:" + DateTime.Now.ToShortDateString() + " " +
                           DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
                 }
+
                 try
-                {
+                    {
                     cdk.ExecuteNonQuery();
-                }
+                    }
                 catch (FbException ex)
-                {
-                    setLog("ERROR", "004 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
-                    throw;
-                }
+                     {
+                     if (ex.ErrorCode == 335544345)
+                      {
+                        tToSkan.Enabled = false;
+                        lBlokadaDokwRaks.Visible = true;
+                        bSetStatusAgain.Visible = true;
+                        setLog("ERROR", "004a Bład zapytania kontrolnego przed aktualizacją nagłówka dokumentu: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                        return;
+                      }
+                      else
+                       {
+                        setLog("ERROR", "004 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                        throw;
+                       }
+                     }
+
 
                 SoundPlayer player = new SoundPlayer();
                 player.SoundLocation = Application.StartupPath + "\\fanfare_x.wav";
@@ -650,6 +673,11 @@ namespace Pakerator
         private void Pulpit_Activated(object sender, EventArgs e)
         {
             zapiszHistoriaTryb("Aktywacja pulpitu...", false);
+        }
+
+        private void bSetStatusAgain_Click(object sender, EventArgs e)
+        {
+            sprawdzenieCzySkonczone();
         }
     }
 }
