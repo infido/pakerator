@@ -18,3 +18,27 @@ C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakera
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Debug\gun_44mag_11.wav
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\bin\Debug\klaxon_ahooga.wav
 C:\Documents and Settings\user\moje dokumenty\visual studio 2010\Projects\Pakerator\Pakerator\obj\x86\Debug\Pakerator.Historia.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\fanfare_x.wav
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\gun_44mag_11.wav
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\klaxon_ahooga.wav
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.exe.config
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.exe.manifest
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.application
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.exe
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\FirebirdSql.Data.FirebirdClient.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csprojAssemblyReference.cache
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.ConnectionDB.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Historia.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Login.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Pulpit.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Properties.Resources.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.GenerateResource.cache
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.CoreCompileInputs.cache
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.TrustInfo.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.exe.manifest
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.application
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.CopyComplete
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.exe
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.pdb

@@ -69,28 +69,28 @@
             this.historiaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1044, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1039, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // wyczyśćToolStripMenuItem
             // 
             this.wyczyśćToolStripMenuItem.Name = "wyczyśćToolStripMenuItem";
-            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.wyczyśćToolStripMenuItem.Text = "&Wyczyść";
             this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
             // 
             // konfiguracjaToolStripMenuItem
             // 
             this.konfiguracjaToolStripMenuItem.Name = "konfiguracjaToolStripMenuItem";
-            this.konfiguracjaToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.konfiguracjaToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.konfiguracjaToolStripMenuItem.Text = "&Konfiguracja";
             this.konfiguracjaToolStripMenuItem.Click += new System.EventHandler(this.konfiguracjaToolStripMenuItem_Click);
             // 
             // historiaToolStripMenuItem
             // 
             this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
-            this.historiaToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.historiaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.historiaToolStripMenuItem.Text = "&Historia";
             this.historiaToolStripMenuItem.Click += new System.EventHandler(this.historiaToolStripMenuItem_Click);
             // 
@@ -110,22 +110,23 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1044, 100);
+            this.panel1.Size = new System.Drawing.Size(1039, 125);
             this.panel1.TabIndex = 1;
             // 
             // ltypdok
             // 
             this.ltypdok.AutoSize = true;
-            this.ltypdok.Location = new System.Drawing.Point(327, 33);
+            this.ltypdok.Location = new System.Drawing.Point(360, 47);
             this.ltypdok.Name = "ltypdok";
-            this.ltypdok.Size = new System.Drawing.Size(0, 13);
+            this.ltypdok.Size = new System.Drawing.Size(16, 13);
             this.ltypdok.TabIndex = 10;
+            this.ltypdok.Text = "...";
             // 
             // lListPrzewozowy
             // 
             this.lListPrzewozowy.AutoSize = true;
             this.lListPrzewozowy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lListPrzewozowy.Location = new System.Drawing.Point(197, 71);
+            this.lListPrzewozowy.Location = new System.Drawing.Point(230, 85);
             this.lListPrzewozowy.Name = "lListPrzewozowy";
             this.lListPrzewozowy.Size = new System.Drawing.Size(120, 20);
             this.lListPrzewozowy.TabIndex = 9;
@@ -134,7 +135,7 @@
             // lNabywcaTresc
             // 
             this.lNabywcaTresc.AutoSize = true;
-            this.lNabywcaTresc.Location = new System.Drawing.Point(499, 33);
+            this.lNabywcaTresc.Location = new System.Drawing.Point(532, 47);
             this.lNabywcaTresc.Name = "lNabywcaTresc";
             this.lNabywcaTresc.Size = new System.Drawing.Size(16, 13);
             this.lNabywcaTresc.TabIndex = 8;
@@ -143,7 +144,7 @@
             // lOdbiorcaTresc
             // 
             this.lOdbiorcaTresc.AutoSize = true;
-            this.lOdbiorcaTresc.Location = new System.Drawing.Point(499, 49);
+            this.lOdbiorcaTresc.Location = new System.Drawing.Point(532, 63);
             this.lOdbiorcaTresc.Name = "lOdbiorcaTresc";
             this.lOdbiorcaTresc.Size = new System.Drawing.Size(16, 13);
             this.lOdbiorcaTresc.TabIndex = 7;
@@ -153,7 +154,7 @@
             // 
             this.lnabywcaLabel.AutoSize = true;
             this.lnabywcaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lnabywcaLabel.Location = new System.Drawing.Point(381, 33);
+            this.lnabywcaLabel.Location = new System.Drawing.Point(414, 47);
             this.lnabywcaLabel.Name = "lnabywcaLabel";
             this.lnabywcaLabel.Size = new System.Drawing.Size(112, 13);
             this.lnabywcaLabel.TabIndex = 6;
@@ -163,7 +164,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(197, 33);
+            this.label2.Location = new System.Drawing.Point(230, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 13);
             this.label2.TabIndex = 5;
@@ -173,7 +174,7 @@
             // 
             this.lOdbiorcaLabel.AutoSize = true;
             this.lOdbiorcaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lOdbiorcaLabel.Location = new System.Drawing.Point(381, 49);
+            this.lOdbiorcaLabel.Location = new System.Drawing.Point(414, 63);
             this.lOdbiorcaLabel.Name = "lOdbiorcaLabel";
             this.lOdbiorcaLabel.Size = new System.Drawing.Size(62, 13);
             this.lOdbiorcaLabel.TabIndex = 4;
@@ -183,7 +184,7 @@
             // 
             this.lDokument.AutoSize = true;
             this.lDokument.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lDokument.Location = new System.Drawing.Point(197, 49);
+            this.lDokument.Location = new System.Drawing.Point(230, 63);
             this.lDokument.Name = "lDokument";
             this.lDokument.Size = new System.Drawing.Size(83, 20);
             this.lDokument.TabIndex = 3;
@@ -192,17 +193,17 @@
             // lCoSkanowac
             // 
             this.lCoSkanowac.AutoSize = true;
-            this.lCoSkanowac.Location = new System.Drawing.Point(16, 44);
+            this.lCoSkanowac.Location = new System.Drawing.Point(13, 50);
             this.lCoSkanowac.Name = "lCoSkanowac";
-            this.lCoSkanowac.Size = new System.Drawing.Size(144, 13);
+            this.lCoSkanowac.Size = new System.Drawing.Size(192, 26);
             this.lCoSkanowac.TabIndex = 2;
-            this.lCoSkanowac.Text = "Skanuj listprzewozowy/towar";
+            this.lCoSkanowac.Text = "Skanuj list przewozowy (SYGNATURA)\r\nlub towar dla wybranego dokumentu";
             // 
             // tToSkan
             // 
             this.tToSkan.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tToSkan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tToSkan.Location = new System.Drawing.Point(16, 63);
+            this.tToSkan.Location = new System.Drawing.Point(16, 83);
             this.tToSkan.Name = "tToSkan";
             this.tToSkan.Size = new System.Drawing.Size(164, 22);
             this.tToSkan.TabIndex = 1;
@@ -224,9 +225,9 @@
             this.panel2.AutoScroll = true;
             this.panel2.Controls.Add(this.dataGridViewPozycje);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 124);
+            this.panel2.Location = new System.Drawing.Point(0, 149);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1044, 399);
+            this.panel2.Size = new System.Drawing.Size(1039, 557);
             this.panel2.TabIndex = 2;
             // 
             // dataGridViewPozycje
@@ -240,7 +241,7 @@
             this.dataGridViewPozycje.Name = "dataGridViewPozycje";
             this.dataGridViewPozycje.ReadOnly = true;
             this.dataGridViewPozycje.RowHeadersVisible = false;
-            this.dataGridViewPozycje.Size = new System.Drawing.Size(1044, 399);
+            this.dataGridViewPozycje.Size = new System.Drawing.Size(1039, 557);
             this.dataGridViewPozycje.TabIndex = 0;
             // 
             // panelHistoria
@@ -248,9 +249,9 @@
             this.panelHistoria.Controls.Add(this.panel4);
             this.panelHistoria.Controls.Add(this.panel3);
             this.panelHistoria.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelHistoria.Location = new System.Drawing.Point(0, 439);
+            this.panelHistoria.Location = new System.Drawing.Point(0, 622);
             this.panelHistoria.Name = "panelHistoria";
-            this.panelHistoria.Size = new System.Drawing.Size(1044, 84);
+            this.panelHistoria.Size = new System.Drawing.Size(1039, 84);
             this.panelHistoria.TabIndex = 3;
             // 
             // panel4
@@ -260,7 +261,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 25);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1044, 59);
+            this.panel4.Size = new System.Drawing.Size(1039, 59);
             this.panel4.TabIndex = 1;
             // 
             // textHistoria
@@ -271,7 +272,7 @@
             this.textHistoria.Name = "textHistoria";
             this.textHistoria.ReadOnly = true;
             this.textHistoria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textHistoria.Size = new System.Drawing.Size(1044, 59);
+            this.textHistoria.Size = new System.Drawing.Size(1039, 59);
             this.textHistoria.TabIndex = 0;
             // 
             // panel3
@@ -280,7 +281,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1044, 25);
+            this.panel3.Size = new System.Drawing.Size(1039, 25);
             this.panel3.TabIndex = 0;
             // 
             // label1
@@ -296,7 +297,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1044, 523);
+            this.ClientSize = new System.Drawing.Size(1039, 706);
             this.Controls.Add(this.panelHistoria);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
