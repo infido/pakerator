@@ -27,7 +27,12 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.application
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.exe
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Pakerator.pdb
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\FirebirdSql.Data.FirebirdClient.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csprojAssemblyReference.cache
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.ConnectionDB.resources
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Historia.resources
@@ -42,9 +47,3 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.applicat
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.CopyComplete
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.exe
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.pdb
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.dll
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.xml
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml

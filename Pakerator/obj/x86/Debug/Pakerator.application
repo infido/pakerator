@@ -4,17 +4,17 @@
   <description asmv2:publisher="PakeratorInstall" asmv2:product="Pakerator" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Pakerator.exe.manifest" size="8754">
+    <dependentAssembly dependencyType="install" codebase="Pakerator.exe.manifest" size="8753">
       <assemblyIdentity name="Pakerator.exe" version="1.9.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AcmWlKQXyjWLPY7s71mG72a6Toh818GAP34WZN5suwA=</dsig:DigestValue>
+        <dsig:DigestValue>a95xG9VXRMRe8VeWsLNk9zW7K2aPFLAQd1sY/9wZ3mM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

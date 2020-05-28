@@ -1,5 +1,5 @@
-ADO.NET 2.0+ Data Provider for Firebird
-=======================================
+ADO.NET Data Provider for Firebird
+==================================
 
 This project is supported by:
 -----------------------------
@@ -13,7 +13,7 @@ Development list
 
 You can subscribe to the developement list at:
 
-	http://lists.sourceforge.net/lists/listinfo/firebird-net-provider
+	https://groups.google.com/forum/#!forum/firebird-net-provider
 
 
 You can access the lastest developement sources at:
@@ -35,4 +35,4 @@ There are two ways you can report bugs:
 --------------
 
 For zlib compression the provider uses pieces from DotNetZip (http://dotnetzip.codeplex.com/) library.
-
+For RC4 encryption the provider uses pieces from Bouncy Castle (https://www.bouncycastle.org/csharp/index.html) library.
