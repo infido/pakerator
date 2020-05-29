@@ -30,6 +30,7 @@ namespace Pakerator
 
         private void bSzukaj_Click(object sender, EventArgs e)
         {
+            lPodsumowanie.Text = "Wykonuję zapytanie do bazy danych";
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
@@ -42,7 +43,7 @@ namespace Pakerator
             sql += "left join GM_MM on LOGSKAN.DOKUMENT_MM_ID=GM_MM.ID ";
             sql += "left join GM_TOWARY on LOGSKAN.TOWAR_ID=GM_TOWARY.ID_TOWARU ";
             if (tDokument.Text.Length != 0 || tUser.Text.Length != 0 || tList.Text.Length != 0 || tKontrahent.Text.Length != 0
-                 || tKK.Text.Length != 0 || tOperacja.Text.Length != 0)
+                 || tKK.Text.Length != 0 || tOperacja.Text.Length != 0 || !rbDataWszystko.Checked)
             {
                 sql += " where ";
 
@@ -98,6 +99,75 @@ namespace Pakerator
                 {
                     sql += " AND LOGSKAN.OPERACJA like '%" + tOperacja.Text + "%' ";
                 }
+
+                #region filtrowanie zakresu danych po datatch
+                if (rbDataDzisiaj.Checked)
+                {
+                    if (sql.Substring(sql.Length - 7).Equals(" where "))
+                    {
+                        sql += " LOGSKAN.UTWORZONO >= '" + DateTime.Now.ToShortDateString() + "' ";
+                    }
+                    else
+                    {
+                        sql += " AND LOGSKAN.UTWORZONO >='" + DateTime.Now.ToShortDateString() + "' ";
+                    } 
+                }
+                else if (rbDataWczoraj.Checked)
+                {
+                    if (sql.Substring(sql.Length - 7).Equals(" where "))
+                    {
+                        sql += " LOGSKAN.UTWORZONO BETWEEN '" + DateTime.Now.AddDays(-1).ToShortDateString() + "' AND '" + DateTime.Now.ToShortDateString() + "' ";
+                    }
+                    else
+                    {
+                        sql += " AND LOGSKAN.UTWORZONO '" + DateTime.Now.AddDays(-1).ToShortDateString() + "' AND '" + DateTime.Now.ToShortDateString() + "' ";
+                    }
+                }else if (rbData7Dni.Checked)
+                {
+                    if (sql.Substring(sql.Length - 7).Equals(" where "))
+                    {
+                        sql += " LOGSKAN.UTWORZONO >= '" + DateTime.Now.AddDays(-7).ToShortDateString() + "' ";
+                    }
+                    else
+                    {
+                        sql += " AND LOGSKAN.UTWORZONO >='" + DateTime.Now.AddDays(-7).ToShortDateString() + "' ";
+                    }
+                }
+                else if (rbData14Dni.Checked)
+                {
+                    if (sql.Substring(sql.Length - 7).Equals(" where "))
+                    {
+                        sql += " LOGSKAN.UTWORZONO >= '" + DateTime.Now.AddDays(-14).ToShortDateString() + "' ";
+                    }
+                    else
+                    {
+                        sql += " AND LOGSKAN.UTWORZONO >='" + DateTime.Now.AddDays(-14).ToShortDateString() + "' ";
+                    }
+                }
+                else if (rbData31Dni.Checked)
+                {
+                    if (sql.Substring(sql.Length - 7).Equals(" where "))
+                    {
+                        sql += " LOGSKAN.UTWORZONO >= '" + DateTime.Now.AddDays(-31).ToShortDateString() + "' ";
+                    }
+                    else
+                    {
+                        sql += " AND LOGSKAN.UTWORZONO >='" + DateTime.Now.AddDays(-31).ToShortDateString() + "' ";
+                    }
+                }
+                else if (rbData90Dni.Checked)
+                {
+                    if (sql.Substring(sql.Length - 7).Equals(" where "))
+                    {
+                        sql += " LOGSKAN.UTWORZONO >= '" + DateTime.Now.AddDays(-90).ToShortDateString() + "' ";
+                    }
+                    else
+                    {
+                        sql += " AND LOGSKAN.UTWORZONO >='" + DateTime.Now.AddDays(-90).ToShortDateString() + "' ";
+                    }
+                }
+                #endregion
+
             }
 
             fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
@@ -115,6 +185,7 @@ namespace Pakerator
             }
             fDataView.Table = fds.Tables["HIST"];
             dataGridView1.DataSource = fDataView;
+            lPodsumowanie.Text = "Wykonano zapytanie i wczytano " + dataGridView1.Rows.Count +" rekordów";
         }
     }
 }

@@ -48,20 +48,31 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lPodsumowanie = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rbDataWszystko = new System.Windows.Forms.RadioButton();
+            this.rbData7Dni = new System.Windows.Forms.RadioButton();
+            this.rbData14Dni = new System.Windows.Forms.RadioButton();
+            this.rbData31Dni = new System.Windows.Forms.RadioButton();
+            this.rbData90Dni = new System.Windows.Forms.RadioButton();
+            this.rbDataDzisiaj = new System.Windows.Forms.RadioButton();
+            this.rbDataWczoraj = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1478, 73);
+            this.panel1.Size = new System.Drawing.Size(1532, 73);
             this.panel1.TabIndex = 0;
             // 
             // groupBox1
@@ -79,7 +90,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.bSzukaj);
             this.groupBox1.Controls.Add(this.tDokument);
-            this.groupBox1.Location = new System.Drawing.Point(13, 13);
+            this.groupBox1.Location = new System.Drawing.Point(206, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1314, 43);
             this.groupBox1.TabIndex = 0;
@@ -195,17 +206,18 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lPodsumowanie);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 543);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1478, 34);
+            this.panel2.Size = new System.Drawing.Size(1532, 34);
             this.panel2.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(1391, 6);
+            this.button1.Location = new System.Drawing.Point(1445, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -219,7 +231,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 73);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1478, 470);
+            this.panel3.Size = new System.Drawing.Size(1532, 470);
             this.panel3.TabIndex = 2;
             // 
             // dataGridView1
@@ -233,15 +245,112 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1478, 470);
+            this.dataGridView1.Size = new System.Drawing.Size(1532, 470);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // lPodsumowanie
+            // 
+            this.lPodsumowanie.AutoSize = true;
+            this.lPodsumowanie.Location = new System.Drawing.Point(10, 12);
+            this.lPodsumowanie.Name = "lPodsumowanie";
+            this.lPodsumowanie.Size = new System.Drawing.Size(200, 13);
+            this.lPodsumowanie.TabIndex = 1;
+            this.lPodsumowanie.Text = "Podsumowanie: brak akcji do wykonania";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rbDataWczoraj);
+            this.groupBox2.Controls.Add(this.rbDataDzisiaj);
+            this.groupBox2.Controls.Add(this.rbData90Dni);
+            this.groupBox2.Controls.Add(this.rbData31Dni);
+            this.groupBox2.Controls.Add(this.rbData14Dni);
+            this.groupBox2.Controls.Add(this.rbData7Dni);
+            this.groupBox2.Controls.Add(this.rbDataWszystko);
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 67);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Zakres danych";
+            // 
+            // rbDataWszystko
+            // 
+            this.rbDataWszystko.AutoSize = true;
+            this.rbDataWszystko.Location = new System.Drawing.Point(6, 19);
+            this.rbDataWszystko.Name = "rbDataWszystko";
+            this.rbDataWszystko.Size = new System.Drawing.Size(71, 17);
+            this.rbDataWszystko.TabIndex = 0;
+            this.rbDataWszystko.Text = "Wszystko";
+            this.rbDataWszystko.UseVisualStyleBackColor = true;
+            // 
+            // rbData7Dni
+            // 
+            this.rbData7Dni.AutoSize = true;
+            this.rbData7Dni.Location = new System.Drawing.Point(6, 42);
+            this.rbData7Dni.Name = "rbData7Dni";
+            this.rbData7Dni.Size = new System.Drawing.Size(48, 17);
+            this.rbData7Dni.TabIndex = 1;
+            this.rbData7Dni.Text = "7 dni";
+            this.rbData7Dni.UseVisualStyleBackColor = true;
+            // 
+            // rbData14Dni
+            // 
+            this.rbData14Dni.AutoSize = true;
+            this.rbData14Dni.Location = new System.Drawing.Point(51, 42);
+            this.rbData14Dni.Name = "rbData14Dni";
+            this.rbData14Dni.Size = new System.Drawing.Size(54, 17);
+            this.rbData14Dni.TabIndex = 2;
+            this.rbData14Dni.Text = "14 dni";
+            this.rbData14Dni.UseVisualStyleBackColor = true;
+            // 
+            // rbData31Dni
+            // 
+            this.rbData31Dni.AutoSize = true;
+            this.rbData31Dni.Location = new System.Drawing.Point(101, 42);
+            this.rbData31Dni.Name = "rbData31Dni";
+            this.rbData31Dni.Size = new System.Drawing.Size(54, 17);
+            this.rbData31Dni.TabIndex = 3;
+            this.rbData31Dni.Text = "31 dni";
+            this.rbData31Dni.UseVisualStyleBackColor = true;
+            // 
+            // rbData90Dni
+            // 
+            this.rbData90Dni.AutoSize = true;
+            this.rbData90Dni.Location = new System.Drawing.Point(152, 42);
+            this.rbData90Dni.Name = "rbData90Dni";
+            this.rbData90Dni.Size = new System.Drawing.Size(54, 17);
+            this.rbData90Dni.TabIndex = 4;
+            this.rbData90Dni.Text = "90 dni";
+            this.rbData90Dni.UseVisualStyleBackColor = true;
+            // 
+            // rbDataDzisiaj
+            // 
+            this.rbDataDzisiaj.AutoSize = true;
+            this.rbDataDzisiaj.Checked = true;
+            this.rbDataDzisiaj.Location = new System.Drawing.Point(83, 19);
+            this.rbDataDzisiaj.Name = "rbDataDzisiaj";
+            this.rbDataDzisiaj.Size = new System.Drawing.Size(55, 17);
+            this.rbDataDzisiaj.TabIndex = 5;
+            this.rbDataDzisiaj.TabStop = true;
+            this.rbDataDzisiaj.Text = "Dzisiaj";
+            this.rbDataDzisiaj.UseVisualStyleBackColor = true;
+            // 
+            // rbDataWczoraj
+            // 
+            this.rbDataWczoraj.AutoSize = true;
+            this.rbDataWczoraj.Location = new System.Drawing.Point(139, 19);
+            this.rbDataWczoraj.Name = "rbDataWczoraj";
+            this.rbDataWczoraj.Size = new System.Drawing.Size(64, 17);
+            this.rbDataWczoraj.TabIndex = 6;
+            this.rbDataWczoraj.Text = "Wczoraj";
+            this.rbDataWczoraj.UseVisualStyleBackColor = true;
             // 
             // Historia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button1;
-            this.ClientSize = new System.Drawing.Size(1478, 577);
+            this.ClientSize = new System.Drawing.Size(1532, 577);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -252,8 +361,11 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -279,5 +391,14 @@
         private System.Windows.Forms.TextBox tOperacja;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tKK;
+        private System.Windows.Forms.Label lPodsumowanie;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rbDataWczoraj;
+        private System.Windows.Forms.RadioButton rbDataDzisiaj;
+        private System.Windows.Forms.RadioButton rbData90Dni;
+        private System.Windows.Forms.RadioButton rbData31Dni;
+        private System.Windows.Forms.RadioButton rbData14Dni;
+        private System.Windows.Forms.RadioButton rbData7Dni;
+        private System.Windows.Forms.RadioButton rbDataWszystko;
     }
 }
