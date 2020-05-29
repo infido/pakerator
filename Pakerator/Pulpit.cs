@@ -421,7 +421,11 @@ namespace Pakerator
             string sql = "";
 
             //dodanie obsługi logowania w bazie
-            if (!typ.Equals("LOG"))
+            if (typ.Equals("ENTRY"))
+            {
+                //Info o logowaniu, bez komunikatu --- TRYB Silent
+            }
+            else if (!typ.Equals("LOG"))
             {
                 //logów nie wyświetlaj
                 MessageBox.Show(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + logowanie.magID);
