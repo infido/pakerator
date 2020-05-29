@@ -33,7 +33,7 @@ namespace Pakerator
             logowanie = new Login(polaczenie);
             logowanie.ShowDialog();
             lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + logowanie.magNazwa + "   Użytkownik:" + logowanie.userName;
-            setLog("ENTRY", "Logowanie do systemu user: " + logowanie.userName + "; ustawiono kontekst: " + logowanie.magNazwa, "", "", "", 0, "");
+            setLog("ENTRY", "999 Logowanie do systemu user: " + logowanie.userName + "; ustawiono kontekst: " + logowanie.magNazwa, "", "", "", 0, "");
             chkTableLOGSKAN();
         }
 
