@@ -33,9 +33,11 @@ namespace Pakerator
             logowanie = new Login(polaczenie);
             logowanie.ShowDialog();
             lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + logowanie.magNazwa + "   Użytkownik:" + logowanie.userName;
+            setLog("ENTRY", "Logowanie do systemu user: " + logowanie.userName + "; ustawiono kontekst: " + logowanie.magNazwa, "", "", "", 0, "");
             chkTableLOGSKAN();
         }
 
+        #region sprawdzanie czy jest założona tabela w bazie
         private void chkTableLOGSKAN()
         {
             string sql = "select 1 from rdb$relations where rdb$relation_name = 'LOGSKAN';";
@@ -103,6 +105,7 @@ namespace Pakerator
                 throw;
             }
         }
+        #endregion
 
         private void Pulpit_FormClosed(object sender, FormClosedEventArgs e)
         {
