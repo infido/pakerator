@@ -226,6 +226,8 @@ namespace Pakerator
                         ltypdok.Text = "FS";
                         sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
                         sql += ", -1 STAN_" + logowanie.magKod + " ";
+                        if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
+                            sql += " , -1 STAN_" + logowanie.magKod2 + " ";
                         sql += "from GM_FSPOZ ";
                         sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
@@ -238,6 +240,8 @@ namespace Pakerator
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMPPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMPPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMPPOZ.ID_TOWARU ";
                         sql += ", -1 STAN_" + logowanie.magKod + " ";
+                        if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
+                            sql += " , -1 STAN_" + logowanie.magKod2 + " ";
                         sql += " from GM_MMPPOZ";
                         sql += " join GM_TOWARY ON GM_MMPPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMPPOZ.ID_GLOWKI=" + dokId;
@@ -250,6 +254,8 @@ namespace Pakerator
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMRPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMRPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMRPOZ.ID_TOWARU ";
                         sql += ", -1 STAN_" + logowanie.magKod + " ";
+                        if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
+                            sql += " , -1 STAN_" + logowanie.magKod2 + " ";
                         sql += " from GM_MMRPOZ";
                         sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
@@ -603,6 +609,12 @@ namespace Pakerator
                 {
                     row.Cells["STAN_" + logowanie.magKod].Style.BackColor = Color.DarkRed;
                     row.Cells["STAN_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
+                }
+
+                if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
+                {
+                    magB = sprawdzenieStanuMagazynu(logowanie.magID2, row.Cells["SKROT"].Value.ToString());
+                    row.Cells["STAN_" + logowanie.magKod2].Value = magB;
                 }
             }
         }
