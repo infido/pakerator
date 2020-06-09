@@ -15,6 +15,7 @@ namespace Pakerator
         ConnectionDB polaczenie;
         Dictionary<int, string> listMagazyny;
         public int magID;
+        public string magKod;
         public string magNazwa;
         public string userName;
  
@@ -36,7 +37,7 @@ namespace Pakerator
             userName = tUser.Text;
             magID = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Key;
             magNazwa = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value;
-
+            magKod = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.IndexOf(" ") ) ); 
             if (userName != null && userName.Trim().Length > 0 && magID != 0)
             {
                 this.Visible = false;

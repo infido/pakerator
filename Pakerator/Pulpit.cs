@@ -225,6 +225,7 @@ namespace Pakerator
                         //Dla faktury
                         ltypdok.Text = "FS";
                         sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
+                        sql += ", -1 STAN_" + logowanie.magKod + " ";
                         sql += "from GM_FSPOZ ";
                         sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
@@ -236,6 +237,7 @@ namespace Pakerator
                         sql =  "select GM_MMPPOZ.ID, GM_MMPPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMPPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMPPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMPPOZ.ID_TOWARU ";
+                        sql += ", -1 STAN_" + logowanie.magKod + " ";
                         sql += " from GM_MMPPOZ";
                         sql += " join GM_TOWARY ON GM_MMPPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMPPOZ.ID_GLOWKI=" + dokId;
@@ -247,6 +249,7 @@ namespace Pakerator
                         sql = "select GM_MMRPOZ.ID, GM_MMRPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMRPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMRPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMRPOZ.ID_TOWARU ";
+                        sql += ", -1 STAN_" + logowanie.magKod + " ";
                         sql += " from GM_MMRPOZ";
                         sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
@@ -570,6 +573,9 @@ namespace Pakerator
 
         private void kolorowanieRekordow()
         {
+            Int32 magA = 0;
+            Int32 magB = 0;
+
             foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
             {
                 if (!row.Cells["TYP"].Value.Equals("Towar"))
@@ -589,6 +595,37 @@ namespace Pakerator
                 {
                     row.DefaultCellStyle.BackColor = Color.Red;
                 }
+
+                magA = sprawdzenieStanuMagazynu(logowanie.magID, row.Cells["SKROT"].Value.ToString());
+                row.Cells["STAN_" + logowanie.magKod].Value = magA;
+
+                if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                {
+                    row.Cells["STAN_" + logowanie.magKod].Style.BackColor = Color.DarkRed;
+                    row.Cells["STAN_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
+                }
+            }
+        }
+
+        private Int32 sprawdzenieStanuMagazynu(int idMag, string kodTowaru)
+        {
+            string sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+            sql += " where GM_TOWARY.SKROT='" + kodTowaru + "' and GM_MAGAZYN.MAGNUM=" + idMag + ";" ;
+
+
+            FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+            try
+            {
+                if (cdk.ExecuteScalar() != DBNull.Value)
+                    return Convert.ToInt32(cdk.ExecuteScalar());
+                else
+                    return 0;
+            }
+            catch (FbException ex)
+            {
+                setLog("ERROR", "004 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                zapiszDoLOG("Błąd sprawdzenia stanu magazynowego: " + ex.Message);
+                return -2;
             }
         }
 
