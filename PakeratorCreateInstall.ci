@@ -47,6 +47,16 @@
                   <uniform >0</>
                   <backbmp ></>
                   <stretchback >0</>
+                  <bgcaption ></>
+                  <bgcapdis >0</>
+                  <flalign >2</>
+                  <ffont >Segoe UI</>
+                  <fheight >s8</>
+                  <fbold >0</>
+                  <fitalic >0</>
+                  <ftextcol ></>
+                  <bgfull >0</>
+                  <bgclose >0</>
                </>
                <_ tag = 0 id = getuser disabled = 0 >
                   <desc ></>
@@ -103,6 +113,8 @@
                         <_ >
                            <varname >Liccolor</>
                            <value >1</>
+                           <if ></>
+                           <comm ></>
                         </>
                      </>
                   </>
@@ -144,6 +156,14 @@
                            <rows rel = unpack >
                               <_ >
                                  <filename >C:\imex\!pakerator\fanfare_x.wav</>
+                                 <recurse >1</>
+                                 <justfile >0</>
+                                 <emptydir >0</>
+                                 <exclude ></>
+                                 <comm ></>
+                              </>
+                              <_ >
+                                 <filename >C:\imex\!pakerator\PakeratorChangeLog.txt</>
                                  <recurse >1</>
                                  <justfile >0</>
                                  <emptydir >0</>
@@ -232,6 +252,8 @@
                         <name ></>
                         <path >inst</>
                         <ifile ></>
+                        <estsize ></>
+                        <forcu >0</>
                      </>
                   </>
                   <desc >Go into the item for viewing unpacking actions.</>
@@ -260,7 +282,8 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext ></>
+                  <dlgtext >Nowe funkcjonalności tej wersji
+* Dodanie do konfiguracji ustawień połączenia do IAI-Shop</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
@@ -285,7 +308,7 @@
             <leftimg >install - 1</>
             <caption ></>
             <verinfo >1</>
-            <noadmin >1</>
+            <noadmin >0</>
             <selfdelete >0</>
             <priv >0</>
             <allowinst >0</>

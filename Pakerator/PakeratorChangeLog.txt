@@ -1,0 +1,2 @@
+﻿Wersja 1.12 (__-06-2020)
+* Dodanie do konfiguracji ustawień połączenia do IAI-Shop

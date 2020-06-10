@@ -57,6 +57,18 @@
             this.otwórzKonfiguracjęZPlikuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.tDomena = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tKlucz = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tLogin = new System.Windows.Forms.TextBox();
+            this.bCheckStock = new System.Windows.Forms.Button();
+            this.tTocken = new System.Windows.Forms.TextBox();
+            this.bGenerujTocken = new System.Windows.Forms.Button();
+            this.tHasloWWW = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.bSzyfruj = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +84,7 @@
             // 
             // Zapisz
             // 
-            this.Zapisz.Location = new System.Drawing.Point(258, 397);
+            this.Zapisz.Location = new System.Drawing.Point(259, 494);
             this.Zapisz.Name = "Zapisz";
             this.Zapisz.Size = new System.Drawing.Size(80, 32);
             this.Zapisz.TabIndex = 1;
@@ -104,7 +116,7 @@
             this.label3.Size = new System.Drawing.Size(517, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "*UWAGA! Ustawienie połaczenie do bazy danych, pozostawienie pustego pola oznacza " +
-                "wartośc domyślną !";
+    "wartośc domyślną !";
             // 
             // label4
             // 
@@ -200,15 +212,15 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(536, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(537, 22);
             this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // Testuj
             // 
-            this.Testuj.Location = new System.Drawing.Point(15, 397);
+            this.Testuj.Location = new System.Drawing.Point(16, 494);
             this.Testuj.Name = "Testuj";
             this.Testuj.Size = new System.Drawing.Size(75, 32);
             this.Testuj.TabIndex = 14;
@@ -228,7 +240,7 @@
             // 
             // bRozlacz
             // 
-            this.bRozlacz.Location = new System.Drawing.Point(177, 397);
+            this.bRozlacz.Location = new System.Drawing.Point(178, 494);
             this.bRozlacz.Name = "bRozlacz";
             this.bRozlacz.Size = new System.Drawing.Size(75, 32);
             this.bRozlacz.TabIndex = 16;
@@ -248,7 +260,7 @@
             // 
             // bNewFDB
             // 
-            this.bNewFDB.Location = new System.Drawing.Point(96, 397);
+            this.bNewFDB.Location = new System.Drawing.Point(97, 494);
             this.bNewFDB.Name = "bNewFDB";
             this.bNewFDB.Size = new System.Drawing.Size(75, 32);
             this.bNewFDB.TabIndex = 18;
@@ -258,7 +270,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(443, 397);
+            this.button1.Location = new System.Drawing.Point(444, 494);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 32);
             this.button1.TabIndex = 19;
@@ -272,7 +284,7 @@
             this.plikToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(536, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(537, 24);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -282,20 +294,20 @@
             this.zapiszKonfiguracjęDoPlikuToolStripMenuItem,
             this.otwórzKonfiguracjęZPlikuToolStripMenuItem});
             this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
-            this.plikToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
+            this.plikToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.plikToolStripMenuItem.Text = "Plik";
             // 
             // zapiszKonfiguracjęDoPlikuToolStripMenuItem
             // 
             this.zapiszKonfiguracjęDoPlikuToolStripMenuItem.Name = "zapiszKonfiguracjęDoPlikuToolStripMenuItem";
-            this.zapiszKonfiguracjęDoPlikuToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.zapiszKonfiguracjęDoPlikuToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.zapiszKonfiguracjęDoPlikuToolStripMenuItem.Text = "Zapisz  konfigurację do pliku";
             this.zapiszKonfiguracjęDoPlikuToolStripMenuItem.Click += new System.EventHandler(this.zapiszKonfiguracjęDoPlikuToolStripMenuItem_Click);
             // 
             // otwórzKonfiguracjęZPlikuToolStripMenuItem
             // 
             this.otwórzKonfiguracjęZPlikuToolStripMenuItem.Name = "otwórzKonfiguracjęZPlikuToolStripMenuItem";
-            this.otwórzKonfiguracjęZPlikuToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.otwórzKonfiguracjęZPlikuToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.otwórzKonfiguracjęZPlikuToolStripMenuItem.Text = "Otwórz konfigurację z pliku";
             this.otwórzKonfiguracjęZPlikuToolStripMenuItem.Click += new System.EventHandler(this.otwórzKonfiguracjęZPlikuToolStripMenuItem_Click);
             // 
@@ -309,12 +321,127 @@
             // 
             this.saveFileDialog1.Filter = "xml files|*.xml|Wszystkie pliki|*.*";
             // 
+            // tDomena
+            // 
+            this.tDomena.Location = new System.Drawing.Point(99, 363);
+            this.tDomena.Name = "tDomena";
+            this.tDomena.Size = new System.Drawing.Size(419, 20);
+            this.tDomena.TabIndex = 21;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(14, 366);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Domena";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 441);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(33, 13);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Klucz";
+            // 
+            // tKlucz
+            // 
+            this.tKlucz.Location = new System.Drawing.Point(99, 438);
+            this.tKlucz.Name = "tKlucz";
+            this.tKlucz.ReadOnly = true;
+            this.tKlucz.Size = new System.Drawing.Size(200, 20);
+            this.tKlucz.TabIndex = 23;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 467);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(33, 13);
+            this.label9.TabIndex = 26;
+            this.label9.Text = "Login";
+            // 
+            // tLogin
+            // 
+            this.tLogin.Location = new System.Drawing.Point(99, 464);
+            this.tLogin.Name = "tLogin";
+            this.tLogin.Size = new System.Drawing.Size(145, 20);
+            this.tLogin.TabIndex = 25;
+            // 
+            // bCheckStock
+            // 
+            this.bCheckStock.Location = new System.Drawing.Point(306, 464);
+            this.bCheckStock.Name = "bCheckStock";
+            this.bCheckStock.Size = new System.Drawing.Size(75, 23);
+            this.bCheckStock.TabIndex = 27;
+            this.bCheckStock.Text = "Test IAI";
+            this.bCheckStock.UseVisualStyleBackColor = true;
+            this.bCheckStock.Click += new System.EventHandler(this.bCheckStock_Click);
+            // 
+            // tTocken
+            // 
+            this.tTocken.Location = new System.Drawing.Point(328, 438);
+            this.tTocken.Name = "tTocken";
+            this.tTocken.Size = new System.Drawing.Size(190, 20);
+            this.tTocken.TabIndex = 28;
+            // 
+            // bGenerujTocken
+            // 
+            this.bGenerujTocken.Location = new System.Drawing.Point(328, 409);
+            this.bGenerujTocken.Name = "bGenerujTocken";
+            this.bGenerujTocken.Size = new System.Drawing.Size(190, 23);
+            this.bGenerujTocken.TabIndex = 29;
+            this.bGenerujTocken.Text = "Generuj tocken";
+            this.bGenerujTocken.UseVisualStyleBackColor = true;
+            this.bGenerujTocken.Click += new System.EventHandler(this.bGenerujTocken_Click);
+            // 
+            // tHasloWWW
+            // 
+            this.tHasloWWW.Location = new System.Drawing.Point(99, 389);
+            this.tHasloWWW.Name = "tHasloWWW";
+            this.tHasloWWW.PasswordChar = '*';
+            this.tHasloWWW.Size = new System.Drawing.Size(200, 20);
+            this.tHasloWWW.TabIndex = 30;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 392);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(36, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "Hasło";
+            // 
+            // bSzyfruj
+            // 
+            this.bSzyfruj.Location = new System.Drawing.Point(99, 409);
+            this.bSzyfruj.Name = "bSzyfruj";
+            this.bSzyfruj.Size = new System.Drawing.Size(200, 23);
+            this.bSzyfruj.TabIndex = 32;
+            this.bSzyfruj.Text = "Szyfruj  do pola Klucz";
+            this.bSzyfruj.UseVisualStyleBackColor = true;
+            this.bSzyfruj.Click += new System.EventHandler(this.bSzyfruj_Click);
+            // 
             // ConnectionDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Azure;
-            this.ClientSize = new System.Drawing.Size(536, 467);
+            this.ClientSize = new System.Drawing.Size(537, 566);
+            this.Controls.Add(this.bSzyfruj);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.tHasloWWW);
+            this.Controls.Add(this.bGenerujTocken);
+            this.Controls.Add(this.tTocken);
+            this.Controls.Add(this.bCheckStock);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.tLogin);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.tKlucz);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tDomena);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bNewFDB);
             this.Controls.Add(this.bClear);
@@ -379,5 +506,17 @@
         private System.Windows.Forms.ToolStripMenuItem otwórzKonfiguracjęZPlikuToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.TextBox tDomena;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tKlucz;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tLogin;
+        private System.Windows.Forms.Button bCheckStock;
+        private System.Windows.Forms.TextBox tTocken;
+        private System.Windows.Forms.Button bGenerujTocken;
+        private System.Windows.Forms.TextBox tHasloWWW;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button bSzyfruj;
     }
 }

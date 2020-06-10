@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FirebirdSql.Data.FirebirdClient;
 using Microsoft.Win32;
 using System.Xml.Linq;
+using System.ServiceModel;
 
 namespace Pakerator
 {
@@ -230,12 +231,16 @@ namespace Pakerator
                 rejestr.SetValue("Serwer", tServer.Text);
                 rejestr.SetValue("Path", tPath.Text);
                 rejestr.SetValue("Port", tPort.Text);
-                }
-                catch (Exception ee)
-                {
+
+                rejestr.SetValue("www1", tDomena.Text);
+                rejestr.SetValue("www2", tKlucz.Text);
+                rejestr.SetValue("www3", tLogin.Text);
+            }
+            catch (Exception ee)
+            {
                     MessageBox.Show("Błąd zapisu do rejestru: " + ee.Message);
                     //throw;
-                }
+            }
         }
 
         private void getConnectionSettingsFromRegistry()
@@ -266,6 +271,10 @@ namespace Pakerator
             tServer.Text = (String)rejestr.GetValue("Serwer");
             tPath.Text = (String)rejestr.GetValue("Path");
             tPort.Text = (String)rejestr.GetValue("Port");
+
+            tDomena.Text = (String)rejestr.GetValue("www1");
+            tKlucz.Text = (String)rejestr.GetValue("www2");
+            tLogin.Text = (String)rejestr.GetValue("www3");
             }
             catch (Exception ee)
             {
@@ -375,6 +384,79 @@ namespace Pakerator
         public int getConnectioState()
         {
             return (int)conn.State;
+        }
+
+        private void bCheckStock_Click(object sender, EventArgs e)
+        {
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("https://mm-moto.iai-shop.com/api/?gate=productsstocks/get/106/soap");
+            //var client = new ApiProductsStocksPortTypeClient(binding, address);
+
+            //var request = new getRequestType();
+            //request.authenticate = new authenticateType();
+            //request.authenticate.system_key = GenerateKey(HashPassword("YOUR_KEY"));
+            //request.authenticate.system_login = "system_login";
+            //request.@params = new getParamsType();
+            //request.@params.products = new sizeIdentType[1];
+            //request.@params.products[0] = new sizeIdentType();
+            //request.@params.products[0].identType.identType = identType.id;
+            //request.@params.products[0].identType.identTypeSpecified = true;
+            //request.@params.products[0].identValue = "identValue";
+
+            //getResponseType response = client.get(request);
+
+        }
+
+        private void bGenerujTocken_Click(object sender, EventArgs e)
+        {
+            tTocken.Text = SessionIAI.GenerateKey(tKlucz.Text);
+        }
+
+        private void bSzyfruj_Click(object sender, EventArgs e)
+        {
+            tKlucz.Text = SessionIAI.HashPassword(tHasloWWW.Text);
+        }
+    }
+
+    public class SessionIAI
+    {
+        /// <summary>
+        /// Generates SHA1 session key string
+        /// </summary>
+        /// <param name="password">SHA1 hashed password
+        /// <returns>SHA1 hash string</returns>
+        public static string GenerateKey(string hashedPassword)
+        {
+            System.Security.Cryptography.HashAlgorithm hash = System.Security.Cryptography.SHA1.Create();
+            string date = System.String.Format("{0:yyyyMMdd}", System.DateTime.Now);
+            string strToHash = date + hashedPassword;
+            byte[] keyBytes, hashBytes;
+            keyBytes = System.Text.Encoding.UTF8.GetBytes(strToHash);
+            hashBytes = hash.ComputeHash(keyBytes);
+            string hashedString = string.Empty;
+            foreach (byte b in hashBytes)
+            {
+                hashedString += String.Format("{0:x2}", b);
+            }
+            return hashedString;
+        }
+        /// <summary>
+        /// Hashes specified password with SHA1 algorithm
+        /// </summary>
+        /// <param name="password">User password
+        /// <returns>SHA1 hash  string</returns>
+        public static string HashPassword(string password)
+        {
+            System.Security.Cryptography.HashAlgorithm hash = System.Security.Cryptography.SHA1.Create();
+            byte[] keyBytes, hashBytes;
+            keyBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            hashBytes = hash.ComputeHash(keyBytes);
+            string hashedString = string.Empty;
+            foreach (byte b in hashBytes)
+            {
+                hashedString += String.Format("{0:x2}", b);
+            }
+            return hashedString;
         }
     }
 }
