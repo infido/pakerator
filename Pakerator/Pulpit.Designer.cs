@@ -34,6 +34,8 @@
             this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bSetStatusAgain = new System.Windows.Forms.Button();
+            this.lBlokadaDokwRaks = new System.Windows.Forms.Label();
             this.ltypdok = new System.Windows.Forms.Label();
             this.lListPrzewozowy = new System.Windows.Forms.Label();
             this.lNabywcaTresc = new System.Windows.Forms.Label();
@@ -52,8 +54,6 @@
             this.textHistoria = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.lBlokadaDokwRaks = new System.Windows.Forms.Label();
-            this.bSetStatusAgain = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -71,7 +71,7 @@
             this.historiaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1039, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1478, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -114,8 +114,32 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1039, 125);
+            this.panel1.Size = new System.Drawing.Size(1478, 125);
             this.panel1.TabIndex = 1;
+            // 
+            // bSetStatusAgain
+            // 
+            this.bSetStatusAgain.BackColor = System.Drawing.Color.Orange;
+            this.bSetStatusAgain.Location = new System.Drawing.Point(1378, 71);
+            this.bSetStatusAgain.Name = "bSetStatusAgain";
+            this.bSetStatusAgain.Size = new System.Drawing.Size(88, 46);
+            this.bSetStatusAgain.TabIndex = 12;
+            this.bSetStatusAgain.Text = "Ponownie ustaw status";
+            this.bSetStatusAgain.UseVisualStyleBackColor = false;
+            this.bSetStatusAgain.Visible = false;
+            this.bSetStatusAgain.Click += new System.EventHandler(this.bSetStatusAgain_Click);
+            // 
+            // lBlokadaDokwRaks
+            // 
+            this.lBlokadaDokwRaks.AutoSize = true;
+            this.lBlokadaDokwRaks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lBlokadaDokwRaks.ForeColor = System.Drawing.Color.Red;
+            this.lBlokadaDokwRaks.Location = new System.Drawing.Point(13, 30);
+            this.lBlokadaDokwRaks.Name = "lBlokadaDokwRaks";
+            this.lBlokadaDokwRaks.Size = new System.Drawing.Size(365, 13);
+            this.lBlokadaDokwRaks.TabIndex = 11;
+            this.lBlokadaDokwRaks.Text = "Dokument zablokowany przez innego uzytkownika w RaksSQL!";
+            this.lBlokadaDokwRaks.Visible = false;
             // 
             // ltypdok
             // 
@@ -231,7 +255,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 149);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1039, 557);
+            this.panel2.Size = new System.Drawing.Size(1478, 557);
             this.panel2.TabIndex = 2;
             // 
             // dataGridViewPozycje
@@ -245,7 +269,7 @@
             this.dataGridViewPozycje.Name = "dataGridViewPozycje";
             this.dataGridViewPozycje.ReadOnly = true;
             this.dataGridViewPozycje.RowHeadersVisible = false;
-            this.dataGridViewPozycje.Size = new System.Drawing.Size(1039, 557);
+            this.dataGridViewPozycje.Size = new System.Drawing.Size(1478, 557);
             this.dataGridViewPozycje.TabIndex = 0;
             // 
             // panelHistoria
@@ -255,7 +279,7 @@
             this.panelHistoria.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelHistoria.Location = new System.Drawing.Point(0, 622);
             this.panelHistoria.Name = "panelHistoria";
-            this.panelHistoria.Size = new System.Drawing.Size(1039, 84);
+            this.panelHistoria.Size = new System.Drawing.Size(1478, 84);
             this.panelHistoria.TabIndex = 3;
             // 
             // panel4
@@ -265,7 +289,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 25);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1039, 59);
+            this.panel4.Size = new System.Drawing.Size(1478, 59);
             this.panel4.TabIndex = 1;
             // 
             // textHistoria
@@ -276,7 +300,7 @@
             this.textHistoria.Name = "textHistoria";
             this.textHistoria.ReadOnly = true;
             this.textHistoria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textHistoria.Size = new System.Drawing.Size(1039, 59);
+            this.textHistoria.Size = new System.Drawing.Size(1478, 59);
             this.textHistoria.TabIndex = 0;
             // 
             // panel3
@@ -285,7 +309,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1039, 25);
+            this.panel3.Size = new System.Drawing.Size(1478, 25);
             this.panel3.TabIndex = 0;
             // 
             // label1
@@ -297,35 +321,11 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Historia:";
             // 
-            // lBlokadaDokwRaks
-            // 
-            this.lBlokadaDokwRaks.AutoSize = true;
-            this.lBlokadaDokwRaks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lBlokadaDokwRaks.ForeColor = System.Drawing.Color.Red;
-            this.lBlokadaDokwRaks.Location = new System.Drawing.Point(13, 30);
-            this.lBlokadaDokwRaks.Name = "lBlokadaDokwRaks";
-            this.lBlokadaDokwRaks.Size = new System.Drawing.Size(365, 13);
-            this.lBlokadaDokwRaks.TabIndex = 11;
-            this.lBlokadaDokwRaks.Text = "Dokument zablokowany przez innego uzytkownika w RaksSQL!";
-            this.lBlokadaDokwRaks.Visible = false;
-            // 
-            // bSetStatusAgain
-            // 
-            this.bSetStatusAgain.BackColor = System.Drawing.Color.Orange;
-            this.bSetStatusAgain.Location = new System.Drawing.Point(939, 71);
-            this.bSetStatusAgain.Name = "bSetStatusAgain";
-            this.bSetStatusAgain.Size = new System.Drawing.Size(88, 46);
-            this.bSetStatusAgain.TabIndex = 12;
-            this.bSetStatusAgain.Text = "Ponownie ustaw status";
-            this.bSetStatusAgain.UseVisualStyleBackColor = false;
-            this.bSetStatusAgain.Visible = false;
-            this.bSetStatusAgain.Click += new System.EventHandler(this.bSetStatusAgain_Click);
-            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 706);
+            this.ClientSize = new System.Drawing.Size(1478, 706);
             this.Controls.Add(this.panelHistoria);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

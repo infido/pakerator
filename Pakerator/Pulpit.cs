@@ -228,6 +228,7 @@ namespace Pakerator
                         sql += ", -1 STAN_" + logowanie.magKod + " ";
                         if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
                             sql += " , -1 STAN_" + logowanie.magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + logowanie.magKod + " ";
                         sql += "from GM_FSPOZ ";
                         sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
@@ -242,6 +243,7 @@ namespace Pakerator
                         sql += ", -1 STAN_" + logowanie.magKod + " ";
                         if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
                             sql += " , -1 STAN_" + logowanie.magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + logowanie.magKod + " ";
                         sql += " from GM_MMPPOZ";
                         sql += " join GM_TOWARY ON GM_MMPPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMPPOZ.ID_GLOWKI=" + dokId;
@@ -256,6 +258,7 @@ namespace Pakerator
                         sql += ", -1 STAN_" + logowanie.magKod + " ";
                         if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
                             sql += " , -1 STAN_" + logowanie.magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + logowanie.magKod + " ";
                         sql += " from GM_MMRPOZ";
                         sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
@@ -605,6 +608,16 @@ namespace Pakerator
                 magA = sprawdzenieStanuMagazynu(logowanie.magID, row.Cells["SKROT"].Value.ToString());
                 row.Cells["STAN_" + logowanie.magKod].Value = magA;
 
+                row.Cells["W_WYDANIU_" + logowanie.magKod].Value = getIloscWWydaniu(logowanie.magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
+
+                if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + logowanie.magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                {
+                    row.Cells["W_WYDANIU_" + logowanie.magKod].Style.BackColor = Color.DeepPink;
+                    row.Cells["W_WYDANIU_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
+                    row.Cells["STAN_" + logowanie.magKod].Style.BackColor = Color.DeepPink;
+                    row.Cells["STAN_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
+                }
+
                 if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
                 {
                     row.Cells["STAN_" + logowanie.magKod].Style.BackColor = Color.DarkRed;
@@ -635,10 +648,35 @@ namespace Pakerator
             }
             catch (FbException ex)
             {
-                setLog("ERROR", "004 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                setLog("ERROR", "014 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                 zapiszDoLOG("Błąd sprawdzenia stanu magazynowego: " + ex.Message);
                 return -2;
             }
+        }
+
+        private Int32 getIloscWWydaniu(int idMag, string kodTowaru)
+        {
+            string sql = "SELECT sum(ILOSC) from GM_FSPOZ  ";
+            sql += " join GM_FS on GM_FSPOZ.ID_GLOWKI=GM_FS.ID join GM_TOWARY on GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID_TOWARU ";
+            sql += " where GM_FS.MAGAZYNOWY=0 AND GM_FS.FISKALNY=0 ";
+            sql += " AND SKROT='" + kodTowaru + "' and GM_FS.MAGNUM=" + idMag + ";";
+
+
+            FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+            try
+            {
+                if (cdk.ExecuteScalar() != DBNull.Value)
+                    return Convert.ToInt32(cdk.ExecuteScalar());
+                else
+                    return 0;
+            }
+            catch (FbException ex)
+            {
+                setLog("ERROR", "015 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                zapiszDoLOG("Błąd sprawdzenia stanu magazynowego: " + ex.Message);
+                return 0;
+            }
+
         }
 
         private void sprawdzenieCzySkonczone()
