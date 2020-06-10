@@ -49,18 +49,16 @@
             this.lKontekstPracyMagazyn = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridViewPozycje = new System.Windows.Forms.DataGridView();
-            this.panelHistoria = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.textHistoria = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPozycje)).BeginInit();
-            this.panelHistoria.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -251,11 +249,12 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.dataGridViewPozycje);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 149);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1478, 557);
+            this.panel2.Size = new System.Drawing.Size(1478, 672);
             this.panel2.TabIndex = 2;
             // 
             // dataGridViewPozycje
@@ -263,44 +262,25 @@
             this.dataGridViewPozycje.AllowUserToAddRows = false;
             this.dataGridViewPozycje.AllowUserToDeleteRows = false;
             this.dataGridViewPozycje.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewPozycje.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewPozycje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPozycje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPozycje.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridViewPozycje.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewPozycje.Name = "dataGridViewPozycje";
             this.dataGridViewPozycje.ReadOnly = true;
             this.dataGridViewPozycje.RowHeadersVisible = false;
-            this.dataGridViewPozycje.Size = new System.Drawing.Size(1478, 557);
+            this.dataGridViewPozycje.Size = new System.Drawing.Size(1478, 530);
             this.dataGridViewPozycje.TabIndex = 0;
-            // 
-            // panelHistoria
-            // 
-            this.panelHistoria.Controls.Add(this.panel4);
-            this.panelHistoria.Controls.Add(this.panel3);
-            this.panelHistoria.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelHistoria.Location = new System.Drawing.Point(0, 622);
-            this.panelHistoria.Name = "panelHistoria";
-            this.panelHistoria.Size = new System.Drawing.Size(1478, 84);
-            this.panelHistoria.TabIndex = 3;
-            // 
-            // panel4
-            // 
-            this.panel4.AutoScroll = true;
-            this.panel4.Controls.Add(this.textHistoria);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 25);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1478, 59);
-            this.panel4.TabIndex = 1;
             // 
             // textHistoria
             // 
             this.textHistoria.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textHistoria.Location = new System.Drawing.Point(0, 0);
+            this.textHistoria.Location = new System.Drawing.Point(0, 25);
             this.textHistoria.Multiline = true;
             this.textHistoria.Name = "textHistoria";
             this.textHistoria.ReadOnly = true;
             this.textHistoria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textHistoria.Size = new System.Drawing.Size(1478, 59);
+            this.textHistoria.Size = new System.Drawing.Size(1478, 117);
             this.textHistoria.TabIndex = 0;
             // 
             // panel3
@@ -315,18 +295,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 7);
+            this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Historia:";
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.textHistoria);
+            this.panel5.Controls.Add(this.panel3);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 530);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(1478, 142);
+            this.panel5.TabIndex = 1;
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1478, 706);
-            this.Controls.Add(this.panelHistoria);
+            this.ClientSize = new System.Drawing.Size(1478, 821);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -344,11 +333,10 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPozycje)).EndInit();
-            this.panelHistoria.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,8 +359,6 @@
         private System.Windows.Forms.ToolStripMenuItem wyczyśćToolStripMenuItem;
         private System.Windows.Forms.Label lListPrzewozowy;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panelHistoria;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox textHistoria;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
@@ -381,6 +367,7 @@
         private System.Windows.Forms.Label ltypdok;
         private System.Windows.Forms.Label lBlokadaDokwRaks;
         private System.Windows.Forms.Button bSetStatusAgain;
+        private System.Windows.Forms.Panel panel5;
     }
 }
 
