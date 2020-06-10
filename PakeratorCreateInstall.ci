@@ -283,7 +283,8 @@
                   <head ></>
                   <headtext ></>
                   <dlgtext >Nowe funkcjonalności tej wersji
-* Dodanie do konfiguracji ustawień połączenia do IAI-Shop</>
+* Dodanie do konfiguracji ustawień połączenia do IAI-Shop
+* Przeniesienie ustawienia magazynów z okna logowania na pulpit</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >

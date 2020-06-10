@@ -47,3 +47,4 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.applicat
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.CopyComplete
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.exe
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\PakeratorChangeLog.txt

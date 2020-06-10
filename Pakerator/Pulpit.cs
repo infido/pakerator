@@ -24,16 +24,23 @@ namespace Pakerator
         int odbiorca = 0;
         int platnik = 0;
         private bool jestSkonczone = false;
-        
+        public int magID, magID2;
+        public string magKod, magKod2;
+        public string magNazwa, magNazwa2;
+        Dictionary<int, string> listMagazyny;
+
         public Pulpit()
         {
             InitializeComponent();
             Text = "Pakerator " + Application.ProductVersion;
             polaczenie = new ConnectionDB();
             logowanie = new Login(polaczenie);
+
             logowanie.ShowDialog();
-            lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + logowanie.magNazwa + "   Użytkownik:" + logowanie.userName;
-            setLog("ENTRY", "999 Logowanie do systemu user: " + logowanie.userName + "; ustawiono kontekst: " + logowanie.magNazwa, "", "", "", 0, "");
+
+            setDictonary();
+            setSetingsOfStores();
+            setLog("ENTRY", "999 Logowanie do systemu user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
             chkTableLOGSKAN();
         }
 
@@ -142,7 +149,7 @@ namespace Pakerator
                 sql += "COALESCE(ULICA_ODBIORCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_ODBIORCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_ODBIORCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_ODBIORCY,'') as MIEJSCOWOSC_ODBIORCY, ";
                 sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_ODBIORCY, ID_PLATNIKA ";
                 sql += "from GM_FS ";
-                sql += "where MAGNUM=" + logowanie.magID + " and SYGNATURA='" + tToSkan.Text + "';";
+                sql += "where MAGNUM=" + magID + " and SYGNATURA='" + tToSkan.Text + "';";
             }
             else
             {
@@ -158,7 +165,7 @@ namespace Pakerator
                     {
                         int magnum = (int)fdktmp["MAGNUM"];
                         int magnum2 = (int)fdktmp["ZRODLO_CEL"];
-                        if (magnum == logowanie.magID)
+                        if (magnum == magID)
                         {
                             //Dokument z bieżącego magazynu
                             corectDocID = (int)fdktmp["ID"];
@@ -167,7 +174,7 @@ namespace Pakerator
                             tmpkod = (string)fdktmp["KOD"];
                             toJestMMP = tmpkod.Equals("MMP") ? true : false;
                         }
-                        else if (magnum2 == logowanie.magID)
+                        else if (magnum2 == magID)
                         {
                             //zeskanowano dokument z przeciwnego magazynu
                             corectDocID = (int)fdktmp["ID_MM"];
@@ -225,10 +232,10 @@ namespace Pakerator
                         //Dla faktury
                         ltypdok.Text = "FS";
                         sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
-                        sql += ", -1 STAN_" + logowanie.magKod + " ";
-                        if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
-                            sql += " , -1 STAN_" + logowanie.magKod2 + " ";
-                        sql += " , -1 W_WYDANIU_" + logowanie.magKod + " ";
+                        sql += ", -1 STAN_" + magKod + " ";
+                        if (magID2 != 0 && magID != magID2)
+                            sql += " , -1 STAN_" + magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + magKod + " ";
                         sql += "from GM_FSPOZ ";
                         sql += "join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += "where GM_FSPOZ.ID_GLOWKI=" + dokId;
@@ -240,10 +247,10 @@ namespace Pakerator
                         sql =  "select GM_MMPPOZ.ID, GM_MMPPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMPPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMPPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMPPOZ.ID_TOWARU ";
-                        sql += ", -1 STAN_" + logowanie.magKod + " ";
-                        if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
-                            sql += " , -1 STAN_" + logowanie.magKod2 + " ";
-                        sql += " , -1 W_WYDANIU_" + logowanie.magKod + " ";
+                        sql += ", -1 STAN_" + magKod + " ";
+                        if (magID2 != 0 && magID != magID2)
+                            sql += " , -1 STAN_" + magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + magKod + " ";
                         sql += " from GM_MMPPOZ";
                         sql += " join GM_TOWARY ON GM_MMPPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMPPOZ.ID_GLOWKI=" + dokId;
@@ -255,10 +262,10 @@ namespace Pakerator
                         sql = "select GM_MMRPOZ.ID, GM_MMRPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMRPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMRPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMRPOZ.ID_TOWARU ";
-                        sql += ", -1 STAN_" + logowanie.magKod + " ";
-                        if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
-                            sql += " , -1 STAN_" + logowanie.magKod2 + " ";
-                        sql += " , -1 W_WYDANIU_" + logowanie.magKod + " ";
+                        sql += ", -1 STAN_" + magKod + " ";
+                        if (magID2 != 0 && magID != magID2)
+                            sql += " , -1 STAN_" + magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + magKod + " ";
                         sql += " from GM_MMRPOZ";
                         sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
@@ -440,7 +447,7 @@ namespace Pakerator
             else if (!typ.Equals("LOG"))
             {
                 //logów nie wyświetlaj
-                MessageBox.Show(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + logowanie.magID);
+                MessageBox.Show(typ + " KodKr:" + kodKreskowy + " TRESC:" + tresc + " Magazyn:" + magID);
             } else if (!typ.Equals("INFO"))
             {
                 //Zwykły wpis do loga
@@ -468,7 +475,7 @@ namespace Pakerator
                 {
                     sql += "0,0,0,"; //zera mm_id i zo_id
                 }
-                sql += idTowaru + ",'" + tresc + "','" + typ + "','" + logowanie.magNazwa + "'," + logowanie.getIdMagazynAsString() + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");";
+                sql += idTowaru + ",'" + tresc + "','" + typ + "','" + magNazwa + "'," + magID + ",'" + lNabywcaTresc.Text + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");";
 
 
             FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
@@ -605,29 +612,29 @@ namespace Pakerator
                     row.DefaultCellStyle.BackColor = Color.Red;
                 }
 
-                magA = sprawdzenieStanuMagazynu(logowanie.magID, row.Cells["SKROT"].Value.ToString());
-                row.Cells["STAN_" + logowanie.magKod].Value = magA;
+                magA = sprawdzenieStanuMagazynu(magID, row.Cells["SKROT"].Value.ToString());
+                row.Cells["STAN_" + magKod].Value = magA;
 
-                row.Cells["W_WYDANIU_" + logowanie.magKod].Value = getIloscWWydaniu(logowanie.magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
+                row.Cells["W_WYDANIU_" + magKod].Value = getIloscWWydaniu(magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
 
-                if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + logowanie.magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
                 {
-                    row.Cells["W_WYDANIU_" + logowanie.magKod].Style.BackColor = Color.DeepPink;
-                    row.Cells["W_WYDANIU_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
-                    row.Cells["STAN_" + logowanie.magKod].Style.BackColor = Color.DeepPink;
-                    row.Cells["STAN_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
+                    row.Cells["W_WYDANIU_" + magKod].Style.BackColor = Color.DeepPink;
+                    row.Cells["W_WYDANIU_" + magKod].Style.ForeColor = Color.Yellow;
+                    row.Cells["STAN_" + magKod].Style.BackColor = Color.DeepPink;
+                    row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
                 }
 
                 if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
                 {
-                    row.Cells["STAN_" + logowanie.magKod].Style.BackColor = Color.DarkRed;
-                    row.Cells["STAN_" + logowanie.magKod].Style.ForeColor = Color.Yellow;
+                    row.Cells["STAN_" + magKod].Style.BackColor = Color.DarkRed;
+                    row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
                 }
 
-                if (logowanie.magID2 != 0 && logowanie.magID != logowanie.magID2)
+                if (magID2 != 0 && magID != magID2)
                 {
-                    magB = sprawdzenieStanuMagazynu(logowanie.magID2, row.Cells["SKROT"].Value.ToString());
-                    row.Cells["STAN_" + logowanie.magKod2].Value = magB;
+                    magB = sprawdzenieStanuMagazynu(magID2, row.Cells["SKROT"].Value.ToString());
+                    row.Cells["STAN_" + magKod2].Value = magB;
                 }
             }
         }
@@ -772,6 +779,75 @@ namespace Pakerator
         private void bSetStatusAgain_Click(object sender, EventArgs e)
         {
             sprawdzenieCzySkonczone();
+        }
+
+        private void cMagazyn_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cMagazyn_Leave(object sender, EventArgs e)
+        {
+            setSetingsOfStores();
+        }
+
+        private void cMagazyn2_Leave(object sender, EventArgs e)
+        {
+            setSetingsOfStores();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void setDictonary()
+        {
+            listMagazyny = new Dictionary<int, string>();
+            FbCommand cdk = new FbCommand("SELECT ID, NUMER || ' ' || NAZWA AS NUMER FROM GM_MAGAZYNY WHERE ARCHIWALNY=0", polaczenie.getConnection());
+            try
+            {
+                FbDataReader fdk = cdk.ExecuteReader();
+                while (fdk.Read())
+                {
+                    listMagazyny.Add((int)fdk["ID"], (string)fdk["NUMER"]);
+                }
+            }
+            catch (FbException ex)
+            {
+                MessageBox.Show("Błąd wczytywania listy magazynów: " + ex.Message);
+            }
+
+            cMagazyn.DataSource = new BindingSource(listMagazyny, null);
+            cMagazyn.DisplayMember = "Value";
+            cMagazyn.ValueMember = "Key";
+
+            cMagazyn2.DataSource = new BindingSource(listMagazyny, null);
+            cMagazyn2.DisplayMember = "Value";
+            cMagazyn2.ValueMember = "Key";
+        }
+
+        private void setSetingsOfStores()
+        {
+            magID = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Key;
+            magNazwa = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value;
+            magKod = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.IndexOf(" ")));
+
+            if (magID != ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key)
+            {
+                magID2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key;
+                magNazwa2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value;
+                magKod2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.IndexOf(" ")));
+
+            }
+            else
+            {
+                magID2 = 0;
+                magNazwa2 = "";
+                magKod2 = "";
+            }
+
+            lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + magNazwa + "   Użytkownik:" + logowanie.userName;
         }
     }
 }

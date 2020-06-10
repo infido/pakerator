@@ -30,13 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.tUser = new System.Windows.Forms.TextBox();
-            this.cMagazyn = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.bOK = new System.Windows.Forms.Button();
             this.bAnuluj = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cMagazyn2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // tUser
@@ -47,14 +43,6 @@
             this.tUser.Size = new System.Drawing.Size(103, 20);
             this.tUser.TabIndex = 0;
             // 
-            // cMagazyn
-            // 
-            this.cMagazyn.FormattingEnabled = true;
-            this.cMagazyn.Location = new System.Drawing.Point(80, 48);
-            this.cMagazyn.Name = "cMagazyn";
-            this.cMagazyn.Size = new System.Drawing.Size(253, 21);
-            this.cMagazyn.TabIndex = 1;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -64,18 +52,9 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Użytkownik";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Magazyn";
-            // 
             // bOK
             // 
-            this.bOK.Location = new System.Drawing.Point(94, 123);
+            this.bOK.Location = new System.Drawing.Point(27, 51);
             this.bOK.Name = "bOK";
             this.bOK.Size = new System.Drawing.Size(75, 33);
             this.bOK.TabIndex = 4;
@@ -86,7 +65,7 @@
             // bAnuluj
             // 
             this.bAnuluj.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.bAnuluj.Location = new System.Drawing.Point(175, 123);
+            this.bAnuluj.Location = new System.Drawing.Point(108, 51);
             this.bAnuluj.Name = "bAnuluj";
             this.bAnuluj.Size = new System.Drawing.Size(75, 33);
             this.bAnuluj.TabIndex = 5;
@@ -94,37 +73,16 @@
             this.bAnuluj.UseVisualStyleBackColor = true;
             this.bAnuluj.Click += new System.EventHandler(this.bAnuluj_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 74);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Magazyn 2";
-            // 
-            // cMagazyn2
-            // 
-            this.cMagazyn2.FormattingEnabled = true;
-            this.cMagazyn2.Location = new System.Drawing.Point(79, 74);
-            this.cMagazyn2.Name = "cMagazyn2";
-            this.cMagazyn2.Size = new System.Drawing.Size(253, 21);
-            this.cMagazyn2.TabIndex = 6;
-            // 
             // Login
             // 
             this.AcceptButton = this.bOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bAnuluj;
-            this.ClientSize = new System.Drawing.Size(343, 168);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cMagazyn2);
+            this.ClientSize = new System.Drawing.Size(204, 107);
             this.Controls.Add(this.bAnuluj);
             this.Controls.Add(this.bOK);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cMagazyn);
             this.Controls.Add(this.tUser);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
@@ -137,12 +95,8 @@
         #endregion
 
         private System.Windows.Forms.TextBox tUser;
-        private System.Windows.Forms.ComboBox cMagazyn;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button bOK;
         private System.Windows.Forms.Button bAnuluj;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cMagazyn2;
     }
 }
