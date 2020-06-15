@@ -57,12 +57,16 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewPozycje = new System.Windows.Forms.DataGridView();
+            this.menuStrip2DataGrid = new System.Windows.Forms.MenuStrip();
+            this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPozycje)).BeginInit();
+            this.menuStrip2DataGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -297,6 +301,7 @@
             this.panel2.AutoScroll = true;
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.dataGridViewPozycje);
+            this.panel2.Controls.Add(this.menuStrip2DataGrid);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 149);
             this.panel2.Name = "panel2";
@@ -308,9 +313,9 @@
             this.panel5.Controls.Add(this.textHistoria);
             this.panel5.Controls.Add(this.panel3);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 530);
+            this.panel5.Location = new System.Drawing.Point(0, 554);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1478, 142);
+            this.panel5.Size = new System.Drawing.Size(1478, 118);
             this.panel5.TabIndex = 1;
             // 
             // textHistoria
@@ -321,7 +326,7 @@
             this.textHistoria.Name = "textHistoria";
             this.textHistoria.ReadOnly = true;
             this.textHistoria.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textHistoria.Size = new System.Drawing.Size(1478, 117);
+            this.textHistoria.Size = new System.Drawing.Size(1478, 93);
             this.textHistoria.TabIndex = 0;
             // 
             // panel3
@@ -350,12 +355,38 @@
             this.dataGridViewPozycje.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewPozycje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPozycje.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dataGridViewPozycje.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewPozycje.Location = new System.Drawing.Point(0, 24);
             this.dataGridViewPozycje.Name = "dataGridViewPozycje";
             this.dataGridViewPozycje.ReadOnly = true;
             this.dataGridViewPozycje.RowHeadersVisible = false;
             this.dataGridViewPozycje.Size = new System.Drawing.Size(1478, 530);
             this.dataGridViewPozycje.TabIndex = 0;
+            // 
+            // menuStrip2DataGrid
+            // 
+            this.menuStrip2DataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu2ToolStripMenuItem,
+            this.pobranieInfoOTowarachToolStripMenuItem});
+            this.menuStrip2DataGrid.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2DataGrid.Name = "menuStrip2DataGrid";
+            this.menuStrip2DataGrid.Size = new System.Drawing.Size(1478, 24);
+            this.menuStrip2DataGrid.TabIndex = 2;
+            this.menuStrip2DataGrid.Text = "menuStrip2";
+            // 
+            // menu2ToolStripMenuItem
+            // 
+            this.menu2ToolStripMenuItem.Name = "menu2ToolStripMenuItem";
+            this.menu2ToolStripMenuItem.Size = new System.Drawing.Size(189, 20);
+            this.menu2ToolStripMenuItem.Text = "Raport stanu na magazynach IAI";
+            this.menu2ToolStripMenuItem.Click += new System.EventHandler(this.menu2ToolStripMenuItem_Click);
+            // 
+            // pobranieInfoOTowarachToolStripMenuItem
+            // 
+            this.pobranieInfoOTowarachToolStripMenuItem.Name = "pobranieInfoOTowarachToolStripMenuItem";
+            this.pobranieInfoOTowarachToolStripMenuItem.Size = new System.Drawing.Size(152, 20);
+            this.pobranieInfoOTowarachToolStripMenuItem.Text = "Pobranie info o towarach";
+            this.pobranieInfoOTowarachToolStripMenuItem.Visible = false;
+            this.pobranieInfoOTowarachToolStripMenuItem.Click += new System.EventHandler(this.pobranieInfoOTowarachToolStripMenuItem_Click);
             // 
             // Pulpit
             // 
@@ -378,11 +409,14 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPozycje)).EndInit();
+            this.menuStrip2DataGrid.ResumeLayout(false);
+            this.menuStrip2DataGrid.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,6 +452,9 @@
         private System.Windows.Forms.ComboBox cMagazyn;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cMagazyn2;
+        private System.Windows.Forms.MenuStrip menuStrip2DataGrid;
+        private System.Windows.Forms.ToolStripMenuItem menu2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pobranieInfoOTowarachToolStripMenuItem;
     }
 }
 

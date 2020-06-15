@@ -1,0 +1,2578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="ApiProducts" name="ApiProducts" targetNamespace="ApiProducts" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="ApiProducts">
+      <xsd:complexType name="requestType">
+        <xsd:annotation>
+          <xsd:documentation>Element służy do uwierzytelniania w celu wywołania metody.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="authenticate" type="ns:authenticateType" />
+          <xsd:element minOccurs="0" name="params" type="ns:paramsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="authenticateType">
+        <xsd:annotation>
+          <xsd:documentation>Login wykorzystywany podczas uwierzytelniania.</xsd:documentation>
+          <xsd:documentation>Klucz wykorzystywany podczas uwierzytelniania. Zapoznaj się z &lt;a href = "/pl/shop/developers/api/faq/najczesciej-zadawane-pytania-dotyczace-api-pa-IdoSell Shop-com/#3"&gt;instrukcją generowania klucza&lt;/a&gt;.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="userLogin" type="xsd:string" />
+          <xsd:element name="authenticateKey" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="paramsType">
+        <xsd:annotation>
+          <xsd:documentation>Element określa, jakie produkty mają być zwracane przez bramkę.
+            Domyślnie zwracane są produkty nieusunięte.
+            Możliwe wartości:
+            "active" - produkty nieusunięte,
+            "deleted" - produkty usunięte.
+            "in_trash" - produktyWKoszu.</xsd:documentation>
+          <xsd:documentation>Elementy, które powinny być zwrócone przez bramkę. Domyślnie zwracane są wszystkie elementy
+                Możliwe wartości:
+                * lang_data
+                * adding_time,
+                * deleted,
+                * code,
+                * note,
+                * taxcode,
+                * inwrapper,
+                * sellby_retail,
+                * sellby_wholesale,
+                * producer_id,
+                * producer_name,
+                * iaiCategoryId,
+                * iaiCategoryName,
+                * iaiCategoryPath,
+                * category_id,
+                * category_name,
+                * size_group_id,
+                * modification_time,
+                * currency,
+                * currency_shop,
+                * bestseller,
+                * new_product,
+                * retail_price,
+                * wholesale_price,
+                * minimal_price,
+                * pos_price,
+                * strikethrough_retail_price,
+                * strikethrough_wholesale_price,
+                * last_purchase_price,
+                * purchase_price_net_average,
+                * purchase_price_net_last,
+                * purchase_price_gross_average,
+                * purchase_price_gross_last,
+                * vat,
+                * vat_free,
+                * rebate,
+                * hotspots_zones,
+                * profit_points,
+                * points,
+                * weight,
+                * export_to_pricecomparers,
+                * export_to_amazon_marketplace,
+                * enable_in_pos,
+                * complex_notes,
+                * available_profile,
+                * traits,
+                * parameters,
+                * version_data,
+                * advance,
+                * promotion,
+                * discount,
+                * distinguished,
+                * special,
+                * visible,
+                * persistent,
+                * priority,
+                * shops_mask,
+                * icon,
+                * icon_for_auctions,
+                * icon_for_group,
+                * pictures,
+                * unit,
+                * warranty,
+                * series,
+                * products_associated,
+                * shops,
+                * quantities,
+                * sizes_attributes,
+                * shops_attributes,
+                * auction_prices,
+                * price_comparers_prices,
+                * deliverer,
+                * sizes,
+                * size_group_name,
+                * pictures_count,
+                * product_type,
+                * price_changed_time,
+                * quantity_changed_time,
+                * deliverer_name,
+                * available_profile_name,
+                * availability_management_type,
+                * sum_in_basket,
+                * menu,
+                * auction_settings,
+                * bundle,
+                * sizeschart_id,
+                * sizeschart_name,
+                * serialnumbers,
+                * producer_codes_standard,
+                * javaScriptInTheItemCard,
+                * productAuctionDescriptionsData</xsd:documentation>
+          <xsd:documentation>Dostępność produktu. Możliwe wartości: "y" - dostępny, "n" - niedostępny.</xsd:documentation>
+          <xsd:documentation>Widoczność produktu w sklepie.
+            Możliwe wartości:
+            "y" - Widoczny,
+            "n" - Niewidoczny.</xsd:documentation>
+          <xsd:documentation>ID grupy towarów</xsd:documentation>
+          <xsd:documentation>Produkt promowany.
+            Możliwe wartości:
+            "y" - promowany,
+            "n" - niepromowany.</xsd:documentation>
+          <xsd:documentation>Produkt przeceniony.
+            Możliwe wartości:
+            "y" - przeceniony,
+            "n" - nieprzeceniony.</xsd:documentation>
+          <xsd:documentation>Produkt wyróżniony.
+            Możliwe wartości:
+            "y" - wyróżniony,
+            "n" - niewyróżniony.</xsd:documentation>
+          <xsd:documentation>Produkt specjalny.
+            Możliwe wartości:
+            "y" - specjalny,
+            "n" - niespecjalny.</xsd:documentation>
+          <xsd:documentation>Produkt dostępny za punkty.
+            Możliwe wartości:
+            "y" - Dostępny za punkty,
+            "n" - Niedostępny za punkty.</xsd:documentation>
+          <xsd:documentation>Towar obserwowany.
+            Możliwe wartości:
+            "Y" - jest obserwowany,
+            "n" - nie jest obserwowany.</xsd:documentation>
+          <xsd:documentation>Element określa czy produkt domyślny (produkt o identyfikatorze równym 0, zawierający ustawienia nowo dodanych produktów) ma być pominięty
+            Możliwe wartości:
+            "y" - omija produkt domyślny,
+            "n" - umożliwia pobranie produktu domyślnego.</xsd:documentation>
+          <xsd:documentation>Lista kategorii, w których występują poszukiwane produkty.</xsd:documentation>
+          <xsd:documentation>Lista producentów przypisanych do poszukiwanych produktów.</xsd:documentation>
+          <xsd:documentation>Lista poszukiwanych produktów. Parametr wykorzystywany jeżeli nie podano parametru productIndexes.</xsd:documentation>
+          <xsd:documentation>Lista poszukiwanych produktów według indeksów.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące sklepów, do których należy produkt.</xsd:documentation>
+          <xsd:documentation>Lista promocji, do których należą poszukiwane produkty.</xsd:documentation>
+          <xsd:documentation>Ustawienia dotyczące zawężania listy znalezionych produktów według dat.</xsd:documentation>
+          <xsd:documentation>Parametry</xsd:documentation>
+          <xsd:documentation>Serie, do których przypisane są poszukiwane produkty.</xsd:documentation>
+          <xsd:documentation>Lista jednostek ustawionych dla poszukiwanych produktów.</xsd:documentation>
+          <xsd:documentation>Zawężanie listy produktów według ustawionych gwarancji.</xsd:documentation>
+          <xsd:documentation>Dostawcy do których przypisane są poszukiwane produkty.</xsd:documentation>
+          <xsd:documentation>Produkt zawiera tekst (wyszukuje w opisie krótkim oraz długim).</xsd:documentation>
+          <xsd:documentation>Kod produktu lub jego część (kodzie producenta, kodzie zewnętrznego systemu oraz kodzie wyświetlanym na karcie produktu).
+            Wyszukiwanie dostępne tylko po produktach dostępnych.</xsd:documentation>
+          <xsd:documentation>Dostępność produktów w magazynach</xsd:documentation>
+          <xsd:documentation>Dostępność produktów na aukcjach internetowych</xsd:documentation>
+          <xsd:documentation>Numer strony z wynikami. Numeracja rozpoczyna się od 0</xsd:documentation>
+          <xsd:documentation>Ilość wyników na stronie. Wartości od 1 do 100</xsd:documentation>
+          <xsd:documentation>Możliwość sortowania zwróconej listy</xsd:documentation>
+          <xsd:documentation>Identyfikator języka pozwalający na wyszukiwanie i zwracanie danych w wybranym języku.
+            Parametr ten jest opcjonalny, jego brak powoduje, że wyszukiwanie odbywa się po wszystkich językach.</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty pozwalający na wyszukiwanie i zwracanie produktów w danej walucie.
+            Parametr ten jest opcjonalny, jego brak powoduje, że wyszukiwanie odbywa się po wszystkich walutach.</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty pozwalający na zwracanie wszystkich cen towarów w danej walucie.</xsd:documentation>
+          <xsd:documentation>Adnotacja zawiera tekst.</xsd:documentation>
+          <xsd:documentation>Widoczność produktu w eksporcie do porównywarek i marketplaces
+            Możliwe wartości:
+            "y" - Widoczny,
+            "n" - niewidoczny.</xsd:documentation>
+          <xsd:documentation>Widoczność towaru w eksporcie do Amazon Marketplace.
+            Możliwe wartości:
+            "y" - Widoczny,
+            "n" - niewidoczny.</xsd:documentation>
+          <xsd:documentation>Produkt jest bestsellerem.
+            Możliwe wartości:
+            "n" - nie,
+            "y" - tak.</xsd:documentation>
+          <xsd:documentation>Produkt jest nowością.
+            Możliwe wartości:
+            "y" - jest nowością,
+            "n" - nie jest nowością.</xsd:documentation>
+          <xsd:documentation>Sklepy</xsd:documentation>
+          <xsd:documentation>Przedział cen dla szukanych produktów.</xsd:documentation>
+          <xsd:documentation>Wartość podatku VAT dla szukanych produktów</xsd:documentation>
+          <xsd:documentation>Czy towar jest zwolniony z VAT
+            Dopuszczalne wartości
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Produkt posiada zdefiniowaną cenę hurtową.
+            Możliwe wartości:
+            "y" - posiada cenę hurtową,
+            "n" - nie posiada ceny hurtowej.</xsd:documentation>
+          <xsd:documentation>Produkt pokazywany przy braku w magazynie
+            Możliwe wartości:
+            "y" - widoczny przy braku w magazynie,
+            "n" - niewidoczny przy braku w magazynie.</xsd:documentation>
+          <xsd:documentation>Ustawienia dotyczące zwracania produktów dla wariantów
+            Domyślnie zwracane są wszystkie produkty z wariantami
+            Możliwe wartości:
+            version_all - zwraca wszystkie warianty,
+            version_main - zwraca tylko wariant główny.</xsd:documentation>
+          <xsd:documentation>Czy sumować produkty w koszyku jako jedną pozycje?
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Typ towaru. Dopuszczalne wartości:
+            "product_item" - Towar,
+            "product_free" - Towar gratisowy,
+            "product_packaging" - opakowanie,
+            "product_bundle" - zestaw.
+            "product_collection" - kolekcja.
+            "product_service" - usługa.
+            "product_virtual" - towar wirtualny.</xsd:documentation>
+          <xsd:documentation>Tablica elementów menu</xsd:documentation>
+          <xsd:documentation>Id lokalizacji magazynowej</xsd:documentation>
+          <xsd:documentation>Pełna ścieżka lokalizacji magazynowej
+            Używaj ukośnika wstecznego jako separatora (\), na przykład: M1\Nazwa strefy\Nazwa lokalizacji
+            Gdy zostanie podany parametr location_id, pełna ścieżka lokalizacji magazynowej nie będzie brana pod uwagę</xsd:documentation>
+          <xsd:documentation>Zwróć wszystkie atrybuty rozmiarów niezależnie od tego, czy ich cen są takie same jak cena bazowa, czy też się od niej różnią.
+                Możliwe wartości:
+                1 - zwrócone zostaną wszystkie atrybuty rozmiarów;
+                0 - zwrócone zostaną atrybuty tylko tych rozmiarów, których ceny będą różne od ceny bazowej (wartość domyślna).</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="returnProducts" type="xsd:string" />
+          <xsd:element minOccurs="0" name="returnElements" type="ns:returnElementsType" />
+          <xsd:element minOccurs="0" name="productIsAvailable" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIsVisible" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productVersionId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productInPromotion" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInDiscount" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInDistinguished" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInSpecial" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInForPointsSelling" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="productIsObservedByClients" type="xsd:string" />
+          <xsd:element minOccurs="0" name="skipDefaultProduct" type="xsd:string" />
+          <xsd:element minOccurs="0" name="categories" type="ns:categoriesType" />
+          <xsd:element minOccurs="0" name="producers" type="ns:producersType" />
+          <xsd:element minOccurs="0" name="productParams" type="ns:productParamsType" />
+          <xsd:element minOccurs="0" name="productIndexes" type="ns:productIndexesType" />
+          <xsd:element minOccurs="0" name="productShops" type="ns:productShopsType" />
+          <xsd:element minOccurs="0" name="productPromotionsIds" type="ns:productPromotionsIdsType" />
+          <xsd:element minOccurs="0" name="productDate" type="ns:productDateType" />
+          <xsd:element minOccurs="0" name="productParametersParams" type="ns:productParametersParamsType" />
+          <xsd:element minOccurs="0" name="productSeriesParams" type="ns:productSeriesParamsType" />
+          <xsd:element minOccurs="0" name="productUnits" type="ns:productUnitsType" />
+          <xsd:element minOccurs="0" name="productWarranties" type="ns:productWarrantiesType" />
+          <xsd:element minOccurs="0" name="deliverersIds" type="ns:deliverersIdsType" />
+          <xsd:element minOccurs="0" name="containsText" type="xsd:string" />
+          <xsd:element minOccurs="0" name="containsCodePart" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAvailableInStocks" type="ns:productAvailableInStocksType" />
+          <xsd:element minOccurs="0" name="productAvailableInAuctions" type="ns:productAvailableInAuctionsType" />
+          <xsd:element minOccurs="0" name="resultsPage" type="xsd:int" />
+          <xsd:element minOccurs="0" name="resultsLimit" type="xsd:int" />
+          <xsd:element minOccurs="0" name="ordersBy" type="ns:ordersByType" />
+          <xsd:element minOccurs="0" name="productSearchingLangId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSearchingCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="returnPricesCurrency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productHasNote" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInExportToPriceComparisonSites" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInExportToAmazonMarketplace" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInBestseller" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInNew" type="xsd:string" />
+          <xsd:element minOccurs="0" name="searchByShops" type="ns:searchByShopsType" />
+          <xsd:element minOccurs="0" name="productSearchPriceRange" type="ns:productSearchPriceRangeType" />
+          <xsd:element minOccurs="0" name="productVatRates" type="ns:productVatRatesType" />
+          <xsd:element minOccurs="0" name="productIsVatFree" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productHasWholesalePrice" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInPersistent" type="xsd:string" />
+          <xsd:element minOccurs="0" name="returnProductsVersions" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInSumInBasket" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productType" type="ns:productTypeType" />
+          <xsd:element minOccurs="0" name="productMenuItems" type="ns:productMenuItemsType" />
+          <xsd:element minOccurs="0" name="productLocationId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productLocationTextId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="alwaysReturnProductShopSizesAttributes" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="returnElementsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="categoriesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:categoryType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="categoryType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator kategorii</xsd:documentation>
+          <xsd:documentation>Nazwa Kategorii</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="categoryId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="categoryName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="producersType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:producerType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="producerType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator producenta</xsd:documentation>
+          <xsd:documentation>Nazwa producenta</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="producerId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="producerName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productParamsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productParamType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productParamType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Kod produktu widoczny w sklepie</xsd:documentation>
+          <xsd:documentation>Nazwa towaru.</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Kod producenta</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productProducerCode" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productIndexesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productIndexItemType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productIndexItemType">
+        <xsd:annotation>
+          <xsd:documentation>Indeks produktu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productIndex" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productShopsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productShopType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productShopType">
+        <xsd:annotation>
+          <xsd:documentation>Maska bitowa z identyfikatorów sklepów.
+            Maskę dla danego sklepu oblicza się według następującego wzoru:
+            2^(ID_sklepu - 1).
+            Jeśli produkt ma być dostępny w więcej niż jednym sklepie, maski należy ze sobą zsumować.</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="shopsMask" type="xsd:int" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productPromotionsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productDateType">
+        <xsd:annotation>
+          <xsd:documentation>Rodzaj daty.
+            Dopuszczalne wartości
+            "added" - dataDodaniaProduktu,
+            "finished" - data skończenia się produktu,
+            "resumed" - data wznowienia produktu,
+            "modified" - data ostatniej modyfikacji produktu,
+            "quantity_changed" - data ostatniej zmiany stanu magazynowego produktu,
+            "price_changed" - data ostatniej zmiany ceny produktu,
+            "modified_and_quantity_changed" - data ostatniej modyfikacji i zmiany stanu magazynowego produktu.</xsd:documentation>
+          <xsd:documentation>Data początkowa w formacie YYYY-MM-DD</xsd:documentation>
+          <xsd:documentation>Data końcowa w formacie YYYY-MM-DD</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productDateMode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productDateBegin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productDateEnd" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productParametersParamsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productParameterParamsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productParameterParamsType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa grupy parametrów</xsd:documentation>
+          <xsd:documentation>Identyfikator cechy</xsd:documentation>
+          <xsd:documentation>Nazwa parametrów</xsd:documentation>
+          <xsd:documentation>Identyfikator grupy parametrów</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="parameterNames" type="ns:parameterNamesType" />
+          <xsd:element minOccurs="0" name="parameterValuesIds" type="ns:parameterValuesIdsType" />
+          <xsd:element minOccurs="0" name="parameterValuesNames" type="ns:parameterValuesNamesType" />
+          <xsd:element minOccurs="0" name="productParameterIds" type="ns:productParameterIdsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="parameterNamesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValuesIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValuesNamesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productParameterIdsType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator grup cech ustawionych.</xsd:documentation>
+          <xsd:documentation>Identyfikator grup cech nieustawionych.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productParameterIdsEnabled" type="ns:productParameterIdsEnabledType" />
+          <xsd:element minOccurs="0" name="productParameterIdsDisabled" type="ns:productParameterIdsDisabledType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productParameterIdsEnabledType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productParameterIdsDisabledType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSeriesParamsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSeriesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSeriesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator serii, do której należy produkt.</xsd:documentation>
+          <xsd:documentation>Nazwa serii, do której należy produkt, widoczna w panelu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące nazw serii w danym języku, widoczne w sklepie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="seriesId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="seriesPanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="seriesDescriptionsLangData" type="ns:seriesDescriptionsLangDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="seriesDescriptionsLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:seriesLangDataTypeArray[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="seriesLangDataTypeArray">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa serii w danym języku</xsd:documentation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="seriesName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productUnitsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productUnitType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productUnitType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator jednostki, w jakiej oferowany jest produkt.</xsd:documentation>
+          <xsd:documentation>Nazwa jednostki, w jakiej oferowany jest produkt.</xsd:documentation>
+          <xsd:documentation>Precyzja jednostki miary.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="unitId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="unitName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="unitPrecision" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productWarrantiesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productWarrantyType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productWarrantyType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator gwarancji, jaką objęty jest produkt.</xsd:documentation>
+          <xsd:documentation>Nazwa gwarancji, jaką objęty jest dany produkt.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="warrantyId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="warrantyName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="deliverersIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productAvailableInStocksType">
+        <xsd:annotation>
+          <xsd:documentation>Określa, czy dostępność w magazynach została ustawiona. Możliwe wartości: "y" -
+            jest dostępny w magazynach, "n" - nie jest dostępny w magazynach.</xsd:documentation>
+          <xsd:documentation>Zawężanie listy do przeszukiwanych magazynów Pusta lista określa wszystkie magazyny.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productIsAvailableInStocks" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAvailableInStocksIds" type="ns:productAvailableInStocksIdsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAvailableInStocksIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productAvailableInAuctionsType">
+        <xsd:annotation>
+          <xsd:documentation>Określa, czy dostępność na aukcjach została ustawiona.
+            Możliwe wartości:
+            "y" - jest dostępny na aukcjach,
+            "n" - nie jest dostępny na aukcjach.</xsd:documentation>
+          <xsd:documentation>Zawężanie listy do przeszukiwanych kont aukcyjnych.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productIsAvailableInAuctions" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAvailableInAuctionsAccountsIds" type="ns:productAvailableInAuctionsAccountsIdsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAvailableInAuctionsAccountsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ordersByType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:orderByType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="orderByType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa pola po jakim będzie sortowana lista (możliwość sortowania tylko po produktach nieusuniętych).
+            Możliwe wartości:
+            "id" - Identyfikator produktu,
+            "name" - nazwa produktu,
+            "code" - Kod produktu,
+            "product_sizecode" - Kod zewnętrznego systemu,
+            "code_producer" - Kod producenta,
+            "retail_price" - Cena detaliczna produktu,
+            "pos_price" - cena dla POS,
+            "vat" - Wartość podatku VAT,
+            "wholesale_price" - cena hurtowa,
+            "minimal_price" - Cena minimalna,
+            "pictures_count" - ilości zdjęć produktu,
+            "auction_name" - nazwa produktu dla serwisów aukcyjnych,
+            "pricecomparer_name" - nazwa produktu dla porównywarek cen,
+            "version_name" - Nazwa towaru w grupie,
+            "series_name" - Nazwa serii,
+            "category_name" - Nazwa Kategorii,
+            "deliverer_name" - Nazwa dostawcy,
+            "adding_time" - Data wprowadzenia,
+            "modification_time" - data modyfikacji,
+            "price_changed_time" - Data ostatniej zmiany ceny,
+            "quantity_changed_time" - Data modyfikacji stanów magazynowych,
+            "currency" - Waluta DEPRECATED. Ten parametr jest przestarzały,
+            "currency_shop" - Waluta,
+            "taxcode" - PKWiU,
+            "meta_title" - Meta title produktów,
+            "meta_description" - Meta description produktów,
+            "meta_keywords" - Meta keywords produktów,
+            "suggested_price" - Cena sugrowana.
+            "observed_clients" - Liczba odwiedzających, którzy zapisali się na powiadomienie o dostępności
+            "observed_time" - Przeciętny czas oczekiwania na powiadomienie o dostępności
+            "wishes_clients" - Klienci, którzy dodali towar do przechowalni
+            "wishes_time" - Przeciętna liczba dni, od kiedy towar jest w przechowalni</xsd:documentation>
+          <xsd:documentation>Określa kierunek sortowania.
+            Możliwe wartości:
+            "ASC" - rosnąco,
+            "DESC" - malejąco.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="elementName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sortDirection" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="searchByShopsType">
+        <xsd:annotation>
+          <xsd:documentation>Określenie sposobu wyszukiwania danych w zależności od wybranej opcji dla sklepów.
+            Możliwe wartości:
+            "in_one_of_selected" - w jednym z podanych sklepów,
+            "in_all_of_selected" - dokładnie we wszystkich podanych sklepach,
+            Parametr ten jest opcjonalny, jego brak powoduje, że wyszukiwanie odbywa się po opcji: w jednym z podanych sklepów(in_one_of_selected).</xsd:documentation>
+          <xsd:documentation>Maska bitowa z identyfikatorów sklepów.
+            Maskę dla danego sklepu oblicza się według następującego wzoru:
+            2^(ID_sklepu - 1).
+            Jeśli produkt ma być dostępny w więcej niż jednym sklepie, maski należy ze sobą zsumować.</xsd:documentation>
+          <xsd:documentation>Lista identyfikatorów sklepów W przypadku podania maski, parametr nie jest brany pod uwagę.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="searchModeInShops" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shopsMask" type="xsd:int" />
+          <xsd:element minOccurs="0" name="shopsIds" type="ns:shopsIdsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="shopsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSearchPriceRangeType">
+        <xsd:annotation>
+          <xsd:documentation>Określa rodzaj ceny dla danych wartości.
+            Możliwe wartości:
+            "retail_price" - Cena detaliczna produktu,
+            "wholesale_price" - Cena hurtowa produktu,
+            "minimal_price" - Cena minimalna produktu,
+            "pos_price" - cena dla POS,
+            "last_purchase_price" - Ostatnia cena zakupu.</xsd:documentation>
+          <xsd:documentation>Cena minimalna dla produktu.</xsd:documentation>
+          <xsd:documentation>Cena maksymalna dla produktu.</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productSearchPriceMode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSearchPriceMin" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSearchPriceMax" type="xsd:float" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productVatRatesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:float[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productTypeType">
+        <xsd:annotation>
+          <xsd:documentation>Czy zwracać na liście towary. Domyślnie parametr ustawiony na true.</xsd:documentation>
+          <xsd:documentation>Czy zwracać na liście towary gratisowe. Domyślnie parametr ustawiony na true.</xsd:documentation>
+          <xsd:documentation>Czy zwracać na liście zestawy. Domyślnie parametr ustawiony na true.</xsd:documentation>
+          <xsd:documentation>Czy zwracać na liście kolekcje. Domyślnie parametr ustawiony na true.</xsd:documentation>
+          <xsd:documentation>Czy zwracać na liście opakowania ozdobne. Domyślnie parametr ustawiony na true.</xsd:documentation>
+          <xsd:documentation>Czy zwracać na liście usługi. Domyślnie parametr ustawiony na true.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productTypeInItem" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTypeInFree" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTypeInBundle" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTypeInCollection" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTypeInPackaging" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productTypeInService" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productMenuItemsType">
+        <xsd:annotation>
+          <xsd:documentation>Tablica identyfikatorów</xsd:documentation>
+          <xsd:documentation>Tablica identyfikatorów tekstowych</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="menuItemsIds" type="ns:menuItemsIdsType" />
+          <xsd:element minOccurs="0" name="menuItemsTextIds" type="ns:menuItemsTextIdsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="menuItemsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="menuItemsTextIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:menuItemsTextIdType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="menuItemsTextIdType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator tekstowy elementu menu.
+            Przykład: "item1\item2\item3".</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>ID strefy menu wyświetlanej w masce</xsd:documentation>
+          <xsd:documentation>The separator separates the individual elements of a text id.
+            Default: "\".</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="menuItemTextId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="menuId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="menuItemTextIdSeparator" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="responseType">
+        <xsd:annotation>
+          <xsd:documentation>Ilość wszystkich wyników, jakie zostały znalezione</xsd:documentation>
+          <xsd:documentation>Ilość stron wszystkich znalezionych wyników</xsd:documentation>
+          <xsd:documentation>Numer strony z wynikami. Numeracja rozpoczyna się od 0</xsd:documentation>
+          <xsd:documentation>Ilość wyników na stronie. Wartości od 1 do 100</xsd:documentation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Element zawierający szczegółowe informacje o wyniku wykonanej operacji.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="resultsNumberAll" type="xsd:int" />
+          <xsd:element name="resultsNumberPage" type="xsd:int" />
+          <xsd:element name="resultsPage" type="xsd:int" />
+          <xsd:element name="resultsLimit" type="xsd:int" />
+          <xsd:element name="errors" type="ns:errorsType" />
+          <xsd:element name="results" type="ns:resultsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="errorsType">
+        <xsd:annotation>
+          <xsd:documentation>Kod błędu.
+                Lista kodów błędów:
+                "0" - Operacja powiodła się,
+                "1" - Błąd logowania: błędny login lub klucz
+                "2" - Wyszukiwarka produktów: zwrócono pusty wynik,
+                "3" - Wyszukiwarka produktów: nie podano żadnych parametrów,
+                "4" - Wyszukiwarka produktów: podano nieznaną walutę dla zwracanych cen,
+                "5" - Sklep został zablokowany ze względu na nadmierne zaległości w spłacie faktur IAI S.A.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="faultCode" type="xsd:int" />
+          <xsd:element name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="resultsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:resultType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="resultType">
+        <xsd:annotation>
+          <xsd:documentation>Formuła JavaScript kalkulująca cenę</xsd:documentation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Kod produktu widoczny w sklepie.</xsd:documentation>
+          <xsd:documentation>Adnotacja.</xsd:documentation>
+          <xsd:documentation>PKWiU.</xsd:documentation>
+          <xsd:documentation>Identyfikator producenta</xsd:documentation>
+          <xsd:documentation>Nazwa producenta</xsd:documentation>
+          <xsd:documentation>Identyfikator Kategorii IAI</xsd:documentation>
+          <xsd:documentation>Ścieżka nazw Kategorii IAI</xsd:documentation>
+          <xsd:documentation>Identyfikator kategorii</xsd:documentation>
+          <xsd:documentation>Nazwa Kategorii</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty</xsd:documentation>
+          <xsd:documentation>Waluta, w której przechowywane są ceny produktu.</xsd:documentation>
+          <xsd:documentation>Produkt jest bestsellerem.
+            Możliwe wartości:
+            "n" - nie,
+            "y" - tak.</xsd:documentation>
+          <xsd:documentation>Cena brutto</xsd:documentation>
+          <xsd:documentation>Cena hurtowa</xsd:documentation>
+          <xsd:documentation>Cena minimalna</xsd:documentation>
+          <xsd:documentation>cena dla POS.</xsd:documentation>
+          <xsd:documentation>Cena przekreślona detaliczna (brutto)</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa (brutto)</xsd:documentation>
+          <xsd:documentation>Uśredniona cena zakupu netto.</xsd:documentation>
+          <xsd:documentation>Ostatnia cena zakupu netto</xsd:documentation>
+          <xsd:documentation>Uśredniona cena zakupu brutto.</xsd:documentation>
+          <xsd:documentation>Ostatnia cena zakupu brutto</xsd:documentation>
+          <xsd:documentation>Wartość podatku VAT</xsd:documentation>
+          <xsd:documentation>Czy towar zwolniony z podatku VAT
+            Dopuszczalne wartości
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Identyfikator profilu rabatowego</xsd:documentation>
+          <xsd:documentation>Produkt jest nowością.
+            Możliwe wartości:
+            "y" - jest nowością,
+            "n" - nie jest nowością.</xsd:documentation>
+          <xsd:documentation>Ustawienia wyświetlania w hotspotach.</xsd:documentation>
+          <xsd:documentation>Wartość punktowa produktu.</xsd:documentation>
+          <xsd:documentation>Waga.</xsd:documentation>
+          <xsd:documentation>Widoczność produktu w eksporcie do porównywarek i marketplaces
+            Możliwe wartości:
+            "y" - Widoczny,
+            "n" - niewidoczny.</xsd:documentation>
+          <xsd:documentation>Widoczność towaru w eksporcie do Amazon Marketplace.
+            Możliwe wartości:
+            "y" - Widoczny,
+            "n" - niewidoczny.</xsd:documentation>
+          <xsd:documentation>Określa czy produkt jest dostępny w sprzedaży POS
+            Możliwe wartości:
+            "n" - nie,
+            "y" - tak.</xsd:documentation>
+          <xsd:documentation>Ocena złożona
+            Możliwe wartości:
+            "0" - nie,
+            "1" - tak.</xsd:documentation>
+          <xsd:documentation>Identyfikator profilu dostępności.</xsd:documentation>
+          <xsd:documentation>Nazwa profilu dostępności.</xsd:documentation>
+          <xsd:documentation>Widoczność produktu w sklepie.
+            Możliwe wartości:
+            "y" - Widoczny,
+            "n" - Niewidoczny.</xsd:documentation>
+          <xsd:documentation>Produkt pokazywany przy braku w magazynie
+            Możliwe wartości:
+            "y" - widoczny przy braku w magazynie,
+            "n" - niewidoczny przy braku w magazynie.</xsd:documentation>
+          <xsd:documentation>Priorytet.
+            Dopuszczalne wartości od 1 do 10.</xsd:documentation>
+          <xsd:documentation>Maska bitowa z identyfikatorów sklepów.
+            Maskę dla danego sklepu oblicza się według następującego wzoru:
+            2^(ID_sklepu - 1).
+            Jeśli produkt ma być dostępny w więcej niż jednym sklepie, maski należy ze sobą zsumować.</xsd:documentation>
+          <xsd:documentation>Informacje o ikonie produktu.</xsd:documentation>
+          <xsd:documentation>Informacje o ikonie dla aukcji</xsd:documentation>
+          <xsd:documentation>Informacje o ikonie dla grupy towarów</xsd:documentation>
+          <xsd:documentation>Informacje o zdjęciach produktu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące serii, do której należy produkt.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące jednostki miary, w jakiej oferowany jest produkt.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące ilości sztuk sprzedawanych w opakowaniu.</xsd:documentation>
+          <xsd:documentation>Sprzedawane po - dla detalistów.</xsd:documentation>
+          <xsd:documentation>Sprzedawane po - dla hurtowników.</xsd:documentation>
+          <xsd:documentation>Identyfikator grupy rozmiarowej
+            Zmiana grupy rozmiarowej na inną powoduje wyzerowanie stanów magazynowych produktu we wszystkich magazynach.
+            Zmiany grupy rozmiarowej można dokonać jeśli produkt nie znajduje się w zamówieniach nieobsłużonych oraz nie jest wystawiony na aukcjach internetowych.</xsd:documentation>
+          <xsd:documentation>Data i czas wprowadzenia produktu w formacie (RRRR-MM-DD GG:MM:SS).</xsd:documentation>
+          <xsd:documentation>Data i czas ostatniej modyfikacji produktu w formacie (RRRR-MM-DD GG:MM:SS).</xsd:documentation>
+          <xsd:documentation>Data i czas ostatniej modyfikacji ceny produktu w formacie (RRRR-MM-DD GG:MM:SS).</xsd:documentation>
+          <xsd:documentation>Data i czas ostatniej modyfikacji stanów magazynach produktu w formacie RRRR-MM-DD GG:MM:SS.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące gwarancji, jaką objęty jest produkt.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące wariantów produktu</xsd:documentation>
+          <xsd:documentation>Dane dotyczące Produktów polecanych z tym produktem.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące zaliczki koniecznej do zrealizowania zamówienia z tym produktem.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące sklepów, do których należy produkt.</xsd:documentation>
+          <xsd:documentation>Tablica elementów zależnych od języka.</xsd:documentation>
+          <xsd:documentation>Dane towaru dla serwisów aukcyjnych</xsd:documentation>
+          <xsd:documentation>Promocja</xsd:documentation>
+          <xsd:documentation>Przecena dla sklepu.</xsd:documentation>
+          <xsd:documentation>Produkt wyróżniony dla sklepu.</xsd:documentation>
+          <xsd:documentation>Produkt specjalny dla sklepu.</xsd:documentation>
+          <xsd:documentation>Parametry (wyróżnione).</xsd:documentation>
+          <xsd:documentation>Dane dotyczące stanów magazynowych produktu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące atrybutów zależnych od poszczególnych rozmiarów produktu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące atrybutów zależnych od poszczególnych sklepów, do których należy produkt.</xsd:documentation>
+          <xsd:documentation>Identyfikator dostawcy produktu.</xsd:documentation>
+          <xsd:documentation>Nazwa dostawcy produktu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące rozmiarów dostępnych dla produktu.</xsd:documentation>
+          <xsd:documentation>Identyfikator tabeli rozmiarów</xsd:documentation>
+          <xsd:documentation>Nazwa tabeli rozmiarów</xsd:documentation>
+          <xsd:documentation>Ilość zdjęć przypisanych do produktu.</xsd:documentation>
+          <xsd:documentation>Sposób zarządzania dostępnością towaru
+            Możliwe wartości:
+            "stock" - za pomocą gospodarki magazynowej,
+            "manual" - ręcznie.</xsd:documentation>
+          <xsd:documentation>Czy sumować produkty w koszyku jako jedną pozycje?
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Przypisania do menu</xsd:documentation>
+          <xsd:documentation>Typ towaru. Dopuszczalne wartości:
+            "product_item" - Towar,
+            "product_free" - Towar gratisowy,
+            "product_packaging" - opakowanie,
+            "product_bundle" - zestaw.
+            "product_collection" - kolekcja.
+            "product_service" - usługa.
+            "product_virtual" - towar wirtualny.</xsd:documentation>
+          <xsd:documentation>Lista składowych, jeśli towar jest zestawem lub kolekcją.</xsd:documentation>
+          <xsd:documentation>Zapamiętuj numery seryjne sprzedawanych produktów:
+            "required" - wymagane,
+            "optional" - opcjonalnie,
+            "na" - nieużywane</xsd:documentation>
+          <xsd:documentation>Parametry.</xsd:documentation>
+          <xsd:documentation>Standard kodu producenta.
+            Możliwe wartości:
+            "auto" - Wybierz automatycznie,
+            "GTIN14" - GTIN-14
+            "GTIN13" - GTIN-13 (EAN-13)
+            "ISBN13" - GTIN-13 (ISBN-13)
+            "GTIN12" - GTIN-12 (UPC-A)
+            "ISBN10" - ISBN-10
+            "GTIN8" - GTIN-8 (EAN-8)
+            "UPCE" - UPC-E
+            "MPN" - MPN
+            "other" - Inny</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="priceFormula" type="ns:priceFormulaType" />
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productDisplayedCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIsDeleted" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productNote" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productTaxCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="producerId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="producerName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="categoryIdoSellId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="categoryIdoSellPath" type="xsd:string" />
+          <xsd:element minOccurs="0" name="categoryId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="categoryName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="currencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productCurrenciesShops" type="ns:productCurrenciesShopsType" />
+          <xsd:element minOccurs="0" name="productInBestseller" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productMinimalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPosPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPurchasePriceNetAverage" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPurchasePriceNetLast" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPurchasePriceGrossAverage" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPurchasePriceGrossLast" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productVat" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productVatFree" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productRebate" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productInNew" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productHotspotsZones" type="ns:productHotspotsZonesType" />
+          <xsd:element minOccurs="0" name="productProfitPoints" type="ns:productProfitPointsType" />
+          <xsd:element minOccurs="0" name="productWeight" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productInExportToPriceComparisonSites" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInExportToAmazonMarketplace" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productEnableInPos" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productComplexNotes" type="xsd:int" />
+          <xsd:element minOccurs="0" name="availableProfile" type="xsd:int" />
+          <xsd:element minOccurs="0" name="availableProfileName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIsVisible" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInPersistent" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productPriority" type="xsd:int" />
+          <xsd:element minOccurs="0" name="shopsMask" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productIcon" type="ns:productIconType" />
+          <xsd:element minOccurs="0" name="productAuctionIcon" type="ns:productAuctionIconType" />
+          <xsd:element minOccurs="0" name="productGroupIcon" type="ns:productGroupIconType" />
+          <xsd:element minOccurs="0" name="productImages" type="ns:productImagesType" />
+          <xsd:element minOccurs="0" name="productSeries" type="ns:productSeriesType" />
+          <xsd:element minOccurs="0" name="productUnit" type="ns:productUnitType" />
+          <xsd:element minOccurs="0" name="productInWrapper" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSellByRetail" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSellByWholesale" type="xsd:float" />
+          <xsd:element minOccurs="0" name="sizesGroupId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productAddingTime" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productModificationTime" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productPriceChangedTime" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productQuantityChangedTime" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productWarranty" type="ns:productWarrantyType" />
+          <xsd:element minOccurs="0" name="productVersion" type="ns:productVersionType" />
+          <xsd:element minOccurs="0" name="associatedProductsIds" type="ns:associatedProductsIdsType" />
+          <xsd:element minOccurs="0" name="productAdvance" type="ns:productAdvanceType" />
+          <xsd:element minOccurs="0" name="productShops" type="ns:productShopsType" />
+          <xsd:element minOccurs="0" name="productDescriptionsLangData" type="ns:productDescriptionsLangDataType" />
+          <xsd:element minOccurs="0" name="productAuctionDescriptionsData" type="ns:productAuctionDescriptionsDataType" />
+          <xsd:element minOccurs="0" name="productPromotion" type="ns:productPromotionType" />
+          <xsd:element minOccurs="0" name="productDiscount" type="ns:productDiscountType" />
+          <xsd:element minOccurs="0" name="productDistinguished" type="ns:productDistinguishedType" />
+          <xsd:element minOccurs="0" name="productSpecial" type="ns:productSpecialType" />
+          <xsd:element minOccurs="0" name="productParametersDistinction" type="ns:productParametersDistinctionType" />
+          <xsd:element minOccurs="0" name="productStocksData" type="ns:productStocksDataType" />
+          <xsd:element minOccurs="0" name="productSizesAttributes" type="ns:productSizesAttributesType" />
+          <xsd:element minOccurs="0" name="productShopsAttributes" type="ns:productShopsAttributesType" />
+          <xsd:element minOccurs="0" name="delivererId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="delivererName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizes" type="ns:productSizesType" />
+          <xsd:element minOccurs="0" name="sizeChartId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeChartName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productImagesCount" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productAvailabilityManagementType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSumInBasket" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productMenu" type="ns:productMenuType" />
+          <xsd:element minOccurs="0" name="productType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productBundleItems" type="ns:productBundleItemsType" />
+          <xsd:element minOccurs="0" name="productSaveSerialNumbers" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productParameters" type="ns:productParametersType" />
+          <xsd:element minOccurs="0" name="producerCodesStandard" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="priceFormulaType">
+        <xsd:annotation>
+          <xsd:documentation>Formuła JavaScript kalkulująca cenę</xsd:documentation>
+          <xsd:documentation>Formuła JavaScript kalkulująca cenę</xsd:documentation>
+          <xsd:documentation>Formuła JavaScript kalkulująca cenę</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="priceFormulaId" type="xsd:int" />
+          <xsd:element minOccurs="1" name="priceFormulaParameters" type="xsd:string" />
+          <xsd:element minOccurs="1" name="priceFormulaFunction" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productCurrenciesShopsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productCurrencyShopType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productCurrencyShopType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="1" name="currencyId" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productHotspotsZonesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productHotspotZoneType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productHotspotZoneType">
+        <xsd:annotation>
+          <xsd:documentation>Czy atrybut jest ustawiony</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Promocja dla sklepu.</xsd:documentation>
+          <xsd:documentation>Przecena dla sklepu.</xsd:documentation>
+          <xsd:documentation>Produkt wyróżniony dla sklepu.</xsd:documentation>
+          <xsd:documentation>Produkt specjalny dla sklepu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productHotspotIsEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productIsPromotion" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productIsDiscount" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productIsDistinguished" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productIsSpecial" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productProfitPointsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productProfitPointType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productProfitPointType">
+        <xsd:annotation>
+          <xsd:documentation>Czy atrybut jest ustawiony</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Wartość punktowa wymagana do zakupu produktu przez detalistów.</xsd:documentation>
+          <xsd:documentation>Wartość punktowa wymagana do zakupu produktu przez hurtowników.</xsd:documentation>
+          <xsd:documentation>Wartość punktowa, jaką otrzyma się po zakupie produktu przez detalistów.</xsd:documentation>
+          <xsd:documentation>Wartość punktowa, jaką otrzyma się po zakupie produktu przez hurtowników.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productProfitPointsAreEnabled" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productProfitPointsCostRetail" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productProfitPointsCostWholesale" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productProfitPointsAwardRetail" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productProfitPointsAwardWholesale" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productIconType">
+        <xsd:annotation>
+          <xsd:documentation>Określa, czy ikona została ustawiona.
+            Możliwe wartości:
+            "y" - ikona jest ustawiona,
+            "n" - ikona nie jest ustawiona (widoczna ikona domyślna).</xsd:documentation>
+          <xsd:documentation>Url do pliku dużej grafiki ikony</xsd:documentation>
+          <xsd:documentation>Szerokość dużej ikony</xsd:documentation>
+          <xsd:documentation>Wysokość dużej ikony</xsd:documentation>
+          <xsd:documentation>Rozmiar dużej ikony</xsd:documentation>
+          <xsd:documentation>Url do pliku małej grafiki ikony</xsd:documentation>
+          <xsd:documentation>Hash MD5 pliku dużej grafiki ikony</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productIconExists" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIconLargeUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIconLargeWidth" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productIconLargeHeight" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productIconLargeSize" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productIconSmallUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIconHash" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionIconType">
+        <xsd:annotation>
+          <xsd:documentation>Określa, czy ikona została ustawiona.
+            Możliwe wartości:
+            "y" - ikona jest ustawiona,
+            "n" - ikona nie jest ustawiona (widoczna ikona domyślna).</xsd:documentation>
+          <xsd:documentation>Url do pliku dużej grafiki ikony</xsd:documentation>
+          <xsd:documentation>Szerokość dużej ikony</xsd:documentation>
+          <xsd:documentation>Wysokość dużej ikony</xsd:documentation>
+          <xsd:documentation>Rozmiar dużej ikony</xsd:documentation>
+          <xsd:documentation>Url do pliku małej grafiki ikony</xsd:documentation>
+          <xsd:documentation>Hash MD5 pliku dużej grafiki ikony</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productAuctionIconExists" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionIconLargeUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionIconLargeWidth" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productAuctionIconLargeHeight" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productAuctionIconLargeSize" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productAuctionIconSmallUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionIconHash" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productGroupIconType">
+        <xsd:annotation>
+          <xsd:documentation>Określa, czy ikona została ustawiona.
+            Możliwe wartości:
+            "y" - ikona jest ustawiona,
+            "n" - ikona nie jest ustawiona (widoczna ikona domyślna).</xsd:documentation>
+          <xsd:documentation>Url do pliku dużej grafiki ikony</xsd:documentation>
+          <xsd:documentation>Szerokość dużej ikony</xsd:documentation>
+          <xsd:documentation>Wysokość dużej ikony</xsd:documentation>
+          <xsd:documentation>Rozmiar dużej ikony</xsd:documentation>
+          <xsd:documentation>Url do pliku małej grafiki ikony</xsd:documentation>
+          <xsd:documentation>Hash MD5 pliku dużej grafiki ikony</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productGroupIconExists" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productGroupIconLargeUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productGroupIconLargeWidth" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productGroupIconLargeHeight" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productGroupIconLargeSize" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productGroupIconSmallUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productGroupIconHash" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productImagesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productImageType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productImageType">
+        <xsd:annotation>
+          <xsd:documentation>URL do pliku dużej grafiki</xsd:documentation>
+          <xsd:documentation>URL do pliku średniej grafiki</xsd:documentation>
+          <xsd:documentation>URL do pliku małej grafiki</xsd:documentation>
+          <xsd:documentation>Identyfikator</xsd:documentation>
+          <xsd:documentation>Identyfikator</xsd:documentation>
+          <xsd:documentation>Szerokość zdjęcia</xsd:documentation>
+          <xsd:documentation>Wielkość zdjęcia</xsd:documentation>
+          <xsd:documentation>DataDodaniaZdjecia</xsd:documentation>
+          <xsd:documentation>Priorytet zdjęcia</xsd:documentation>
+          <xsd:documentation>Hash zdjęcia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productImageLargeUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productImageMediumUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productImageSmallUrl" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productImageId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productImageWidth" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productImageHeight" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productImageSize" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productImageDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productImagePriority" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productImageHash" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="seriesDescriptionLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa serii w danym języku</xsd:documentation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="seriesName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productVersionType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu stanowiącego wariant główny</xsd:documentation>
+          <xsd:documentation>nazwa wariantu.</xsd:documentation>
+          <xsd:documentation>Nazwa grupy wariantów.</xsd:documentation>
+          <xsd:documentation>Ustawienia wariantów.</xsd:documentation>
+          <xsd:documentation>Lista wariantów produktu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="versionParentId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="versionNames" type="ns:versionNamesType" />
+          <xsd:element minOccurs="0" name="versionGroupNames" type="ns:versionGroupNamesType" />
+          <xsd:element minOccurs="0" name="versionSettings" type="ns:versionSettingsType" />
+          <xsd:element minOccurs="0" name="versionProductsIds" type="ns:versionProductsIdsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="versionNamesType">
+        <xsd:annotation>
+          <xsd:documentation>Tablica języków, w jakich prezentowane są wartości.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="versionNamesLangData" type="ns:versionNamesLangDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="versionNamesLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:versionNameLangDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="versionNameLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+          <xsd:documentation>nazwa wariantu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="versionGroupNamesType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa grupy wariantów.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="versionGroupNamesLangData" type="ns:versionGroupNamesLangDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="versionGroupNamesLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:versionGroupNameLangDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="versionGroupNameLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+          <xsd:documentation>Nazwa grupy wariantów.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionGroupName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="versionSettingsType">
+        <xsd:annotation>
+          <xsd:documentation>Wyświetlaj w sklepie.
+            Możliwe wartości:
+            "y" - wszystkie towary z grupy,
+            "n" - tylko pierwszy towar z grupy.</xsd:documentation>
+          <xsd:documentation>Wyświetlaj w panelu.
+            Możliwe wartości:
+            "y" - wszystkie towary z grupy,
+            "n" - tylko pierwszy towar z grupy.</xsd:documentation>
+          <xsd:documentation>Dodawanie linków kanonicznych na stronie.
+            Możliwe wartości:
+            "y" - włączone,
+            "n" - Wyłączone.</xsd:documentation>
+          <xsd:documentation> Taki sam kod.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam producent.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama adnotacja.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>To samo dla gwarancji.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama seria.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama kategoria.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama cena.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama cena dla serwisów aukcyjnych.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama zaliczka.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam rabat ilościowy.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama stawka VAT.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same punkty lojalnościowe.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>To samo dla promocji.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>To samo dla przeceny.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>To samo dla wyróżnionych.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>To samo dla specjalnych.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same produkty skojarzone.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama widoczność.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same pokazywanie przy braku w magazynie.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam priorytet.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same sklepy.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same rozmiary.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama jednostka miary.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama waga.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same parametry.
+            możliwe wartości
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama nazwa.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam opis krótki.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam opis długi.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama ikona.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same duże zdjęcia.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam profil dostępności.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama ocena złożona.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taka sama waluta.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Taki sam dostawca.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Czy sumować produkty w koszyku jako jedną pozycje?
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same elementy w menu
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Takie same promocje
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="versionDisplayAllInShop" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionDisplayAllInPanel" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionDisplayRelCanonicalInShop" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonProducer" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonNote" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonWarranty" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonSeries" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonCategory" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPrice" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPriceAuctions" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonAdvance" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonRebate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonVat" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonProfitPoints" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPromotion" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonDiscount" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonDistinguished" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonSpecial" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonAssociated" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonVisibility" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPersistent" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPriority" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonShops" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonSizes" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonUnit" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonWeight" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonDictionary" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonLongDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonIcon" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPhotos" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonAvailableProfile" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonComplexNotes" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonCurrency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonDeliverer" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonSumInBasket" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonMenuItems" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionCommonPromotions" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="versionProductsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="associatedProductsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productAdvanceType">
+        <xsd:annotation>
+          <xsd:documentation>Wymagana zaliczka w procentach</xsd:documentation>
+          <xsd:documentation>Procent ceny produktu, stanowiący zaliczkę.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productAdvancePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productAdvancePercent" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productDescriptionsLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productDescriptionLangDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productDescriptionLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+          <xsd:documentation>Nazwa towaru.</xsd:documentation>
+          <xsd:documentation>DEPRECATED. Ten parametr jest przestarzały. Nazwa towaru dla serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Nazwa towaru dla porównywarek cen.</xsd:documentation>
+          <xsd:documentation>Krótki opis towaru.</xsd:documentation>
+          <xsd:documentation>Długi opis towaru.</xsd:documentation>
+          <xsd:documentation>DEPRECATED. Ten parametr jest przestarzały. Długi opis towaru dla serwisów aukcyjnych.</xsd:documentation>
+          <xsd:documentation>Meta title dla towaru.</xsd:documentation>
+          <xsd:documentation>Meta description dla towaru.</xsd:documentation>
+          <xsd:documentation>Meta keywords dla towaru.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="langId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productPriceComparisonSitesName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productLongDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionLongDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productMetaTitle" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productMetaDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productMetaKeywords" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionDescriptionsDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productAuctionDescriptionDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionDescriptionDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator systemu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Identyfikator serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Nazwa towaru dla serwisu aukcyjnego.</xsd:documentation>
+          <xsd:documentation>Nazwa pomocnicza dla serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Opis dla aukcji</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="productAuctionId" type="xsd:string" />
+          <xsd:element minOccurs="1" name="productAuctionSiteId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionAdditionalName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productAuctionDescription" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productPromotionType">
+        <xsd:annotation>
+          <xsd:documentation>Element informujący, czy promocja ma być aktywna. Dopuszczalne wartości: "y" - promocja aktywna, "n" - promocja nieaktywna.</xsd:documentation>
+          <xsd:documentation>Cena przekreślona</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa</xsd:documentation>
+          <xsd:documentation>Data wyłączenia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="promoteItemEnabled" type="xsd:string" />
+          <xsd:element minOccurs="0" name="promoteItemNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemWholesaleNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemEndingDate" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productDiscountType">
+        <xsd:annotation>
+          <xsd:documentation>Element informujący, czy promocja ma być aktywna. Dopuszczalne wartości: "y" - promocja aktywna, "n" - promocja nieaktywna.</xsd:documentation>
+          <xsd:documentation>Cena przekreślona</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa</xsd:documentation>
+          <xsd:documentation>Data wyłączenia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="promoteItemEnabled" type="xsd:string" />
+          <xsd:element minOccurs="0" name="promoteItemNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemWholesaleNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemEndingDate" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productDistinguishedType">
+        <xsd:annotation>
+          <xsd:documentation>Element informujący, czy promocja ma być aktywna. Dopuszczalne wartości: "y" - promocja aktywna, "n" - promocja nieaktywna.</xsd:documentation>
+          <xsd:documentation>Cena przekreślona</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa</xsd:documentation>
+          <xsd:documentation>Data wyłączenia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="promoteItemEnabled" type="xsd:string" />
+          <xsd:element minOccurs="0" name="promoteItemNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemWholesaleNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemEndingDate" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSpecialType">
+        <xsd:annotation>
+          <xsd:documentation>Element informujący, czy promocja ma być aktywna. Dopuszczalne wartości: "y" - promocja aktywna, "n" - promocja nieaktywna.</xsd:documentation>
+          <xsd:documentation>Cena przekreślona</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa</xsd:documentation>
+          <xsd:documentation>Data wyłączenia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="promoteItemEnabled" type="xsd:string" />
+          <xsd:element minOccurs="0" name="promoteItemNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemWholesaleNormalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="promoteItemEndingDate" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productParametersDistinctionType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productParameterDistinctionType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productParameterDistinctionType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator parametru</xsd:documentation>
+          <xsd:documentation>Nazwa parametru.</xsd:documentation>
+          <xsd:documentation>Identyfikator wartości parametru</xsd:documentation>
+          <xsd:documentation>Nazwa wartości parametru.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="parameterId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="parameterName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterValueId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="parameterValueName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productStocksDataType">
+        <xsd:annotation>
+          <xsd:documentation>Dane dotyczące magazynów</xsd:documentation>
+          <xsd:documentation>Dane dotyczące serwisów aukcyjnych</xsd:documentation>
+          <xsd:documentation>Dane dotyczące zamówień niewykonanych</xsd:documentation>
+          <xsd:documentation>Dane dotyczące stanów dyspozycyjnych</xsd:documentation>
+          <xsd:documentation>Dane dotyczące dostaw</xsd:documentation>
+          <xsd:documentation>Dane dotyczące w ilości towarów dodanych do dokumentów PZ</xsd:documentation>
+          <xsd:documentation>Dane dla rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productStocksQuantities" type="ns:productStocksQuantitiesType" />
+          <xsd:element minOccurs="0" name="productAuctionsQuantities" type="ns:productAuctionsQuantitiesType" />
+          <xsd:element minOccurs="0" name="productOrdersUnfinishedQuantities" type="ns:productOrdersUnfinishedQuantitiesType" />
+          <xsd:element minOccurs="0" name="productSizesDispositions" type="ns:productSizesDispositionsType" />
+          <xsd:element minOccurs="0" name="productSizesDeliveries" type="ns:productSizesDeliveriesType" />
+          <xsd:element minOccurs="0" name="productSizesGoodsReceivedNotes" type="ns:productSizesGoodsReceivedNotesType" />
+          <xsd:element minOccurs="0" name="productSizesStocksLocations" type="ns:productSizesStocksLocationsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productStocksQuantitiesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productStockQuantitiesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productStockQuantitiesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+          <xsd:documentation>Dane dla rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizesData" type="ns:productSizesDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizeDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Stan magazynowy produktu</xsd:documentation>
+          <xsd:documentation>Informacje o rezerwacjach</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeQuantity" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeReservations" type="ns:productSizeReservationsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeReservationsType">
+        <xsd:annotation>
+          <xsd:documentation>Ilość zarezerwowana ad hoc.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla aukcji.</xsd:documentation>
+          <xsd:documentation>Login klienta</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla zamówień.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla detalu.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla hurtu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productSizeReservationAdhoc" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeReservationAuction" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeReservationClient" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeReservationOrder" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeReservationRetail" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeReservationWholesale" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionsQuantitiesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productStockQuantitiesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productOrdersUnfinishedQuantitiesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productStockQuantitiesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDispositionsType">
+        <xsd:annotation>
+          <xsd:documentation>Stany dyspozycyjne dla aukcji</xsd:documentation>
+          <xsd:documentation>Stany dyspozycyjne dla sprzedaży wysyłkowej</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productSizesDispositionsInAuctions" type="ns:productSizesDispositionsInAuctionsType" />
+          <xsd:element minOccurs="0" name="productSizesDispositionsInSales" type="ns:productSizesDispositionsInSalesType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDispositionsInAuctionsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizesDispositionInAuctionsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDispositionInAuctionsType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Stan magazynowy produktu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeQuantity" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDispositionsInSalesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizesDispositionInSalesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDispositionInSalesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu obcego.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla wszystkich magazynów.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 1 dnia .</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 2 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 3 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 4 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 5 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 6 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 7 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 1 tygodnia.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 2 tygodni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 3 tygodni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 4 tygodni.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeQuantityOutsideStock" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeQuantityOwnStock" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeQuantityAllStocks" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition1d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition2d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition3d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition4d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition5d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition6d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition7d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition1w" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition2w" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition3w" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeDisposition4w" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesDeliveriesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizeDeliveriesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeDeliveriesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Stan magazynowy produktu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeQuantity" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesGoodsReceivedNotesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizeGoodsReceivedNotesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeGoodsReceivedNotesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Stan magazynowy produktu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeQuantity" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesStocksLocationsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizesStockLocationsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesStockLocationsType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizesLocation" type="ns:productSizesLocationType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesLocationType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizeLocationType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeLocationType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Id lokalizacji magazynowej</xsd:documentation>
+          <xsd:documentation>Pełna ścieżka lokalizacji magazynowej</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="stockLocationId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="stockLocationTextId" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesAttributesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizeAttributesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeAttributesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Kod producenta dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Kod dostawcy</xsd:documentation>
+          <xsd:documentation>Produkt pokazywany przy braku w magazynie
+            Możliwe wartości:
+            "y" - widoczny przy braku w magazynie,
+            "n" - niewidoczny przy braku w magazynie.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące klientów obserwujących towar.</xsd:documentation>
+          <xsd:documentation>Cena brutto</xsd:documentation>
+          <xsd:documentation>Cena hurtowa</xsd:documentation>
+          <xsd:documentation>Cena minimalna</xsd:documentation>
+          <xsd:documentation>cena dla POS.</xsd:documentation>
+          <xsd:documentation>Cena przekreślona detaliczna (brutto)</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa (brutto)</xsd:documentation>
+          <xsd:documentation>Waga</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeProducer" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeDeliverer" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productInPersistent" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productObservedByClients" type="ns:productObservedByClientsType" />
+          <xsd:element minOccurs="0" name="productRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productMinimalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPosPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSizeWeight" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productObservedByClientsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productObservedByClientType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productObservedByClientType">
+        <xsd:annotation>
+          <xsd:documentation>Login klienta</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Data rozpoczęcia obserwacji</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productSizeObservedClientLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSizeObservedDate" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productShopsAttributesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productShopAttributesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productShopAttributesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Dane dotyczące cen w zależności od sklepu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące cen dla porównywarek w zależności od sklepu</xsd:documentation>
+          <xsd:documentation>Cena brutto</xsd:documentation>
+          <xsd:documentation>Cena hurtowa</xsd:documentation>
+          <xsd:documentation>Cena minimalna</xsd:documentation>
+          <xsd:documentation>Ustawienia dotyczące cen, możliwe wartości:
+            "wholesale_equals_retail" - Cena hurtowa taka jak cena detaliczna,
+            "wholesale_notequals_retail" - Cena hurtowa różna od ceny detalicznej,
+            "all_prices_equals_zero" - Wszystkie ceny na telefon,
+            "retail_price_equals_zero" - Cena detaliczna na telefon,
+            "default_prices" - ceny domyślne,
+            "retail_equals_suggested" - Cena detaliczna taka jak sugerowana,
+            "automatically_calculated" - Cena wyliczana automatycznie.</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty</xsd:documentation>
+          <xsd:documentation>Sugerowana cena detaliczna</xsd:documentation>
+          <xsd:documentation>Cena przekreślona detaliczna (brutto)</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa (brutto)</xsd:documentation>
+          <xsd:documentation>Szczegóły konfiguracji dla ustawiania parametru prices_config=default_prices.</xsd:documentation>
+          <xsd:documentation>Uśredniona marża detaliczna względem uśrednionej ceny zakupu.</xsd:documentation>
+          <xsd:documentation>Uśredniona marża hurtowa względem uśrednionej ceny zakupu.</xsd:documentation>
+          <xsd:documentation>Szczegóły konfiguracji dla ustawiania parametru prices_config=automatically_calculated.</xsd:documentation>
+          <xsd:documentation>Ceny dla serwisów aukcyjnych</xsd:documentation>
+          <xsd:documentation>Parametry ustawiane dla serwisów aukcyjnych</xsd:documentation>
+          <xsd:documentation>Parametry ustawiane dla porównywarek cen</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productShopSizesAttributes" type="ns:productShopSizesAttributesType" />
+          <xsd:element minOccurs="0" name="productShopPriceComparisonSitesPrices" type="ns:productShopPriceComparisonSitesPricesType" />
+          <xsd:element minOccurs="0" name="productRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productMinimalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPricesConfig" type="xsd:string" />
+          <xsd:element minOccurs="0" name="currencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSuggestedPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productConfigPricesDefaultShop" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productMarginRetailFromAvaragePrices" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productMarginWholesaleFromAvaragePrices" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPricesConfigAutomatonDetails" type="ns:productPricesConfigAutomatonDetailsType" />
+          <xsd:element minOccurs="0" name="productAuctionsPrices" type="ns:productAuctionsPricesType" />
+          <xsd:element minOccurs="0" name="productAuctions" type="ns:productAuctionsType" />
+          <xsd:element minOccurs="0" name="productShopPriceComparisonSites" type="ns:productShopPriceComparisonSitesType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productShopSizesAttributesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productShopSizeAttributesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productShopSizeAttributesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Cena brutto</xsd:documentation>
+          <xsd:documentation>Cena hurtowa</xsd:documentation>
+          <xsd:documentation>Cena minimalna</xsd:documentation>
+          <xsd:documentation>Sugerowana cena detaliczna</xsd:documentation>
+          <xsd:documentation>Cena przekreślona detaliczna (brutto)</xsd:documentation>
+          <xsd:documentation>Cena przekreślona hurtowa (brutto)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productWholesalePrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productMinimalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productSuggestedPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productStrikethroughWholesalePrice" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productShopPriceComparisonSitesPricesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productShopPriceComparisonSitePricesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productShopPriceComparisonSitePricesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator porównywarki cen</xsd:documentation>
+          <xsd:documentation>Procentowa różnica ceny dla porównywarki w sklepie</xsd:documentation>
+          <xsd:documentation>Cena dla porównywarki w sklepie</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="priceComparisonSiteId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productPriceComparisonSitePercentDiff" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPriceComparisonSitePrice" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productPricesConfigAutomatonDetailsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productPriceConfigAutomatonDetailsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productPriceConfigAutomatonDetailsType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa ceny, jedna z wartości: retail, wholsale, minimal.</xsd:documentation>
+          <xsd:documentation>Ustawienie ceny, jedna z wartości: own, last_purchased, avarage_purchased, retail, wholsale,
+            minimal</xsd:documentation>
+          <xsd:documentation>Typ ceny, jedna z wartości: gross, net</xsd:documentation>
+          <xsd:documentation>Kwota wyjściowa</xsd:documentation>
+          <xsd:documentation>Waluta kwoty wyjściowej</xsd:documentation>
+          <xsd:documentation>ID sklepu, z którego pobierana jest cena</xsd:documentation>
+          <xsd:documentation>Marża kwotowa</xsd:documentation>
+          <xsd:documentation>Waluta marży kwotowej</xsd:documentation>
+          <xsd:documentation>Marża procentowa</xsd:documentation>
+          <xsd:documentation>Minimalna kwota narzutu procentowego</xsd:documentation>
+          <xsd:documentation>Waluta minimalnej kwoty narzutu procentowego</xsd:documentation>
+          <xsd:documentation>Minimalna kwota po uwzględnieniu marż</xsd:documentation>
+          <xsd:documentation>Waluta minimalnej kwoty</xsd:documentation>
+          <xsd:documentation>Dopełnienie dziesiętne. Powinno zawierć od 0 do 2 cyfr. Jeżeli zawiera 0 cyfr system wyliczy kwotę z dokładnością do 2 miejsc dziesiętnych. Jeśli zawiera 2 cyfry to system wyliczy kwotę z dokładnością do całości i doda wartość tego pola jako część dziesiętną kwoty </xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="priceAutomatonPriceName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceSettings" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceShop" type="xsd:int" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginCurrencyValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginPercentValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPricePercentMinimalValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPricePercentMinimalCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceMinimalValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceMinimalCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonDecimalRoundValue" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionsPricesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productAuctionPriceType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionPriceType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Identyfikator strony serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Cena "Kup Teraz!"</xsd:documentation>
+          <xsd:documentation>Cena minimalna</xsd:documentation>
+          <xsd:documentation>Cena wywoławcza licytacji</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="auctionId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="auctionSiteId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="auctionBuyNowPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="auctionMinimalPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="auctionStartPrice" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productAuctionType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Identyfikator strony serwisu aukcyjnego</xsd:documentation>
+          <xsd:documentation>Ustawienia dotyczące cen, możliwe wartości: "manual" - Cena podana ręcznie,
+            "automatically_calculated" - Cena wyliczana automatycznie.</xsd:documentation>
+          <xsd:documentation>Szczegóły konfiguracji dla ustawiania parametru prices_config=automatically_calculated</xsd:documentation>
+          <xsd:documentation>Parametry dla rozmiarów</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="auctionId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="auctionSiteId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="auctionPricesConfig" type="xsd:string" />
+          <xsd:element minOccurs="0" name="auctionPricesConfigAutomatonDetails" type="ns:auctionPricesConfigAutomatonDetailsType" />
+          <xsd:element minOccurs="0" name="productAuctionsSizes" type="ns:productAuctionsSizesType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="auctionPricesConfigAutomatonDetailsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:auctionPriceConfigAutomatonDetailsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionPriceConfigAutomatonDetailsType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa ceny, jedna z wartości: retail, wholsale, minimal.</xsd:documentation>
+          <xsd:documentation>Ustawienie ceny, jedna z wartości: own, last_purchased, avarage_purchased, retail, wholsale,
+            minimal</xsd:documentation>
+          <xsd:documentation>Typ ceny, jedna z wartości: gross, net</xsd:documentation>
+          <xsd:documentation>Kwota wyjściowa</xsd:documentation>
+          <xsd:documentation>Waluta kwoty wyjściowej</xsd:documentation>
+          <xsd:documentation>ID sklepu, z którego pobierana jest cena</xsd:documentation>
+          <xsd:documentation>Marża kwotowa</xsd:documentation>
+          <xsd:documentation>Waluta marży kwotowej</xsd:documentation>
+          <xsd:documentation>Marża procentowa</xsd:documentation>
+          <xsd:documentation>Minimalna kwota narzutu procentowego</xsd:documentation>
+          <xsd:documentation>Waluta minimalnej kwoty narzutu procentowego</xsd:documentation>
+          <xsd:documentation>Minimalna kwota po uwzględnieniu marż</xsd:documentation>
+          <xsd:documentation>Waluta minimalnej kwoty</xsd:documentation>
+          <xsd:documentation>Dopełnienie dziesiętne. Powinno zawierć od 0 do 2 cyfr. Jeżeli zawiera 0 cyfr system wyliczy kwotę z dokładnością do 2 miejsc dziesiętnych. Jeśli zawiera 2 cyfry to system wyliczy kwotę z dokładnością do całości i doda wartość tego pola jako część dziesiętną kwoty </xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="priceAutomatonPriceName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceSettings" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceShop" type="xsd:int" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginCurrencyValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginPercentValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPricePercentMinimalValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPricePercentMinimalCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceMinimalValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceMinimalCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonDecimalRoundValue" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productAuctionsSizesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:auctionSize[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionSize">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Szczegóły konfiguracji dla ustawiania parametru prices_config=automatically_calculated</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="auctionPricesConfigAutomatonDetails" type="ns:auctionPricesConfigAutomatonDetailsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productShopPriceComparisonSitesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productShopPriceComparisonSiteType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productShopPriceComparisonSiteType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator porównywarki cen</xsd:documentation>
+          <xsd:documentation>Nazwa porównywarki cen</xsd:documentation>
+          <xsd:documentation>Ustawienia dotyczące cen, możliwe wartości: "manual" - Cena podana ręcznie,
+            "automatically_calculated" - Cena wyliczana automatycznie.</xsd:documentation>
+          <xsd:documentation>Szczegóły konfiguracji dla ustawiania parametru prices_config=automatically_calculated</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="priceComparisonSiteId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="priceComparisonSiteName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceComparisonSitePricesConfig" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceComparisonSitePriceConfigAutomatonDetails" type="ns:priceComparisonSitePriceConfigAutomatonDetailsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="priceComparisonSitePriceConfigAutomatonDetailsType">
+        <xsd:annotation>
+          <xsd:documentation>Ustawienie ceny, jedna z wartości: own, last_purchased, avarage_purchased, retail, wholsale,
+            minimal</xsd:documentation>
+          <xsd:documentation>Typ ceny, jedna z wartości: gross, net</xsd:documentation>
+          <xsd:documentation>Kwota wyjściowa</xsd:documentation>
+          <xsd:documentation>Waluta kwoty wyjściowej</xsd:documentation>
+          <xsd:documentation>ID sklepu, z którego pobierana jest cena</xsd:documentation>
+          <xsd:documentation>Marża kwotowa</xsd:documentation>
+          <xsd:documentation>Waluta marży kwotowej</xsd:documentation>
+          <xsd:documentation>Marża procentowa</xsd:documentation>
+          <xsd:documentation>Minimalna kwota narzutu procentowego</xsd:documentation>
+          <xsd:documentation>Waluta minimalnej kwoty narzutu procentowego</xsd:documentation>
+          <xsd:documentation>Minimalna kwota po uwzględnieniu marż</xsd:documentation>
+          <xsd:documentation>Waluta minimalnej kwoty</xsd:documentation>
+          <xsd:documentation>Dopełnienie dziesiętne. Powinno zawierć od 0 do 2 cyfr. Jeżeli zawiera 0 cyfr system wyliczy kwotę z dokładnością do 2 miejsc dziesiętnych. Jeśli zawiera 2 cyfry to system wyliczy kwotę z dokładnością do całości i doda wartość tego pola jako część dziesiętną kwoty </xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="priceAutomatonPriceSettings" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceShop" type="xsd:int" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginCurrencyValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonMarginPercentValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPricePercentMinimalValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPricePercentMinimalCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceMinimalValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="priceAutomatonPriceMinimalCurrencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceAutomatonDecimalRoundValue" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productSizesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productSizeType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productSizeType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productMenuType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productMenuItemType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productMenuItemType">
+        <xsd:annotation>
+          <xsd:documentation>ID węzła menu do którego produkt ma zostać przypisany</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>ID strefy menu wyświetlanej w masce</xsd:documentation>
+          <xsd:documentation>Menu lang data.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="menuItemId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="menuId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="menuItemDescriptionsLangData" type="ns:menuItemDescriptionsLangDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="menuItemDescriptionsLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:menuItemDescriptionLangDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="menuItemDescriptionLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+          <xsd:documentation>Menu item name.</xsd:documentation>
+          <xsd:documentation>Identyfikator tekstowy elementu menu.
+            Przykład: "item1\item2\item3".</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="menuItemName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="menuItemTextId" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productBundleItemsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productBundleItemType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productBundleItemType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Identyfikator towaru w zestawie lub kolekcji</xsd:documentation>
+          <xsd:documentation>Ilość towaru w zestawie lub kolekcji</xsd:documentation>
+          <xsd:documentation>Czy zestaw lub kolekcja jest pokazywana z tym towarem w sklepie.</xsd:documentation>
+          <xsd:documentation>Dostępne rozmiary składowych zestawu lub kolekcji dla sklepu.</xsd:documentation>
+          <xsd:documentation>Wszystkie rozmiary składowych zestawu lub kolekcji.</xsd:documentation>
+          <xsd:documentation>Dostępne rozmiary składowych zestawu lub kolekcji dla serwisów aukcyjnych</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="bundledId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="bundleQuantity" type="xsd:float" />
+          <xsd:element minOccurs="0" name="isBundleShown" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="bundledAvailableSizes" type="ns:bundledAvailableSizesType" />
+          <xsd:element minOccurs="0" name="bundledAllSizes" type="ns:bundledAllSizesType" />
+          <xsd:element minOccurs="0" name="bundledAvailableSizesInAuctions" type="ns:bundledAvailableSizesInAuctionsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="bundledAvailableSizesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:bundledAvailableSizeType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="bundledAvailableSizeType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="bundledAllSizesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:bundledAllSizeType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="bundledAllSizeType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="bundledAvailableSizesInAuctionsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:bundledAvailableSizeInAuctionsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="bundledAvailableSizeInAuctionsType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productParametersType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productParameterType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productParameterType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator parametru</xsd:documentation>
+          <xsd:documentation>#!Typ parametru!#</xsd:documentation>
+          <xsd:documentation>DaneJezykowe</xsd:documentation>
+          <xsd:documentation>Wartości parametru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="parameterId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="parameterType" type="ns:parameterTypeType" />
+          <xsd:element minOccurs="0" name="parameterDescriptionsLangData" type="ns:parameterDescriptionsLangDataType" />
+          <xsd:element minOccurs="0" name="parameterValues" type="ns:parameterValuesType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="parameterTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="section" />
+          <xsd:enumeration value="parameter" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="parameterDescriptionsLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:parameterDescriptionLangDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterDescriptionLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+          <xsd:documentation>Nazwa parametru.</xsd:documentation>
+          <xsd:documentation>Opis parametru</xsd:documentation>
+          <xsd:documentation>Opcje parametru dla sklepów</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterShopsData" type="ns:parameterShopsDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="parameterShopsDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:parameterShopDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterShopDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Link do ikony na karcie towaru</xsd:documentation>
+          <xsd:documentation>Link do ikony na liście towarów</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="parameterIconCard" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterIconProductsList" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValuesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:parameterValueType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValueType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator wartości parametru</xsd:documentation>
+          <xsd:documentation>DaneJezykowe</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="parameterValueId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterValueDescriptionsLangData" type="ns:parameterValueDescriptionsLangDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValueDescriptionsLangDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:parameterValueDescriptionLangDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValueDescriptionLangDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator języka</xsd:documentation>
+          <xsd:documentation>Nazwa wartości parametru.</xsd:documentation>
+          <xsd:documentation>Opis parametru</xsd:documentation>
+          <xsd:documentation>Opcje parametru dla sklepów</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="langId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterValueName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterValueDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterValueShopsData" type="ns:parameterValueShopsDataType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValueShopsDataType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:parameterValueShopDataType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="parameterValueShopDataType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Link do ikony na karcie towaru</xsd:documentation>
+          <xsd:documentation>Link do ikony na liście towarów</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="parameterValueIconCard" type="xsd:string" />
+          <xsd:element minOccurs="0" name="parameterValueIconProductsList" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getRequest">
+    <wsdl:part name="getRequest" type="ns:requestType" />
+  </wsdl:message>
+  <wsdl:message name="getResponse">
+    <wsdl:part name="getResponse" type="ns:responseType" />
+  </wsdl:message>
+  <wsdl:portType name="ApiProductsPortType">
+    <wsdl:operation name="get">
+      <wsdl:documentation>Metoda pozwala na pobranie informacji o nieusuniętych produktach znajdujących się w panelu administracyjnym IAI-Shop.com</wsdl:documentation>
+      <wsdl:input message="ns:getRequest" />
+      <wsdl:output message="ns:getResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ApiProductsBinding" type="ns:ApiProductsPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="get">
+      <soap:operation soapAction="#get" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="ApiProducts" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="ApiProducts" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApiProductsService">
+    <wsdl:documentation><![CDATA[https://www.iai-shop.com/pl/shop/api/?action=documentation&function=products]]></wsdl:documentation>
+    <wsdl:port name="ApiProductsPort" binding="ns:ApiProductsBinding">
+      <soap:address location="https://mm-moto.iai-shop.com/api/?gate=products/get/105/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

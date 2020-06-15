@@ -48,3 +48,4 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.C
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.exe
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.pdb
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\PakeratorChangeLog.txt
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Raport.resources

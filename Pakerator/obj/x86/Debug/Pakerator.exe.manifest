@@ -91,14 +91,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1447424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1665024">
       <assemblyIdentity name="Pakerator" version="1.13.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LIcBHf7kyCEkF1aDd1D0KjDTY5dcnZcKQxikPOXFsdY=</dsig:DigestValue>
+        <dsig:DigestValue>NzdJhOSRhWcZah6A7XDv0uvBsZKptRAARmrUBnjvq1g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -129,13 +129,13 @@
       <dsig:DigestValue>4PzqMzJM6xB7lccY5A6NCx6HXr0uX4qOecTmu5xKPt8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Pakerator.exe.config" size="864">
+  <file name="Pakerator.exe.config" size="1848">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>EH/8CnnpGlPYHdB+Cd2XQosh1EM/11TQAv74qZgKN7o=</dsig:DigestValue>
+      <dsig:DigestValue>FrQQgujseAz/O82IXX1ZT3jgfFwt10sL0OzkUsBMhhg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="PakeratorChangeLog.txt" size="279">

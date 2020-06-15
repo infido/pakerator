@@ -13,8 +13,6 @@ namespace Pakerator
     public partial class Login : Form
     {
         ConnectionDB polaczenie;
-        Dictionary<int, string> listMagazyny;
-
         public string userName;
  
         public Login(ConnectionDB polaczenie)

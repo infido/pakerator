@@ -59,3 +59,4 @@ C:\imex\!pakerator\Pakerator.exe
 C:\imex\!pakerator\Pakerator.pdb
 C:\imex\!pakerator\PakeratorChangeLog.txt
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csprojAssemblyReference.cache
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Raport.resources

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="ApiProductsStocks" name="ApiProductsStocks" targetNamespace="ApiProductsStocks" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="ApiProductsStocks">
+      <xsd:complexType name="getRequestType">
+        <xsd:annotation>
+          <xsd:documentation>Uwierzytelnienie wywołania metody.</xsd:documentation>
+          <xsd:documentation>Parametry przekazywane do metody.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="authenticate" type="ns:authenticateType" />
+          <xsd:element name="params" type="ns:getParamsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="authenticateType">
+        <xsd:annotation>
+          <xsd:documentation>Klucz wykorzystywany podczas uwierzytelniania. Zapoznaj się z &lt;a href = "/pl/shop/developers/api/faq/najczesciej-zadawane-pytania-dotyczace-api-pa-IdoSell Shop-com/#3"&gt;instrukcją generowania klucza&lt;/a&gt;.</xsd:documentation>
+          <xsd:documentation>Login użytkownika panelu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="system_key" type="xsd:string" />
+          <xsd:element minOccurs="0" name="system_login" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getParamsType">
+        <xsd:annotation>
+          <xsd:documentation>Lista towarów.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="products" type="ns:getProducts" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getProducts">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:sizeIdentType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="sizeIdentType">
+        <xsd:annotation>
+          <xsd:documentation>Typ identyfikatora towaru.</xsd:documentation>
+          <xsd:documentation>Wartość.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="identType" type="ns:identsType" />
+          <xsd:element name="identValue" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="identsType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="id" />
+          <xsd:enumeration value="index" />
+          <xsd:enumeration value="codeExtern" />
+          <xsd:enumeration value="codeProducer" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="getResponseType">
+        <xsd:annotation>
+          <xsd:documentation>Wynik autoryzacji.</xsd:documentation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Wynik wykonanej operacji.</xsd:documentation>
+          <xsd:documentation>Flaga określająca, czy w wynikach znajdują się błedy.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="authenticate" type="ns:authenticateType" />
+          <xsd:element minOccurs="0" name="errors" type="ns:errorsType" />
+          <xsd:element minOccurs="0" name="results" type="ns:getProductsType" />
+          <xsd:element minOccurs="0" name="is_errors" type="xsd:boolean" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="errorsType">
+        <xsd:annotation>
+          <xsd:documentation>Kod błędu.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="faultCode" type="xsd:int" />
+          <xsd:element name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getProductsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:getProductResponseType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="getProductResponseType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikacja produktu.</xsd:documentation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Informacja o stanach magazynowych.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ident" type="ns:productIdentType" />
+          <xsd:element minOccurs="0" name="error" type="ns:errorsType" />
+          <xsd:element minOccurs="0" name="quantities" type="ns:getQuantitiesType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productIdentType">
+        <xsd:annotation>
+          <xsd:documentation>Typ identyfikatora towaru.</xsd:documentation>
+          <xsd:documentation>Wartość.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="identType" type="ns:identsType" />
+          <xsd:element name="identValue" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getQuantitiesType">
+        <xsd:annotation>
+          <xsd:documentation>Dane dotyczące magazynów.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące serwisów aukcyjnych.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące zamówień niewykonanych.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące stanów dyspozycyjnych.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące dostaw.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące w ilości towarów dodanych do dokumentów PZ.</xsd:documentation>
+          <xsd:documentation>Lokalizacje w magazynach.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="stocks" type="ns:getStocksType" />
+          <xsd:element minOccurs="0" name="auctions" type="ns:getStocksType" />
+          <xsd:element minOccurs="0" name="orders_unfinished" type="ns:getStocksType" />
+          <xsd:element minOccurs="0" name="dispositions" type="ns:dispositionsType" />
+          <xsd:element minOccurs="0" name="deliveries" type="ns:deliveriesType" />
+          <xsd:element minOccurs="0" name="goods_received_notes" type="ns:deliveriesType" />
+          <xsd:element minOccurs="0" name="stocks_locations" type="ns:stocksLocationsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getStocksType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:getStockType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="getStockType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator magazynu.</xsd:documentation>
+          <xsd:documentation>Dane dla rozmiaru.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="stock_id" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizes" type="ns:sizeTypeArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="sizeTypeArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:getSizeType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="getSizeType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru.</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu.</xsd:documentation>
+          <xsd:documentation>Ilość towarów w dostawie.</xsd:documentation>
+          <xsd:documentation>Informacje o rezerwacjach.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="size_id" type="xsd:string" />
+          <xsd:element minOccurs="0" name="size_name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="product_sizecode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="quantity" type="xsd:float" />
+          <xsd:element minOccurs="0" name="reservations" type="ns:reservationsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="reservationsType">
+        <xsd:annotation>
+          <xsd:documentation>Ilość zarezerwowana ad hoc.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla aukcji.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla klientów.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla zamówień.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla detalu.</xsd:documentation>
+          <xsd:documentation>Ilość zarezerwowana dla hurtu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="adhoc" type="xsd:float" />
+          <xsd:element minOccurs="0" name="auction" type="xsd:float" />
+          <xsd:element minOccurs="0" name="client" type="xsd:float" />
+          <xsd:element minOccurs="0" name="order" type="xsd:float" />
+          <xsd:element minOccurs="0" name="retail" type="xsd:float" />
+          <xsd:element minOccurs="0" name="wholesale" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="dispositionsType">
+        <xsd:annotation>
+          <xsd:documentation>Stany dyspozycyjne dla aukcji.</xsd:documentation>
+          <xsd:documentation>Stany dyspozycyjne dla sprzedaży wysyłkowej.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="auctions" type="ns:dispositionsAuctionsArrayType" />
+          <xsd:element minOccurs="0" name="sales" type="ns:dispositionsSalesArrayType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="dispositionsAuctionsArrayType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:dispositionsAuctionsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="dispositionsAuctionsType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Tekstowy Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru.</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu.</xsd:documentation>
+          <xsd:documentation>Ilość towarów w dostawie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="size_id" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="size_name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="product_sizecode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="quantity" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="dispositionsSalesArrayType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:dispositionsSalesType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="dispositionsSalesType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Tekstowy Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru.</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu obcego.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla wszystkich magazynów.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 1 dnia .</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 2 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 3 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 4 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 5 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 6 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 7 Dni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 1 tygodnia.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 2 tygodni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 3 tygodni.</xsd:documentation>
+          <xsd:documentation>Stan dyspozycyjny produktu dla magazynu własnego sprzed 4 tygodni.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="size_id" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="size_name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="product_sizecode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="outsidestock" type="xsd:int" />
+          <xsd:element minOccurs="0" name="ownstock" type="xsd:int" />
+          <xsd:element minOccurs="0" name="allstocks" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition1d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition2d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition3d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition4d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition5d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition6d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition7d" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition1w" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition2w" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition3w" type="xsd:int" />
+          <xsd:element minOccurs="0" name="disposition4w" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="deliveriesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:deliveryType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="deliveryType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru.</xsd:documentation>
+          <xsd:documentation>Ilość towarów w dostawie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="size_id" type="xsd:string" />
+          <xsd:element minOccurs="0" name="size_name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="quantity" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="stocksLocationsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:stockLocationsType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="stockLocationsType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator magazynu.</xsd:documentation>
+          <xsd:documentation>Dane dla rozmiaru.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="stock_id" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizes" type="ns:sizeLocationsTypeArray" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="sizeLocationsTypeArray">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:sizeLocationType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="sizeLocationType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator rozmiaru.</xsd:documentation>
+          <xsd:documentation>Id lokalizacji magazynowej.</xsd:documentation>
+          <xsd:documentation>Pełna ścieżka lokalizacji magazynowej.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="size_id" type="xsd:string" />
+          <xsd:element minOccurs="0" name="location_id" type="xsd:int" />
+          <xsd:element minOccurs="0" name="location_text_id" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getRequest">
+    <wsdl:part name="getRequest" type="ns:getRequestType" />
+  </wsdl:message>
+  <wsdl:message name="getResponse">
+    <wsdl:part name="getResponse" type="ns:getResponseType" />
+  </wsdl:message>
+  <wsdl:portType name="ApiProductsStocksPortType">
+    <wsdl:operation name="get">
+      <wsdl:documentation>Metoda służy do pobierania informacji o stanach i lokalizacjach magazynowych produktów w panelu administracyjnym IAI-Shop.com.</wsdl:documentation>
+      <wsdl:input message="ns:getRequest" />
+      <wsdl:output message="ns:getResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ApiProductsStocksBinding" type="ns:ApiProductsStocksPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="get">
+      <soap:operation soapAction="#get" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="ApiProductsStocks" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="ApiProductsStocks" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApiProductsStocksService">
+    <wsdl:documentation><![CDATA[https://www.iai-shop.com/pl/shop/api/?action=documentation&function=productsstocks]]></wsdl:documentation>
+    <wsdl:port name="ApiProductsStocksPort" binding="ns:ApiProductsStocksBinding">
+      <soap:address location="https://mm-moto.iai-shop.com/api/?gate=productsstocks/get/0/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

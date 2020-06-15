@@ -456,7 +456,7 @@ namespace Pakerator
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
             if (rejestr != null)
             {
-                return SessionIAI.GenerateKey(SessionIAI.HashPassword((String)rejestr.GetValue("www2")));
+                return SessionIAI.GenerateKey((String)rejestr.GetValue("www2"));
             }
             else
             {

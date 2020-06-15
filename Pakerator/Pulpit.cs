@@ -10,6 +10,8 @@ using FirebirdSql.Data.FirebirdClient;
 using System.Media;
 using System.IO;
 using System.Net;
+using System.ServiceModel;
+using Pakerator.ApiProductsSocksServiceGet;
 
 namespace Pakerator
 {
@@ -794,6 +796,110 @@ namespace Pakerator
         private void cMagazyn2_Leave(object sender, EventArgs e)
         {
             setSetingsOfStores();
+        }
+
+        private void menu2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataSet fdsr = new DataSet();
+            fdsr.Tables.Add("TAB");
+            fdsr.Tables["TAB"].Columns.Add("SKROT", typeof(String));
+            fdsr.Tables["TAB"].Columns.Add("SKROT2", typeof(String));
+            fdsr.Tables["TAB"].Columns.Add("KOD_KRESKOWY", typeof(String));
+            fdsr.Tables["TAB"].Columns.Add("NAZWA", typeof(String));
+            fdsr.Tables["TAB"].Columns.Add("M0", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M1", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M2", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M3", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M4", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M5", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M6", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M7", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M8", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M9", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M10", typeof(Double));
+            fdsr.Tables["TAB"].Columns.Add("M11", typeof(Double));
+            //fdsr.Tables["TAB"].Columns.Add("MAG", typeof(String));
+            //fdsr.Tables["TAB"].Columns.Add("ILOSC", typeof(Double));
+
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=productsstocks/get/106/soap");
+            var client = new ApiProductsSocksServiceGet.ApiProductsStocksPortTypeClient(binding, address);
+
+            var request = new ApiProductsSocksServiceGet.getRequestType();
+            request.authenticate = new ApiProductsSocksServiceGet.authenticateType();
+            request.authenticate.system_key = SessionIAI.GetIAIKeyForCurrentSession();
+            request.authenticate.system_login = SessionIAI.GetIAILoginForCurrentSession();
+
+            request.@params = new getParamsType();
+            request.@params.products = new sizeIdentType[1];
+            request.@params.products[0] = new sizeIdentType();
+            request.@params.products[0].identType = identsType.index;
+
+            foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
+            {
+                request.@params.products[0].identValue = row.Cells["SKROT"].Value.ToString();
+
+                ApiProductsSocksServiceGet.getResponseType response = client.get(request);
+
+                Double[] kol = new Double[12];
+                string[] mags = new string[12];
+                foreach (ApiProductsSocksServiceGet.getStockType stock in response.results[0].quantities.stocks)
+                {
+                    //if (!fdsr.Tables["TAB"].Columns.Contains("M"+stock.stock_id))
+                    //{
+                    //    fdsr.Tables["TAB"].Columns.Add("M" + stock.stock_id, typeof(Double));
+                    //}
+                    
+                    mags[stock.stock_id] = "M" + stock.stock_id;
+
+                    try
+                    {
+                        foreach (ApiProductsSocksServiceGet.getSizeType size in stock.sizes)
+                        {
+                            kol[stock.stock_id] = Convert.ToDouble( size.quantity);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                }
+
+                //textHistoria.Text += "Skrót:" + row.Cells["SKROT"].Value.ToString() + "; magazyn: M" + stock.stock_id + "; ilość: " + size.quantity + System.Environment.NewLine;
+                    fdsr.Tables["TAB"].Rows.Add(row.Cells["SKROT"].Value.ToString(), row.Cells["SKROT2"].Value.ToString(), row.Cells["KOD_KRESKOWY"].Value.ToString(),
+                    row.Cells["NAZWA"].Value.ToString(), kol[0], kol[1], kol[2], kol[3], kol[4], kol[5], kol[6], kol[7], kol[8], kol[9], kol[10], kol[11]);
+            }
+
+            Raport rt = new Raport(fdsr);
+            rt.Show();
+        }
+
+        private void pobranieInfoOTowarachToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=products/get/106/soap");
+            var client = new ApiProductsServiceGet.ApiProductsPortTypeClient(binding, address);
+
+            var request = new ApiProductsServiceGet.requestType();
+            request.authenticate = new ApiProductsServiceGet.authenticateType();
+            request.authenticate.userLogin = SessionIAI.GetIAILoginForCurrentSession();
+            request.authenticate.authenticateKey = SessionIAI.GetIAIKeyForCurrentSession();
+
+            request.@params = new ApiProductsServiceGet.paramsType();
+            request.@params.returnProducts = "active";
+            request.@params.returnElements = new string[1];
+            request.@params.returnElements[0] = "returnElements";
+            request.@params.productIsAvailable = "productIsAvailable";
+            request.@params.productIsVisible = "productIsVisible";
+            request.@params.productIndexes = new ApiProductsServiceGet.productIndexItemType[1];
+            request.@params.productIndexes[0] = new ApiProductsServiceGet.productIndexItemType();
+            request.@params.productIndexes[0].productIndex = "LM0037";
+
+            ApiProductsServiceGet.responseType response = client.get(request);
+
+            textHistoria.Text += response.results.ToString();
+
         }
 
         private void label3_Click(object sender, EventArgs e)
