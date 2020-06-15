@@ -269,7 +269,7 @@ namespace Pakerator
             tUser.Text = (String)rejestr.GetValue("User");
             tPassword.Text = (String)rejestr.GetValue("Pass");
             tPath.Text=(String)rejestr.GetValue("Path");
-            Console.WriteLine(">>" + rejestr.GetValue("Net"));
+            //Console.WriteLine(">>" + rejestr.GetValue("Net"));
             if ((int)rejestr.GetValue("Net")==1)
             {
                 instalacjaLokalna.Checked = false;
@@ -401,13 +401,13 @@ namespace Pakerator
         private void bCheckStock_Click(object sender, EventArgs e)
         {
             var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://" + tDomena.Text + "/api/?gate=checkserverload/checkServerLoad/106/soap");
+            var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=checkserverload/checkServerLoad/106/soap");
             var client = new ServiceReferenceIAI.checkServerLoadPortTypeClient(binding, address);
 
             var request = new ServiceReferenceIAI.requestType();
             request.authenticate = new ServiceReferenceIAI.authenticateType();
-            request.authenticate.system_key = SessionIAI.GenerateKey(SessionIAI.HashPassword(tKlucz.Text));
-            request.authenticate.system_login = tLogin.Text;
+            request.authenticate.system_key = SessionIAI.GetIAIKeyForCurrentSession();
+            request.authenticate.system_login = SessionIAI.GetIAILoginForCurrentSession();
 
             ServiceReferenceIAI.responseType response = client.checkServerLoad(request);
 
@@ -449,8 +449,51 @@ namespace Pakerator
         }
     }
 
-    public class SessionIAI
+    public static class SessionIAI
     {
+        public static string GetIAIKeyForCurrentSession()
+        {
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+            if (rejestr != null)
+            {
+                return SessionIAI.GenerateKey(SessionIAI.HashPassword((String)rejestr.GetValue("www2")));
+            }
+            else
+            {
+                MessageBox.Show("Bład odczytu parametru klucz połączenia do sklepu IAI w kalsie połącznia.");
+                return "";
+            }
+        }
+
+        public static string GetIAILoginForCurrentSession()
+        {
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+            if (rejestr != null)
+            {
+                return (String)rejestr.GetValue("www3");
+            }
+            else
+            {
+                MessageBox.Show("Bład odczytu parametru login połączenia do sklepu IAI w kalsie połącznia.");
+                return "";
+            }
+        }
+
+        public static string GetIAIDomainForCurrentSession()
+        {
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+            if (rejestr != null)
+            {
+                return (String)rejestr.GetValue("www1");
+            }
+            else
+            {
+                MessageBox.Show("Bład odczytu parametru adres połączenia do sklepu IAI w kalsie połącznia.");
+                return "";
+            }
+        }
+
+
         /// <summary>
         /// Generates SHA1 session key string
         /// </summary>
