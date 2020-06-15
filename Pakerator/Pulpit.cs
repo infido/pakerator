@@ -121,7 +121,7 @@ namespace Pakerator
 
         private void konfiguracjaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            polaczenie.Show();
+            polaczenie.showForTest(logowanie.userName, magNazwa, magID, getIpAdress(), Dns.GetHostName());
         }
 
         private void SetDokument(string kodKreskowy)

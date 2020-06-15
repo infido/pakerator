@@ -372,11 +372,11 @@
             // 
             // bCheckStock
             // 
-            this.bCheckStock.Location = new System.Drawing.Point(306, 464);
+            this.bCheckStock.Location = new System.Drawing.Point(250, 462);
             this.bCheckStock.Name = "bCheckStock";
-            this.bCheckStock.Size = new System.Drawing.Size(75, 23);
+            this.bCheckStock.Size = new System.Drawing.Size(89, 23);
             this.bCheckStock.TabIndex = 27;
-            this.bCheckStock.Text = "Test IAI";
+            this.bCheckStock.Text = "Status ser IAI";
             this.bCheckStock.UseVisualStyleBackColor = true;
             this.bCheckStock.Click += new System.EventHandler(this.bCheckStock_Click);
             // 

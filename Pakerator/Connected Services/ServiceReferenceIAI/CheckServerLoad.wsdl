@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="CheckServerLoad" name="CheckServerLoad" targetNamespace="CheckServerLoad" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="CheckServerLoad">
+      <xsd:complexType name="requestType">
+        <xsd:annotation>
+          <xsd:documentation>Uwierzytelnienie wywołania metody.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="authenticate" type="ns:authenticateType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="authenticateType">
+        <xsd:annotation>
+          <xsd:documentation>Klucz wykorzystywany podczas uwierzytelniania. Zapoznaj się z &lt;a href = "/pl/shop/developers/api/faq/najczesciej-zadawane-pytania-dotyczace-api-pa-IdoSell Shop-com/#3"&gt;instrukcją generowania klucza&lt;/a&gt;.</xsd:documentation>
+          <xsd:documentation>Login użytkownika panelu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="system_key" type="xsd:string" />
+          <xsd:element minOccurs="1" name="system_login" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="responseType">
+        <xsd:annotation>
+          <xsd:documentation>Wynik autoryzacji.</xsd:documentation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Informacja o aktualnym statusie serwera. Dopuszczalne wartości:
+            "overloaded",
+            "normal".</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="authenticate" type="ns:authenticateType" />
+          <xsd:element minOccurs="0" name="errors" type="ns:errorsType" />
+          <xsd:element minOccurs="0" name="serverLoadStatus" type="ns:serverLoadStatusType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="errorsType">
+        <xsd:annotation>
+          <xsd:documentation>Kod błędu.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="faultCode" type="xsd:int" />
+          <xsd:element minOccurs="0" name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="serverLoadStatusType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="overloaded" />
+          <xsd:enumeration value="normal" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="checkServerLoadRequest">
+    <wsdl:part name="checkServerLoadRequest" type="ns:requestType" />
+  </wsdl:message>
+  <wsdl:message name="checkServerLoadResponse">
+    <wsdl:part name="checkServerLoadResponse" type="ns:responseType" />
+  </wsdl:message>
+  <wsdl:portType name="checkServerLoadPortType">
+    <wsdl:operation name="checkServerLoad">
+      <wsdl:documentation>Metoda zwraca status serwera i informuje o tym, czy jest on aktualnie przeciążony.</wsdl:documentation>
+      <wsdl:input message="ns:checkServerLoadRequest" />
+      <wsdl:output message="ns:checkServerLoadResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CheckServerLoadBinding" type="ns:checkServerLoadPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="checkServerLoad">
+      <soap:operation soapAction="#checkServerLoad" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="CheckServerLoad" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="CheckServerLoad" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CheckServerLoadService">
+    <wsdl:documentation><![CDATA[https://www.iai-shop.com/pl/shop/api/?action=documentation&function=checkserverload]]></wsdl:documentation>
+    <wsdl:port name="CheckServerLoadPort" binding="ns:CheckServerLoadBinding">
+      <soap:address location="https://mm-moto.iai-shop.com/api/?gate=checkserverload/checkServerLoad/6/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

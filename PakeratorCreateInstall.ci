@@ -231,7 +231,7 @@
                         <file >Pakerator.exe</>
                         <cmdline ></>
                         <comment ></>
-                        <icon >C:\Users\jacek\source\repos\pakerator\Pakerator\wood_box_opened.ico</>
+                        <icon >C:\Program Files (x86)\Infido\Pakerator\Pakerator.exe</>
                         <work >inst</>
                         <defwork ></>
                         <runas >norm</>
@@ -283,6 +283,7 @@
                   <head ></>
                   <headtext ></>
                   <dlgtext >Nowe funkcjonalności tej wersji
+* Dodanie kolumn Stany magazynowe i w wydaniu
 * Dodanie do konfiguracji ustawień połączenia do IAI-Shop
 * Przeniesienie ustawienia magazynów z okna logowania na pulpit</>
                   <if ></>

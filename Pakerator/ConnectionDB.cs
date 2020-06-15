@@ -16,12 +16,24 @@ namespace Pakerator
     public partial class ConnectionDB : Form
     {
         public static FbConnection conn;
+        private string logUser, logMagNaz, logIP, logHost;
+        private int logMagID;
 
         public ConnectionDB()
         {
             InitializeComponent();
             //wczytanie wartości do pól
             setConnection(false);
+        }
+
+        public void showForTest(string logUser, string logMagNaz, int logMagID, string logIP, string logHost)
+        {
+            this.logUser = logUser;
+            this.logMagNaz = logMagNaz;
+            this.logMagID = logMagID;
+            this.logIP = logIP;
+            this.logHost = logHost;
+            Show();
         }
 
         private void setConnection(Boolean _trybTest)
@@ -389,22 +401,41 @@ namespace Pakerator
         private void bCheckStock_Click(object sender, EventArgs e)
         {
             var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("https://mm-moto.iai-shop.com/api/?gate=productsstocks/get/106/soap");
-            //var client = new ApiProductsStocksPortTypeClient(binding, address);
+            var address = new EndpointAddress("http://" + tDomena.Text + "/api/?gate=checkserverload/checkServerLoad/106/soap");
+            var client = new ServiceReferenceIAI.checkServerLoadPortTypeClient(binding, address);
 
-            //var request = new getRequestType();
-            //request.authenticate = new authenticateType();
-            //request.authenticate.system_key = GenerateKey(HashPassword("YOUR_KEY"));
-            //request.authenticate.system_login = "system_login";
-            //request.@params = new getParamsType();
-            //request.@params.products = new sizeIdentType[1];
-            //request.@params.products[0] = new sizeIdentType();
-            //request.@params.products[0].identType.identType = identType.id;
-            //request.@params.products[0].identType.identTypeSpecified = true;
-            //request.@params.products[0].identValue = "identValue";
+            var request = new ServiceReferenceIAI.requestType();
+            request.authenticate = new ServiceReferenceIAI.authenticateType();
+            request.authenticate.system_key = SessionIAI.GenerateKey(SessionIAI.HashPassword(tKlucz.Text));
+            request.authenticate.system_login = tLogin.Text;
 
-            //getResponseType response = client.get(request);
+            ServiceReferenceIAI.responseType response = client.checkServerLoad(request);
 
+            outtext.Text += "Test statusu serwera IAI Shop. " + DateTime.Now + System.Environment.NewLine;
+            outtext.Text += response.serverLoadStatus.ToString() + " " + System.Environment.NewLine;
+
+            setLogFromConn("Test statusu serwera IAI Shop. STATUS=" + response.serverLoadStatus.ToString());
+        }
+
+        private void setLogFromConn(string komunikat)
+        {
+            string sql = "INSERT INTO LOGSKAN ";
+            sql += "(operacja, komunikat, pracownik, magazyn_nazwa, magazyn_id, ip, host) ";
+            sql += " values ('SOAP-TEST', ";
+            sql += "'" + komunikat + "',"; 
+            sql += " '" + logUser + "','" + logMagNaz + "'," + logMagID + ",'" + logIP + "','" + logHost + "');";
+
+
+            FbCommand cdk = new FbCommand(sql, conn);
+            try
+            {
+                cdk.ExecuteNonQuery();
+            }
+            catch (FbException ex)
+            {
+                MessageBox.Show("Bład zapisu loga do bazy danych RaksSQL! " + ex.Message.ToString());
+                throw;
+            }
         }
 
         private void bGenerujTocken_Click(object sender, EventArgs e)

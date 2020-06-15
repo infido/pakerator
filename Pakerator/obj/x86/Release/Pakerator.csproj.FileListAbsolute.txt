@@ -57,5 +57,5 @@ C:\imex\!pakerator\Pakerator.exe.manifest
 C:\imex\!pakerator\Pakerator.application
 C:\imex\!pakerator\Pakerator.exe
 C:\imex\!pakerator\Pakerator.pdb
-C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csprojAssemblyReference.cache
 C:\imex\!pakerator\PakeratorChangeLog.txt
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csprojAssemblyReference.cache
