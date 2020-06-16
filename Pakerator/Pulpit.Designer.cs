@@ -61,6 +61,8 @@
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zamówieniaNaPortaluWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -75,7 +77,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wyczyśćToolStripMenuItem,
             this.konfiguracjaToolStripMenuItem,
-            this.historiaToolStripMenuItem});
+            this.historiaToolStripMenuItem,
+            this.zamówieniaNaPortaluWwwToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1478, 24);
@@ -398,6 +401,21 @@
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem.Text = "Kontrola towarów na dok sprzedaży";
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem.Click += new System.EventHandler(this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem_Click);
             // 
+            // zamówieniaNaPortaluWwwToolStripMenuItem
+            // 
+            this.zamówieniaNaPortaluWwwToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listaZamówieńZWwwToolStripMenuItem});
+            this.zamówieniaNaPortaluWwwToolStripMenuItem.Name = "zamówieniaNaPortaluWwwToolStripMenuItem";
+            this.zamówieniaNaPortaluWwwToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
+            this.zamówieniaNaPortaluWwwToolStripMenuItem.Text = "Zamówienia na portalu www";
+            // 
+            // listaZamówieńZWwwToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwToolStripMenuItem.Name = "listaZamówieńZWwwToolStripMenuItem";
+            this.listaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.listaZamówieńZWwwToolStripMenuItem.Text = "Lista zamówień z www";
+            this.listaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwToolStripMenuItem_Click);
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,6 +484,8 @@
         private System.Windows.Forms.ToolStripMenuItem menu2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pobranieInfoOTowarachToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kontrolaTowarowNaDokSprzedazyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zamówieniaNaPortaluWwwToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listaZamówieńZWwwToolStripMenuItem;
     }
 }
 

@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="ApiOrders" name="ApiOrders" targetNamespace="ApiOrders" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="ApiOrders">
+      <xsd:complexType name="requestType">
+        <xsd:annotation>
+          <xsd:documentation>Element służy do uwierzytelniania w celu wywołania metody.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="authenticate" type="ns:authenticateType" />
+          <xsd:element minOccurs="0" name="params" type="ns:paramsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="authenticateType">
+        <xsd:annotation>
+          <xsd:documentation>Login wykorzystywany podczas uwierzytelniania.</xsd:documentation>
+          <xsd:documentation>Klucz wykorzystywany podczas uwierzytelniania. Zapoznaj się z &lt;a href = "/pl/shop/developers/api/faq/najczesciej-zadawane-pytania-dotyczace-api-pa-IdoSell Shop-com/#3"&gt;instrukcją generowania klucza&lt;/a&gt;.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="userLogin" type="xsd:string" />
+          <xsd:element name="authenticateKey" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="paramsType">
+        <xsd:annotation>
+          <xsd:documentation>Status przedpłaty.
+            Lista statusów:
+            "unpaid" - nieopłacone,
+            "restored" - zwrócone,
+            "waiting" - niezaksięgowane.</xsd:documentation>
+          <xsd:documentation>Status zamówienia.
+                Lista statusów:
+                "new" - nieobsłużone,
+                "on_order" - realizowane,
+                "packed" - pakowane,
+                "packed_fulfillment" - pakowane fulfillment,
+                "packed_ready" - spakowane,
+                "ready" - gotowe,
+                "payment_waiting" - oczekujące na wpłatę,
+                "delivery_waiting" - oczekujące na dostawę,
+                "wait_for_dispatch" - oczekuje na termin wysłania,
+                "suspended" - wstrzymane,
+                "finished_ext" - realizowane w programie F/K.</xsd:documentation>
+          <xsd:documentation>Przewoźnicy (dostawcy przesyłek).</xsd:documentation>
+          <xsd:documentation>Sposób zapłaty za zamówienie.
+            Dopuszczalne wartości.
+            "cash_on_delivery" - pobranie,
+            "prepaid" - przedpłata,
+            "tradecredit" - kredyt kupiecki.</xsd:documentation>
+          <xsd:documentation>Typ zamówienia.
+                Dopuszczalne wartości:
+                "retail" - zamówienie detaliczne,
+                "wholesale" - zamówienie hurtowe,
+                "dropshipping" - zamówienie otrzymane do realizacji,
+                "deliverer" - zamówienie wysłane do dostawcy.</xsd:documentation>
+          <xsd:documentation>Status zamówienia dropshippingowego w systemie dostawcy.
+                Dopuszczalne wartości:
+                "all" - wszystkie,
+                "finished" - wysłane,
+                "canceled" - anulowane,
+                "notCanceled" - nie udało się anulować.</xsd:documentation>
+          <xsd:documentation>Identyfikatory zamówień.</xsd:documentation>
+          <xsd:documentation>Numery seryjne zamówień.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące klientów.</xsd:documentation>
+          <xsd:documentation>Zakresy dat lub numerów seryjnych.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące źródła pochodzenia zamówienia.</xsd:documentation>
+          <xsd:documentation>Lista towarów.</xsd:documentation>
+          <xsd:documentation>Numer strony z wynikami. Numeracja rozpoczyna się od 0</xsd:documentation>
+          <xsd:documentation>Ilość wyników na stronie. Wartości od 1 do 100</xsd:documentation>
+          <xsd:documentation>Czy klient prosił o fakturę.
+                Lista parametrów:
+                "invoice" - tak (papierową),
+                "e_invoice" - tak (dostarczoną elektronicznie),
+                "n" - nie.</xsd:documentation>
+          <xsd:documentation>Informacja o przesyłkach.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące stanów magazynowych.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące wykorzystanych kodow rabatowych.</xsd:documentation>
+          <xsd:documentation>Punkty lojalnościowe.</xsd:documentation>
+          <xsd:documentation>Prowadzący zamówienie.</xsd:documentation>
+          <xsd:documentation>Pakujący zamówienie.</xsd:documentation>
+          <xsd:documentation>Możliwość sortowania zwróconej listy</xsd:documentation>
+          <xsd:documentation>Sposób wyszukiwania zamówień po operatorze.</xsd:documentation>
+          <xsd:documentation>Zamówienia z przekroczonym terminem wysyłki.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderPrepaidStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ordersStatuses" type="ns:ordersStatusesType" />
+          <xsd:element minOccurs="0" name="couriersName" type="ns:couriersNameType" />
+          <xsd:element minOccurs="0" name="orderPaymentType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderType" type="ns:orderTypeType" />
+          <xsd:element minOccurs="0" name="dropshippingOrderStatus" type="ns:dropshippingOrderStatusType" />
+          <xsd:element minOccurs="0" name="ordersIds" type="ns:ordersIdsType" />
+          <xsd:element minOccurs="0" name="ordersSerialNumbers" type="ns:ordersSerialNumbersType" />
+          <xsd:element minOccurs="0" name="clients" type="ns:clientsType" />
+          <xsd:element minOccurs="0" name="ordersRange" type="ns:ordersRangeType" />
+          <xsd:element minOccurs="0" name="orderSource" type="ns:orderSourceType" />
+          <xsd:element minOccurs="0" name="products" type="ns:productsType" />
+          <xsd:element minOccurs="0" name="resultsPage" type="xsd:int" />
+          <xsd:element minOccurs="0" name="resultsLimit" type="xsd:int" />
+          <xsd:element minOccurs="0" name="clientRequestInvoice" type="xsd:string" />
+          <xsd:element minOccurs="0" name="packages" type="ns:packagesType" />
+          <xsd:element minOccurs="0" name="stocks" type="ns:stocksType" />
+          <xsd:element minOccurs="0" name="campaign" type="ns:campaignType" />
+          <xsd:element minOccurs="0" name="loyaltyPointsMode" type="ns:loyaltyPointsModeType" />
+          <xsd:element minOccurs="0" name="orderOperatorLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderPackingPersonLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ordersBy" type="ns:ordersByType" />
+          <xsd:element minOccurs="0" name="searchingOperatorTypeMatch" type="ns:operatorTypeMatch" />
+          <xsd:element minOccurs="0" name="ordersDelayed" type="ns:ordersDelayedType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ordersStatusesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="couriersNameType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:simpleType name="orderTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="wholesale" />
+          <xsd:enumeration value="retail" />
+          <xsd:enumeration value="dropshipping" />
+          <xsd:enumeration value="deliverer" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="dropshippingOrderStatusType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="all" />
+          <xsd:enumeration value="finished" />
+          <xsd:enumeration value="canceled" />
+          <xsd:enumeration value="notCanceled" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ordersIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ordersSerialNumbersType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="clientsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:clientType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="clientType">
+        <xsd:annotation>
+          <xsd:documentation>Login klienta.</xsd:documentation>
+          <xsd:documentation>Imię klienta.</xsd:documentation>
+          <xsd:documentation>Nazwisko klienta.</xsd:documentation>
+          <xsd:documentation>Miasto klienta.</xsd:documentation>
+          <xsd:documentation>Adres e-mail.</xsd:documentation>
+          <xsd:documentation>Parametr służy do wyszukiwania zamówień dla klienta, który posiada numer NIP.
+            Możliwe wartości:
+            "y" - klient posiada NIP,
+            "n" - klient nie posiada NIP .</xsd:documentation>
+          <xsd:documentation>Parametr pozwala wybrać po jakich danych należy przeszukać zamówienia. Dotyczy city, firstname, lastname.
+            Dostępne wartości:
+            "billing_data" - szukaj po danych bilingowych - domyślne,
+            "delivery_data"- szukaj po danych dostawy,
+            "billing_delivery_data" - szukaj po danych bilingowych i danych dostawy.</xsd:documentation>
+          <xsd:documentation>Nazwa firmy klienta.</xsd:documentation>
+          <xsd:documentation>Identyfikator kraju, zgodny ze standardem ISO-3166.</xsd:documentation>
+          <xsd:documentation>NazwaRegionuBierzePriorytetNadclientCountryId.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="clientLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientFirstName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientLastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCity" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientEmail" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientHasTaxNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientSearchingMode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientFirm" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCountryId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCountryName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ordersRangeType">
+        <xsd:annotation>
+          <xsd:documentation>Dane dla zakresu dat.</xsd:documentation>
+          <xsd:documentation>Dane dla zakresu numerów seryjnych.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ordersDateRange" type="ns:ordersDateRangeType" />
+          <xsd:element minOccurs="0" name="ordersSerialNumberRange" type="ns:ordersSerialNumberRangeType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ordersDateRangeType">
+        <xsd:annotation>
+          <xsd:documentation>Rodzaj daty, według której poszukiwane są zamówienia.
+            Lista rodzajów dat:
+            "add" - data złożenia zamówienia,
+            "modified" - data modyfikacji zamówienia,
+            "dispatch" - data wysłania zamówienia,
+            "payment" - data opłacenia zamówienia,
+            "last_payments_operation" - data ostatniej operacji na wpłatach,
+            "declared_payments" - data ostatniej wpłaty.</xsd:documentation>
+          <xsd:documentation>Tablica dat, według której wyszukiwane sa zamówienia.
+            Lista rodzajów dat:
+            "add" - data złożenia zamówienia,
+            "modified" - data modyfikacji zamówienia,
+            "dispatch" - data wysłania zamówienia,
+            "payment" - data opłacenia zamówienia.
+            "last_payments_operation" - data ostatniej operacji na wpłatach,
+            "declared_payments" - data ostatniej wpłaty.</xsd:documentation>
+          <xsd:documentation>Data początkowa w formacie YYYY-MM-DD HH:MM:SS.</xsd:documentation>
+          <xsd:documentation>Data końcowa w formacie YYYY-MM-DD HH:MM:SS.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ordersDateType" type="ns:ordersDateTypeType" />
+          <xsd:element minOccurs="0" name="ordersDatesTypes" type="ns:dateTypeTypes" />
+          <xsd:element minOccurs="0" name="ordersDateBegin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ordersDateEnd" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="ordersDateTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="add" />
+          <xsd:enumeration value="modified" />
+          <xsd:enumeration value="dispatch" />
+          <xsd:enumeration value="payment" />
+          <xsd:enumeration value="last_payments_operation" />
+          <xsd:enumeration value="declared_payments" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="dateTypeTypes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:ordersDatesTypeType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:simpleType name="ordersDatesTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="add" />
+          <xsd:enumeration value="modified" />
+          <xsd:enumeration value="dispatch" />
+          <xsd:enumeration value="payment" />
+          <xsd:enumeration value="last_payments_operation" />
+          <xsd:enumeration value="declared_payments" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ordersSerialNumberRangeType">
+        <xsd:annotation>
+          <xsd:documentation>Początkowy numer zakresu numerów seryjnych poszukiwanych zamówień.</xsd:documentation>
+          <xsd:documentation>Końcowy numer zakresu numerów seryjnych poszukiwanych zamówień.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="ordersSerialNumberBegin" type="xsd:int" />
+          <xsd:element name="ordersSerialNumberEnd" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderSourceType">
+        <xsd:annotation>
+          <xsd:documentation>Maska bitowa z identyfikatorów sklepów.
+            Maskę dla danego sklepu oblicza się według następującego wzoru:
+            2^(ID_sklepu - 1).
+            Jeśli produkt ma być dostępny w więcej niż jednym sklepie, maski należy ze sobą zsumować.</xsd:documentation>
+          <xsd:documentation>Lista identyfikatorów sklepów W przypadku podania maski, parametr nie jest brany pod uwagę.</xsd:documentation>
+          <xsd:documentation>Element służący do wyszukiwania zamówień według parametrów aukcji.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="shopsMask" type="xsd:int" />
+          <xsd:element minOccurs="0" name="shopsIds" type="ns:shopsIdsType" />
+          <xsd:element minOccurs="0" name="auctionsParams" type="ns:auctionsParamsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="shopsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionsParamsType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwy serwisów aukcyjnych.
+            Lista serwisów:
+            "allegro" - serwis Allegro,
+            "testwebapi" - serwis testowy Allegro,
+            "ebay" - serwis eBay.</xsd:documentation>
+          <xsd:documentation>Numery aukcji.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące kont serwisów aukcyjnych.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące konta klienta w serwisie aukcyjnym.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="auctionsServicesNames" type="ns:auctionsServicesNamesType" />
+          <xsd:element minOccurs="0" name="auctionsItemsIds" type="ns:auctionsItemsIdsType" />
+          <xsd:element minOccurs="0" name="auctionsAccounts" type="ns:auctionsAccountsType" />
+          <xsd:element minOccurs="0" name="auctionsClients" type="ns:auctionsClientsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="auctionsServicesNamesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionsItemsIdsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:int[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionsAccountsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:auctionAccountType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionAccountType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator konta w serwisie aukcyjnym.</xsd:documentation>
+          <xsd:documentation>Nazwa konta w serwisie aukcyjnym, z którego została wystawiona aukcja.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="auctionsAccountId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="auctionsAccountLogin" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="auctionsClientsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:auctionClientType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="auctionClientType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator konta klienta w serwisie aukcyjnym.</xsd:documentation>
+          <xsd:documentation>Login klienta w serwisie aukcyjnym.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="auctionClientId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="auctionClientLogin" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Nazwa towaru.</xsd:documentation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="packagesType">
+        <xsd:annotation>
+          <xsd:documentation>Numery przesyłek.</xsd:documentation>
+          <xsd:documentation>Czy zamówienie ma numer przesyłki.
+            Możliwe wartości:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="packagesNumbers" type="ns:packagesNumbers" />
+          <xsd:element minOccurs="0" name="orderHasPackageNumbers" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="packagesNumbers">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="stocksType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:stockType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="stockType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="campaignType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator kampanii.</xsd:documentation>
+          <xsd:documentation>Kody rabatowe.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="campaignId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="discountCodes" type="ns:discountCodesType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="discountCodesType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:simpleType name="loyaltyPointsModeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="all" />
+          <xsd:enumeration value="given" />
+          <xsd:enumeration value="taken" />
+          <xsd:enumeration value="given_or_taken" />
+          <xsd:enumeration value="given_and_taken" />
+          <xsd:enumeration value="not_given_nor_taken" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ordersByType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:orderByType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="orderByType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa pola po jakim będzie sortowana lista.
+                Możliwe wartości:
+                "id" - Identyfikator produktu,
+                "sn" - Numer seryjny zamówienia,
+                "order_time" - czas zamówienia,
+                "status" - Status zamówienia,
+                "order_source" - Żródło zamówienia,
+                "order_cost" - Kwota zamówienia,
+                "discount_code" - Kod rabatowy,
+                "ready_to_send_date" - Gotowe do wysłania.</xsd:documentation>
+          <xsd:documentation>Określa kierunek sortowania.
+            Możliwe wartości:
+            "ASC" - rosnąco,
+            "DESC" - malejąco.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="elementName" type="xsd:string" />
+          <xsd:element name="sortDirection" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="operatorTypeMatch">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="no_assignment" />
+          <xsd:enumeration value="no_empty" />
+          <xsd:enumeration value="empty" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ordersDelayedType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="y" />
+          <xsd:enumeration value="n" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="responseType">
+        <xsd:annotation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Ilość wszystkich wyników, jakie zostały znalezione</xsd:documentation>
+          <xsd:documentation>Ilość stron wszystkich znalezionych wyników</xsd:documentation>
+          <xsd:documentation>Numer strony z wynikami. Numeracja rozpoczyna się od 0</xsd:documentation>
+          <xsd:documentation>Ilość wyników na stronie. Wartości od 1 do 100</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="errors" type="ns:errorsType" />
+          <xsd:element minOccurs="0" name="Results" type="ns:ResultsType" />
+          <xsd:element minOccurs="0" name="resultsNumberAll" type="xsd:int" />
+          <xsd:element minOccurs="0" name="resultsNumberPage" type="xsd:int" />
+          <xsd:element minOccurs="0" name="resultsPage" type="xsd:int" />
+          <xsd:element minOccurs="0" name="resultsLimit" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="errorsType">
+        <xsd:annotation>
+          <xsd:documentation>Kod błędu.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="faultCode" type="xsd:int" />
+          <xsd:element minOccurs="0" name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ResultsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:ResultType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ResultType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator zamówienia.</xsd:documentation>
+          <xsd:documentation>Notatka do zamówienia obsługiwana przez program IAI Bridge.</xsd:documentation>
+          <xsd:documentation>Numer seryjny zamówienia.</xsd:documentation>
+          <xsd:documentation>Typ zamówienia.
+                Lista wartości:
+                "p" - zamówienie hurtowe z panelu,
+                "t" - zamówienie hurtowe ze sklepu,
+                "n" - zamówienie detaliczne ze sklepu,
+                "r" - zamówienie detaliczne z panelu.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące klienta.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące zamówienia.</xsd:documentation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderBridgeNote" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSerialNumber" type="xsd:int" />
+          <xsd:element minOccurs="0" name="orderType" type="ns:responseOrderType" />
+          <xsd:element minOccurs="0" name="clientResult" type="ns:clientResultType" />
+          <xsd:element minOccurs="0" name="orderDetails" type="ns:orderDetailsType" />
+          <xsd:element minOccurs="0" name="errors" type="ns:errorsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="responseOrderType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="p" />
+          <xsd:enumeration value="t" />
+          <xsd:enumeration value="n" />
+          <xsd:enumeration value="r" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="clientResultType">
+        <xsd:annotation>
+          <xsd:documentation>Dane dotyczące adresu bilingowego klienta.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące adresu dostawy.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące adresu nabywcy.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące konta klienta w sklepie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="clientBillingAddress" type="ns:clientBillingAddressType" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddress" type="ns:clientDeliveryAddressType" />
+          <xsd:element minOccurs="0" name="payerAddress" type="ns:payerAddressType" />
+          <xsd:element minOccurs="0" name="clientAccount" type="ns:clientAccountType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="clientBillingAddressType">
+        <xsd:annotation>
+          <xsd:documentation>Imię klienta.</xsd:documentation>
+          <xsd:documentation>Nazwisko klienta.</xsd:documentation>
+          <xsd:documentation>NIP klienta.</xsd:documentation>
+          <xsd:documentation>Nazwa firmy klienta.</xsd:documentation>
+          <xsd:documentation>Sugestia do produktu.</xsd:documentation>
+          <xsd:documentation>Ulica i numer domu.</xsd:documentation>
+          <xsd:documentation>Kod pocztowy klienta.</xsd:documentation>
+          <xsd:documentation>Miasto klienta.</xsd:documentation>
+          <xsd:documentation>NazwaRegionuBierzePriorytetNadclientCountryId.</xsd:documentation>
+          <xsd:documentation>Identyfikator kraju, zgodny ze standardem ISO-3166.</xsd:documentation>
+          <xsd:documentation>Telefon komórkowy.</xsd:documentation>
+          <xsd:documentation>Telefon stacjonarny.</xsd:documentation>
+          <xsd:documentation>Kod regionu administracyjnego.</xsd:documentation>
+          <xsd:documentation>Region administracyjny.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="clientFirstName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientLastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientNip" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientFirm" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientAdditional" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientStreet" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientZipCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCity" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCountryName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCountryId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientPhone1" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientPhone2" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientProvinceId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientProvince" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="clientDeliveryAddressType">
+        <xsd:annotation>
+          <xsd:documentation>Id adresu dostawy.</xsd:documentation>
+          <xsd:documentation>Imię odbiorcy.</xsd:documentation>
+          <xsd:documentation>Nazwisko odbiorcy.</xsd:documentation>
+          <xsd:documentation>Nazwa firmy.</xsd:documentation>
+          <xsd:documentation>Ulica i numer domu odbiorcy.</xsd:documentation>
+          <xsd:documentation>Kod pocztowy odbiorcy.</xsd:documentation>
+          <xsd:documentation>Miasto odbiorcy.</xsd:documentation>
+          <xsd:documentation>Kraj odbiorcy.</xsd:documentation>
+          <xsd:documentation>Kod kraju w standardzie ISO 3166-1.</xsd:documentation>
+          <xsd:documentation>Telefon komórkowy.</xsd:documentation>
+          <xsd:documentation>Telefon stacjonarny.</xsd:documentation>
+          <xsd:documentation>Kod regionu administracyjnego.</xsd:documentation>
+          <xsd:documentation>Region administracyjny.</xsd:documentation>
+          <xsd:documentation>Typ adresu dostawy wynikający z rodzaju dostawy np. punkt odbioru.
+            Dostępne wartości:
+            "client" - Adres podany przez klienta, na który chce otrzymać przesyłkę,
+            "pickupPoint"- Adres wybranego przez klienta punktu odbioru, z którego klient chce odebrać zamówienie,
+            "warehouse" - Adres wybranego przez klienta magazynu, z którego klient chce odebrać zamówienie.</xsd:documentation>
+          <xsd:documentation>Wewnętrzny identyfikator punktu odbioru.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="clientDeliveryAddressId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressFirstName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressLastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressFirm" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressStreet" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressZipCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressCity" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressCountry" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressCountryId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressPhone1" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressPhone2" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressProvinceId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressProvince" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressType" type="ns:clientDeliveryAddressTypeType" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressPickupPointInternalId" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="clientDeliveryAddressTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="client" />
+          <xsd:enumeration value="pickupPoint" />
+          <xsd:enumeration value="warehouse" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="payerAddressType">
+        <xsd:annotation>
+          <xsd:documentation>Id adresu nabywcy.</xsd:documentation>
+          <xsd:documentation>Imię nabywcy.</xsd:documentation>
+          <xsd:documentation>Nazwisko nabywcy.</xsd:documentation>
+          <xsd:documentation>Nazwa firmy.</xsd:documentation>
+          <xsd:documentation>Nip nabywcy.</xsd:documentation>
+          <xsd:documentation>Ulica i numer domu nabywcy.</xsd:documentation>
+          <xsd:documentation>Kod pocztowy nabywcy.</xsd:documentation>
+          <xsd:documentation>Miasto nabywcy.</xsd:documentation>
+          <xsd:documentation>Kraj nabywcy.</xsd:documentation>
+          <xsd:documentation>Kod kraju w standardzie ISO 3166-1 A2.</xsd:documentation>
+          <xsd:documentation>Telefon nabywcy.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="payerAddressId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressFirstName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressLastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressFirm" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressNip" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressStreet" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressZipCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressCity" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressCountry" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressCountryId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payerAddressPhone" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="clientAccountType">
+        <xsd:annotation>
+          <xsd:documentation>Unikatowy numer klienta.</xsd:documentation>
+          <xsd:documentation>Login klienta.</xsd:documentation>
+          <xsd:documentation>Adres e-mail.</xsd:documentation>
+          <xsd:documentation>Telefon komórkowy.</xsd:documentation>
+          <xsd:documentation>Telefon stacjonarny.</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="clientId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="clientLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientEmail" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientPhone1" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientPhone2" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientCodeExternal" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderDetailsType">
+        <xsd:annotation>
+          <xsd:documentation>Flaga informująca o zarejestrowaniu lub zrealizowaniu zamówienia w zewnętrznym programie poprzez API.
+            Dopuszczalne wartości.
+            "none" - zamówienie nie zostało zarejestrowane w zewnętrznym programie,
+            "registered" - zamówienie zostało zarejestrowane w zewnętrznym programie,
+            "realized" - zamówienie zostało zrealizowane w zewnętrznym programie,
+            "registered_pos" - zamówienie zostało zarejestrowane w zewnętrznym programie,
+            "realized_pos" - zamówienie zostało zrealizowane w zewnętrznym programie.</xsd:documentation>
+          <xsd:documentation>Status zamówienia.
+            Dopuszczalne wartości:
+            "finished_ext" - status zamówienia: realizowane w programie F/K,
+            "finished" - wykonane,
+            "new" - nieobsłużone,
+            "complainted" - reklamacja,
+            "payment_waiting" - oczekuje na wpłatę ,
+            "delivery_waiting" - oczekuje na dostawę,
+            "on_order" - realizowane,
+            "packed" - pakowane,
+            "packed_fulfillment" - pakowane fulfillment,
+            "packed_ready" - spakowane,
+            "ready" - gotowe,
+            "returned" - zwrot,
+            "wait_for_dispatch" - oczekuje na termin wysłania,
+            "suspended" - wstrzymane,
+            "joined" - połączone,
+            "missing" - zgubione,
+            "lost" - stracone,
+            "false" - fałszywe,
+            "canceled" - Klient anulował.</xsd:documentation>
+          <xsd:documentation>Status zamówienia dropshippingowego w systemie dostawcy.
+                Lista wartości:
+                "none" - brak,
+                "finished" - wysłane,
+                "canceled" - anulowane,
+                "notCanceled" - nie udało się anulować.</xsd:documentation>
+          <xsd:documentation>Rodzaj potwierdzenia zamówienia.
+            Lista potwierdzeń:
+            "none" - zamówienie niepotwierdzone,
+            "email" - zamówienie potwierdzone przez e-mail,
+            "phone_client" - zamówienie potwierdzone telefonicznie przez klienta,
+            "phone_service" - zamówienie potwierdzone telefonicznie przez obsługę,
+            "postauction" - zamówienie potwierdzone przez stronę powrotu z aukcji,
+            "willingness" - potwierdzone poprzez pismo potwierdzenia chęci zamówienia,
+            "auctionfod" - potwierdzone przez formularz pozakupowy Allegro.</xsd:documentation>
+          <xsd:documentation>Data wpłynięcia zamówienia w formacie YYYY-MM-DD HH:MM:SS.</xsd:documentation>
+          <xsd:documentation>Data wysłania zamówienia w formacie YYYY-MM-DD HH:MM:SS.</xsd:documentation>
+          <xsd:documentation>Czas obsługi zamówienia w sekundach.</xsd:documentation>
+          <xsd:documentation>Uwagi klienta do zamówienia.</xsd:documentation>
+          <xsd:documentation>Uwagi klienta dla kuriera.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące płatności do zamówienia.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące przedpłat do zamówienia.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące źródła pochodzenia zamówienia.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące aukcji, z której pochodzi zamówienie (tylko w przypadku jeśli pochodzi z aukcji).</xsd:documentation>
+          <xsd:documentation>Dane dotyczące przesyłki.</xsd:documentation>
+          <xsd:documentation>Lista produktów zwróconych w wyniku wywołania bramki</xsd:documentation>
+          <xsd:documentation>Parametr oznaczający, czy produkt został zdjęty z magazynu.
+            Lista wartości:
+            "y" - zdjęty z magazynu,
+            "n" - wstawiony do magazynu.</xsd:documentation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+          <xsd:documentation>Czy klient prosił o fakturę.
+                Lista parametrów:
+                "invoice" - tak (papierową),
+                "e_invoice" - tak (dostarczoną elektronicznie),
+                "n" - nie.</xsd:documentation>
+          <xsd:documentation>Id adresu dostawy.</xsd:documentation>
+          <xsd:documentation>Notatka do zamówienia.</xsd:documentation>
+          <xsd:documentation>Informacja o użytym kodzie rabatowym.</xsd:documentation>
+          <xsd:documentation>Karta rabatowa</xsd:documentation>
+          <xsd:documentation>Prowadzący zamówienie.</xsd:documentation>
+          <xsd:documentation>Pakujący zamówienie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="apiFlag" type="ns:apiFlagType" />
+          <xsd:element minOccurs="0" name="orderStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" name="dropshippingOrderStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderConfirmation" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderAddDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderDispatchDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderPrepareTime" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientNoteToOrder" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientNoteToCourier" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payments" type="ns:paymentsType" />
+          <xsd:element minOccurs="0" name="prepaids" type="ns:prepaidsType" />
+          <xsd:element minOccurs="0" name="orderSourceResults" type="ns:orderSourceResultsType" />
+          <xsd:element minOccurs="0" name="auctionInfo" type="ns:auctionInfoType" />
+          <xsd:element minOccurs="0" name="dispatch" type="ns:dispatchType" />
+          <xsd:element minOccurs="0" name="productsResults" type="ns:productsResultsType" />
+          <xsd:element minOccurs="0" name="productRemovedInStock" type="ns:productRemovedInStockType" />
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="clientRequestInvoice" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientDeliveryAddressId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="orderNote" type="xsd:string" />
+          <xsd:element minOccurs="0" name="discountCode" type="ns:discountCodeType" />
+          <xsd:element minOccurs="0" name="discountCard" type="ns:discountCardType" />
+          <xsd:element minOccurs="0" name="orderOperatorLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderPackingPersonLogin" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="apiFlagType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="none" />
+          <xsd:enumeration value="registered" />
+          <xsd:enumeration value="realized" />
+          <xsd:enumeration value="registered_pos" />
+          <xsd:enumeration value="realized_pos" />
+          <xsd:enumeration value="registration_fault" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="paymentsType">
+        <xsd:annotation>
+          <xsd:documentation>Sposób zapłaty za zamówienie.
+            Dopuszczalne wartości.
+            "cash_on_delivery" - pobranie,
+            "prepaid" - przedpłata,
+            "tradecredit" - kredyt kupiecki.</xsd:documentation>
+          <xsd:documentation>Naliczony rabat.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące wartości zamówienia w walucie, w jakiej zamówienie wpłynęło.</xsd:documentation>
+          <xsd:documentation>Dane dotyczące wartości zamówienia w walucie rozliczeniowej sklepu.</xsd:documentation>
+          <xsd:documentation>Sposób rozliczania wartości zamówienia.
+            "gross" - rozliczane po cenach brutto,
+            "net" - rozliczane po cenach netto.</xsd:documentation>
+          <xsd:documentation>Informuje, czy do zamówienia został naliczony VAT:
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderPaymentType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderRebatePercent" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderCurrency" type="ns:orderCurrencyType" />
+          <xsd:element minOccurs="0" name="orderBaseCurrency" type="ns:orderBaseCurrencyType" />
+          <xsd:element minOccurs="0" name="orderWorthCalculateType" type="ns:orderWorthCalculateTypeType" />
+          <xsd:element minOccurs="0" name="orderVatExists" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderCurrencyType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator waluty</xsd:documentation>
+          <xsd:documentation>Kurs waluty ustawiony dla zamówienia (jeśli nie został zmieniony ręcznie, jest to kurs z dnia, w którym zostało złożone zamówienie).</xsd:documentation>
+          <xsd:documentation>Przelicznik jednostkowy waluty.</xsd:documentation>
+          <xsd:documentation>Kurs waluty rozliczeniowej panelu w stosunku do waluty rozliczeniowej sklepu.</xsd:documentation>
+          <xsd:documentation>Wartość produktów.</xsd:documentation>
+          <xsd:documentation>Koszty wysyłki.</xsd:documentation>
+          <xsd:documentation>Dodatkowa opłata za wybraną formę płatności.</xsd:documentation>
+          <xsd:documentation>Dodatkowa opłata za ubezpieczenie.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="currencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderCurrencyValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderCurrencyScale" type="xsd:int" />
+          <xsd:element minOccurs="0" name="orderCurrencyPanelRate" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderProductsCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderDeliveryCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderPayformCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderInsuranceCost" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderBaseCurrencyType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator waluty</xsd:documentation>
+          <xsd:documentation>Wartość produktów.</xsd:documentation>
+          <xsd:documentation>Koszty wysyłki.</xsd:documentation>
+          <xsd:documentation>Stawka VAT za koszty dostawy.</xsd:documentation>
+          <xsd:documentation>Dodatkowa opłata za wybraną formę płatności.</xsd:documentation>
+          <xsd:documentation>Stawka VAT za dodatkowa opłata za wybraną formę płatności (w procentach).</xsd:documentation>
+          <xsd:documentation>Dodatkowa opłata za ubezpieczenie.</xsd:documentation>
+          <xsd:documentation>Stawka VAT za ubezpieczenie (w procentach).</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="currencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderProductsCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderDeliveryCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderDeliveryVat" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderPayformCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderPayformVat" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderInsuranceCost" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderInsuranceVat" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="orderWorthCalculateTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="gross" />
+          <xsd:enumeration value="net" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="prepaidsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:prepaidType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="prepaidType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator wpłaty do zamówienia.</xsd:documentation>
+          <xsd:documentation>Numer wpłaty dla zamówienia.</xsd:documentation>
+          <xsd:documentation>Numer wpłaty w postaci [nr zamówienia]-[nr wplaty] np. 1234-1.</xsd:documentation>
+          <xsd:documentation>Data dodania wpłaty.</xsd:documentation>
+          <xsd:documentation>Data modyfikacji wpłaty przez klienta.</xsd:documentation>
+          <xsd:documentation>Data modyfikacji wpłaty przez obsługę.</xsd:documentation>
+          <xsd:documentation>Status wpłaty.</xsd:documentation>
+          <xsd:documentation>Typ transakcji:
+            "payment" - wpłata,
+            "advance" - zaliczka,
+            "repayment" - zwrot,
+            "fee" - opłata manipulacyjna.</xsd:documentation>
+          <xsd:documentation>Identyfikator formy płatności. Listę dostępnych identyfikatorów można pobrać przez bramkę getPaymentForms.</xsd:documentation>
+          <xsd:documentation>Nazwa formy płatności.</xsd:documentation>
+          <xsd:documentation>Konto.</xsd:documentation>
+          <xsd:documentation>Kwota wpłaty.</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty</xsd:documentation>
+          <xsd:documentation>Numer bonu użytego w płatności.</xsd:documentation>
+          <xsd:documentation>Numer karty podarunkowej użytej w płatności.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="prepaidId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="paymentOrdinalNumber" type="xsd:int" />
+          <xsd:element minOccurs="0" name="paymentNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentAddDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentModifiedDateByClient" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentModifiedDateByShop" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentType" type="ns:paymentTypeType" />
+          <xsd:element minOccurs="0" name="payformId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="payformName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="payformAccount" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentValue" type="xsd:float" />
+          <xsd:element minOccurs="0" name="currencyId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="voucherNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="giftCardNumber" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="paymentTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="payment" />
+          <xsd:enumeration value="advance" />
+          <xsd:enumeration value="repayment" />
+          <xsd:enumeration value="fee" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="orderSourceResultsType">
+        <xsd:annotation>
+          <xsd:documentation>typ źródła zamówienia możliwe wartości:.
+            "self_added" - Zamówienia z panelu,
+            "shop" - Zamówienia ze sklepu,
+            "search_engine" - Zamówienia z wyszukiwarek,
+            "auction" - Zamówienia z aukcji,
+            "advertisement_campaign" - Kampanie reklamowe,
+            "price_comparer" - Porównywarki cen,
+            "affiliate_program" - Program partnerski,
+            "api" - Zamówienie z API,
+            "eletronic_offer" - Zamówienie z cennika ODT,
+            "cpa" - Zamówienie z programu cpa,
+            "refferer_site" - Zamówienie ze stron polecających,
+            "pos" - Zamówienie z programu POS,
+            "marketplace" - Zamówienie z Marketplace,
+            "iai_ads" - Zamówienia z IAI Ads</xsd:documentation>
+          <xsd:documentation>Identyfikator sklepu</xsd:documentation>
+          <xsd:documentation>Serwis aukcyjny, z którego pochodzi zamówienie.
+            Lista serwisów:
+            "allegro" - serwis Allegro,
+            "testwebapi" - serwis testowy Allegro,
+            "ebay" - serwis eBay.</xsd:documentation>
+          <xsd:documentation>Szczegółowe informacje o źródle zamówienia.</xsd:documentation>
+          <xsd:documentation>Szczegółowe informacje o źródłach odwiedzin poprzedzających złożenie zamówienia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderSourceType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shopId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="auctionsServiceName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSourceDetails" type="ns:orderSourceDetailsType" />
+          <xsd:element minOccurs="0" name="preorderSourcesDetails" type="ns:preorderSourcesDetailsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderSourceDetailsType">
+        <xsd:annotation>
+          <xsd:documentation>typ źródła zamówienia możliwe wartości:.
+            "self_added" - Zamówienia z panelu,
+            "shop" - Zamówienia ze sklepu,
+            "search_engine" - Zamówienia z wyszukiwarek,
+            "auction" - Zamówienia z aukcji,
+            "advertisement_campaign" - Kampanie reklamowe,
+            "price_comparer" - Porównywarki cen,
+            "affiliate_program" - Program partnerski,
+            "api" - Zamówienie z API,
+            "eletronic_offer" - Zamówienie z cennika ODT,
+            "cpa" - Zamówienie z programu cpa,
+            "refferer_site" - Zamówienie ze stron polecających,
+            "pos" - Zamówienie z programu POS,
+            "marketplace" - Zamówienie z Marketplace,
+            "iai_ads" - Zamówienia z IAI Ads</xsd:documentation>
+          <xsd:documentation>Dokładna nazwa źródła.</xsd:documentation>
+          <xsd:documentation>Numeryczny identyfikator typu źródła zamówienia.</xsd:documentation>
+          <xsd:documentation>Numeryczny identyfikator źródła zamówienia.</xsd:documentation>
+          <xsd:documentation>Identyfikator produktu od którego zaczęły się odwiedziny po których złożono zamówienie</xsd:documentation>
+          <xsd:documentation>Adres strony źródłowej z której nastąpiło wejście do sklepu przed złożeniem zamówienia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderSourceType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSourceName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSourceTypeId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="orderSourceId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="entryProductIdBeforeOrder" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sourcePageUrl" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="preorderSourcesDetailsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:preorderSourceDetailType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="preorderSourceDetailType">
+        <xsd:annotation>
+          <xsd:documentation>typ źródła zamówienia możliwe wartości:.
+            "self_added" - Zamówienia z panelu,
+            "shop" - Zamówienia ze sklepu,
+            "search_engine" - Zamówienia z wyszukiwarek,
+            "auction" - Zamówienia z aukcji,
+            "advertisement_campaign" - Kampanie reklamowe,
+            "price_comparer" - Porównywarki cen,
+            "affiliate_program" - Program partnerski,
+            "api" - Zamówienie z API,
+            "eletronic_offer" - Zamówienie z cennika ODT,
+            "cpa" - Zamówienie z programu cpa,
+            "refferer_site" - Zamówienie ze stron polecających,
+            "pos" - Zamówienie z programu POS,
+            "marketplace" - Zamówienie z Marketplace,
+            "iai_ads" - Zamówienia z IAI Ads</xsd:documentation>
+          <xsd:documentation>Dokładna nazwa źródła.</xsd:documentation>
+          <xsd:documentation>Numeryczny identyfikator typu źródła zamówienia.</xsd:documentation>
+          <xsd:documentation>Numeryczny identyfikator źródła zamówienia.</xsd:documentation>
+          <xsd:documentation>Data wejścia na stronę w formacie YYYY-MM-DD HH:MM:SS</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderSourceType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSourceName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSourceTypeId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="orderSourceId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="entryDate" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="auctionInfoType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator konta klienta w serwisie aukcyjnym.</xsd:documentation>
+          <xsd:documentation>Login klienta w serwisie aukcyjnym.</xsd:documentation>
+          <xsd:documentation>Numer aukcji.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="auctionClientId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="auctionClientLogin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="auctionItemId" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="dispatchType">
+        <xsd:annotation>
+          <xsd:documentation>Id kuriera.</xsd:documentation>
+          <xsd:documentation>Nazwa dostawcy przesyłki.</xsd:documentation>
+          <xsd:documentation>Kurier przez webservice.</xsd:documentation>
+          <xsd:documentation>Identyfikator przesyłki.</xsd:documentation>
+          <xsd:documentation>Wybrana data doręczenia.</xsd:documentation>
+          <xsd:documentation>Dodatkowe informacje odnośnie daty dostawy.</xsd:documentation>
+          <xsd:documentation>Planowana data wysłania zamówienia.</xsd:documentation>
+          <xsd:documentation>Waga przesyłki.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="courierId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="courierName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="courierWebserviceOnly" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="deliveryPackageId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="deliveryDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="deliveryDateAdditional" type="xsd:string" />
+          <xsd:element minOccurs="0" name="estimatedDeliveryDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="deliveryWeight" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productsResultsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productResultType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productResultType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Nazwa towaru.</xsd:documentation>
+          <xsd:documentation>Kod produktu widoczny w sklepie</xsd:documentation>
+          <xsd:documentation>nazwa wariantu.</xsd:documentation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+          <xsd:documentation>Numer seryjny produktu.</xsd:documentation>
+          <xsd:documentation>Ilość towaru.</xsd:documentation>
+          <xsd:documentation>Waga.</xsd:documentation>
+          <xsd:documentation>Wartość podatku VAT</xsd:documentation>
+          <xsd:documentation>Czy towar zwolniony z podatku VAT
+            Dopuszczalne wartości
+            "y" - tak,
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Cena brutto produktu ustawiona w panelu.</xsd:documentation>
+          <xsd:documentation>Cena Netto Produktu Ustawiona w Panelu.</xsd:documentation>
+          <xsd:documentation>Cena brutto produktu w zamówieniu w walucie zamówienia.</xsd:documentation>
+          <xsd:documentation>Cena netto produktu w zamówieniu w walucie zamówienia.</xsd:documentation>
+          <xsd:documentation>Lista sugestii do produktu.</xsd:documentation>
+          <xsd:documentation>Uwagi klienta do produktu.</xsd:documentation>
+          <xsd:documentation>Tryb sprzedaży towaru.
+            Możliwe wartości:
+            "money",
+            "gift",
+            "points".</xsd:documentation>
+          <xsd:documentation>Id zestawu.</xsd:documentation>
+          <xsd:documentation>Numery seryjne.</xsd:documentation>
+          <xsd:documentation>Informacja dodatkowa.</xsd:documentation>
+          <xsd:documentation>pozycja towaru w koszyku.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="versionName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSerialNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productQuantity" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productWeight" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productVat" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productVatFree" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productPanelPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productPanelPriceNet" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productOrderPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productOrderPriceNet" type="xsd:float" />
+          <xsd:element minOccurs="0" name="orderAdditionalList" type="ns:orderAdditionalListType" />
+          <xsd:element minOccurs="0" name="remarksToProduct" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSalesMode" type="ns:orderSalesModeType" />
+          <xsd:element minOccurs="0" name="bundleId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productSerialNumbers" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productOrderAdditional" type="xsd:string" />
+          <xsd:element minOccurs="1" name="basketPosition" type="xsd:int" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderAdditionalListType">
+        <xsd:annotation>
+          <xsd:documentation>Sugestia do produktu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderAdditional" type="ns:orderAdditionalType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="orderAdditionalType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa sugestii.</xsd:documentation>
+          <xsd:documentation>Wartość sugestii.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderAdditionalName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderAdditionalValue" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="orderSalesModeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="money" />
+          <xsd:enumeration value="gift" />
+          <xsd:enumeration value="points" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="productRemovedInStockType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="y" />
+          <xsd:enumeration value="n" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="discountCodeType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator kampanii.</xsd:documentation>
+          <xsd:documentation>Nazwa kodu.</xsd:documentation>
+          <xsd:documentation>Naliczony rabat</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="campaignId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="discountCodeName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="discountCodeValue" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="discountCardType">
+        <xsd:annotation>
+          <xsd:documentation>Nazwa karty</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="discountCardName" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getOrdersNotFinishedRequest">
+    <wsdl:part name="getOrdersNotFinished" type="ns:requestType" />
+  </wsdl:message>
+  <wsdl:message name="getOrdersNotFinishedResponse">
+    <wsdl:part name="getOrdersNotFinishedResponse" type="ns:responseType" />
+  </wsdl:message>
+  <wsdl:portType name="ApiOrdersPortType">
+    <wsdl:operation name="getOrdersNotFinished">
+      <wsdl:documentation>Pozwala na pobranie informacji o niezamkniętych zamówieniach znajdujących się w panelu administracyjnym sklepu. Zamówienia o statusie fałszywe i stracone są uważane za zamknięte.</wsdl:documentation>
+      <wsdl:input message="ns:getOrdersNotFinishedRequest" />
+      <wsdl:output message="ns:getOrdersNotFinishedResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ApiOrdersBinding" type="ns:ApiOrdersPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="getOrdersNotFinished">
+      <soap:operation soapAction="#getOrdersNotFinished" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="ApiOrders" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="ApiOrders" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApiOrdersService">
+    <wsdl:documentation><![CDATA[https://www.iai-shop.com/pl/shop/api/?action=documentation&function=orders]]></wsdl:documentation>
+    <wsdl:port name="ApiOrdersPort" binding="ns:ApiOrdersBinding">
+      <soap:address location="https://mm-moto.iai-shop.com/api/?gate=orders/getOrdersNotFinished/77/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

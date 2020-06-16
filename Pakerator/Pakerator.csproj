@@ -123,6 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\ApiGetOrdersNotFinishedGet\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\ServiceReferenceIAI\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -145,6 +150,12 @@
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrdersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrdersView.Designer.cs">
+      <DependentUpon>OrdersView.cs</DependentUpon>
     </Compile>
     <Compile Include="Pulpit.cs">
       <SubType>Form</SubType>
@@ -175,6 +186,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OrdersView.resx">
+      <DependentUpon>OrdersView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pulpit.resx">
       <DependentUpon>Pulpit.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +209,9 @@
       <DependentUpon>RaportKontrolaIndeksow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Connected Services\ApiGetOrdersNotFinishedGet\Pakerator.ApiGetOrdersNotFinishedGet.responseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ApiProductsServiceGet\ApiProducts.wsdl" />
     <None Include="Connected Services\ApiProductsServiceGet\Pakerator.ApiProductsServiceGet.responseType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -203,6 +220,7 @@
     <None Include="Connected Services\ApiProductsSocksServiceGet\Pakerator.ApiProductsSocksServiceGet.getResponseType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ApiGetOrdersNotFinishedGet\ApiOrders.wsdl" />
     <None Include="Connected Services\ServiceReferenceIAI\CheckServerLoad.wsdl" />
     <None Include="Connected Services\ServiceReferenceIAI\Pakerator.ServiceReferenceIAI.responseType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -236,6 +254,12 @@
     <None Include="Connected Services\ApiProductsServiceGet\configuration91.svcinfo" />
     <None Include="Connected Services\ApiProductsServiceGet\configuration.svcinfo" />
     <None Include="Connected Services\ApiProductsServiceGet\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ApiGetOrdersNotFinishedGet\configuration91.svcinfo" />
+    <None Include="Connected Services\ApiGetOrdersNotFinishedGet\configuration.svcinfo" />
+    <None Include="Connected Services\ApiGetOrdersNotFinishedGet\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -281,6 +305,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ApiProductsServiceGet\" />
     <WCFMetadataStorage Include="Connected Services\ApiProductsSocksServiceGet\" />
+    <WCFMetadataStorage Include="Connected Services\ApiGetOrdersNotFinishedGet\" />
     <WCFMetadataStorage Include="Connected Services\ServiceReferenceIAI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -432,6 +432,41 @@ namespace Pakerator
             setLog(typ, tresc, kodKreskowy, listPrzewozowy, nrDokumentu, 0, typDok);
         }
 
+        public static void putLog(ConnectionDB conn ,string usrName, string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu, int idTowaru, string typDok, int dokId, string magNazwa, int magID, string nabywcaTresc, string odbiorca, string platnik)
+        {
+            string sql = "INSERT INTO LOGSKAN ";
+            sql += "(pracownik, kodkreskowy, list_przewozowy , dokument_fs_id, dokument_mm_id, dokument_zo_id ,towar_id, ";
+            sql += " komunikat, operacja";
+            sql += ", magazyn_nazwa, magazyn_id, kontrahent, ip, host, odbiorca, platnik ) ";
+            sql += " values ";
+            sql += " ('" + usrName + "','" + kodKreskowy + "','',";
+            if (typDok.Equals("FS"))
+            {
+                sql += dokId + ",0,0,"; //zera mm_id i zo_id 
+            }
+            else if (typDok.Contains("MM"))
+            {
+                sql += "0," + dokId + ",0,"; //zera mm_id i zo_id
+            }
+            else
+            {
+                sql += "0,0,0,"; //zera mm_id i zo_id
+            }
+            sql += idTowaru + ",'" + tresc + "','" + typ + "','" + magNazwa + "'," + magID + ",'" + nabywcaTresc + "','" + getIpAdress() + "','" + Dns.GetHostName() + "'," + odbiorca + "," + platnik + ");";
+
+
+            FbCommand cdk = new FbCommand(sql, conn.getConnection());
+            try
+            {
+                cdk.ExecuteNonQuery();
+            }
+            catch (FbException ex)
+            {
+                //zapiszDoLOG(ex.Message);
+                //throw;
+            }
+        }
+
         private void setLog(string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu, int idTowaru, string typDok )
         {
             zapiszHistoriaTryb("Typ:" + typ + "; Treść:" + tresc + "; Kod kreskowy:" + kodKreskowy + "; List przewozowy:" + listPrzewozowy + "; Nr Dok.:" + nrDokumentu + "; Id towaru:" + idTowaru + "; Typ Dok." + typDok, false);   
@@ -544,7 +579,7 @@ namespace Pakerator
             }
         }
 
-        private string getIpAdress()
+        public static string getIpAdress()
         {
             string wynik = "";
             try
@@ -910,6 +945,12 @@ namespace Pakerator
         private void tToSkan_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listaZamówieńZWwwToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName);
+            ov.Pokaz();
         }
 
         private void label3_Click(object sender, EventArgs e)
