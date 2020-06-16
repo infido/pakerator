@@ -1,5 +1,9 @@
-﻿Wersja 1.13 (..-06-2020)
+﻿Wersja 1.14 (16-06-2020)
+* Raport wyszukiwania pozycji na niemagazynowych dokumentach sprzedaży
+
+Wersja 1.13 (15-06-2020)
 * Sprawdzenie statusu obciążenia serwera IAI 
+* Raport stanów magazynowych w IAI
 
 Wersja 1.12 (10-06-2020)
 * Dodanie kolumn Stany magazynowe i w wydaniu

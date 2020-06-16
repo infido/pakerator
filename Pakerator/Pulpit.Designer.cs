@@ -60,6 +60,7 @@
             this.menuStrip2DataGrid = new System.Windows.Forms.MenuStrip();
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -283,6 +284,7 @@
             this.tToSkan.Name = "tToSkan";
             this.tToSkan.Size = new System.Drawing.Size(164, 22);
             this.tToSkan.TabIndex = 1;
+            this.tToSkan.TextChanged += new System.EventHandler(this.tToSkan_TextChanged);
             this.tToSkan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tToSkan_KeyPress);
             // 
             // lKontekstPracyMagazyn
@@ -366,7 +368,8 @@
             // 
             this.menuStrip2DataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu2ToolStripMenuItem,
-            this.pobranieInfoOTowarachToolStripMenuItem});
+            this.pobranieInfoOTowarachToolStripMenuItem,
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem});
             this.menuStrip2DataGrid.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2DataGrid.Name = "menuStrip2DataGrid";
             this.menuStrip2DataGrid.Size = new System.Drawing.Size(1478, 24);
@@ -387,6 +390,13 @@
             this.pobranieInfoOTowarachToolStripMenuItem.Text = "Pobranie info o towarach";
             this.pobranieInfoOTowarachToolStripMenuItem.Visible = false;
             this.pobranieInfoOTowarachToolStripMenuItem.Click += new System.EventHandler(this.pobranieInfoOTowarachToolStripMenuItem_Click);
+            // 
+            // kontrolaTowarowNaDokSprzedazyToolStripMenuItem
+            // 
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem.Name = "kontrolaTowarowNaDokSprzedazyToolStripMenuItem";
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem.Size = new System.Drawing.Size(206, 20);
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem.Text = "Kontrola towarów na dok sprzedaży";
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem.Click += new System.EventHandler(this.kontrolaTowarowNaDokSprzedazyToolStripMenuItem_Click);
             // 
             // Pulpit
             // 
@@ -455,6 +465,7 @@
         private System.Windows.Forms.MenuStrip menuStrip2DataGrid;
         private System.Windows.Forms.ToolStripMenuItem menu2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pobranieInfoOTowarachToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kontrolaTowarowNaDokSprzedazyToolStripMenuItem;
     }
 }
 

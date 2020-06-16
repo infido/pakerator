@@ -160,6 +160,12 @@
     <Compile Include="Raport.Designer.cs">
       <DependentUpon>Raport.cs</DependentUpon>
     </Compile>
+    <Compile Include="RaportKontrolaIndeksow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RaportKontrolaIndeksow.Designer.cs">
+      <DependentUpon>RaportKontrolaIndeksow.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ConnectionDB.resx">
       <DependentUpon>ConnectionDB.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +190,9 @@
     </Compile>
     <EmbeddedResource Include="Raport.resx">
       <DependentUpon>Raport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RaportKontrolaIndeksow.resx">
+      <DependentUpon>RaportKontrolaIndeksow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Connected Services\ApiProductsServiceGet\ApiProducts.wsdl" />

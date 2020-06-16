@@ -902,6 +902,16 @@ namespace Pakerator
 
         }
 
+        private void kontrolaTowarowNaDokSprzedazyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RaportKontrolaIndeksow rap = new RaportKontrolaIndeksow(polaczenie, magID, magID2);
+        }
+
+        private void tToSkan_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 
