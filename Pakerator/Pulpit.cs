@@ -42,7 +42,7 @@ namespace Pakerator
 
             setDictonary();
             setSetingsOfStores();
-            setLog("ENTRY", "999 Logowanie do systemu user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
+            setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
             chkTableLOGSKAN();
         }
 
