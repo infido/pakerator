@@ -1,4 +1,7 @@
-﻿Wersja 1.14 (16-06-2020)
+﻿Wersja 1.15 (..-06-2020)
+* Rozbudowa raportu kontroli indeksów
+
+Wersja 1.14 (16-06-2020)
 * Raport wyszukiwania pozycji na niemagazynowych dokumentach sprzedaży
 
 Wersja 1.13 (15-06-2020)

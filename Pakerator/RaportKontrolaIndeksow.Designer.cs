@@ -35,6 +35,7 @@
             this.tKodDoZnalezienia = new System.Windows.Forms.TextBox();
             this.panelView = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1Gora.SuspendLayout();
             this.panelView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -42,6 +43,7 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.label2);
             this.panel1Gora.Controls.Add(this.bClose);
             this.panel1Gora.Controls.Add(this.bFind);
             this.panel1Gora.Controls.Add(this.label1);
@@ -112,6 +114,15 @@
             this.dataGridView1.Size = new System.Drawing.Size(800, 404);
             this.dataGridView1.TabIndex = 0;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(368, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(185, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "można używać % na począku i końcu";
+            // 
             // RaportKontrolaIndeksow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -139,5 +150,6 @@
         private System.Windows.Forms.Button bFind;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tKodDoZnalezienia;
+        private System.Windows.Forms.Label label2;
     }
 }

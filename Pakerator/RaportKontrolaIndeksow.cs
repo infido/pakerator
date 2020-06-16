@@ -34,14 +34,14 @@ namespace Pakerator
 
         private void getData()
         {
-            string sql = "SELECT GM_FS.NUMER, GM_FS.DATA_WYSTAWIENIA, GM_FS.NAZWA_SKROCONA_PLATNIKA, GM_FS.SYGNATURA, GM_FSPOZ.ILOSC ";
+            string sql = "SELECT GM_TOWARY.SKROT, GM_FS.NUMER, GM_FS.DATA_WYSTAWIENIA, GM_FS.NAZWA_SKROCONA_PLATNIKA, GM_FS.SYGNATURA, GM_FSPOZ.ILOSC ";
             sql += " from GM_FSPOZ ";
             sql += " join GM_FS on GM_FSPOZ.ID_GLOWKI=GM_FS.ID ";
             sql += " join GM_TOWARY ON GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID ";
             sql += " where ";
             sql += "  GM_FS.MAGAZYNOWY=0 AND GM_FS.FISKALNY=0 ";
-            sql += " AND (GM_TOWARY.SKROT='" + tKodDoZnalezienia.Text + "' OR GM_TOWARY.SKROT2='" + tKodDoZnalezienia.Text + "' OR GM_TOWARY.KOD_KRESKOWY='" + tKodDoZnalezienia.Text + "' ) ";
-            if (mag1==mag2 || mag2==null || mag2==0)
+            sql += " AND (GM_TOWARY.SKROT like '" + tKodDoZnalezienia.Text + "' OR GM_TOWARY.SKROT2 like'" + tKodDoZnalezienia.Text + "' OR GM_TOWARY.KOD_KRESKOWY like '" + tKodDoZnalezienia.Text + "' ) ";
+            if (mag1==mag2 || mag2==0)
             {
                 sql += " AND GM_FS.MAGNUM=" + mag1 + ";";
             }
