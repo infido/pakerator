@@ -36,8 +36,8 @@ namespace Pakerator
             dataGridView1.Columns.Clear();
             dataGridView1.Refresh();
             
-            string sql = "SELECT LOGSKAN.PRACOWNIK, LOGSKAN.KODKRESKOWY, LOGSKAN.LIST_PRZEWOZOWY, gm_FS.NUMER as FAKTURA, gm_MM.NUMER as MM, GM_TOWARY.SKROT, GM_TOWARY.NAZWA, ";
-            sql += "LOGSKAN.KOMUNIKAT, LOGSKAN.OPERACJA, LOGSKAN.MAGAZYN_NAZWA, LOGSKAN.KONTRAHENT, LOGSKAN.IP, LOGSKAN.HOST, LOGSKAN.UTWORZONO";
+            string sql = "SELECT LOGSKAN.UTWORZONO, LOGSKAN.PRACOWNIK, LOGSKAN.OPERACJA, LOGSKAN.KODKRESKOWY, LOGSKAN.LIST_PRZEWOZOWY, gm_FS.NUMER as FAKTURA, gm_MM.NUMER as MM, GM_TOWARY.SKROT, GM_TOWARY.NAZWA, ";
+            sql += "LOGSKAN.KOMUNIKAT, LOGSKAN.MAGAZYN_NAZWA, LOGSKAN.KONTRAHENT, LOGSKAN.IP, LOGSKAN.HOST ";
             sql += " from LOGSKAN ";
             sql += "left join GM_FS on LOGSKAN.DOKUMENT_FS_ID=GM_FS.ID ";
             sql += "left join GM_MM on LOGSKAN.DOKUMENT_MM_ID=GM_MM.ID ";
@@ -187,5 +187,6 @@ namespace Pakerator
             dataGridView1.DataSource = fDataView;
             lPodsumowanie.Text = "Wykonano zapytanie i wczytano " + dataGridView1.Rows.Count +" rekordów";
         }
+
     }
 }
