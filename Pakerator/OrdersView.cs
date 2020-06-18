@@ -221,6 +221,8 @@ namespace Pakerator
                     dataGridView1Naglowki.AutoGenerateColumns = true;
                     dataGridView1Naglowki.DataSource = orders;
 
+                    Pulpit.putLog(polaczenie, usrNam, "REPORT", "703 Widok zamówień z pozycjami, pobrano i wyświetlono:" + orders.Count + " zamówień", "", "", "", 0, "", 0, "", magID, "", 0, 0);
+
                 }
             }
             catch (Exception ex)
