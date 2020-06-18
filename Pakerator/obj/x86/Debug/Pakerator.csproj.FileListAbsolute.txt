@@ -51,3 +51,5 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.csproj.C
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.exe
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.pdb
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.OrdersView.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Newtonsoft.Json.xml
