@@ -461,6 +461,17 @@ namespace Pakerator
 
     public static class SessionIAI
     {
+        public static bool GetPopertySettingsForAIA()
+        {
+            if (SessionIAI.GetIAIDomainForCurrentSession() != null && SessionIAI.GetIAILoginForCurrentSession() != null && SessionIAI.GetIAIKeyForCurrentSession() != null)
+                return true;
+            else
+            {
+                MessageBox.Show("Ustawienia konfiguracji połączenia do skepu internetowego IAI wygladają na błędne!");
+                return false;
+            }
+        }
+
         public static string GetIAIKeyForCurrentSession()
         {
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");

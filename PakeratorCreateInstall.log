@@ -1,11 +1,11 @@
 
-Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 18.06.2020 19:39:49
+Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 18.06.2020 20:05:15
 Log file: C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.log 
 Generating Sources... 
 Compiling Gentee Sources... 
 Build setup file: c:\setups\PakeratorInstall.exe 
 Adding temporary file(s) to EXE 
-C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 18.06.2020 19:39:50 4078  48.65%
+C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 18.06.2020 20:05:16 4078  48.65%
 C:\Program Files (x86)\CreateInstall Free\res\logo\default - 1.bmp 20.03.2018 18:19:53 7308  52.55%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\install\install - 1.bmp 20.03.2018 18:19:53 20678  33.44%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\uninstall\uninstall - 1.bmp 20.03.2018 18:19:53 20678  28.19%
@@ -15,13 +15,13 @@ Getting list of files
 Packing files... 
 ================================ 
 C:\imex\!pakerator\fanfare_x.wav 28.05.2020 11:03:09 14004  91.33%
-C:\imex\!pakerator\PakeratorChangeLog.txt 18.06.2020 19:39:35 769  60.07%
+C:\imex\!pakerator\PakeratorChangeLog.txt 18.06.2020 20:04:22 830  58.31%
 C:\imex\!pakerator\FirebirdSql.Data.FirebirdClient.dll 06.02.2020 07:56:26 653824  31.18%
 C:\imex\!pakerator\gun_44mag_11.wav 28.05.2020 11:03:10 24390  95.13%
 C:\imex\!pakerator\klaxon_ahooga.wav 28.05.2020 11:03:10 9588  75.19%
-C:\imex\!pakerator\app.publish\Pakerator.exe 18.06.2020 19:37:57 1748480  17.74%
-C:\imex\!pakerator\Pakerator.exe 18.06.2020 19:37:57 1748480  17.74%
+C:\imex\!pakerator\app.publish\Pakerator.exe 18.06.2020 20:04:32 1748992  17.75%
+C:\imex\!pakerator\Pakerator.exe 18.06.2020 20:04:32 1748992  17.75%
 ================================ 
-All files: 7 [ 4101KB => 847KB ] 
-File Size c:\setups\PakeratorInstall.exe: 1001 KB 
-Finish Successful 18.06.2020 19:39:52
+All files: 7 [ 4102KB => 848KB ] 
+File Size c:\setups\PakeratorInstall.exe: 1002 KB 
+Finish Successful 18.06.2020 20:05:18

@@ -1,5 +1,6 @@
 ﻿Wersja 1.17 (18-06-2020)
 * Pobranie i wyświetlenanie zamówień z pozycjami ze sklepu www
+* dodatkowa kontrola konfiguracji połaczenia do sklepu IAI
 
 Wersja 1.16 (18-06-2020)
 * Podpowiedź użytkownika przy logowaniu

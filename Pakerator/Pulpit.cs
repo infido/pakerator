@@ -878,80 +878,84 @@ namespace Pakerator
 
         private void menu2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DataSet fdsr = new DataSet();
-            fdsr.Tables.Add("TAB");
-            fdsr.Tables["TAB"].Columns.Add("SKROT", typeof(String));
-            fdsr.Tables["TAB"].Columns.Add("SKROT2", typeof(String));
-            fdsr.Tables["TAB"].Columns.Add("KOD_KRESKOWY", typeof(String));
-            fdsr.Tables["TAB"].Columns.Add("NAZWA", typeof(String));
-            fdsr.Tables["TAB"].Columns.Add("M0", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M1", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M2", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M3", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M4", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M5", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M6", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M7", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M8", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M9", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M10", typeof(Double));
-            fdsr.Tables["TAB"].Columns.Add("M11", typeof(Double));
-            //fdsr.Tables["TAB"].Columns.Add("MAG", typeof(String));
-            //fdsr.Tables["TAB"].Columns.Add("ILOSC", typeof(Double));
-
-            var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=productsstocks/get/106/soap");
-            var client = new ApiProductsSocksServiceGet.ApiProductsStocksPortTypeClient(binding, address);
-
-            var request = new ApiProductsSocksServiceGet.getRequestType();
-            request.authenticate = new ApiProductsSocksServiceGet.authenticateType();
-            request.authenticate.system_key = SessionIAI.GetIAIKeyForCurrentSession();
-            request.authenticate.system_login = SessionIAI.GetIAILoginForCurrentSession();
-
-            request.@params = new getParamsType();
-            request.@params.products = new sizeIdentType[1];
-            request.@params.products[0] = new sizeIdentType();
-            request.@params.products[0].identType = identsType.index;
-
-            foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
+            if (SessionIAI.GetPopertySettingsForAIA())
             {
-                request.@params.products[0].identValue = row.Cells["SKROT"].Value.ToString();
 
-                ApiProductsSocksServiceGet.getResponseType response = client.get(request);
+                DataSet fdsr = new DataSet();
+                fdsr.Tables.Add("TAB");
+                fdsr.Tables["TAB"].Columns.Add("SKROT", typeof(String));
+                fdsr.Tables["TAB"].Columns.Add("SKROT2", typeof(String));
+                fdsr.Tables["TAB"].Columns.Add("KOD_KRESKOWY", typeof(String));
+                fdsr.Tables["TAB"].Columns.Add("NAZWA", typeof(String));
+                fdsr.Tables["TAB"].Columns.Add("M0", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M1", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M2", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M3", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M4", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M5", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M6", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M7", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M8", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M9", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M10", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("M11", typeof(Double));
+                //fdsr.Tables["TAB"].Columns.Add("MAG", typeof(String));
+                //fdsr.Tables["TAB"].Columns.Add("ILOSC", typeof(Double));
 
-                Double[] kol = new Double[12];
-                string[] mags = new string[12];
-                foreach (ApiProductsSocksServiceGet.getStockType stock in response.results[0].quantities.stocks)
+                var binding = new BasicHttpBinding();
+                var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=productsstocks/get/106/soap");
+                var client = new ApiProductsSocksServiceGet.ApiProductsStocksPortTypeClient(binding, address);
+
+                var request = new ApiProductsSocksServiceGet.getRequestType();
+                request.authenticate = new ApiProductsSocksServiceGet.authenticateType();
+                request.authenticate.system_key = SessionIAI.GetIAIKeyForCurrentSession();
+                request.authenticate.system_login = SessionIAI.GetIAILoginForCurrentSession();
+
+                request.@params = new getParamsType();
+                request.@params.products = new sizeIdentType[1];
+                request.@params.products[0] = new sizeIdentType();
+                request.@params.products[0].identType = identsType.index;
+
+                foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
                 {
-                    //if (!fdsr.Tables["TAB"].Columns.Contains("M"+stock.stock_id))
-                    //{
-                    //    fdsr.Tables["TAB"].Columns.Add("M" + stock.stock_id, typeof(Double));
-                    //}
-                    
-                    mags[stock.stock_id] = "M" + stock.stock_id;
+                    request.@params.products[0].identValue = row.Cells["SKROT"].Value.ToString();
 
-                    try
+                    ApiProductsSocksServiceGet.getResponseType response = client.get(request);
+
+                    Double[] kol = new Double[12];
+                    string[] mags = new string[12];
+                    foreach (ApiProductsSocksServiceGet.getStockType stock in response.results[0].quantities.stocks)
                     {
-                        foreach (ApiProductsSocksServiceGet.getSizeType size in stock.sizes)
+                        //if (!fdsr.Tables["TAB"].Columns.Contains("M"+stock.stock_id))
+                        //{
+                        //    fdsr.Tables["TAB"].Columns.Add("M" + stock.stock_id, typeof(Double));
+                        //}
+
+                        mags[stock.stock_id] = "M" + stock.stock_id;
+
+                        try
                         {
-                            kol[stock.stock_id] = Convert.ToDouble( size.quantity);
+                            foreach (ApiProductsSocksServiceGet.getSizeType size in stock.sizes)
+                            {
+                                kol[stock.stock_id] = Convert.ToDouble(size.quantity);
+                            }
                         }
-                    }
-                    catch
-                    {
+                        catch
+                        {
+
+                        }
 
                     }
 
-                }
-
-                //textHistoria.Text += "Skrót:" + row.Cells["SKROT"].Value.ToString() + "; magazyn: M" + stock.stock_id + "; ilość: " + size.quantity + System.Environment.NewLine;
+                    //textHistoria.Text += "Skrót:" + row.Cells["SKROT"].Value.ToString() + "; magazyn: M" + stock.stock_id + "; ilość: " + size.quantity + System.Environment.NewLine;
                     fdsr.Tables["TAB"].Rows.Add(row.Cells["SKROT"].Value.ToString(), row.Cells["SKROT2"].Value.ToString(), row.Cells["KOD_KRESKOWY"].Value.ToString(),
                     row.Cells["NAZWA"].Value.ToString(), kol[0], kol[1], kol[2], kol[3], kol[4], kol[5], kol[6], kol[7], kol[8], kol[9], kol[10], kol[11]);
-            }
+                }
 
-            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "REPORT", "702 Wykonanie raportu Raport stanu na magazynach IAI, wyświetlono rekordów " + fdsr.Tables["TAB"].Rows.Count , "", lListPrzewozowy.Text, lDokument.Text, 0, ltypdok.Text, dokId, magNazwa, magID, lNabywcaTresc.Text, odbiorca, platnik);
-            Raport rt = new Raport(fdsr);
-            rt.Show();
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "REPORT", "702 Wykonanie raportu Raport stanu na magazynach IAI, wyświetlono rekordów " + fdsr.Tables["TAB"].Rows.Count, "", lListPrzewozowy.Text, lDokument.Text, 0, ltypdok.Text, dokId, magNazwa, magID, lNabywcaTresc.Text, odbiorca, platnik);
+                Raport rt = new Raport(fdsr);
+                rt.Show();
+            }
         }
 
         private void pobranieInfoOTowarachToolStripMenuItem_Click(object sender, EventArgs e)
