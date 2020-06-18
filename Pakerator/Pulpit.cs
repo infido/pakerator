@@ -50,6 +50,7 @@ namespace Pakerator
         }
 
         #region sprawdzanie czy jest założona tabela w bazie
+
         private void chkTableLOGSKAN()
         {
             string sql = "select 1 from rdb$relations where rdb$relation_name = 'LOGSKAN';";

@@ -61,6 +61,7 @@ namespace Pakerator
             }
             catch (Exception ex)
             {
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "710 Błąd wykonania raportu 701 kontroli towarów na dok sprzedaży, wyświetlono rekordów: " + ex.Message, tKodDoZnalezienia.Text, "", "", 0, "", 0, "", mag1, "", 0, 0);
                 throw;
             }
             fDataView.Table = fds.Tables["POZ"];
