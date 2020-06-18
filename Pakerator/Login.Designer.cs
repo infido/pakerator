@@ -29,19 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
-            this.tUser = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.bOK = new System.Windows.Forms.Button();
             this.bAnuluj = new System.Windows.Forms.Button();
+            this.cUser = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // tUser
-            // 
-            this.tUser.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tUser.Location = new System.Drawing.Point(80, 16);
-            this.tUser.Name = "tUser";
-            this.tUser.Size = new System.Drawing.Size(103, 20);
-            this.tUser.TabIndex = 0;
             // 
             // label1
             // 
@@ -73,6 +65,14 @@
             this.bAnuluj.UseVisualStyleBackColor = true;
             this.bAnuluj.Click += new System.EventHandler(this.bAnuluj_Click);
             // 
+            // cUser
+            // 
+            this.cUser.FormattingEnabled = true;
+            this.cUser.Location = new System.Drawing.Point(80, 16);
+            this.cUser.Name = "cUser";
+            this.cUser.Size = new System.Drawing.Size(102, 21);
+            this.cUser.TabIndex = 6;
+            // 
             // Login
             // 
             this.AcceptButton = this.bOK;
@@ -80,23 +80,23 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bAnuluj;
             this.ClientSize = new System.Drawing.Size(204, 107);
+            this.Controls.Add(this.cUser);
             this.Controls.Add(this.bAnuluj);
             this.Controls.Add(this.bOK);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tUser);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tUser;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button bOK;
         private System.Windows.Forms.Button bAnuluj;
+        private System.Windows.Forms.ComboBox cUser;
     }
 }
