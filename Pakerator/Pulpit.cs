@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using System.ServiceModel;
 using Pakerator.ApiProductsSocksServiceGet;
+using Microsoft.Win32;
 
 namespace Pakerator
 {
@@ -44,6 +45,7 @@ namespace Pakerator
             setSetingsOfStores();
             setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
             chkTableLOGSKAN();
+            setCMagazynFromReg();
         }
 
         #region sprawdzanie czy jest założona tabela w bazie
@@ -820,17 +822,34 @@ namespace Pakerator
 
         private void cMagazyn_SelectedValueChanged(object sender, EventArgs e)
         {
-
         }
 
         private void cMagazyn_Leave(object sender, EventArgs e)
         {
             setSetingsOfStores();
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
+            rejestr.SetValue("Mag1Settings", cMagazyn.SelectedValue);
+        }
+
+        private void setCMagazynFromReg()
+        {
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+            if (rejestr.GetValue("Mag1Settings")!=null)
+            {
+                cMagazyn.SelectedValue = (int)rejestr.GetValue("Mag1Settings");
+            }
+
+            if (rejestr.GetValue("Mag2Settings") != null)
+            {
+                cMagazyn2.SelectedValue = (int)rejestr.GetValue("Mag2Settings");
+            }
         }
 
         private void cMagazyn2_Leave(object sender, EventArgs e)
         {
             setSetingsOfStores();
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
+            rejestr.SetValue("Mag2Settings", cMagazyn2.SelectedValue);
         }
 
         private void menu2ToolStripMenuItem_Click(object sender, EventArgs e)
