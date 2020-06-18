@@ -982,7 +982,7 @@ namespace Pakerator
 
         private void kontrolaTowarowNaDokSprzedazyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RaportKontrolaIndeksow rap = new RaportKontrolaIndeksow(polaczenie, magID, magID2);
+            
         }
 
         private void tToSkan_TextChanged(object sender, EventArgs e)
@@ -994,6 +994,11 @@ namespace Pakerator
         {
             OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName);
             ov.Pokaz();
+        }
+
+        private void kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu_Click(object sender, EventArgs e)
+        {
+            RaportKontrolaIndeksow rap = new RaportKontrolaIndeksow(polaczenie, magID, magID2);
         }
 
         private void label3_Click(object sender, EventArgs e)
