@@ -41,6 +41,7 @@ namespace Pakerator
 
             logowanie.ShowDialog();
 
+            polaczenie.setCurrUser(logowanie.userName);
             setDictonary();
             setSetingsOfStores();
             setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
@@ -434,7 +435,7 @@ namespace Pakerator
             setLog(typ, tresc, kodKreskowy, listPrzewozowy, nrDokumentu, 0, typDok);
         }
 
-        public static void putLog(ConnectionDB conn ,string usrName, string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu, int idTowaru, string typDok, int dokId, string magNazwa, int magID, string nabywcaTresc, string odbiorca, string platnik)
+        public static void putLog(ConnectionDB conn ,string usrName, string typ, string tresc, string kodKreskowy, string listPrzewozowy, string nrDokumentu, int idTowaru, string typDok, int dokId, string magNazwa, int magID, string nabywcaTresc, int odbiorca, int platnik)
         {
             string sql = "INSERT INTO LOGSKAN ";
             sql += "(pracownik, kodkreskowy, list_przewozowy , dokument_fs_id, dokument_mm_id, dokument_zo_id ,towar_id, ";
@@ -464,8 +465,30 @@ namespace Pakerator
             }
             catch (FbException ex)
             {
-                //zapiszDoLOG(ex.Message);
-                //throw;
+#if DEBUG
+                MessageBox.Show("Bład zapisu do bazy log (LOGSKAN) " + System.Environment.NewLine + ex.Message);
+#endif
+                StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_" + DateTime.Now.ToShortDateString() + ".log", true);
+                try
+                {
+                    writer.WriteLine(DateTime.Now.ToString() + "; User:" + usrName + "; Kod kreskowy: " + kodKreskowy + "; ststus połączenia: " + conn.getConnectioState() + " Bład zapytania: " + ex.Message);
+                    if (conn.getConnectioState() <= 0)
+                    {
+                        writer.WriteLine("Proba zakniecia systemu z braku polaczenia do bazy danych");
+                        MessageBox.Show("Błąd połączenia, program zostanie zamknięty, prosze uruchomić go ponownie.");
+                        Application.Exit();
+                    }
+
+                }
+                catch (Exception exf)
+                {
+                    MessageBox.Show("Błąd zapisu błedu: " + exf.Message);
+                    throw;
+                }
+                finally
+                {
+                    writer.Close();
+                }
             }
         }
 
@@ -925,6 +948,7 @@ namespace Pakerator
                     row.Cells["NAZWA"].Value.ToString(), kol[0], kol[1], kol[2], kol[3], kol[4], kol[5], kol[6], kol[7], kol[8], kol[9], kol[10], kol[11]);
             }
 
+            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "REPORT", "702 Wykonanie raportu Raport stanu na magazynach IAI, wyświetlono rekordów " + fdsr.Tables["TAB"].Rows.Count , "", lListPrzewozowy.Text, lDokument.Text, 0, ltypdok.Text, dokId, magNazwa, magID, lNabywcaTresc.Text, odbiorca, platnik);
             Raport rt = new Raport(fdsr);
             rt.Show();
         }

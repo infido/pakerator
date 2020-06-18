@@ -76,6 +76,7 @@ namespace Pakerator
         private void bFind_Click(object sender, EventArgs e)
         {
             getData();
+            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "REPORT", "701 Wykonanie raportu kontroli towarów na dok sprzedaży, wyświetlono rekordów " + dataGridView1.Rows.Count , tKodDoZnalezienia.Text, "", "", 0, "", 0, "", mag1, "", 0, 0);
         }
     }
 }

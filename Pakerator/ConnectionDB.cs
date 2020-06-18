@@ -447,6 +447,16 @@ namespace Pakerator
         {
             tKlucz.Text = SessionIAI.HashPassword(tHasloWWW.Text);
         }
+
+        public void setCurrUser(string currUsr)
+        {
+            logUser = currUsr;
+        }
+
+        public string getCurrentUser()
+        {
+            return logUser;
+        }
     }
 
     public static class SessionIAI

@@ -169,7 +169,7 @@ namespace Pakerator
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd: " + ex.Message.ToString());
-                Pulpit.putLog(polaczenie, usrNam, "ERROR", ex.Message.ToString(), "", "", "", 0, "", 0, "", magID, "", "", "");
+                Pulpit.putLog(polaczenie, usrNam, "ERROR", ex.Message.ToString(), "", "", "", 0, "", 0, "", magID, "", 0, 0);
                 throw;
             }
         }
