@@ -76,10 +76,10 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wyczyśćToolStripMenuItem,
-            this.konfiguracjaToolStripMenuItem,
-            this.historiaToolStripMenuItem,
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu,
             this.zamówieniaNaPortaluWwwToolStripMenuItem,
-            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu});
+            this.konfiguracjaToolStripMenuItem,
+            this.historiaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1478, 24);
@@ -114,7 +114,6 @@
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Name = "zamówieniaNaPortaluWwwToolStripMenuItem";
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Text = "Zamówienia na portalu www";
-            this.zamówieniaNaPortaluWwwToolStripMenuItem.Visible = false;
             // 
             // listaZamówieńZWwwToolStripMenuItem
             // 

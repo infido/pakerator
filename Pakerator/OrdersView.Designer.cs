@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
+            this.lkomunikat = new System.Windows.Forms.Label();
+            this.bRefresh = new System.Windows.Forms.Button();
+            this.bClose = new System.Windows.Forms.Button();
             this.panel2Dol = new System.Windows.Forms.Panel();
+            this.dataGridView2Pozycje = new System.Windows.Forms.DataGridView();
             this.panel3Srodek = new System.Windows.Forms.Panel();
             this.dataGridView1Naglowki = new System.Windows.Forms.DataGridView();
-            this.dataGridView2Pozycje = new System.Windows.Forms.DataGridView();
-            this.bClose = new System.Windows.Forms.Button();
-            this.bRefresh = new System.Windows.Forms.Button();
-            this.lkomunikat = new System.Windows.Forms.Label();
             this.panel1Gora.SuspendLayout();
             this.panel2Dol.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2Pozycje)).BeginInit();
             this.panel3Srodek.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1Naglowki)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2Pozycje)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1Gora
@@ -54,6 +54,36 @@
             this.panel1Gora.Size = new System.Drawing.Size(800, 53);
             this.panel1Gora.TabIndex = 0;
             // 
+            // lkomunikat
+            // 
+            this.lkomunikat.AutoSize = true;
+            this.lkomunikat.Location = new System.Drawing.Point(115, 18);
+            this.lkomunikat.Name = "lkomunikat";
+            this.lkomunikat.Size = new System.Drawing.Size(35, 13);
+            this.lkomunikat.TabIndex = 2;
+            this.lkomunikat.Text = "label1";
+            this.lkomunikat.Visible = false;
+            // 
+            // bRefresh
+            // 
+            this.bRefresh.Location = new System.Drawing.Point(13, 13);
+            this.bRefresh.Name = "bRefresh";
+            this.bRefresh.Size = new System.Drawing.Size(75, 23);
+            this.bRefresh.TabIndex = 1;
+            this.bRefresh.Text = "Odśwież";
+            this.bRefresh.UseVisualStyleBackColor = true;
+            this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
+            // 
+            // bClose
+            // 
+            this.bClose.Location = new System.Drawing.Point(714, 13);
+            this.bClose.Name = "bClose";
+            this.bClose.Size = new System.Drawing.Size(75, 23);
+            this.bClose.TabIndex = 0;
+            this.bClose.Text = "Zamknij";
+            this.bClose.UseVisualStyleBackColor = true;
+            this.bClose.Click += new System.EventHandler(this.bClose_Click);
+            // 
             // panel2Dol
             // 
             this.panel2Dol.Controls.Add(this.dataGridView2Pozycje);
@@ -62,6 +92,18 @@
             this.panel2Dol.Name = "panel2Dol";
             this.panel2Dol.Size = new System.Drawing.Size(800, 150);
             this.panel2Dol.TabIndex = 1;
+            // 
+            // dataGridView2Pozycje
+            // 
+            this.dataGridView2Pozycje.AllowUserToAddRows = false;
+            this.dataGridView2Pozycje.AllowUserToDeleteRows = false;
+            this.dataGridView2Pozycje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2Pozycje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2Pozycje.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2Pozycje.Name = "dataGridView2Pozycje";
+            this.dataGridView2Pozycje.ReadOnly = true;
+            this.dataGridView2Pozycje.Size = new System.Drawing.Size(800, 150);
+            this.dataGridView2Pozycje.TabIndex = 0;
             // 
             // panel3Srodek
             // 
@@ -83,48 +125,7 @@
             this.dataGridView1Naglowki.ReadOnly = true;
             this.dataGridView1Naglowki.Size = new System.Drawing.Size(800, 301);
             this.dataGridView1Naglowki.TabIndex = 0;
-            // 
-            // dataGridView2Pozycje
-            // 
-            this.dataGridView2Pozycje.AllowUserToAddRows = false;
-            this.dataGridView2Pozycje.AllowUserToDeleteRows = false;
-            this.dataGridView2Pozycje.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2Pozycje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2Pozycje.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2Pozycje.Name = "dataGridView2Pozycje";
-            this.dataGridView2Pozycje.ReadOnly = true;
-            this.dataGridView2Pozycje.Size = new System.Drawing.Size(800, 150);
-            this.dataGridView2Pozycje.TabIndex = 0;
-            // 
-            // bClose
-            // 
-            this.bClose.Location = new System.Drawing.Point(714, 13);
-            this.bClose.Name = "bClose";
-            this.bClose.Size = new System.Drawing.Size(75, 23);
-            this.bClose.TabIndex = 0;
-            this.bClose.Text = "Zamknij";
-            this.bClose.UseVisualStyleBackColor = true;
-            this.bClose.Click += new System.EventHandler(this.bClose_Click);
-            // 
-            // bRefresh
-            // 
-            this.bRefresh.Location = new System.Drawing.Point(13, 13);
-            this.bRefresh.Name = "bRefresh";
-            this.bRefresh.Size = new System.Drawing.Size(75, 23);
-            this.bRefresh.TabIndex = 1;
-            this.bRefresh.Text = "Odśwież";
-            this.bRefresh.UseVisualStyleBackColor = true;
-            this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
-            // 
-            // lkomunikat
-            // 
-            this.lkomunikat.AutoSize = true;
-            this.lkomunikat.Location = new System.Drawing.Point(115, 18);
-            this.lkomunikat.Name = "lkomunikat";
-            this.lkomunikat.Size = new System.Drawing.Size(35, 13);
-            this.lkomunikat.TabIndex = 2;
-            this.lkomunikat.Text = "label1";
-            this.lkomunikat.Visible = false;
+            this.dataGridView1Naglowki.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1Naglowki_CellClick);
             // 
             // OrdersView
             // 
@@ -140,9 +141,9 @@
             this.panel1Gora.ResumeLayout(false);
             this.panel1Gora.PerformLayout();
             this.panel2Dol.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2Pozycje)).EndInit();
             this.panel3Srodek.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1Naglowki)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2Pozycje)).EndInit();
             this.ResumeLayout(false);
 
         }
