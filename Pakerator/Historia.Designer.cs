@@ -57,6 +57,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.bPrzewinDoKonca = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -294,6 +295,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.bPrzewinDoKonca);
             this.panel2.Controls.Add(this.lPodsumowanie);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -305,7 +307,7 @@
             // lPodsumowanie
             // 
             this.lPodsumowanie.AutoSize = true;
-            this.lPodsumowanie.Location = new System.Drawing.Point(10, 12);
+            this.lPodsumowanie.Location = new System.Drawing.Point(139, 11);
             this.lPodsumowanie.Name = "lPodsumowanie";
             this.lPodsumowanie.Size = new System.Drawing.Size(200, 13);
             this.lPodsumowanie.TabIndex = 1;
@@ -344,6 +346,16 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(992, 470);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // bPrzewinDoKonca
+            // 
+            this.bPrzewinDoKonca.Location = new System.Drawing.Point(9, 6);
+            this.bPrzewinDoKonca.Name = "bPrzewinDoKonca";
+            this.bPrzewinDoKonca.Size = new System.Drawing.Size(112, 23);
+            this.bPrzewinDoKonca.TabIndex = 2;
+            this.bPrzewinDoKonca.Text = "Przewiń do końca";
+            this.bPrzewinDoKonca.UseVisualStyleBackColor = true;
+            this.bPrzewinDoKonca.Click += new System.EventHandler(this.bPrzewinDoKonca_Click);
             // 
             // Historia
             // 
@@ -400,5 +412,6 @@
         private System.Windows.Forms.RadioButton rbData14Dni;
         private System.Windows.Forms.RadioButton rbData7Dni;
         private System.Windows.Forms.RadioButton rbDataWszystko;
+        private System.Windows.Forms.Button bPrzewinDoKonca;
     }
 }

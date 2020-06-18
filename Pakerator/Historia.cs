@@ -188,5 +188,9 @@ namespace Pakerator
             lPodsumowanie.Text = "Wykonano zapytanie i wczytano " + dataGridView1.Rows.Count +" rekordów";
         }
 
+        private void bPrzewinDoKonca_Click(object sender, EventArgs e)
+        {
+            dataGridView1.CurrentCell = dataGridView1[0, dataGridView1.Rows.Count - 1];
+        }
     }
 }
