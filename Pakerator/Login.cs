@@ -89,6 +89,7 @@ namespace Pakerator
         private void Login_Load(object sender, EventArgs e)
         {
             cUser.Focus();
+            cUser.Select();
         }
     }
 }
