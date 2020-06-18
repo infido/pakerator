@@ -114,6 +114,7 @@
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Name = "zamówieniaNaPortaluWwwToolStripMenuItem";
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Text = "Zamówienia na portalu www";
+            this.zamówieniaNaPortaluWwwToolStripMenuItem.Visible = false;
             // 
             // listaZamówieńZWwwToolStripMenuItem
             // 
