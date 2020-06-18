@@ -51,7 +51,7 @@ namespace Pakerator
             try
             {
                 logList = (String)rejestr.GetValue("LoginList");
-                if (logList.Length != 0)
+                if (logList!=null)
                 {
                     String[] strlist = logList.Split(',');
                     cUser.Items.AddRange(strlist);
@@ -59,19 +59,19 @@ namespace Pakerator
             }
             catch (Exception er)
             {
-                MessageBox.Show("Błąd odczytu z rejestru listy podpowiedzi użytkowników: " + er.Message);
-                throw;
+                MessageBox.Show("Błąd odczytu z rejestru listy podpowiedzi użytkowników. Jeżeli błąd się powtarza skontaktuj się z Administratorem. " + System.Environment.NewLine + er.Message);
+                //throw;
             }
         } 
 
         private void setUserListReg(String strLogin)
         {
-            if (!logList.Contains(strLogin))
+            if ( (logList!=null && !logList.Contains(strLogin)) || (logList == null && strLogin.Length>0))
             {
                 RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator",true);
                 try
                 {
-                    if (logList.Length == 0)
+                    if (logList == null)
                         logList = strLogin;
                     else
                         logList =  strLogin + "," + logList;
@@ -81,14 +81,17 @@ namespace Pakerator
                 catch (Exception er)
                 {
                     MessageBox.Show("Błąd zapisu do rejestru listy podpowiedzi użytkowników: " + er.Message);
-                    throw;
+                    //throw;
                 }
             }
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-            cUser.Focus();
+        }
+
+        private void Login_Shown(object sender, EventArgs e)
+        {
             cUser.Select();
         }
     }
