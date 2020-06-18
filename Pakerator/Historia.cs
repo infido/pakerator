@@ -16,6 +16,7 @@ namespace Pakerator
         private FbDataAdapter fda;
         private DataSet fds;
         private DataView fDataView;
+        private int lastCount;
 
         public Historia(ConnectionDB polaczenie)
         {
@@ -185,7 +186,8 @@ namespace Pakerator
             }
             fDataView.Table = fds.Tables["HIST"];
             dataGridView1.DataSource = fDataView;
-            lPodsumowanie.Text = "Wykonano zapytanie i wczytano " + dataGridView1.Rows.Count +" rekordów";
+            lPodsumowanie.Text = "Wykonano zapytanie i wczytano " + dataGridView1.Rows.Count +" rekordów, poprzednio " + lastCount;
+            lastCount = dataGridView1.Rows.Count;
         }
 
         private void bPrzewinDoKonca_Click(object sender, EventArgs e)
