@@ -282,14 +282,12 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.17 (18-06-2020)
+                  <dlgtext >Wersja 1.18 (19-06-2020)
+* Poprawa raportu kontroli towarów na dok. sprzed. w tryb. bez mag. z wygereowanymi WZ-kami
+
+Wersja 1.17 (18-06-2020)
 * Pobranie i wyświetlenanie zamówień z pozycjami ze sklepu www
-* dodatkowa kontrola konfiguracji połaczenia do sklepu IAI
-Wersja 1.16 (18-06-2020)
-* Podpowiedź użytkownika przy logowaniu
-* Zapamiętywanie ustawień magazynów w głównym oknie
-* Zmiana menu raportów dla kontroli na dok sprzedażowych
-* Rozbudowa raportu kontroli indeksów</>
+* dodatkowa kontrola konfiguracji połaczenia do sklepu IAI</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
