@@ -860,12 +860,12 @@ namespace Pakerator
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
             if (rejestr.GetValue("Mag1Settings")!=null)
             {
-                cMagazyn.SelectedValue = (int)rejestr.GetValue("Mag1Settings");
+                cMagazyn.SelectedValue = magID = (int)rejestr.GetValue("Mag1Settings");
             }
 
             if (rejestr.GetValue("Mag2Settings") != null)
             {
-                cMagazyn2.SelectedValue = (int)rejestr.GetValue("Mag2Settings");
+                cMagazyn2.SelectedValue = magID2 = (int)rejestr.GetValue("Mag2Settings");
             }
         }
 
