@@ -853,6 +853,7 @@ namespace Pakerator
             setSetingsOfStores();
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
             rejestr.SetValue("Mag1Settings", cMagazyn.SelectedValue);
+            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "LOG", "Ustawienie kontekstu magazynu 1 na " + cMagazyn.Text, "", "", "", 0,"", 0, magNazwa, magID, "", 0, 0);
         }
 
         private void setCMagazynFromReg()
@@ -874,6 +875,7 @@ namespace Pakerator
             setSetingsOfStores();
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
             rejestr.SetValue("Mag2Settings", cMagazyn2.SelectedValue);
+            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "LOG", "Ustawienie kontekstu magazynu 2 na " + cMagazyn2.Text, "", "", "", 0, "", 0, magNazwa, magID, "", 0, 0);
         }
 
         private void menu2ToolStripMenuItem_Click(object sender, EventArgs e)
