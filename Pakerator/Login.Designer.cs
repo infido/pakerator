@@ -33,6 +33,7 @@
             this.bOK = new System.Windows.Forms.Button();
             this.bAnuluj = new System.Windows.Forms.Button();
             this.cUser = new System.Windows.Forms.ComboBox();
+            this.linkLabelInstalatorGdrive = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -73,6 +74,17 @@
             this.cUser.Size = new System.Drawing.Size(102, 21);
             this.cUser.TabIndex = 6;
             // 
+            // linkLabelInstalatorGdrive
+            // 
+            this.linkLabelInstalatorGdrive.AutoSize = true;
+            this.linkLabelInstalatorGdrive.Location = new System.Drawing.Point(46, 87);
+            this.linkLabelInstalatorGdrive.Name = "linkLabelInstalatorGdrive";
+            this.linkLabelInstalatorGdrive.Size = new System.Drawing.Size(104, 13);
+            this.linkLabelInstalatorGdrive.TabIndex = 8;
+            this.linkLabelInstalatorGdrive.TabStop = true;
+            this.linkLabelInstalatorGdrive.Text = "Instalator pakeratora";
+            this.linkLabelInstalatorGdrive.Click += new System.EventHandler(this.linkLabelInstalatorGdrive_Click);
+            // 
             // Login
             // 
             this.AcceptButton = this.bOK;
@@ -80,6 +92,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bAnuluj;
             this.ClientSize = new System.Drawing.Size(204, 107);
+            this.Controls.Add(this.linkLabelInstalatorGdrive);
             this.Controls.Add(this.cUser);
             this.Controls.Add(this.bAnuluj);
             this.Controls.Add(this.bOK);
@@ -99,5 +112,6 @@
         private System.Windows.Forms.Button bOK;
         private System.Windows.Forms.Button bAnuluj;
         private System.Windows.Forms.ComboBox cUser;
+        private System.Windows.Forms.LinkLabel linkLabelInstalatorGdrive;
     }
 }
