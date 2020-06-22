@@ -1,11 +1,11 @@
 
-Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 20.06.2020 12:26:29
+Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 23.06.2020 00:04:25
 Log file: C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.log 
 Generating Sources... 
 Compiling Gentee Sources... 
 Build setup file: c:\setups\PakeratorInstall.exe 
 Adding temporary file(s) to EXE 
-C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 20.06.2020 12:26:30 4078  48.65%
+C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 23.06.2020 00:04:26 4078  48.65%
 C:\Program Files (x86)\CreateInstall Free\res\logo\default - 1.bmp 20.03.2018 18:19:53 7308  52.55%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\install\install - 1.bmp 20.03.2018 18:19:53 20678  33.44%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\uninstall\uninstall - 1.bmp 20.03.2018 18:19:53 20678  28.19%
@@ -19,9 +19,9 @@ C:\imex\!pakerator\PakeratorChangeLog.txt 19.06.2020 14:29:25 952  57.14%
 C:\imex\!pakerator\FirebirdSql.Data.FirebirdClient.dll 06.02.2020 07:56:26 653824  31.18%
 C:\imex\!pakerator\gun_44mag_11.wav 28.05.2020 11:03:10 24390  95.13%
 C:\imex\!pakerator\klaxon_ahooga.wav 28.05.2020 11:03:10 9588  75.19%
-C:\imex\!pakerator\app.publish\Pakerator.exe 20.06.2020 12:20:59 1749504  17.75%
-C:\imex\!pakerator\Pakerator.exe 20.06.2020 12:20:59 1749504  17.75%
+C:\imex\!pakerator\app.publish\Pakerator.exe 23.06.2020 00:02:23 1750016  17.76%
+C:\imex\!pakerator\Pakerator.exe 23.06.2020 00:02:23 1750016  17.76%
 ================================ 
-All files: 7 [ 4103KB => 848KB ] 
+All files: 7 [ 4104KB => 849KB ] 
 File Size c:\setups\PakeratorInstall.exe: 1002 KB 
-Finish Successful 20.06.2020 12:26:32
+Finish Successful 23.06.2020 00:04:28
