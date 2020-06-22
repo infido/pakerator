@@ -728,7 +728,10 @@ namespace Pakerator
         {
             string sql = "SELECT sum(ILOSC) from GM_FSPOZ  ";
             sql += " join GM_FS on GM_FSPOZ.ID_GLOWKI=GM_FS.ID join GM_TOWARY on GM_FSPOZ.ID_TOWARU=GM_TOWARY.ID_TOWARU ";
+            sql += " left join GM_WZ on GM_WZ.ID_FS = GM_FS.ID ";
+            sql += " left join GM_WZPOZ on GM_WZPOZ.ID_GLOWKI=GM_WZ.ID ";
             sql += " where GM_FS.MAGAZYNOWY=0 AND GM_FS.FISKALNY=0 ";
+            sql += " AND GM_WZPOZ.ILOSC_PO is null ";
             sql += " AND SKROT='" + kodTowaru + "' and GM_FS.MAGNUM=" + idMag + ";";
 
 
