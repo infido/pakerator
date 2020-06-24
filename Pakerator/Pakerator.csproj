@@ -143,6 +143,12 @@
     <Compile Include="ConnectionDB.Designer.cs">
       <DependentUpon>ConnectionDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="DokumentyDlaMagazynu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DokumentyDlaMagazynu.Designer.cs">
+      <DependentUpon>DokumentyDlaMagazynu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Historia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     </Compile>
     <EmbeddedResource Include="ConnectionDB.resx">
       <DependentUpon>ConnectionDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DokumentyDlaMagazynu.resx">
+      <DependentUpon>DokumentyDlaMagazynu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historia.resx">
       <DependentUpon>Historia.cs</DependentUpon>

@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pulpit));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.wyczyśćToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.zamówieniaNaPortaluWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.cMagazyn2 = new System.Windows.Forms.ComboBox();
@@ -62,7 +63,7 @@
             this.menuStrip2DataGrid = new System.Windows.Forms.MenuStrip();
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaDokumentówDlaMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -76,6 +77,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wyczyśćToolStripMenuItem,
+            this.listaDokumentówDlaMagazynuToolStripMenuItem,
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu,
             this.zamówieniaNaPortaluWwwToolStripMenuItem,
             this.konfiguracjaToolStripMenuItem,
@@ -93,19 +95,12 @@
             this.wyczyśćToolStripMenuItem.Text = "&Wyczyść";
             this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
             // 
-            // konfiguracjaToolStripMenuItem
+            // kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu
             // 
-            this.konfiguracjaToolStripMenuItem.Name = "konfiguracjaToolStripMenuItem";
-            this.konfiguracjaToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.konfiguracjaToolStripMenuItem.Text = "&Konfiguracja";
-            this.konfiguracjaToolStripMenuItem.Click += new System.EventHandler(this.konfiguracjaToolStripMenuItem_Click);
-            // 
-            // historiaToolStripMenuItem
-            // 
-            this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
-            this.historiaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.historiaToolStripMenuItem.Text = "&Historia";
-            this.historiaToolStripMenuItem.Click += new System.EventHandler(this.historiaToolStripMenuItem_Click);
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Name = "kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu";
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Size = new System.Drawing.Size(206, 20);
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Text = "Kontrola towarów na dok sprzedaży";
+            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Click += new System.EventHandler(this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu_Click);
             // 
             // zamówieniaNaPortaluWwwToolStripMenuItem
             // 
@@ -121,6 +116,20 @@
             this.listaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.listaZamówieńZWwwToolStripMenuItem.Text = "Lista zamówień z www";
             this.listaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwToolStripMenuItem_Click);
+            // 
+            // konfiguracjaToolStripMenuItem
+            // 
+            this.konfiguracjaToolStripMenuItem.Name = "konfiguracjaToolStripMenuItem";
+            this.konfiguracjaToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.konfiguracjaToolStripMenuItem.Text = "&Konfiguracja";
+            this.konfiguracjaToolStripMenuItem.Click += new System.EventHandler(this.konfiguracjaToolStripMenuItem_Click);
+            // 
+            // historiaToolStripMenuItem
+            // 
+            this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
+            this.historiaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.historiaToolStripMenuItem.Text = "&Historia";
+            this.historiaToolStripMenuItem.Click += new System.EventHandler(this.historiaToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -409,12 +418,12 @@
             this.pobranieInfoOTowarachToolStripMenuItem.Visible = false;
             this.pobranieInfoOTowarachToolStripMenuItem.Click += new System.EventHandler(this.pobranieInfoOTowarachToolStripMenuItem_Click);
             // 
-            // kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu
+            // listaDokumentówDlaMagazynuToolStripMenuItem
             // 
-            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Name = "kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu";
-            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Size = new System.Drawing.Size(206, 20);
-            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Text = "Kontrola towarów na dok sprzedaży";
-            this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Click += new System.EventHandler(this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu_Click);
+            this.listaDokumentówDlaMagazynuToolStripMenuItem.Name = "listaDokumentówDlaMagazynuToolStripMenuItem";
+            this.listaDokumentówDlaMagazynuToolStripMenuItem.Size = new System.Drawing.Size(194, 20);
+            this.listaDokumentówDlaMagazynuToolStripMenuItem.Text = "Lista dokumentów dla magazynu";
+            this.listaDokumentówDlaMagazynuToolStripMenuItem.Click += new System.EventHandler(this.listaDokumentówDlaMagazynuToolStripMenuItem_Click);
             // 
             // Pulpit
             // 
@@ -486,6 +495,7 @@
         private System.Windows.Forms.ToolStripMenuItem zamówieniaNaPortaluWwwToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaZamówieńZWwwToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu;
+        private System.Windows.Forms.ToolStripMenuItem listaDokumentówDlaMagazynuToolStripMenuItem;
     }
 }
 

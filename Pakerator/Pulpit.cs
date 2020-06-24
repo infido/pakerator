@@ -43,10 +43,10 @@ namespace Pakerator
 
             polaczenie.setCurrUser(logowanie.userName);
             setDictonary();
+            setCMagazynFromReg();
             setSetingsOfStores();
             setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
             chkTableLOGSKAN();
-            setCMagazynFromReg();
         }
 
         #region sprawdzanie czy jest założona tabela w bazie
@@ -1013,6 +1013,16 @@ namespace Pakerator
             RaportKontrolaIndeksow rap = new RaportKontrolaIndeksow(polaczenie, magID, magID2);
         }
 
+        private void listaDokumentówDlaMagazynuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            wyczyśćToolStripMenuItem.PerformClick();
+            DokumentyDlaMagazynu dm = new DokumentyDlaMagazynu(polaczenie, magID, magKod, magID2, magKod2);
+            tToSkan.Text = dm.getKodDokumentuFromUser();
+            dm.Dispose();
+            if (tToSkan.Text.Length>0)
+                SendKeys.SendWait("{ENTER}");
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -1050,19 +1060,9 @@ namespace Pakerator
             magNazwa = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value;
             magKod = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.IndexOf(" ")));
 
-            if (magID != ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key)
-            {
-                magID2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key;
-                magNazwa2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value;
-                magKod2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.IndexOf(" ")));
-
-            }
-            else
-            {
-                magID2 = 0;
-                magNazwa2 = "";
-                magKod2 = "";
-            }
+            magID2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key;
+            magNazwa2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value;
+            magKod2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.IndexOf(" ")));
 
             lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + magNazwa + "   Użytkownik:" + logowanie.userName;
         }
