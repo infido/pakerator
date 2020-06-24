@@ -1,4 +1,5 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
+using Pakerator.ApiGetOrdersNotFinishedGet;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Pakerator
     {
         public ConnectionDB polaczenie;
         //private FbDataAdapter fda;
-        private DataSet fds;
+        //private DataSet fds;
         //private DataView fDataView;
         int magID, magID2;
         string usrNam;
@@ -63,8 +64,9 @@ namespace Pakerator
 
                 //request.@params.orderPrepaidStatus = "orderPrepaidStatus";
 
-                request.@params.ordersStatuses = new string[1];
+                request.@params.ordersStatuses = new string[2];
                 request.@params.ordersStatuses[0] = "on_order";
+                request.@params.ordersStatuses[1] = "new";
 
                 //request.@params.couriersName = new string[1];
                 //request.@params.couriersName[0] = "couriersName";
@@ -94,7 +96,7 @@ namespace Pakerator
                 request.@params.ordersRange.ordersDateRange.ordersDateTypeSpecified = true;
                 request.@params.ordersRange.ordersDateRange.ordersDatesTypes = new ApiGetOrdersNotFinishedGet.ordersDatesTypeType[1];
                 request.@params.ordersRange.ordersDateRange.ordersDatesTypes[0] = ApiGetOrdersNotFinishedGet.ordersDatesTypeType.add;
-                request.@params.ordersRange.ordersDateRange.ordersDateBegin = DateTime.Now.AddDays(-3).ToString("yyyy-MM-dd 00:00:00");
+                request.@params.ordersRange.ordersDateRange.ordersDateBegin = DateTime.Now.AddDays(-((Double)nDniWstecz.Value)).ToString("yyyy-MM-dd 00:00:00");
                 request.@params.ordersRange.ordersDateRange.ordersDateEnd = DateTime.Now.ToString("yyyy-MM-dd 23:59:59");
 
                 //request.@params.orderSource = new ApiGetOrdersNotFinishedGet.orderSourceType();
@@ -152,10 +154,10 @@ namespace Pakerator
                 //request.@params.orderOperatorLogin = "orderOperatorLogin";
                 //request.@params.orderPackingPersonLogin = "orderPackingPersonLogin";
 
-                //request.@params.ordersBy = new ApiGetOrdersNotFinishedGet.orderByType[1];
-                //request.@params.ordersBy[0] = new ApiGetOrdersNotFinishedGet.orderByType();
-                //request.@params.ordersBy[0].elementName = "elementName";
-                //request.@params.ordersBy[0].sortDirection = "sortDirection";
+                request.@params.ordersBy = new orderByType[1];
+                request.@params.ordersBy[0] = new orderByType();
+                request.@params.ordersBy[0].elementName = "order_time";
+                request.@params.ordersBy[0].sortDirection = "ASC";
 
                 //request.@params.searchingOperatorTypeMatch = ApiGetOrdersNotFinishedGet.operatorTypeMatch.no_assignment;
                 //request.@params.searchingOperatorTypeMatchSpecified =  true;
@@ -180,6 +182,11 @@ namespace Pakerator
                             Order nag = new Order();
                             nag.OrderId = www.orderId;
                             nag.OrderStatus = www.orderDetails.orderStatus;
+                            nag.OrderAddDate = www.orderDetails.orderAddDate;
+                            nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
+                            nag.OrderConfirmation = www.orderDetails.orderConfirmation;
+                            nag.CourierName = www.orderDetails.dispatch.courierName;
+                            nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
                             nag.OrderBridgeNote = www.orderBridgeNote;
                             nag.OrderSerialNumber = www.orderSerialNumber;
                             nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
@@ -212,8 +219,83 @@ namespace Pakerator
                                 poz.RemarksToProduct = pozwww.remarksToProduct;
                                 poz.SizeId = pozwww.sizeId;
                                 poz.StockId = pozwww.stockId;
+                                poz.ProductSizeCodeExternal = pozwww.productSizeCodeExternal;
+                                poz.SizePanelName = pozwww.sizePanelName;
 
+                                string sqlTest = "SELECT ARCHIWALNY from GM_TOWARY ";
+                                sqlTest += " where ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
+                                FbCommand cdkTest = new FbCommand(sqlTest, polaczenie.getConnection());
+                                try
+                                {
+                                    if (cdkTest.ExecuteScalar() == DBNull.Value)
+                                        poz.Status = "BRAK";
+                                    else if ((int)cdkTest.ExecuteScalar() == 1)
+                                        poz.Status = "ARCHIWALNY";
+                                }
+                                catch (Exception tex)
+                                {
+                                    Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "033 Bład zapytania o indeks w Raks magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + tex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
+                                    MessageBox.Show("033 Bład zapytania o indeks w Raks magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar: " + pozwww.productSizeCodeExternal + System.Environment.NewLine + tex.Message);
+                                }
+
+                                if (poz.Status==null || !poz.Status.Equals("BRAK"))
+                                {
+
+                                    string sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+                                    sql += " where ";
+                                    sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
+                                    sql += " and GM_MAGAZYN.MAGNUM=" + magID + ";";
+                                    FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+                                    try
+                                    {
+                                        if (cdk.ExecuteScalar() != DBNull.Value)
+                                            poz.Magazyn = (float)cdk.ExecuteScalar();
+                                        else
+                                            poz.Magazyn = 0;
+                                    }
+                                    catch (FbException ex)
+                                    {
+                                        Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "032 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
+                                        poz.Magazyn = -2;
+                                    }
+
+                                    sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+                                    sql += " where ";
+                                    sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
+                                    sql += " and GM_MAGAZYN.MAGNUM<>" + magID + ";";
+                                    cdk = new FbCommand(sql, polaczenie.getConnection());
+                                    try
+                                    {
+                                        if (cdk.ExecuteScalar() != DBNull.Value)
+                                            poz.InneMagazyny = (float)cdk.ExecuteScalar();
+                                        else
+                                            poz.InneMagazyny = 0;
+                                    }
+                                    catch (FbException ex)
+                                    {
+                                        Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "034 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
+                                        poz.InneMagazyny = -2;
+                                        MessageBox.Show("034 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message);
+                                    }
+
+                                    if ((poz.Magazyn - poz.ProductQuantity) >= 0)
+                                        poz.Status += "OK";
+                                    else if (((poz.Magazyn + poz.InneMagazyny) - poz.ProductQuantity) >= 0)
+                                        poz.Status += "DO_PRZESUNIĘCIA";
+                                    else
+                                        poz.Status += "NA_ZAMÓWIENIE";
+                                }
                                 orderItems.Add(poz);
+                                if (nag.StatusStanowRaks==null || nag.StatusStanowRaks.Length == 0)
+                                    nag.StatusStanowRaks = poz.Status;
+                                else if (poz.Status.Equals("BRAK"))
+                                    nag.StatusStanowRaks = poz.Status;
+                                else if (nag.StatusStanowRaks.Equals("OK") && poz.Status.Equals("DO_PRZESUNIĘCIA"))
+                                    nag.StatusStanowRaks = poz.Status;
+                                else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA")) && poz.Status.Equals("NA_ZAMÓWIENIE"))
+                                    nag.StatusStanowRaks = poz.Status;
+                                else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA") || nag.StatusStanowRaks.Equals("NA_ZAMÓWIENIE")) && poz.Status.StartsWith("ARCHI"))
+                                    nag.StatusStanowRaks = poz.Status;
                             }
 
                             nag.ItemsOfOrder = orderItems;
@@ -234,6 +316,7 @@ namespace Pakerator
                     Pulpit.putLog(polaczenie, usrNam, "ERROR", ex.Message.ToString(), "", "", "", 0, "", 0, "", magID, "", 0, 0);
                     throw;
                 }
+                setKolorowanieNAG();
             }
         }
 
@@ -252,7 +335,27 @@ namespace Pakerator
             Show();
         }
 
+        private void setKolorowanieNAG()
+        {
+            foreach (DataGridViewRow row in dataGridView1Naglowki.Rows)
+            {
+                if (row.Cells["orderStatus"].Value.ToString().Equals("new"))
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Blue;
+                }
 
+                if (row.Cells["StatusStanowRaks"].Value.Equals("OK"))
+                    row.DefaultCellStyle.BackColor = Color.YellowGreen;
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
+                    row.DefaultCellStyle.BackColor = Color.YellowGreen;
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                else if (row.Cells["StatusStanowRaks"].Value.ToString().StartsWith("ARCHI"))
+                    row.DefaultCellStyle.BackColor = Color.DarkOrange;
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("BRAK"))
+                    row.DefaultCellStyle.BackColor = Color.Red;
+            }
+        }
     }
 
     public class Order
@@ -274,6 +377,12 @@ namespace Pakerator
         private string clientStreet;
         private string clientZipCode;
         private string clientEmail;
+        private string orderAddDate;
+        private string orderPaymentType;
+        private string orderConfirmation;
+        private string courierName;
+        private string deliveryDate;
+        private string statusStanowRaks;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -281,11 +390,15 @@ namespace Pakerator
         {
 
         }
+        public int OrderSerialNumber { get => orderSerialNumber; set => orderSerialNumber = value; }
 
         public string OrderId { get => orderId; set => orderId = value; }
         public string OrderStatus { get => orderStatus; set => orderStatus = value; }
-        public string OrderBridgeNote { get => orderBridgeNote; set => orderBridgeNote = value; }
-        public int OrderSerialNumber { get => orderSerialNumber; set => orderSerialNumber = value; }
+        public string OrderAddDate { get => orderAddDate; set => orderAddDate = value; }
+        public string OrderPaymentType { get => orderPaymentType; set => orderPaymentType = value; }
+        public string OrderConfirmation { get => orderConfirmation; set => orderConfirmation = value; }
+        public string CourierName { get => courierName; set => courierName = value; }
+        public string DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
         public string ClientPhone1 { get => clientPhone1; set => clientPhone1 = value; }
         public string ClientPhone2 { get => clientPhone2; set => clientPhone2 = value; }
         public string ClientCountryName { get => clientCountryName; set => clientCountryName = value; }
@@ -299,7 +412,9 @@ namespace Pakerator
         public string ClientEmail { get => clientEmail; set => clientEmail = value; }
         public int ClientId { get => clientId; set => clientId = value; }
         public string ClientLogin { get => clientLogin; set => clientLogin = value; }
+        public string OrderBridgeNote { get => orderBridgeNote; set => orderBridgeNote = value; }
         public List<OrderItem> ItemsOfOrder { get => itemsOfOrder; set => itemsOfOrder = value; }
+        public string StatusStanowRaks { get => statusStanowRaks; set => statusStanowRaks = value; }
     }
 
     public class OrderItem
@@ -315,17 +430,27 @@ namespace Pakerator
         private float productOrderPriceNetBaseCurrency;
         private float productOrderPriceBaseCurrency;
         private string remarksToProduct;
+        private float magazyn;
+        private float inneMagazyny;
+        private string status;
+        private string sizePanelName;
+        private string productSizeCodeExternal;
 
         public int BasketPosition { get => basketPosition; set => basketPosition = value; }
-        public int ProductId { get => productId; set => productId = value; }
-        public string ProductName { get => productName; set => productName = value; }
-        public string ProductCode { get => productCode; set => productCode = value; }
-        public string VersionName { get => versionName; set => versionName = value; }
-        public string SizeId { get => sizeId; set => sizeId = value; }
-        public int StockId { get => stockId; set => stockId = value; }
+        public string ProductSizeCodeExternal { get => productSizeCodeExternal; set => productSizeCodeExternal = value; }
         public float ProductQuantity { get => productQuantity; set => productQuantity = value; }
         public float ProductOrderPriceNetBaseCurrency { get => productOrderPriceNetBaseCurrency; set => productOrderPriceNetBaseCurrency = value; }
         public float ProductOrderPriceBaseCurrency { get => productOrderPriceBaseCurrency; set => productOrderPriceBaseCurrency = value; }
+        public float Magazyn { get => magazyn; set => magazyn = value; }
+        public float InneMagazyny { get => inneMagazyny; set => inneMagazyny = value; }
+        public string Status { get => status; set => status = value; }
         public string RemarksToProduct { get => remarksToProduct; set => remarksToProduct = value; }
+        public int StockId { get => stockId; set => stockId = value; }
+        public string ProductName { get => productName; set => productName = value; }
+        public string VersionName { get => versionName; set => versionName = value; }
+        public int ProductId { get => productId; set => productId = value; }
+        public string SizePanelName { get => sizePanelName; set => sizePanelName = value; }
+        public string ProductCode { get => productCode; set => productCode = value; }
+        public string SizeId { get => sizeId; set => sizeId = value; }
     }
 }

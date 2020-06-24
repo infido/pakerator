@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nDniWstecz = new System.Windows.Forms.NumericUpDown();
             this.lkomunikat = new System.Windows.Forms.Label();
             this.bRefresh = new System.Windows.Forms.Button();
             this.bClose = new System.Windows.Forms.Button();
@@ -37,6 +39,7 @@
             this.panel3Srodek = new System.Windows.Forms.Panel();
             this.dataGridView1Naglowki = new System.Windows.Forms.DataGridView();
             this.panel1Gora.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).BeginInit();
             this.panel2Dol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2Pozycje)).BeginInit();
             this.panel3Srodek.SuspendLayout();
@@ -45,6 +48,8 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.label1);
+            this.panel1Gora.Controls.Add(this.nDniWstecz);
             this.panel1Gora.Controls.Add(this.lkomunikat);
             this.panel1Gora.Controls.Add(this.bRefresh);
             this.panel1Gora.Controls.Add(this.bClose);
@@ -54,10 +59,41 @@
             this.panel1Gora.Size = new System.Drawing.Size(800, 53);
             this.panel1Gora.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Ile dni wstecz";
+            // 
+            // nDniWstecz
+            // 
+            this.nDniWstecz.Location = new System.Drawing.Point(89, 15);
+            this.nDniWstecz.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.nDniWstecz.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nDniWstecz.Name = "nDniWstecz";
+            this.nDniWstecz.Size = new System.Drawing.Size(48, 20);
+            this.nDniWstecz.TabIndex = 3;
+            this.nDniWstecz.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
             // lkomunikat
             // 
             this.lkomunikat.AutoSize = true;
-            this.lkomunikat.Location = new System.Drawing.Point(115, 18);
+            this.lkomunikat.Location = new System.Drawing.Point(259, 17);
             this.lkomunikat.Name = "lkomunikat";
             this.lkomunikat.Size = new System.Drawing.Size(35, 13);
             this.lkomunikat.TabIndex = 2;
@@ -66,7 +102,7 @@
             // 
             // bRefresh
             // 
-            this.bRefresh.Location = new System.Drawing.Point(13, 13);
+            this.bRefresh.Location = new System.Drawing.Point(143, 12);
             this.bRefresh.Name = "bRefresh";
             this.bRefresh.Size = new System.Drawing.Size(75, 23);
             this.bRefresh.TabIndex = 1;
@@ -140,6 +176,7 @@
             this.Text = "Zamówienia";
             this.panel1Gora.ResumeLayout(false);
             this.panel1Gora.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).EndInit();
             this.panel2Dol.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2Pozycje)).EndInit();
             this.panel3Srodek.ResumeLayout(false);
@@ -158,5 +195,7 @@
         private System.Windows.Forms.Button bClose;
         private System.Windows.Forms.Button bRefresh;
         private System.Windows.Forms.Label lkomunikat;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nDniWstecz;
     }
 }
