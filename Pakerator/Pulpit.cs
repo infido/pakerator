@@ -816,6 +816,7 @@ namespace Pakerator
                 player.Load();
                 player.Play();
 
+                setLog("LOG", "003 Zakończenie skanowania pozycji dla dokumentu" , tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                 MessageBox.Show("Dokument jest skończony!", "Potwierdzenie", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 zapiszHistoriaTryb("Do skanowania" + tToSkan.Text + "; List przewozowy " + lListPrzewozowy.Text + "; Dokument " + lDokument.Text +"; Typ dokumentu  " + ltypdok.Text, false);
                 wyczyśćToolStripMenuItem.PerformClick();
