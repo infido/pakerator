@@ -276,8 +276,7 @@ namespace Pakerator
                         sql += " join GM_TOWARY ON GM_MMRPOZ.ID_TOWARU=GM_TOWARY.ID ";
                         sql += " where GM_MMRPOZ.ID_GLOWKI=" + dokId;
                     }
-                    setLog("LOG", "006 Ustawienie dokumentu i odbiorcy", kodKreskowy, kodKreskowy, lDokument.Text, ltypdok.Text);
-
+                    
                     fda = new FbDataAdapter(sql, polaczenie.getConnection().ConnectionString);
                     fds = new DataSet();
                     fDataView = new DataView();
@@ -293,6 +292,8 @@ namespace Pakerator
                     }
                     fDataView.Table = fds.Tables["POZ"];
                     dataGridViewPozycje.DataSource = fDataView;
+
+                    setLog("LOG", "006 Ustawienie dokumentu i odbiorcy, " + dataGridViewPozycje.Rows.Count + " pozycji" , kodKreskowy, kodKreskowy, lDokument.Text, ltypdok.Text);
 
                     dataGridViewPozycje.Columns["ID"].Visible = false;
                     dataGridViewPozycje.Columns["ID_TOWARU"].Visible = false;
