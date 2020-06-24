@@ -71,7 +71,10 @@ namespace Pakerator
             setKolorowanieRekordow();
             setStatusZamOnGrid();
 
+            setRowFilter();
+
             ShowDialog();
+
             return kk;
         }
 
@@ -85,6 +88,32 @@ namespace Pakerator
         {
             Visible = false;
             kk = dataGridViewDokSP.CurrentRow.Cells["SYGNATURA"].Value.ToString();
+        }
+
+        private void setRowFilter()
+        {
+            if (cOK.Checked)
+            {
+                fDataView.RowFilter = "STATUS_ZAM LIKE '%OK%'";
+            }
+
+            if (cForMove.Checked && fDataView.RowFilter.Length > 0)
+            {
+                fDataView.RowFilter += " OR STATUS_ZAM LIKE '%DO%' ";
+            }
+            else if (cForMove.Checked)
+            {
+                fDataView.RowFilter += " STATUS_ZAM LIKE '%DO%' ";
+            }
+
+            if (cBRAK.Checked && fDataView.RowFilter.Length > 0)
+            {
+                fDataView.RowFilter += " OR STATUS_ZAM LIKE '%BRAK%' ";
+            }
+            else if (cBRAK.Checked)
+            {
+                fDataView.RowFilter = " STATUS_ZAM LIKE '%BRAK%' ";
+            }
         }
 
         private void setKolorowanieRekordow()
@@ -184,6 +213,24 @@ namespace Pakerator
                 }
                 setStatusToDict(row.Cells["NUMER"].Value.ToString(), row.Cells["STATUS"].Value.ToString());
             }
+        }
+
+        private void cOK_CheckedChanged(object sender, EventArgs e)
+        {
+            setRowFilter();
+            dataGridViewDokSP.Refresh();
+        }
+
+        private void cForMove_CheckedChanged(object sender, EventArgs e)
+        {
+            setRowFilter();
+            dataGridViewDokSP.Refresh();
+        }
+
+        private void cBRAK_CheckedChanged(object sender, EventArgs e)
+        {
+            setRowFilter();
+            dataGridViewDokSP.Refresh();
         }
 
         private void setStatusToDict(string numer, string status)
