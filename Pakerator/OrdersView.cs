@@ -446,6 +446,17 @@ namespace Pakerator
                 dataGridView2Pozycje.DataSource = cur.ItemsOfOrder;
                 setKolorowaniePOZ();
             }
+
+            if (dataGridView1Naglowki.CurrentRow.Cells["StatusStanowRaks"].Value.Equals("BRAK") ||
+                dataGridView1Naglowki.CurrentRow.Cells["StatusStanowRaks"].Value.ToString().StartsWith("ARCHI"))
+            {
+                bZapiszPozDoSchowkaRaks.Visible = false;
+            }
+            else
+            {
+                bZapiszPozDoSchowkaRaks.Visible = true;
+                bZapiszPozDoSchowkaRaks.Text = "Zapisz pozycje zamówienia " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString()  + " do schowka w RaksSQL";
+            }
         }
 
         public void Pokaz()
@@ -495,6 +506,11 @@ namespace Pakerator
                     row.DefaultCellStyle.SelectionForeColor = Color.Red;
                 }
             }
+        }
+
+        private void bZapiszPozDoSchowkaRaks_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funkcjonalnośc jeszcze nie obsłużona");
         }
 
         private void setKolorowaniePOZ()

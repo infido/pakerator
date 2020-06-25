@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
+            this.bZapiszPozDoSchowkaRaks = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nDniWstecz = new System.Windows.Forms.NumericUpDown();
             this.lkomunikat = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.bZapiszPozDoSchowkaRaks);
             this.panel1Gora.Controls.Add(this.label1);
             this.panel1Gora.Controls.Add(this.nDniWstecz);
             this.panel1Gora.Controls.Add(this.lkomunikat);
@@ -58,6 +60,17 @@
             this.panel1Gora.Name = "panel1Gora";
             this.panel1Gora.Size = new System.Drawing.Size(1268, 53);
             this.panel1Gora.TabIndex = 0;
+            // 
+            // bZapiszPozDoSchowkaRaks
+            // 
+            this.bZapiszPozDoSchowkaRaks.Location = new System.Drawing.Point(820, 13);
+            this.bZapiszPozDoSchowkaRaks.Name = "bZapiszPozDoSchowkaRaks";
+            this.bZapiszPozDoSchowkaRaks.Size = new System.Drawing.Size(355, 23);
+            this.bZapiszPozDoSchowkaRaks.TabIndex = 5;
+            this.bZapiszPozDoSchowkaRaks.Text = "Zapisz pozycje zamówienia ... do schowka w RaksSQL";
+            this.bZapiszPozDoSchowkaRaks.UseVisualStyleBackColor = true;
+            this.bZapiszPozDoSchowkaRaks.Visible = false;
+            this.bZapiszPozDoSchowkaRaks.Click += new System.EventHandler(this.bZapiszPozDoSchowkaRaks_Click);
             // 
             // label1
             // 
@@ -197,5 +210,6 @@
         private System.Windows.Forms.Label lkomunikat;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nDniWstecz;
+        private System.Windows.Forms.Button bZapiszPozDoSchowkaRaks;
     }
 }
