@@ -22,6 +22,7 @@ namespace Pakerator
         //private DataView fDataView;
         int magID, magID2;
         string usrNam;
+        string filtrStatus;
         List<Order> orders;
         List<OrderItem> orderItems;
 
@@ -30,14 +31,15 @@ namespace Pakerator
             Close();
         }
 
-        public OrdersView(int magazyn1, int magazyn2, ConnectionDB conn, string userName)
+        public OrdersView(int magazyn1, int magazyn2, ConnectionDB conn, string userName, string statusZamowien, string tytulOkna)
         {
             InitializeComponent();
             magID = magazyn1;
             magID2 = magazyn2;
             polaczenie = conn;
             usrNam = userName;
-            //Pulpit.setL
+            filtrStatus = statusZamowien;
+            Text += " " + tytulOkna;
         }
 
         private void bRefresh_Click(object sender, EventArgs e)
@@ -65,9 +67,22 @@ namespace Pakerator
 
                 //request.@params.orderPrepaidStatus = "orderPrepaidStatus";
 
-                request.@params.ordersStatuses = new string[2];
-                request.@params.ordersStatuses[0] = "on_order";
-                request.@params.ordersStatuses[1] = "new";
+                if (filtrStatus.Length > 0)
+                {
+                    request.@params.ordersStatuses = new string[1];
+                    request.@params.ordersStatuses[0] = filtrStatus;
+                }
+                else
+                {
+                    request.@params.ordersStatuses = new string[7];
+                    request.@params.ordersStatuses[0] = "on_order";
+                    request.@params.ordersStatuses[1] = "new";
+                    request.@params.ordersStatuses[2] = "packed";
+                    request.@params.ordersStatuses[3] = "ready";
+                    request.@params.ordersStatuses[4] = "payment_waiting";
+                    request.@params.ordersStatuses[5] = "delivery_waiting";
+                    request.@params.ordersStatuses[6] = "suspended";
+                }
 
                 //request.@params.couriersName = new string[1];
                 //request.@params.couriersName[0] = "couriersName";
@@ -385,7 +400,7 @@ namespace Pakerator
                                         nag.StatusStanowRaks = poz.Status;
                                     else if (nag.StatusStanowRaks.Equals("OK") && poz.Status.Equals("NA_MAGAZYNIE2"))
                                         nag.StatusStanowRaks = poz.Status;
-                                    else if (nag.StatusStanowRaks.Equals("OK") && poz.Status.Equals("DO_PRZESUNIĘCIA"))
+                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("NA_MAGAZYNIE2")) && poz.Status.Equals("DO_PRZESUNIĘCIA"))
                                         nag.StatusStanowRaks = poz.Status;
                                     else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA")) && poz.Status.Equals("NA_ZAMÓWIENIE"))
                                         nag.StatusStanowRaks = poz.Status;

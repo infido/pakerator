@@ -1004,7 +1004,7 @@ namespace Pakerator
 
         private void listaZamówieńZWwwToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "new", " - Nowe");
             ov.Pokaz();
         }
 
@@ -1021,6 +1021,72 @@ namespace Pakerator
             dm.Dispose();
             if (tToSkan.Text.Length>0)
                 SendKeys.SendWait("{ENTER}");
+        }
+
+        private void listaZamówieńZWwwRealizowaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "on_order", " - Realizowane");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwPakowaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "packed", " - Pakowane");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwGotoweToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "ready", " - Gotowe");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwZwrotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "returned", " - Zwrot");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwKlientAnulowałToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "canceled", " - Klient anulował");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwReklamacjeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "complainted", " - Reklamacje");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "payment_waiting", " - Oczekuje na włatę");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "delivery_waiting", " - Oczekujące na dostawę");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwWstrzymaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "suspended", " - Wstrzymane");
+            ov.Pokaz();
+        }
+
+        private void listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "finished_ext", " - Realizowane w programie F/K");
+            ov.Pokaz();
+        }
+
+        private void roboczaListaZamówieńZWwwToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "", " - Wybrane statusy");
+            ov.Pokaz();
         }
 
         private void label3_Click(object sender, EventArgs e)
