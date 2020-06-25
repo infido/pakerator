@@ -224,6 +224,7 @@ namespace Pakerator
                                     nag.ClientId = www.clientResult.clientAccount.clientId;
                                     nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
                                 nag.ClientNoteToOrder = www.orderDetails.clientNoteToOrder;
+                                nag.ApiFlag = www.orderDetails.apiFlag;
                             }
                             catch (Exception exn)
                             {
@@ -586,6 +587,7 @@ namespace Pakerator
         private string deliveryDate;
         private string statusStanowRaks;
         private string clientNoteToOrder;
+        private apiFlagType apiFlag;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -597,6 +599,7 @@ namespace Pakerator
 
         public string OrderId { get => orderId; set => orderId = value; }
         public string OrderStatus { get => orderStatus; set => orderStatus = value; }
+        public apiFlagType ApiFlag { get => apiFlag; set => apiFlag = value; }
         public string OrderAddDate { get => orderAddDate; set => orderAddDate = value; }
         public string OrderPaymentType { get => orderPaymentType; set => orderPaymentType = value; }
         public string OrderConfirmation { get => orderConfirmation; set => orderConfirmation = value; }
@@ -604,8 +607,8 @@ namespace Pakerator
         public string DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
         public string ClientPhone1 { get => clientPhone1; set => clientPhone1 = value; }
         public string ClientNoteToOrder { get => clientNoteToOrder; set => clientNoteToOrder = value; }
-        public string ClientCountryName { get => clientCountryName; set => clientCountryName = value; }
         public string ClientCity { get => clientCity; set => clientCity = value; }
+        public string ClientCountryName { get => clientCountryName; set => clientCountryName = value; }
         public string ClientFirm { get => clientFirm; set => clientFirm = value; }
         public string ClientFirstName { get => clientFirstName; set => clientFirstName = value; }
         public string ClientLastName { get => clientLastName; set => clientLastName = value; }
@@ -619,7 +622,7 @@ namespace Pakerator
         public string OrderBridgeNote { get => orderBridgeNote; set => orderBridgeNote = value; }
         public List<OrderItem> ItemsOfOrder { get => itemsOfOrder; set => itemsOfOrder = value; }
         public string StatusStanowRaks { get => statusStanowRaks; set => statusStanowRaks = value; }
-
+        
     }
 
     public class OrderItem
