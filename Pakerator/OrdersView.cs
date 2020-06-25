@@ -450,23 +450,24 @@ namespace Pakerator
 
                 if (row.Cells["StatusStanowRaks"].Value.Equals("OK"))
                 {
+                    row.DefaultCellStyle.BackColor = Color.DarkGreen;
+                    row.DefaultCellStyle.ForeColor = Color.GreenYellow;
+                    row.DefaultCellStyle.SelectionForeColor = Color.DarkGreen;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2"))
+                {
                     row.DefaultCellStyle.BackColor = Color.Green;
                     row.DefaultCellStyle.SelectionForeColor = Color.Green;
                 }
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2"))
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
                 {
                     row.DefaultCellStyle.BackColor = Color.Yellow;
                     row.DefaultCellStyle.SelectionForeColor = Color.YellowGreen;
                 }
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                     row.DefaultCellStyle.SelectionForeColor = Color.Orange;
-                }
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
-                {
-                    row.DefaultCellStyle.BackColor = Color.Brown;
-                    row.DefaultCellStyle.SelectionForeColor = Color.Brown;
                 }
                 else if (row.Cells["StatusStanowRaks"].Value.ToString().StartsWith("ARCHI"))
                 {
@@ -489,23 +490,23 @@ namespace Pakerator
 
                 if (row.Cells["status"].Value.Equals("OK"))
                 {
+                    row.DefaultCellStyle.BackColor = Color.DarkGreen;
+                    row.DefaultCellStyle.SelectionBackColor = Color.DarkGreen;
+                }
+                else if (row.Cells["status"].Value.Equals("NA_MAGAZYNIE2"))
+                {
                     row.DefaultCellStyle.BackColor = Color.Green;
                     row.DefaultCellStyle.SelectionBackColor = Color.Green;
                 }
-                else if (row.Cells["status"].Value.Equals("NA_MAGAZYNIE2"))
+                else if (row.Cells["status"].Value.Equals("DO_PRZESUNIĘCIA"))
                 {
                     row.DefaultCellStyle.BackColor = Color.Yellow;
                     row.DefaultCellStyle.SelectionBackColor = Color.YellowGreen;
                 }
-                else if (row.Cells["status"].Value.Equals("DO_PRZESUNIĘCIA"))
+                else if (row.Cells["status"].Value.Equals("NA_ZAMÓWIENIE"))
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                     row.DefaultCellStyle.SelectionBackColor = Color.Orange;
-                }
-                else if (row.Cells["status"].Value.Equals("NA_ZAMÓWIENIE"))
-                {
-                    row.DefaultCellStyle.BackColor = Color.Brown;
-                    row.DefaultCellStyle.SelectionBackColor = Color.Brown;
                 }
                 else if (row.Cells["status"].Value.ToString().StartsWith("ARCHI"))
                 {
