@@ -369,6 +369,9 @@ namespace Pakerator
                                         #region 040 try na sprawdzenie statusu pozycji zamówienia
                                         try
                                         {
+                                            if (poz.Status!=null && poz.Status.Equals("ARCHIWALNY"))
+                                                poz.Status += " ";
+
                                             if ((poz.Magazyn - poz.ProductQuantity) >= 0)
                                                 poz.Status += "OK";
                                             else if (((poz.Magazyn + poz.Magazyn2) - poz.ProductQuantity) >= 0)
@@ -479,14 +482,14 @@ namespace Pakerator
 
                 if (row.Cells["StatusStanowRaks"].Value.Equals("OK"))
                 {
-                    row.DefaultCellStyle.BackColor = Color.DarkGreen;
-                    row.DefaultCellStyle.ForeColor = Color.GreenYellow;
-                    row.DefaultCellStyle.SelectionForeColor = Color.DarkGreen;
+                    row.DefaultCellStyle.BackColor = Color.GreenYellow;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Green;
                 }
                 else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2"))
                 {
-                    row.DefaultCellStyle.BackColor = Color.Green;
-                    row.DefaultCellStyle.SelectionForeColor = Color.Green;
+                    row.DefaultCellStyle.BackColor = Color.DarkGreen;
+                    row.DefaultCellStyle.ForeColor = Color.GreenYellow;
+                    row.DefaultCellStyle.SelectionForeColor = Color.DarkGreen;
                 }
                 else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
                 {
@@ -524,13 +527,14 @@ namespace Pakerator
 
                 if (row.Cells["status"].Value.Equals("OK"))
                 {
-                    row.DefaultCellStyle.BackColor = Color.DarkGreen;
-                    row.DefaultCellStyle.SelectionBackColor = Color.DarkGreen;
+                    row.DefaultCellStyle.BackColor = Color.GreenYellow;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Green;
                 }
                 else if (row.Cells["status"].Value.Equals("NA_MAGAZYNIE2"))
                 {
-                    row.DefaultCellStyle.BackColor = Color.Green;
-                    row.DefaultCellStyle.SelectionBackColor = Color.Green;
+                    row.DefaultCellStyle.BackColor = Color.DarkGreen;
+                    row.DefaultCellStyle.ForeColor = Color.GreenYellow;
+                    row.DefaultCellStyle.SelectionForeColor = Color.DarkGreen;
                 }
                 else if (row.Cells["status"].Value.Equals("DO_PRZESUNIĘCIA"))
                 {
