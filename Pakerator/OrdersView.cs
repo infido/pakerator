@@ -221,6 +221,7 @@ namespace Pakerator
                                     nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
                                     nag.ClientId = www.clientResult.clientAccount.clientId;
                                     nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
+                                nag.ClientNoteToOrder = www.orderDetails.clientNoteToOrder;
                             }
                             catch (Exception exn)
                             {
@@ -578,6 +579,7 @@ namespace Pakerator
         private string courierName;
         private string deliveryDate;
         private string statusStanowRaks;
+        private string clientNoteToOrder;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -595,7 +597,7 @@ namespace Pakerator
         public string CourierName { get => courierName; set => courierName = value; }
         public string DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
         public string ClientPhone1 { get => clientPhone1; set => clientPhone1 = value; }
-        public string ClientPhone2 { get => clientPhone2; set => clientPhone2 = value; }
+        public string ClientNoteToOrder { get => clientNoteToOrder; set => clientNoteToOrder = value; }
         public string ClientCountryName { get => clientCountryName; set => clientCountryName = value; }
         public string ClientCity { get => clientCity; set => clientCity = value; }
         public string ClientFirm { get => clientFirm; set => clientFirm = value; }
@@ -605,11 +607,13 @@ namespace Pakerator
         public string ClientStreet { get => clientStreet; set => clientStreet = value; }
         public string ClientZipCode { get => clientZipCode; set => clientZipCode = value; }
         public string ClientEmail { get => clientEmail; set => clientEmail = value; }
+        public string ClientPhone2 { get => clientPhone2; set => clientPhone2 = value; }
         public int ClientId { get => clientId; set => clientId = value; }
         public string ClientLogin { get => clientLogin; set => clientLogin = value; }
         public string OrderBridgeNote { get => orderBridgeNote; set => orderBridgeNote = value; }
         public List<OrderItem> ItemsOfOrder { get => itemsOfOrder; set => itemsOfOrder = value; }
         public string StatusStanowRaks { get => statusStanowRaks; set => statusStanowRaks = value; }
+
     }
 
     public class OrderItem
