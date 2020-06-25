@@ -193,6 +193,8 @@ namespace Pakerator
                     }
                     else
                     {
+                        lkomunikat.Visible = true;
+                        lkomunikat.Text = "Pobrano informacje ze sklepu www o " + response.resultsNumberAll + " zamówieniach";
                         foreach (ApiGetOrdersNotFinishedGet.ResultType www in response.Results)
                         {
                             Order nag = new Order();

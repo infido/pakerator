@@ -106,7 +106,7 @@
             // lkomunikat
             // 
             this.lkomunikat.AutoSize = true;
-            this.lkomunikat.Location = new System.Drawing.Point(259, 17);
+            this.lkomunikat.Location = new System.Drawing.Point(224, 20);
             this.lkomunikat.Name = "lkomunikat";
             this.lkomunikat.Size = new System.Drawing.Size(35, 13);
             this.lkomunikat.TabIndex = 2;
@@ -125,7 +125,7 @@
             // 
             // bClose
             // 
-            this.bClose.Location = new System.Drawing.Point(1181, 12);
+            this.bClose.Location = new System.Drawing.Point(1181, 13);
             this.bClose.Name = "bClose";
             this.bClose.Size = new System.Drawing.Size(75, 23);
             this.bClose.TabIndex = 0;
