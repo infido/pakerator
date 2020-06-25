@@ -402,9 +402,9 @@ namespace Pakerator
                                         nag.StatusStanowRaks = poz.Status;
                                     else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("NA_MAGAZYNIE2")) && poz.Status.Equals("DO_PRZESUNIĘCIA"))
                                         nag.StatusStanowRaks = poz.Status;
-                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA")) && poz.Status.Equals("NA_ZAMÓWIENIE"))
+                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("NA_MAGAZYNIE2") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA")) && poz.Status.Equals("NA_ZAMÓWIENIE"))
                                         nag.StatusStanowRaks = poz.Status;
-                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA") || nag.StatusStanowRaks.Equals("NA_ZAMÓWIENIE")) && poz.Status.StartsWith("ARCHI"))
+                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("NA_MAGAZYNIE2") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA") || nag.StatusStanowRaks.Equals("NA_ZAMÓWIENIE")) && poz.Status.StartsWith("ARCHI"))
                                         nag.StatusStanowRaks = poz.Status;
                                 }
                                 catch (Exception exckn)
