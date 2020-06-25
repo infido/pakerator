@@ -56,13 +56,13 @@
             this.panel1Gora.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1Gora.Location = new System.Drawing.Point(0, 0);
             this.panel1Gora.Name = "panel1Gora";
-            this.panel1Gora.Size = new System.Drawing.Size(800, 53);
+            this.panel1Gora.Size = new System.Drawing.Size(1268, 53);
             this.panel1Gora.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 4;
@@ -70,7 +70,7 @@
             // 
             // nDniWstecz
             // 
-            this.nDniWstecz.Location = new System.Drawing.Point(89, 15);
+            this.nDniWstecz.Location = new System.Drawing.Point(89, 16);
             this.nDniWstecz.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -102,7 +102,7 @@
             // 
             // bRefresh
             // 
-            this.bRefresh.Location = new System.Drawing.Point(143, 12);
+            this.bRefresh.Location = new System.Drawing.Point(143, 15);
             this.bRefresh.Name = "bRefresh";
             this.bRefresh.Size = new System.Drawing.Size(75, 23);
             this.bRefresh.TabIndex = 1;
@@ -112,7 +112,7 @@
             // 
             // bClose
             // 
-            this.bClose.Location = new System.Drawing.Point(714, 13);
+            this.bClose.Location = new System.Drawing.Point(1181, 12);
             this.bClose.Name = "bClose";
             this.bClose.Size = new System.Drawing.Size(75, 23);
             this.bClose.TabIndex = 0;
@@ -126,7 +126,7 @@
             this.panel2Dol.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2Dol.Location = new System.Drawing.Point(0, 354);
             this.panel2Dol.Name = "panel2Dol";
-            this.panel2Dol.Size = new System.Drawing.Size(800, 150);
+            this.panel2Dol.Size = new System.Drawing.Size(1268, 150);
             this.panel2Dol.TabIndex = 1;
             // 
             // dataGridView2Pozycje
@@ -138,7 +138,7 @@
             this.dataGridView2Pozycje.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2Pozycje.Name = "dataGridView2Pozycje";
             this.dataGridView2Pozycje.ReadOnly = true;
-            this.dataGridView2Pozycje.Size = new System.Drawing.Size(800, 150);
+            this.dataGridView2Pozycje.Size = new System.Drawing.Size(1268, 150);
             this.dataGridView2Pozycje.TabIndex = 0;
             // 
             // panel3Srodek
@@ -147,7 +147,7 @@
             this.panel3Srodek.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3Srodek.Location = new System.Drawing.Point(0, 53);
             this.panel3Srodek.Name = "panel3Srodek";
-            this.panel3Srodek.Size = new System.Drawing.Size(800, 301);
+            this.panel3Srodek.Size = new System.Drawing.Size(1268, 301);
             this.panel3Srodek.TabIndex = 2;
             // 
             // dataGridView1Naglowki
@@ -159,7 +159,7 @@
             this.dataGridView1Naglowki.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1Naglowki.Name = "dataGridView1Naglowki";
             this.dataGridView1Naglowki.ReadOnly = true;
-            this.dataGridView1Naglowki.Size = new System.Drawing.Size(800, 301);
+            this.dataGridView1Naglowki.Size = new System.Drawing.Size(1268, 301);
             this.dataGridView1Naglowki.TabIndex = 0;
             this.dataGridView1Naglowki.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1Naglowki_CellClick);
             // 
@@ -167,7 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 504);
+            this.ClientSize = new System.Drawing.Size(1268, 504);
             this.Controls.Add(this.panel3Srodek);
             this.Controls.Add(this.panel2Dol);
             this.Controls.Add(this.panel1Gora);

@@ -43,6 +43,7 @@ namespace Pakerator
         private void bRefresh_Click(object sender, EventArgs e)
         {
             lkomunikat.Visible = false;
+            string kodForTry = "";
 
             if (SessionIAI.GetPopertySettingsForAIA())
             {
@@ -180,56 +181,82 @@ namespace Pakerator
                         foreach (ApiGetOrdersNotFinishedGet.ResultType www in response.Results)
                         {
                             Order nag = new Order();
-                            nag.OrderId = www.orderId;
-                            nag.OrderStatus = www.orderDetails.orderStatus;
-                            nag.OrderAddDate = www.orderDetails.orderAddDate;
-                            nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
-                            nag.OrderConfirmation = www.orderDetails.orderConfirmation;
-                            nag.CourierName = www.orderDetails.dispatch.courierName;
-                            nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
-                            nag.OrderBridgeNote = www.orderBridgeNote;
-                            nag.OrderSerialNumber = www.orderSerialNumber;
-                            nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
-                            nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
-                            nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
-                            nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
-                            nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
-                            nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
-                            nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
-                            nag.ClientStreet = www.clientResult.clientBillingAddress.clientStreet;
-                            nag.ClientPhone1 = www.clientResult.clientBillingAddress.clientPhone1;
-                            nag.ClientPhone2 = www.clientResult.clientBillingAddress.clientPhone2;
-                            nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
-                            nag.ClientId = www.clientResult.clientAccount.clientId;
-                            nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
-
+                            #region 037 try na mapowanie nagłówków
+                            try
+                            {
+                                    nag.OrderId = www.orderId;
+                                    nag.OrderStatus = www.orderDetails.orderStatus;
+                                    nag.OrderAddDate = www.orderDetails.orderAddDate;
+                                    nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
+                                    nag.OrderConfirmation = www.orderDetails.orderConfirmation;
+                                    nag.CourierName = www.orderDetails.dispatch.courierName;
+                                    nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
+                                    nag.OrderBridgeNote = www.orderBridgeNote;
+                                    nag.OrderSerialNumber = www.orderSerialNumber;
+                                    nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
+                                    nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
+                                    nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
+                                    nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
+                                    nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
+                                    nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
+                                    nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
+                                    nag.ClientStreet = www.clientResult.clientBillingAddress.clientStreet;
+                                    nag.ClientPhone1 = www.clientResult.clientBillingAddress.clientPhone1;
+                                    nag.ClientPhone2 = www.clientResult.clientBillingAddress.clientPhone2;
+                                    nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
+                                    nag.ClientId = www.clientResult.clientAccount.clientId;
+                                    nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
+                            }
+                            catch (Exception exn)
+                            {
+                                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "037 Bład w mapowaniu nagłówków zamówień z www do obiektów dla odrerId: " + www.orderId + System.Environment.NewLine + exn.Message, "", "", "", 0, "", 0, "", magID, www.clientResult.clientBillingAddress.clientFirstName + " " + www.clientResult.clientBillingAddress.clientLastName + " " + www.clientResult.clientBillingAddress.clientFirm, 0, 0);
+                                MessageBox.Show("037 Bład w mapowaniu nagłówków zamówień z www do obiektów dla odrerId: " + www.orderId + System.Environment.NewLine + exn.Message);
+                                throw;
+                            }
+                            #endregion
 
                             orderItems = new List<OrderItem>();
                             foreach (ApiGetOrdersNotFinishedGet.productResultType pozwww in www.orderDetails.productsResults)
                             {
                                 OrderItem poz = new OrderItem();
-                                poz.BasketPosition = pozwww.basketPosition;
-                                poz.ProductId = pozwww.productId;
-                                poz.ProductCode = pozwww.productCode;
-                                poz.ProductName = pozwww.productName;
-                                poz.VersionName = pozwww.versionName;
-                                poz.ProductQuantity = pozwww.productQuantity;
-                                poz.ProductOrderPriceNetBaseCurrency = pozwww.productOrderPriceNet;
-                                poz.ProductOrderPriceBaseCurrency = pozwww.productOrderPrice;
-                                poz.RemarksToProduct = pozwww.remarksToProduct;
-                                poz.SizeId = pozwww.sizeId;
-                                poz.StockId = pozwww.stockId;
-                                poz.ProductSizeCodeExternal = pozwww.productSizeCodeExternal;
-                                poz.SizePanelName = pozwww.sizePanelName;
+                                #region 038 try na mapowanie pozycji
+                                try
+                                {
+                                    poz.BasketPosition = pozwww.basketPosition;
+                                    poz.ProductId = pozwww.productId;
+                                    poz.ProductCode = pozwww.productCode;
+                                    poz.ProductName = pozwww.productName;
+                                    poz.VersionName = pozwww.versionName;
+                                    poz.ProductQuantity = pozwww.productQuantity;
+                                    poz.ProductOrderPriceNetBaseCurrency = pozwww.productOrderPriceNet;
+                                    poz.ProductOrderPriceBaseCurrency = pozwww.productOrderPrice;
+                                    poz.RemarksToProduct = pozwww.remarksToProduct;
+                                    poz.SizeId = pozwww.sizeId;
+                                    poz.StockId = pozwww.stockId;
+                                    poz.ProductSizeCodeExternal = pozwww.productSizeCodeExternal;
+                                    poz.SizePanelName = pozwww.sizePanelName;
+                                }
+                                catch (Exception exp)
+                                {
+                                    Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "038 Bład w mapowaniu pozycji zamówień z www do obiektów dla odrerId: " + www.orderId + "; Index external:" + poz.ProductSizeCodeExternal + "; ProductId:" + poz.ProductId + System.Environment.NewLine + exp.Message, "", "", "", 0, "", 0, "", magID, www.clientResult.clientBillingAddress.clientFirstName + " " + www.clientResult.clientBillingAddress.clientLastName + " " + www.clientResult.clientBillingAddress.clientFirm, 0, 0);
+                                    MessageBox.Show("038 Bład w mapowaniu pozycji zamówień z www do obiektów dla odrerId: " + www.orderId + "; Index external:" + poz.ProductSizeCodeExternal + "; ProductId:" + poz.ProductId + System.Environment.NewLine + exp.Message);
+                                    throw;
+                                }
+                                #endregion
+
+                                kodForTry = "Order id: " + nag.OrderId + "; Index external:"+ poz.ProductSizeCodeExternal + "; ProductId:" + poz.ProductId;
 
                                 string sqlTest = "SELECT ARCHIWALNY from GM_TOWARY ";
                                 sqlTest += " where ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
                                 FbCommand cdkTest = new FbCommand(sqlTest, polaczenie.getConnection());
+
+                                #region 033 try czy jest kartoteka
                                 try
                                 {
-                                    if (cdkTest.ExecuteScalar() == DBNull.Value)
+                                    var wynik = cdkTest.ExecuteScalar();
+                                    if (wynik == null)
                                         poz.Status = "BRAK";
-                                    else if ((int)cdkTest.ExecuteScalar() == 1)
+                                    else if (Convert.ToInt32(wynik) == 1)
                                         poz.Status = "ARCHIWALNY";
                                 }
                                 catch (Exception tex)
@@ -237,65 +264,140 @@ namespace Pakerator
                                     Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "033 Bład zapytania o indeks w Raks magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + tex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
                                     MessageBox.Show("033 Bład zapytania o indeks w Raks magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar: " + pozwww.productSizeCodeExternal + System.Environment.NewLine + tex.Message);
                                 }
+                                #endregion
 
-                                if (poz.Status==null || !poz.Status.Equals("BRAK"))
+                                #region 039 try na sprawdzenie czy BRAK i poźniejsze wyliczenie stanów magazynowych
+                                try
                                 {
-
-                                    string sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
-                                    sql += " where ";
-                                    sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
-                                    sql += " and GM_MAGAZYN.MAGNUM=" + magID + ";";
-                                    FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
-                                    try
+                                    if (poz.Status == null || !poz.Status.Equals("BRAK"))
                                     {
-                                        if (cdk.ExecuteScalar() != DBNull.Value)
-                                            poz.Magazyn = (float)cdk.ExecuteScalar();
+
+                                        string sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+                                        sql += " where ";
+                                        sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
+                                        sql += " and GM_MAGAZYN.MAGNUM=" + magID + ";";
+                                        FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+                                        #region 032 try stan magazynu
+                                        try
+                                        {
+                                            var mg = cdk.ExecuteScalar();
+                                            if (mg == DBNull.Value)
+                                                poz.Magazyn = 0;
+                                            else
+                                                poz.Magazyn = Convert.ToSingle(mg);
+
+                                        }
+                                        catch (FbException ex)
+                                        {
+                                            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "032 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
+                                            poz.Magazyn = -2;
+                                            MessageBox.Show("032 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar: " + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message);
+                                        }
+                                        #endregion
+
+                                        if (magID != magID2)
+                                        {
+                                            sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+                                            sql += " where ";
+                                            sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
+                                            sql += " and GM_MAGAZYN.MAGNUM=" + magID2 + ";";
+                                            cdk = new FbCommand(sql, polaczenie.getConnection());
+                                            #region 043 try stan magazynu
+                                            try
+                                            {
+                                                var mg = cdk.ExecuteScalar();
+                                                if (mg == DBNull.Value)
+                                                    poz.Magazyn2 = 0;
+                                                else
+                                                    poz.Magazyn2 = Convert.ToSingle(mg);
+
+                                            }
+                                            catch (FbException ex)
+                                            {
+                                                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "043 Bład zapytania o stany magazynu2 przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
+                                                poz.Magazyn = -2;
+                                                MessageBox.Show("043 Bład zapytania o stany magazynu2 przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar: " + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message);
+                                            }
+                                            #endregion
+                                        }
+
+                                        sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+                                        sql += " where ";
+                                        sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
+                                        if (magID!=magID2)
+                                            sql += " and GM_MAGAZYN.MAGNUM<>" + magID + "and GM_MAGAZYN.MAGNUM<>" + magID2 + ";";
                                         else
-                                            poz.Magazyn = 0;
-                                    }
-                                    catch (FbException ex)
-                                    {
-                                        Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "032 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
-                                        poz.Magazyn = -2;
-                                    }
+                                            sql += " and GM_MAGAZYN.MAGNUM<>" + magID + ";";
 
-                                    sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
-                                    sql += " where ";
-                                    sql += " ( GM_TOWARY.SKROT='" + pozwww.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + pozwww.productSizeCodeExternal + "' )";
-                                    sql += " and GM_MAGAZYN.MAGNUM<>" + magID + ";";
-                                    cdk = new FbCommand(sql, polaczenie.getConnection());
-                                    try
-                                    {
-                                        if (cdk.ExecuteScalar() != DBNull.Value)
-                                            poz.InneMagazyny = (float)cdk.ExecuteScalar();
-                                        else
-                                            poz.InneMagazyny = 0;
-                                    }
-                                    catch (FbException ex)
-                                    {
-                                        Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "034 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
-                                        poz.InneMagazyny = -2;
-                                        MessageBox.Show("034 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message);
-                                    }
+                                        cdk = new FbCommand(sql, polaczenie.getConnection());
 
-                                    if ((poz.Magazyn - poz.ProductQuantity) >= 0)
-                                        poz.Status += "OK";
-                                    else if (((poz.Magazyn + poz.InneMagazyny) - poz.ProductQuantity) >= 0)
-                                        poz.Status += "DO_PRZESUNIĘCIA";
-                                    else
-                                        poz.Status += "NA_ZAMÓWIENIE";
+                                        #region 034 try stan dla pozostałych magazynów
+                                        try
+                                        {
+                                            var im = cdk.ExecuteScalar();
+                                            if (im != DBNull.Value)
+                                                poz.InneMagazyny = Convert.ToSingle(im);
+                                            else
+                                                poz.InneMagazyny = 0;
+                                        }
+                                        catch (FbException ex)
+                                        {
+                                            Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "034 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, nag.ClientFirstName + " " + nag.ClientLastName + " " + nag.ClientFirm, 0, 0);
+                                            poz.InneMagazyny = -2;
+                                            MessageBox.Show("034 Bład zapytania o stany magazynu przy przeliczaniu rekordów prezentacji zamówień z www odrerId: " + nag.OrderId + ", Towar:" + pozwww.productSizeCodeExternal + System.Environment.NewLine + ex.Message);
+                                        }
+                                        #endregion
+
+                                        #region 040 try na sprawdzenie statusu pozycji zamówienia
+                                        try
+                                        {
+                                            if ((poz.Magazyn - poz.ProductQuantity) >= 0)
+                                                poz.Status += "OK";
+                                            else if (((poz.Magazyn + poz.Magazyn2) - poz.ProductQuantity) >= 0)
+                                                poz.Status += "NA_MAGAZYNIE2";
+                                            else if (((poz.Magazyn + poz.Magazyn2 + poz.InneMagazyny) - poz.ProductQuantity) >= 0)
+                                                poz.Status += "DO_PRZESUNIĘCIA";
+                                            else
+                                                poz.Status += "NA_ZAMÓWIENIE";
+                                        }
+                                        catch (Exception exck)
+                                        {
+                                            MessageBox.Show("040 Błąd sprawdzenia statusu pozycji dla zamówienia:" + www.orderId + " dla pozycji " + pozwww.productSizeCodeExternal + System.Environment.NewLine + exck.Message);
+                                            throw;
+                                        }
+                                        #endregion
+                                    }
                                 }
+                                catch (Exception exchb)
+                                {
+                                    MessageBox.Show("039 Błąd sprawdenia statusu nagłówka czy BRAK dla zamówienia:" + www.orderId + " dla pozycji " + pozwww.productSizeCodeExternal + System.Environment.NewLine + exchb.Message);
+                                    throw;
+                                }
+                                #endregion
                                 orderItems.Add(poz);
-                                if (nag.StatusStanowRaks==null || nag.StatusStanowRaks.Length == 0)
-                                    nag.StatusStanowRaks = poz.Status;
-                                else if (poz.Status.Equals("BRAK"))
-                                    nag.StatusStanowRaks = poz.Status;
-                                else if (nag.StatusStanowRaks.Equals("OK") && poz.Status.Equals("DO_PRZESUNIĘCIA"))
-                                    nag.StatusStanowRaks = poz.Status;
-                                else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA")) && poz.Status.Equals("NA_ZAMÓWIENIE"))
-                                    nag.StatusStanowRaks = poz.Status;
-                                else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA") || nag.StatusStanowRaks.Equals("NA_ZAMÓWIENIE")) && poz.Status.StartsWith("ARCHI"))
-                                    nag.StatusStanowRaks = poz.Status;
+
+                                #region 041 try na sprawdzenei statusu nagłówka
+                                try
+                                {
+                                    if (nag.StatusStanowRaks == null || nag.StatusStanowRaks.Length == 0)
+                                        nag.StatusStanowRaks = poz.Status;
+                                    else if (poz.Status.Equals("BRAK"))
+                                        nag.StatusStanowRaks = poz.Status;
+                                    else if (nag.StatusStanowRaks.Equals("OK") && poz.Status.Equals("NA_MAGAZYNIE2"))
+                                        nag.StatusStanowRaks = poz.Status;
+                                    else if (nag.StatusStanowRaks.Equals("OK") && poz.Status.Equals("DO_PRZESUNIĘCIA"))
+                                        nag.StatusStanowRaks = poz.Status;
+                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA")) && poz.Status.Equals("NA_ZAMÓWIENIE"))
+                                        nag.StatusStanowRaks = poz.Status;
+                                    else if ((nag.StatusStanowRaks.Equals("OK") || nag.StatusStanowRaks.Equals("DO_PRZESUNIĘCIA") || nag.StatusStanowRaks.Equals("NA_ZAMÓWIENIE")) && poz.Status.StartsWith("ARCHI"))
+                                        nag.StatusStanowRaks = poz.Status;
+                                }
+                                catch (Exception exckn)
+                                {
+                                    MessageBox.Show("041 Błąd sprawdenia statusu nagłówka dla zamówienia:" + www.orderId + " dla pozycji " + pozwww.productSizeCodeExternal + System.Environment.NewLine + exckn.Message);
+                                    throw;
+                                }
+                                #endregion
                             }
 
                             nag.ItemsOfOrder = orderItems;
@@ -312,8 +414,8 @@ namespace Pakerator
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Błąd: " + ex.Message.ToString());
-                    Pulpit.putLog(polaczenie, usrNam, "ERROR", ex.Message.ToString(), "", "", "", 0, "", 0, "", magID, "", 0, 0);
+                    MessageBox.Show("036 Błąd: " + kodForTry + " Esc.msg:" + ex.Message.ToString());
+                    Pulpit.putLog(polaczenie, usrNam, "ERROR", "036 Błąd: " + kodForTry + " Esc.msg:" + ex.Message.ToString(), "", "", "", 0, "", 0, "", magID, "", 0, 0);
                     throw;
                 }
                 setKolorowanieNAG();
@@ -327,6 +429,7 @@ namespace Pakerator
             if (cur != null)
             {
                 dataGridView2Pozycje.DataSource = cur.ItemsOfOrder;
+                setKolorowaniePOZ();
             }
         }
 
@@ -343,17 +446,77 @@ namespace Pakerator
                 {
                     row.DefaultCellStyle.ForeColor = Color.Blue;
                 }
+                row.DefaultCellStyle.SelectionBackColor = Color.WhiteSmoke;
 
                 if (row.Cells["StatusStanowRaks"].Value.Equals("OK"))
-                    row.DefaultCellStyle.BackColor = Color.YellowGreen;
+                {
+                    row.DefaultCellStyle.BackColor = Color.Green;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Green;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Yellow;
+                    row.DefaultCellStyle.SelectionForeColor = Color.YellowGreen;
+                }
                 else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
-                    row.DefaultCellStyle.BackColor = Color.YellowGreen;
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
+                {
                     row.DefaultCellStyle.BackColor = Color.Orange;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Orange;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Brown;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Brown;
+                }
                 else if (row.Cells["StatusStanowRaks"].Value.ToString().StartsWith("ARCHI"))
-                    row.DefaultCellStyle.BackColor = Color.DarkOrange;
+                {
+                    row.DefaultCellStyle.BackColor = Color.Gray;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Gray;
+                }
                 else if (row.Cells["StatusStanowRaks"].Value.Equals("BRAK"))
+                {
                     row.DefaultCellStyle.BackColor = Color.Red;
+                    row.DefaultCellStyle.SelectionForeColor = Color.Red;
+                }
+            }
+        }
+
+        private void setKolorowaniePOZ()
+        {
+            foreach (DataGridViewRow row in dataGridView2Pozycje.Rows)
+            {
+                row.DefaultCellStyle.SelectionBackColor = Color.WhiteSmoke;
+
+                if (row.Cells["status"].Value.Equals("OK"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Green;
+                    row.DefaultCellStyle.SelectionBackColor = Color.Green;
+                }
+                else if (row.Cells["status"].Value.Equals("NA_MAGAZYNIE2"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Yellow;
+                    row.DefaultCellStyle.SelectionBackColor = Color.YellowGreen;
+                }
+                else if (row.Cells["status"].Value.Equals("DO_PRZESUNIĘCIA"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                    row.DefaultCellStyle.SelectionBackColor = Color.Orange;
+                }
+                else if (row.Cells["status"].Value.Equals("NA_ZAMÓWIENIE"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Brown;
+                    row.DefaultCellStyle.SelectionBackColor = Color.Brown;
+                }
+                else if (row.Cells["status"].Value.ToString().StartsWith("ARCHI"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Gray;
+                    row.DefaultCellStyle.SelectionBackColor = Color.Gray;
+                }
+                else if (row.Cells["status"].Value.Equals("BRAK"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                    row.DefaultCellStyle.SelectionBackColor = Color.Red;
+                }
             }
         }
     }
@@ -431,6 +594,7 @@ namespace Pakerator
         private float productOrderPriceBaseCurrency;
         private string remarksToProduct;
         private float magazyn;
+        private float magazyn2;
         private float inneMagazyny;
         private string status;
         private string sizePanelName;
@@ -442,6 +606,7 @@ namespace Pakerator
         public float ProductOrderPriceNetBaseCurrency { get => productOrderPriceNetBaseCurrency; set => productOrderPriceNetBaseCurrency = value; }
         public float ProductOrderPriceBaseCurrency { get => productOrderPriceBaseCurrency; set => productOrderPriceBaseCurrency = value; }
         public float Magazyn { get => magazyn; set => magazyn = value; }
+        public float Magazyn2 { get => magazyn2; set => magazyn2 = value; }
         public float InneMagazyny { get => inneMagazyny; set => inneMagazyny = value; }
         public string Status { get => status; set => status = value; }
         public string RemarksToProduct { get => remarksToProduct; set => remarksToProduct = value; }
@@ -452,5 +617,6 @@ namespace Pakerator
         public string SizePanelName { get => sizePanelName; set => sizePanelName = value; }
         public string ProductCode { get => productCode; set => productCode = value; }
         public string SizeId { get => sizeId; set => sizeId = value; }
+
     }
 }
