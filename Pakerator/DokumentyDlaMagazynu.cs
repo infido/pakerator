@@ -62,7 +62,7 @@ namespace Pakerator
             }
             catch (Exception ex)
             {
-                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "711 Błąd wykonania raportu listy dok sprzedaży do wyboru przez magazyn", "", "", "", 0, "", 0, "", mag1, "", 0, 0);
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "711 Błąd wykonania raportu listy dok sprzedaży do wyboru przez magazyn: " + ex.Message, "", "", "", 0, "", 0, "", mag1, "", 0, 0);
                 throw;
             }
             fDataView.Table = fds.Tables["SP"];

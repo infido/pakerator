@@ -62,3 +62,4 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csproj
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Raport.resources
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.RaportKontrolaIndeksow.resources
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.OrdersView.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.DokumentyDlaMagazynu.resources

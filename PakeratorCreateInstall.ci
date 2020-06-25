@@ -282,11 +282,12 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.19 (22-06-2020)
-* Poprawa wskazania towarów w wydaniu o dok. sprzed. w tryb. bez mag. z wygereowanymi WZ-kami
+                  <dlgtext >Wersja 1.20 (25-06-2020)
+* Lista dokumentów do przetworzenia przez magazyn z kolorowaniem
+* Kolorowanie listy zamówień pobranych z IAI (www)
 
-Wersja 1.18 (19-06-2020)
-* Poprawa raportu kontroli towarów na dok. sprzed. w tryb. bez mag. z wygereowanymi WZ-kami</>
+Wersja 1.19 (22-06-2020)
+* Poprawa wskazania towarów w wydaniu o dok. sprzed. w tryb. bez mag. z wygereowanymi WZ-kami</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
