@@ -54,3 +54,6 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.OrdersVi
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Newtonsoft.Json.dll
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\Newtonsoft.Json.xml
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.DokumentyDlaMagazynu.resources
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\LibKonfIAI.dll
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\LibKonfIAI.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\LibKonfIAI.dll.config

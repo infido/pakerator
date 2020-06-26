@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="ApiOrders" name="ApiOrders" targetNamespace="ApiOrders" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="ApiOrders">
+      <xsd:complexType name="requestType">
+        <xsd:annotation>
+          <xsd:documentation>Element służy do uwierzytelniania w celu wywołania metody.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="authenticate" type="ns:authenticateType" />
+          <xsd:element minOccurs="0" name="params" type="ns:paramsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="authenticateType">
+        <xsd:annotation>
+          <xsd:documentation>Login wykorzystywany podczas uwierzytelniania.</xsd:documentation>
+          <xsd:documentation>Klucz wykorzystywany podczas uwierzytelniania. Zapoznaj się z &lt;a href = "/pl/shop/developers/api/faq/najczesciej-zadawane-pytania-dotyczace-api-pa-IdoSell Shop-com/#3"&gt;instrukcją generowania klucza&lt;/a&gt;.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="userLogin" type="xsd:string" />
+          <xsd:element name="authenticateKey" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="paramsType">
+        <xsd:annotation>
+          <xsd:documentation>Zamówienia.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orders" type="ns:ordersType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ordersType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:orderType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="orderType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator zamówienia.</xsd:documentation>
+          <xsd:documentation>Numer seryjny zamówienia.</xsd:documentation>
+          <xsd:documentation>Status zamówienia.
+            Dopuszczalne wartości:
+            "finished_ext" - status zamówienia: realizowane w programie F/K,
+            "finished" - wykonane,
+            "new" - nieobsłużone,
+            "complainted" - reklamacja,
+            "payment_waiting" - oczekuje na wpłatę ,
+            "delivery_waiting" - oczekuje na dostawę,
+            "on_order" - realizowane,
+            "packed" - pakowane,
+            "packed_fulfillment" - pakowane fulfillment,
+            "packed_ready" - spakowane,
+            "ready" - gotowe,
+            "returned" - zwrot,
+            "wait_for_dispatch" - oczekuje na termin wysłania,
+            "suspended" - wstrzymane,
+            "joined" - połączone,
+            "missing" - zgubione,
+            "lost" - stracone,
+            "false" - fałszywe,
+            "canceled" - Klient anulował.</xsd:documentation>
+          <xsd:documentation>Flaga informująca o zarejestrowaniu lub zrealizowaniu zamówienia w zewnętrznym programie poprzez API.
+            Dopuszczalne wartości.
+            "none" - zamówienie nie zostało zarejestrowane w zewnętrznym programie,
+            "registered" - zamówienie zostało zarejestrowane w zewnętrznym programie,
+            "realized" - zamówienie zostało zrealizowane w zewnętrznym programie,
+            "registered_pos" - zamówienie zostało zarejestrowane w zewnętrznym programie,
+            "realized_pos" - zamówienie zostało zrealizowane w zewnętrznym programie.</xsd:documentation>
+          <xsd:documentation>Notatka API do zamówienia.</xsd:documentation>
+          <xsd:documentation>Uwagi klienta do zamówienia.</xsd:documentation>
+          <xsd:documentation>Uwagi klienta dla kuriera.</xsd:documentation>
+          <xsd:documentation>Notatka do zamówienia.</xsd:documentation>
+          <xsd:documentation>Lista towarów.</xsd:documentation>
+          <xsd:documentation>Sposób zapłaty za zamówienie.
+            Dopuszczalne wartości.
+            "cash_on_delivery" - pobranie,
+            "prepaid" - przedpłata,
+            "tradecredit" - kredyt kupiecki.</xsd:documentation>
+          <xsd:documentation>Pomija pobieranie zamówienia przez IAI Bridge.</xsd:documentation>
+          <xsd:documentation>Czy klient prosił o fakturę.
+            Lista parametrów:
+            "y" - tak (papierową),
+            "e" - tak (dostarczoną elektronicznie),
+            "n" - nie.</xsd:documentation>
+          <xsd:documentation>Waluta rozliczeniowa zamówienia.</xsd:documentation>
+          <xsd:documentation>Kurs waluty rozliczeniowej panelu w stosunku do waluty rozliczeniowej sklepu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderSerialNumber" type="xsd:int" />
+          <xsd:element minOccurs="0" name="orderStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" name="apiFlag" type="ns:apiFlagType" />
+          <xsd:element minOccurs="0" name="apiNoteToOrder" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientNoteToOrder" type="xsd:string" />
+          <xsd:element minOccurs="0" name="clientNoteToCourier" type="xsd:string" />
+          <xsd:element minOccurs="0" name="orderNote" type="xsd:string" />
+          <xsd:element minOccurs="0" name="products" type="ns:productsType" />
+          <xsd:element minOccurs="0" name="orderPaymentType" type="ns:orderPaymentTypeType" />
+          <xsd:element minOccurs="0" name="ignoreBridge" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="clientRequestInvoice" type="xsd:string" />
+          <xsd:element minOccurs="0" name="billingCurrency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="billingCurrencyRate" type="xsd:float" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="apiFlagType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="none" />
+          <xsd:enumeration value="registered" />
+          <xsd:enumeration value="realized" />
+          <xsd:enumeration value="registered_pos" />
+          <xsd:enumeration value="realized_pos" />
+          <xsd:enumeration value="registration_fault" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="productsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>pozycja towaru w koszyku.</xsd:documentation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+          <xsd:documentation>Towar gratisowy.</xsd:documentation>
+          <xsd:documentation>Ilość towaru.</xsd:documentation>
+          <xsd:documentation>Typ operacji wykonywanej na produkcie przypisanym do zamówienia.
+            Dopuszczalne wartości:
+            "add" - dodanie produktu do zamówienia w odpowiedniej ilości,
+            "subtract" - odjęcie produktu z zamówienie w odpowiedniej ilości.</xsd:documentation>
+          <xsd:documentation>Cena brutto</xsd:documentation>
+          <xsd:documentation>Uwagi klienta do produktu.</xsd:documentation>
+          <xsd:documentation>Lista składowych, jeśli towar jest zestawem lub kolekcją.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="basketPosition" type="xsd:int" />
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="productFree" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="productQuantity" type="xsd:float" />
+          <xsd:element minOccurs="0" name="productQuantityOperationType" type="ns:productQuantityOperationTypeType" />
+          <xsd:element minOccurs="0" name="productRetailPrice" type="xsd:float" />
+          <xsd:element minOccurs="0" name="remarksToProduct" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productBundleItems" type="ns:bundledTypes" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="productQuantityOperationTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="add" />
+          <xsd:enumeration value="substract" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="bundledTypes">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productBundleItemType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productBundleItemType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Nazwa rozmiaru</xsd:documentation>
+          <xsd:documentation>Indeks produktu</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sizePanelName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productIndex" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="orderPaymentTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="cash_on_delivery" />
+          <xsd:enumeration value="prepaid" />
+          <xsd:enumeration value="tradecredit" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="responseType">
+        <xsd:annotation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Element zawierający szczegółowe informacje o wyniku wykonanej operacji.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="errors" type="ns:errorsType" />
+          <xsd:element name="results" type="ns:resultsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="errorsType">
+        <xsd:annotation>
+          <xsd:documentation>Kod błędu.
+                Lista kodów błędów:
+                0 - Operacja powiodła się,
+                1 - Nie podano identyfikatora ani numeru seryjnego zamówienia,
+                2 - Podany w parametrach wywołania status zamówienia nie jest obsługiwany przez bramkę,
+                3 - Klient nie został poinformowany o zmianie statusu zamówienia,
+                4 - Wystąpił błąd przy próbie zmiany statusu zamówienia.,
+                5 - Nie ma takiego statusu,
+                6 - Jeśli chcesz połączyć zamówienia, skorzystaj z dostarczonego przez IdoSell Shop narzędzia,
+                10 - Saldo wpłat klienta dla zamówienia nie bilansuje się z jego wartością. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                11 - Nie możesz wykonać zamówienia, gdyż jest nie zdjęte ilościowo. Musisz najpierw zdjąć towary.,
+                13 - Nie możesz wysłać zamówienia, gdyż nie wszystkie towary zostały przeniesione z magazynu obcego.,
+                14 - Saldo wpłat klienta dla zamówienia nie bilansuje się z jego wartością. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                15 - Istnieją zaksięgowane wpłaty dla tego zamówienia. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                Istnieją niezaksięgowane wpłaty dla tego zamówienia. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                16 - Zamówienie nie może zostać zrealizowane przez dostawcę, ponieważ nie wszystkie produkty w zamówieniu pochodzą z magazynu obcego,
+                Nie można wysłać zamówienia. Sprawdź rezerwacje i stany magazynowe.,
+                18 - Ustawienia podatku VAT klienta nie zostały jeszcze zatwierdzone. Aby zmienić status zamówienia zatwierdź ustawienia bądź nalicz podatek VAT.,
+                19 - W zamówieniu występują towary zakupione w ramach przedsprzedaży.,
+                19 - Nie można wysłać zamówienia. W zamówieniu występują towary zakupione w ramach przedsprzedaży.,
+                20 - Nie wszystkie towary zostały przesunięte do magazynu docelowego.,
+                21 - Nie możesz wykonać zamówienia, ponieważ nie został ustalony dostawca. Musisz najpierw ustawić sposób i koszt dostarczenia przesyłki.,
+                22 - Nie możesz wysłać zamówienia, gdyż są w nim produkty, dla których nie zostały zapamiętane numery seryjne,
+                23 - Nie można wysłać zamówienia. Nie wszystkie towary zostały przesunięte do magazynu docelowego.,
+                24 - Istnieją dokumenty sprzedaży wystawione do tego zamówienia. Anuluj wystawione dokumenty sprzedaży, a następnie zmień status.,
+                25 - Nie wszystkie żądane przez klienta dokumenty sprzedaży zostały wystawione.,
+                2214 - Nie można zmienić statusu zamówienia,
+                26 - Nie można zmienić statusu zamówienia. Lista towarów powodujących problemy,
+                27 - Zmiana waluty rozliczeniowej możliwa jest tylko w przypadku zamówień niezamkniętych, które nie posiadają wystawionych faktur (lub wszystkie faktury mają status "anulowane") ani zadeklarowanych lub zrealizowanych wpłat.,
+                28 - Niepoprawna waluta.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="faultCode" type="xsd:int" />
+          <xsd:element name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="resultsType">
+        <xsd:annotation>
+          <xsd:documentation>Lista zamówień zwróconych w wyniku wywołania bramki.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="ordersResults" type="ns:ordersResultsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ordersResultsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:orderResultType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="orderResultType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator zamówienia.</xsd:documentation>
+          <xsd:documentation>Numer seryjny zamówienia.</xsd:documentation>
+          <xsd:documentation>Status zamówienia.
+            Dopuszczalne wartości:
+            "finished_ext" - status zamówienia: realizowane w programie F/K,
+            "finished" - wykonane,
+            "new" - nieobsłużone,
+            "complainted" - reklamacja,
+            "payment_waiting" - oczekuje na wpłatę ,
+            "delivery_waiting" - oczekuje na dostawę,
+            "on_order" - realizowane,
+            "packed" - pakowane,
+            "packed_fulfillment" - pakowane fulfillment,
+            "packed_ready" - spakowane,
+            "ready" - gotowe,
+            "returned" - zwrot,
+            "wait_for_dispatch" - oczekuje na termin wysłania,
+            "suspended" - wstrzymane,
+            "joined" - połączone,
+            "missing" - zgubione,
+            "lost" - stracone,
+            "false" - fałszywe,
+            "canceled" - Klient anulował.</xsd:documentation>
+          <xsd:documentation>Lista produktów zwróconych w wyniku wywołania bramki</xsd:documentation>
+          <xsd:documentation>Kod błędu.
+                Lista kodów błędów:
+                0 - Operacja powiodła się,
+                1 - Nie podano identyfikatora ani numeru seryjnego zamówienia,
+                2 - Podany w parametrach wywołania status zamówienia nie jest obsługiwany przez bramkę,
+                3 - Klient nie został poinformowany o zmianie statusu zamówienia,
+                4 - Wystąpił błąd przy próbie zmiany statusu zamówienia.,
+                5 - Nie ma takiego statusu,
+                6 - Jeśli chcesz połączyć zamówienia, skorzystaj z dostarczonego przez IdoSell Shop narzędzia,
+                10 - Saldo wpłat klienta dla zamówienia nie bilansuje się z jego wartością. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                11 - Nie możesz wykonać zamówienia, gdyż jest nie zdjęte ilościowo. Musisz najpierw zdjąć towary.,
+                13 - Nie możesz wysłać zamówienia, gdyż nie wszystkie towary zostały przeniesione z magazynu obcego.,
+                14 - Saldo wpłat klienta dla zamówienia nie bilansuje się z jego wartością. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                15 - Istnieją zaksięgowane wpłaty dla tego zamówienia. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                Istnieją niezaksięgowane wpłaty dla tego zamówienia. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                16 - Zamówienie nie może zostać zrealizowane przez dostawcę, ponieważ nie wszystkie produkty w zamówieniu pochodzą z magazynu obcego,
+                Nie można wysłać zamówienia. Sprawdź rezerwacje i stany magazynowe.,
+                18 - Ustawienia podatku VAT klienta nie zostały jeszcze zatwierdzone. Aby zmienić status zamówienia zatwierdź ustawienia bądź nalicz podatek VAT.,
+                19 - W zamówieniu występują towary zakupione w ramach przedsprzedaży.,
+                19 - Nie można wysłać zamówienia. W zamówieniu występują towary zakupione w ramach przedsprzedaży.,
+                20 - Nie wszystkie towary zostały przesunięte do magazynu docelowego.,
+                21 - Nie możesz wykonać zamówienia, ponieważ nie został ustalony dostawca. Musisz najpierw ustawić sposób i koszt dostarczenia przesyłki.,
+                22 - Nie możesz wysłać zamówienia, gdyż są w nim produkty, dla których nie zostały zapamiętane numery seryjne,
+                23 - Nie można wysłać zamówienia. Nie wszystkie towary zostały przesunięte do magazynu docelowego.,
+                24 - Istnieją dokumenty sprzedaży wystawione do tego zamówienia. Anuluj wystawione dokumenty sprzedaży, a następnie zmień status.,
+                25 - Nie wszystkie żądane przez klienta dokumenty sprzedaży zostały wystawione.,
+                2214 - Nie można zmienić statusu zamówienia,
+                26 - Nie można zmienić statusu zamówienia. Lista towarów powodujących problemy,
+                27 - Zmiana waluty rozliczeniowej możliwa jest tylko w przypadku zamówień niezamkniętych, które nie posiadają wystawionych faktur (lub wszystkie faktury mają status "anulowane") ani zadeklarowanych lub zrealizowanych wpłat.,
+                28 - Niepoprawna waluta.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element name="orderId" type="xsd:string" />
+          <xsd:element name="orderSerialNumber" type="xsd:int" />
+          <xsd:element name="orderStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productsResults" type="ns:productsResultsType" />
+          <xsd:element name="faultCode" type="xsd:int" />
+          <xsd:element name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="productsResultsType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:productResultType[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="productResultType">
+        <xsd:annotation>
+          <xsd:documentation>Identyfikator produktu</xsd:documentation>
+          <xsd:documentation>Identyfikator rozmiaru</xsd:documentation>
+          <xsd:documentation>Kod zewnętrznego systemu dla rozmiaru.</xsd:documentation>
+          <xsd:documentation>pozycja towaru w koszyku.</xsd:documentation>
+          <xsd:documentation>Identyfikator magazynu</xsd:documentation>
+          <xsd:documentation>Kod błędu.
+                Lista kodów błędów:
+                0 - Operacja powiodła się,
+                1 - Nie podano identyfikatora ani numeru seryjnego zamówienia,
+                2 - Podany w parametrach wywołania status zamówienia nie jest obsługiwany przez bramkę,
+                3 - Klient nie został poinformowany o zmianie statusu zamówienia,
+                4 - Wystąpił błąd przy próbie zmiany statusu zamówienia.,
+                5 - Nie ma takiego statusu,
+                6 - Jeśli chcesz połączyć zamówienia, skorzystaj z dostarczonego przez IdoSell Shop narzędzia,
+                10 - Saldo wpłat klienta dla zamówienia nie bilansuje się z jego wartością. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                11 - Nie możesz wykonać zamówienia, gdyż jest nie zdjęte ilościowo. Musisz najpierw zdjąć towary.,
+                13 - Nie możesz wysłać zamówienia, gdyż nie wszystkie towary zostały przeniesione z magazynu obcego.,
+                14 - Saldo wpłat klienta dla zamówienia nie bilansuje się z jego wartością. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                15 - Istnieją zaksięgowane wpłaty dla tego zamówienia. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                Istnieją niezaksięgowane wpłaty dla tego zamówienia. Uporządkuj stan wpłat i spróbuj ponownie zmienić status zamówienia.,
+                16 - Zamówienie nie może zostać zrealizowane przez dostawcę, ponieważ nie wszystkie produkty w zamówieniu pochodzą z magazynu obcego,
+                Nie można wysłać zamówienia. Sprawdź rezerwacje i stany magazynowe.,
+                18 - Ustawienia podatku VAT klienta nie zostały jeszcze zatwierdzone. Aby zmienić status zamówienia zatwierdź ustawienia bądź nalicz podatek VAT.,
+                19 - W zamówieniu występują towary zakupione w ramach przedsprzedaży.,
+                19 - Nie można wysłać zamówienia. W zamówieniu występują towary zakupione w ramach przedsprzedaży.,
+                20 - Nie wszystkie towary zostały przesunięte do magazynu docelowego.,
+                21 - Nie możesz wykonać zamówienia, ponieważ nie został ustalony dostawca. Musisz najpierw ustawić sposób i koszt dostarczenia przesyłki.,
+                22 - Nie możesz wysłać zamówienia, gdyż są w nim produkty, dla których nie zostały zapamiętane numery seryjne,
+                23 - Nie można wysłać zamówienia. Nie wszystkie towary zostały przesunięte do magazynu docelowego.,
+                24 - Istnieją dokumenty sprzedaży wystawione do tego zamówienia. Anuluj wystawione dokumenty sprzedaży, a następnie zmień status.,
+                25 - Nie wszystkie żądane przez klienta dokumenty sprzedaży zostały wystawione.,
+                2214 - Nie można zmienić statusu zamówienia,
+                26 - Nie można zmienić statusu zamówienia. Lista towarów powodujących problemy,
+                27 - Zmiana waluty rozliczeniowej możliwa jest tylko w przypadku zamówień niezamkniętych, które nie posiadają wystawionych faktur (lub wszystkie faktury mają status "anulowane") ani zadeklarowanych lub zrealizowanych wpłat.,
+                28 - Niepoprawna waluta.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="productId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="sizeId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="productSizeCodeExternal" type="xsd:string" />
+          <xsd:element minOccurs="0" name="basketPosition" type="xsd:int" />
+          <xsd:element minOccurs="0" name="stockId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="faultCode" type="xsd:int" />
+          <xsd:element minOccurs="0" name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="updateRequest">
+    <wsdl:part name="updateRequest" type="ns:requestType" />
+  </wsdl:message>
+  <wsdl:message name="updateResponse">
+    <wsdl:part name="updateResponse" type="ns:responseType" />
+  </wsdl:message>
+  <wsdl:portType name="ApiOrdersPortType">
+    <wsdl:operation name="update">
+      <wsdl:documentation>Metoda pozwala na edycję zamówienia w panelu administracyjnym IAI-Shop.com. Umożliwia m.in. na zmianę towarów w zamówieniu, zmianę statusu zamówienia.</wsdl:documentation>
+      <wsdl:input message="ns:updateRequest" />
+      <wsdl:output message="ns:updateResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ApiOrdersBinding" type="ns:ApiOrdersPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="update">
+      <soap:operation soapAction="#update" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="ApiOrders" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="ApiOrders" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApiOrdersService">
+    <wsdl:documentation><![CDATA[https://www.iai-shop.com/pl/shop/api/?action=documentation&function=orders]]></wsdl:documentation>
+    <wsdl:port name="ApiOrdersPort" binding="ns:ApiOrdersBinding">
+      <soap:address location="https://mm-moto.iai-shop.com/api/?gate=orders/update/81/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
