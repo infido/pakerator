@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibKonfIAI;
+using Microsoft.Win32;
 
 namespace Pakerator
 {
@@ -42,6 +43,18 @@ namespace Pakerator
             usrNam = userName;
             filtrStatus = statusZamowien;
             Text += " " + tytulOkna;
+
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+            if (rejestr.GetValue("OrderToGloveSettings") != null)
+            {
+                if (((int)rejestr.GetValue("OrderToGloveSettings"))==1)
+                    cSaveStastusToIAI.Checked = true;
+                else
+
+
+
+                    cSaveStastusToIAI.Checked = false;
+            }
         }
 
         private void bRefresh_Click(object sender, EventArgs e)
@@ -635,6 +648,15 @@ namespace Pakerator
             string res = StatusIAI.setIAIapiFlag(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
             MessageBox.Show(res,"Wynik operacji zmiany statusu dla " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString());
             Pulpit.putLog(polaczenie, usrNam, "API", res, "", "", "", 0, "", 0, "", magID, "", 0, 0);
+        }
+
+        private void cSaveStastusToIAI_CheckedChanged(object sender, EventArgs e)
+        {
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
+            if (cSaveStastusToIAI.Checked)
+                rejestr.SetValue("OrderToGloveSettings", 1);
+            else
+                rejestr.SetValue("OrderToGloveSettings", 0);
         }
 
         private void setKolorowaniePOZ()
