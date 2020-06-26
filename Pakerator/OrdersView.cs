@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
@@ -515,9 +516,121 @@ namespace Pakerator
             }
         }
 
+        private string setSQLInsertSchowek(string indeks, string schoNaz, string user, string ilosc, string cena, string cenaNet)
+        {
+            FbCommand gen_id_schowek = new FbCommand("SELECT GEN_ID(GM_SCHOWEK_POZYCJI_GEN,1) from rdb$database", polaczenie.getConnection());
+            int idscho = 0;
+
+            #region pobranie nowego id z bazy
+            try
+            {
+                idscho = Convert.ToInt32(gen_id_schowek.ExecuteScalar());
+            }
+            catch (FbException exgen)
+            {
+                MessageBox.Show("Błąd pobierania nowego pozycji schowka w RaksSQL ID z bazy. Operacje przerwano! " + exgen.Message);
+                return "";
+                throw;
+            }
+            #endregion
+
+            StringBuilder myStringBuilder = new StringBuilder("INSERT INTO GM_SCHOWEK_POZYCJI (");
+            myStringBuilder.Append("ID, ");
+            myStringBuilder.Append("OPERATOR, ");
+            myStringBuilder.Append("IDENTYFIKATOR, ");
+            myStringBuilder.Append("PUBLICZNA, ");
+            myStringBuilder.Append("ID_TOWARU, ");
+            myStringBuilder.Append("ILOSC, ");
+            myStringBuilder.Append("CENA_SP_PLN_NETTO_PO_RAB, ");
+            myStringBuilder.Append("CENA_SP_PLN_BRUTTO_PO_RAB, ");
+            myStringBuilder.Append("CENA_SP_PLN_NETTO_PRZED_RAB, ");
+            myStringBuilder.Append("CENA_SP_PLN_BRUTTO_PRZED_RAB, ");
+            myStringBuilder.Append("CENA_SP_WAL_NETTO_PRZED_RAB, ");
+            myStringBuilder.Append("CENA_SP_WAL_BRUTTO_PRZED_RAB, ");
+            myStringBuilder.Append("CENA_SP_WAL_NETTO_PO_RAB, ");
+            myStringBuilder.Append("CENA_SP_WAL_BRUTTO_PO_RAB, ");
+            myStringBuilder.Append("CENA_KATALOGOWA_NETTO, ");
+            myStringBuilder.Append("CENA_KATALOGOWA_BRUTTO, ");
+            myStringBuilder.Append("ZNACZNIKI, ");
+            myStringBuilder.Append("UWAGI");
+
+            myStringBuilder.Append(") VALUES ( ");
+
+            myStringBuilder.Append(idscho.ToString() + ",");  // ID
+            myStringBuilder.Append("'" + user + "', ");  // OPERATOR
+            myStringBuilder.Append("'" + schoNaz + "', ");  //IDENTYFIKATOR
+            myStringBuilder.Append("1, ");  //1-PUBLICZNA, 0-PRYWATNA
+
+            myStringBuilder.Append(indeks + ", ");  //ID_TOWARU
+
+            myStringBuilder.Append(ilosc.ToString().Replace(",", ".") + ", ");  //ILOSC
+            myStringBuilder.Append(cenaNet.ToString().Replace(",", ".") + ", ");  //CENA_SP_PLN_NETTO_PO_RAB
+            myStringBuilder.Append(cena.ToString().Replace(",", ".") + ", ");  //CENA_SP_PLN_BRUTTO_PO_RAB
+            myStringBuilder.Append(cenaNet.ToString().Replace(",", ".") + ", ");  //CENA_SP_PLN_NETTO_PRZED_RAB
+            myStringBuilder.Append(cena.ToString().Replace(",", ".") + ", ");  //CENA_SP_PLN_BRUTTO_PRZED_RAB
+            myStringBuilder.Append(cenaNet.ToString().Replace(",", ".") + ", ");  //CENA_SP_WAL_NETTO_PRZED_RAB
+            myStringBuilder.Append(cena.ToString().Replace(",", ".") + ", ");  //CCENA_SP_WAL_BRUTTO_PRZED_RAB
+            myStringBuilder.Append(cenaNet.ToString().Replace(",", ".") + ", ");  //CENA_SP_WAL_NETTO_PO_RAB
+            myStringBuilder.Append(cena.ToString().Replace(",", ".") + ", ");  //CCENA_SP_WAL_BRUTTO_PO_RAB
+
+            myStringBuilder.Append(cenaNet.ToString().Replace(",", ".") + ", ");  //CENA_KATALOGOWA_NETTO
+            myStringBuilder.Append(cena.ToString().Replace(",", ".") + ", ");  //CENA_KATALOGOWA_BRUTTO
+            myStringBuilder.Append("NULL, ");  //ZNACZNIKI
+            myStringBuilder.Append("NULL");  //UWAGI
+            myStringBuilder.Append(");");
+            return myStringBuilder.ToString();
+        }
+
         private void bZapiszPozDoSchowkaRaks_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funkcjonalnośc jeszcze nie obsłużona");
+            //dane nagłówka schowka
+            string identf = "IAI " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString() + " " + DateTime.Now.Month.ToString("00") + "-" + DateTime.Now.Day.ToString() + " " + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00");
+
+            //zapis pozycji
+            int count = 0;
+            foreach (DataGridViewRow row in dataGridView2Pozycje.Rows)
+            {
+                string idtow = "0";
+                string sql;
+
+                #region obliczanie ID towaru z Indeksu
+                sql = "SELECT ID_TOWARU from GM_TOWARY where SKROT='" + row.Cells["productSizeCodeExternal"].Value.ToString() + "';";
+
+                FbCommand gen_id_towaru = new FbCommand(sql, polaczenie.getConnection());
+                try
+                {
+                    if (gen_id_towaru.ExecuteScalar() != null)
+                    {
+                        idtow = (gen_id_towaru.ExecuteScalar()).ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nie odnaleziono w RaksSQL towaru i indeksie: " + row.Cells["productSizeCodeExternal"].Value.ToString() + System.Environment.NewLine + "Zapis doschowka przerwano!" );
+                        break;
+                    }
+                }
+                catch (FbException exgen)
+                {
+                    MessageBox.Show("Błąd pobierania nowego ID_TOWARU na podstawie skrótu" + row.Cells["productSizeCodeExternal"].Value.ToString() + " . Operacje przerwano! " + exgen.Message);
+                    throw;
+                }
+
+                #endregion
+
+                sql = setSQLInsertSchowek(idtow, identf, usrNam, row.Cells["productQuantity"].Value.ToString(), row.Cells["productOrderPriceBaseCurrency"].Value.ToString(), row.Cells["productOrderPriceNetBaseCurrency"].Value.ToString());
+                FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+                try
+                {
+                    cdk.ExecuteScalar();
+                }
+                catch (FbException ex)
+                {
+                    MessageBox.Show("Błąd zapisu danych do schowka z okna z zamówień ze sklepu www: " + ex.Message);
+                }
+                count++;
+            }
+            MessageBox.Show("Zapisano w schowku RaksSQL " + count + " rekord(ów)");
+
         }
 
         private void setKolorowaniePOZ()
