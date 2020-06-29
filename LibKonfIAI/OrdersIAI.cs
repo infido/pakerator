@@ -19,32 +19,32 @@ namespace LibKonfIAI
             {
                 var binding = new BasicHttpBinding();
                 var address = new EndpointAddress("http://" + DataSessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=orders/update/107/soap");
-                var client = new ApiOrdersPortTypeUpdate.ApiOrdersPortTypeClient(binding, address);
+                var client = new ApiOrdersServiceUpdate.ApiOrdersPortTypeClient(binding, address);
 
-                var request = new ApiOrdersPortTypeUpdate.requestType();
+                var request = new ApiOrdersServiceUpdate.requestType();
 
-                request.authenticate = new ApiOrdersPortTypeUpdate.authenticateType();
+                request.authenticate = new ApiOrdersServiceUpdate.authenticateType();
                 request.authenticate.userLogin = DataSessionIAI.GetIAILoginForCurrentSession();
                 request.authenticate.authenticateKey = DataSessionIAI.GetIAIKeyForCurrentSession();
 
-                request.@params = new ApiOrdersPortTypeUpdate.paramsType();
+                request.@params = new ApiOrdersServiceUpdate.paramsType();
 
-                request.@params.orders = new ApiOrdersPortTypeUpdate.orderType[1];
-                request.@params.orders[0] = new ApiOrdersPortTypeUpdate.orderType();
+                request.@params.orders = new ApiOrdersServiceUpdate.orderType[1];
+                request.@params.orders[0] = new ApiOrdersServiceUpdate.orderType();
                 request.@params.orders[0].orderId = orderId;
                 //request.@params.orders[0].orderSerialNumber = 1;
                 //request.@params.orders[0].orderSerialNumberSpecified = true;
                 //request.@params.orders[0].orderStatus = "orderStatus";
 
                 //ustawienie flagi "registered_pos"
-                request.@params.orders[0].apiFlag = ApiOrdersPortTypeUpdate.apiFlagType.registered_pos;
+                request.@params.orders[0].apiFlag = ApiOrdersServiceUpdate.apiFlagType.registered_pos;
                 request.@params.orders[0].apiFlagSpecified = true;
 
                 //request.@params.orders[0].apiNoteToOrder = "apiNoteToOrder";
 
                 try
                 {
-                    ApiOrdersPortTypeUpdate.responseType response = client.update(request);
+                    ApiOrdersServiceUpdate.responseType response = client.update(request);
 
                     if (response.errors.faultCode != 0)
                     {

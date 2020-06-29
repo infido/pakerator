@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="bxo9KlCIw06By5nEl3lqB6IAXGHLGhp//qiYo6kfFFE=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="bJhQR1pvFoWgLSxpYdZd6hc1WStu4oVaLYMi0QMWsn4=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ApiOrdersBinding">
       <properties>
@@ -221,7 +221,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ApiOrdersPort" contract="ApiOrdersPortTypeUpdate.ApiOrdersPortType" bindingType="basicHttpBinding" address="https://mm-moto.iai-shop.com/api/?gate=orders/update/81/soap" bindingConfiguration="ApiOrdersBinding">
+    <endpoint name="ApiOrdersPort" contract="ApiOrdersServiceUpdate.ApiOrdersPortType" bindingType="basicHttpBinding" address="https://mm-moto.iai-shop.com/api/?gate=orders/update/81/soap" bindingConfiguration="ApiOrdersBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>https://mm-moto.iai-shop.com/api/?gate=orders/update/81/soap</serializedValue>
@@ -236,7 +236,7 @@
           <serializedValue>ApiOrdersBinding</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ApiOrdersPortTypeUpdate.ApiOrdersPortType</serializedValue>
+          <serializedValue>ApiOrdersServiceUpdate.ApiOrdersPortType</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>

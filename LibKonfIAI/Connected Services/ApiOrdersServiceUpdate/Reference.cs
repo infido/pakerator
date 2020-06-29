@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibKonfIAI.ApiOrdersPortTypeUpdate {
+namespace LibKonfIAI.ApiOrdersServiceUpdate {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="ApiOrders", ConfigurationName="ApiOrdersPortTypeUpdate.ApiOrdersPortType")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="ApiOrders", ConfigurationName="ApiOrdersServiceUpdate.ApiOrdersPortType")]
     public interface ApiOrdersPortType {
         
         [System.ServiceModel.OperationContractAttribute(Action="#update", ReplyAction="*")]
@@ -23,11 +23,11 @@ namespace LibKonfIAI.ApiOrdersPortTypeUpdate {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(productType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(orderType))]
         [return: System.ServiceModel.MessageParameterAttribute(Name="updateResponse")]
-        LibKonfIAI.ApiOrdersPortTypeUpdate.responseType update(LibKonfIAI.ApiOrdersPortTypeUpdate.requestType updateRequest);
+        LibKonfIAI.ApiOrdersServiceUpdate.responseType update(LibKonfIAI.ApiOrdersServiceUpdate.requestType updateRequest);
         
         [System.ServiceModel.OperationContractAttribute(Action="#update", ReplyAction="*")]
         [return: System.ServiceModel.MessageParameterAttribute(Name="updateResponse")]
-        System.Threading.Tasks.Task<LibKonfIAI.ApiOrdersPortTypeUpdate.responseType> updateAsync(LibKonfIAI.ApiOrdersPortTypeUpdate.requestType updateRequest);
+        System.Threading.Tasks.Task<LibKonfIAI.ApiOrdersServiceUpdate.responseType> updateAsync(LibKonfIAI.ApiOrdersServiceUpdate.requestType updateRequest);
     }
     
     /// <remarks/>
@@ -1197,12 +1197,12 @@ namespace LibKonfIAI.ApiOrdersPortTypeUpdate {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ApiOrdersPortTypeChannel : LibKonfIAI.ApiOrdersPortTypeUpdate.ApiOrdersPortType, System.ServiceModel.IClientChannel {
+    public interface ApiOrdersPortTypeChannel : LibKonfIAI.ApiOrdersServiceUpdate.ApiOrdersPortType, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ApiOrdersPortTypeClient : System.ServiceModel.ClientBase<LibKonfIAI.ApiOrdersPortTypeUpdate.ApiOrdersPortType>, LibKonfIAI.ApiOrdersPortTypeUpdate.ApiOrdersPortType {
+    public partial class ApiOrdersPortTypeClient : System.ServiceModel.ClientBase<LibKonfIAI.ApiOrdersServiceUpdate.ApiOrdersPortType>, LibKonfIAI.ApiOrdersServiceUpdate.ApiOrdersPortType {
         
         public ApiOrdersPortTypeClient() {
         }
@@ -1223,11 +1223,11 @@ namespace LibKonfIAI.ApiOrdersPortTypeUpdate {
                 base(binding, remoteAddress) {
         }
         
-        public LibKonfIAI.ApiOrdersPortTypeUpdate.responseType update(LibKonfIAI.ApiOrdersPortTypeUpdate.requestType updateRequest) {
+        public LibKonfIAI.ApiOrdersServiceUpdate.responseType update(LibKonfIAI.ApiOrdersServiceUpdate.requestType updateRequest) {
             return base.Channel.update(updateRequest);
         }
         
-        public System.Threading.Tasks.Task<LibKonfIAI.ApiOrdersPortTypeUpdate.responseType> updateAsync(LibKonfIAI.ApiOrdersPortTypeUpdate.requestType updateRequest) {
+        public System.Threading.Tasks.Task<LibKonfIAI.ApiOrdersServiceUpdate.responseType> updateAsync(LibKonfIAI.ApiOrdersServiceUpdate.requestType updateRequest) {
             return base.Channel.updateAsync(updateRequest);
         }
     }

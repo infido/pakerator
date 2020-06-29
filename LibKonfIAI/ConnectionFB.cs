@@ -156,7 +156,7 @@ namespace LibKonfIAI
             SaveLogMsgInToLogEvent(appName, typ, msg);
         }
 
-        public static void SaveLogMsgInToLogEvent(string appName, string type, string msg)
+        private static void SaveLogMsgInToLogEvent(string appName, string type, string msg)
         {
             EventLog appLog = new System.Diagnostics.EventLog();
             appLog.Source = CreateEventSource(appName);

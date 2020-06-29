@@ -48,7 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connected Services\ApiOrdersPortTypeUpdate\Reference.cs">
+    <Compile Include="Connected Services\ApiOrdersServiceUpdate\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ApiOrdersServiceGet\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -58,29 +63,47 @@
     <Compile Include="DataSessionIAI.cs" />
     <Compile Include="OrdersIAI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaksService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\ApiOrdersPortTypeUpdate\ApiOrders.wsdl" />
-    <None Include="Connected Services\ApiOrdersPortTypeUpdate\LibKonfIAI.ApiOrdersPortTypeUpdate.responseType.datasource">
+    <None Include="Connected Services\ApiOrdersServiceUpdate\ApiOrders.wsdl" />
+    <None Include="Connected Services\ApiOrdersServiceGet\ApiOrders.wsdl" />
+    <None Include="Connected Services\ApiOrdersServiceGet\LibKonfIAI.ApiOrdersServiceGet.responseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ApiOrdersServiceUpdate\LibKonfIAI.ApiOrdersServiceUpdate.responseType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ApiOrdersPortTypeUpdate\" />
+    <WCFMetadataStorage Include="Connected Services\ApiOrdersServiceUpdate\" />
+    <WCFMetadataStorage Include="Connected Services\ApiOrdersServiceGet\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ApiOrdersPortTypeUpdate\configuration91.svcinfo" />
+    <None Include="Connected Services\ApiOrdersServiceUpdate\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ApiOrdersPortTypeUpdate\configuration.svcinfo" />
+    <None Include="Connected Services\ApiOrdersServiceUpdate\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ApiOrdersPortTypeUpdate\Reference.svcmap">
+    <None Include="Connected Services\ApiOrdersServiceUpdate\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ApiOrdersServiceGet\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ApiOrdersServiceGet\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ApiOrdersServiceGet\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
