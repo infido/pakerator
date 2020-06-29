@@ -15,7 +15,7 @@ namespace LibKonfIAI
                 return true;
             else
             {
-                //MessageBox.Show("Ustawienia konfiguracji połączenia do skepu internetowego IAI wygladają na błędne!");
+                ConnectionFB.setErrOrLogMsg("ERROR", "Ustawienia konfiguracji połączenia do skepu internetowego IAI wygladają na błędne!");
                 return false;
             }
         }
@@ -28,7 +28,7 @@ namespace LibKonfIAI
             }
             else
             {
-                //MessageBox.Show("Bład odczytu parametru klucz połączenia do sklepu IAI w kalsie połącznia.");
+                ConnectionFB.setErrOrLogMsg("ERROR", "Bład odczytu parametru klucz połączenia do sklepu IAI w kalsie połącznia.");
                 return "";
             }
         }
@@ -41,7 +41,7 @@ namespace LibKonfIAI
             }
             else
             {
-                //MessageBox.Show("Bład odczytu parametru login połączenia do sklepu IAI w kalsie połącznia.");
+                ConnectionFB.setErrOrLogMsg("ERROR", "Bład odczytu parametru login połączenia do sklepu IAI w kalsie połącznia.");
                 return "";
             }
         }
@@ -54,7 +54,7 @@ namespace LibKonfIAI
             }
             else
             {
-                //MessageBox.Show("Bład odczytu parametru adres połączenia do sklepu IAI w kalsie połącznia.");
+                ConnectionFB.setErrOrLogMsg("ERROR", "Bład odczytu parametru adres połączenia do sklepu IAI w kalsie połącznia.");
                 return "";
             }
         }

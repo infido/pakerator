@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace LibKonfIAI
 {
-    public class OrdersIAI
+    public static class OrdersIAI
     {
-        int magID, magID2;
-        private string usrNam;
+        //int magID, magID2;
+        //private string usrNam;
 
         public static string setIAIapiFlag(string orderId)
         {

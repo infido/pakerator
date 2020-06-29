@@ -84,5 +84,27 @@ namespace LibKonfIAI
 
             return cid;
         }
+
+        public int GetSprzedazDetalicznaCustomerID(ConnectionFB polaczenieFB)
+        {
+            int cid = 0;
+
+            FbCommand sp = new FbCommand("SELECT ID from R3_CONTACTS where SHORT_NAME='Sprzedaż detaliczna';", polaczenieFB.getConnection());
+            try
+            {
+                FbDataReader fdk = sp.ExecuteReader();
+                if (fdk.Read())
+                {
+                    cid = (int)fdk["ID"];
+                }
+                fdk.Close();
+            }
+            catch (FbException exgen)
+            {
+                //logg.setUstawienieLoga(Logg.RodzajLogowania.Error, Logg.MediumLoga.File, "Bład odnajdywania lub zakładania kontrahenta w RaksSQL: " + exgen.Message, true);
+                //kh_id = 1;
+            };
+            return cid;
+        }
     }
 }

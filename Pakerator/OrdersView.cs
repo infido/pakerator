@@ -645,7 +645,7 @@ namespace Pakerator
             }
             MessageBox.Show("Zapisano w schowku RaksSQL " + count + " rekord(ów)");
 
-            string res = StatusIAI.setIAIapiFlag(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
+            string res = OrdersIAI.setIAIapiFlag(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
             MessageBox.Show(res,"Wynik operacji zmiany statusu dla " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString());
             Pulpit.putLog(polaczenie, usrNam, "API", res, "", "", "", 0, "", 0, "", magID, "", 0, 0);
         }

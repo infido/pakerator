@@ -2,7 +2,10 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -148,11 +151,65 @@ namespace LibKonfIAI
             }
         }
 
-        private void setErrOrLogMsg(string typ,string msg)
+        public static void setErrOrLogMsg(string typ,string msg, string appName="PakeratorDLL")
         {
-            //do zrobienia zapis do pliku
+            SaveLogMsgInToLogEvent(appName, typ, msg);
+        }
 
-            //zapis log do zdarzeń windows
+        public static void SaveLogMsgInToLogEvent(string appName, string type, string msg)
+        {
+            EventLog appLog = new System.Diagnostics.EventLog();
+            appLog.Source = CreateEventSource(appName);
+            appLog.WriteEntry(msg);
+            appLog.Log = type;
+        }
+
+        private static string CreateEventSource(string currentAppName)
+        {
+            string eventSource = currentAppName;
+            bool sourceExists;
+            try
+            {
+                // searching the source throws a security exception ONLY if not exists!
+                sourceExists = EventLog.SourceExists(eventSource);
+                if (!sourceExists)
+                {   // no exception until yet means the user as admin privilege
+                    EventLog.CreateEventSource(eventSource, "Application");
+                }
+            }
+            catch (SecurityException errSE)
+            {
+                eventSource = "Application";
+                writeLogToLocalFile("ERROR", "Błąd zapisu EventLog Windows; " + errSE.Message);
+            }
+
+            return eventSource;
+        }
+
+        private static void writeLogToLocalFile(string type, string msg)
+        {
+            StreamWriter writer;
+            if (Directory.Exists("c:\\imex"))
+            {
+                writer = new StreamWriter("@C:\\imex\\Pakerator.log", true);
+            }
+            else
+            {
+                writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator.log", true);
+            }
+            
+            try
+            {
+                writer.WriteLine(DateTime.Now.ToString() + ";" + type + "; Komunikat: " + msg);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                writer.Close();
+            }
         }
     }
 }

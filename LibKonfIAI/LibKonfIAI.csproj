@@ -54,8 +54,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ConnectionFB.cs" />
+    <Compile Include="CustomersRaks.cs" />
     <Compile Include="DataSessionIAI.cs" />
-    <Compile Include="StatusIAI.cs" />
+    <Compile Include="OrdersIAI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
