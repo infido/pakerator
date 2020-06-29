@@ -659,6 +659,11 @@ namespace Pakerator
                 rejestr.SetValue("OrderToGloveSettings", 0);
         }
 
+        private void bAddCompanyToRaks_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funkcjonalność jeszcze niedostępna w tej wersji...");
+        }
+
         private void setKolorowaniePOZ()
         {
             foreach (DataGridViewRow row in dataGridView2Pozycje.Rows)

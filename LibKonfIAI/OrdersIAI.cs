@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace LibKonfIAI
 {
-    public class StatusIAI
+    public class OrdersIAI
     {
-        //public ConnectionDB polaczenie;
         int magID, magID2;
         private string usrNam;
 

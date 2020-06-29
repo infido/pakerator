@@ -40,6 +40,7 @@
             this.dataGridView2Pozycje = new System.Windows.Forms.DataGridView();
             this.panel3Srodek = new System.Windows.Forms.Panel();
             this.dataGridView1Naglowki = new System.Windows.Forms.DataGridView();
+            this.bAddCompanyToRaks = new System.Windows.Forms.Button();
             this.panel1Gora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).BeginInit();
             this.panel2Dol.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.bAddCompanyToRaks);
             this.panel1Gora.Controls.Add(this.cSaveStastusToIAI);
             this.panel1Gora.Controls.Add(this.bZapiszPozDoSchowkaRaks);
             this.panel1Gora.Controls.Add(this.label1);
@@ -60,7 +62,7 @@
             this.panel1Gora.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1Gora.Location = new System.Drawing.Point(0, 0);
             this.panel1Gora.Name = "panel1Gora";
-            this.panel1Gora.Size = new System.Drawing.Size(1268, 53);
+            this.panel1Gora.Size = new System.Drawing.Size(1268, 77);
             this.panel1Gora.TabIndex = 0;
             // 
             // cSaveStastusToIAI
@@ -140,7 +142,7 @@
             // 
             this.bClose.Location = new System.Drawing.Point(1181, 13);
             this.bClose.Name = "bClose";
-            this.bClose.Size = new System.Drawing.Size(75, 23);
+            this.bClose.Size = new System.Drawing.Size(75, 49);
             this.bClose.TabIndex = 0;
             this.bClose.Text = "Zamknij";
             this.bClose.UseVisualStyleBackColor = true;
@@ -150,7 +152,7 @@
             // 
             this.panel2Dol.Controls.Add(this.dataGridView2Pozycje);
             this.panel2Dol.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2Dol.Location = new System.Drawing.Point(0, 354);
+            this.panel2Dol.Location = new System.Drawing.Point(0, 447);
             this.panel2Dol.Name = "panel2Dol";
             this.panel2Dol.Size = new System.Drawing.Size(1268, 150);
             this.panel2Dol.TabIndex = 1;
@@ -171,9 +173,9 @@
             // 
             this.panel3Srodek.Controls.Add(this.dataGridView1Naglowki);
             this.panel3Srodek.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3Srodek.Location = new System.Drawing.Point(0, 53);
+            this.panel3Srodek.Location = new System.Drawing.Point(0, 77);
             this.panel3Srodek.Name = "panel3Srodek";
-            this.panel3Srodek.Size = new System.Drawing.Size(1268, 301);
+            this.panel3Srodek.Size = new System.Drawing.Size(1268, 370);
             this.panel3Srodek.TabIndex = 2;
             // 
             // dataGridView1Naglowki
@@ -185,15 +187,25 @@
             this.dataGridView1Naglowki.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1Naglowki.Name = "dataGridView1Naglowki";
             this.dataGridView1Naglowki.ReadOnly = true;
-            this.dataGridView1Naglowki.Size = new System.Drawing.Size(1268, 301);
+            this.dataGridView1Naglowki.Size = new System.Drawing.Size(1268, 370);
             this.dataGridView1Naglowki.TabIndex = 0;
             this.dataGridView1Naglowki.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1Naglowki_CellClick);
+            // 
+            // bAddCompanyToRaks
+            // 
+            this.bAddCompanyToRaks.Location = new System.Drawing.Point(670, 39);
+            this.bAddCompanyToRaks.Name = "bAddCompanyToRaks";
+            this.bAddCompanyToRaks.Size = new System.Drawing.Size(119, 23);
+            this.bAddCompanyToRaks.TabIndex = 7;
+            this.bAddCompanyToRaks.Text = "Przepisz Kontrahenta";
+            this.bAddCompanyToRaks.UseVisualStyleBackColor = true;
+            this.bAddCompanyToRaks.Click += new System.EventHandler(this.bAddCompanyToRaks_Click);
             // 
             // OrdersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1268, 504);
+            this.ClientSize = new System.Drawing.Size(1268, 597);
             this.Controls.Add(this.panel3Srodek);
             this.Controls.Add(this.panel2Dol);
             this.Controls.Add(this.panel1Gora);
@@ -225,5 +237,6 @@
         private System.Windows.Forms.NumericUpDown nDniWstecz;
         private System.Windows.Forms.Button bZapiszPozDoSchowkaRaks;
         private System.Windows.Forms.CheckBox cSaveStastusToIAI;
+        private System.Windows.Forms.Button bAddCompanyToRaks;
     }
 }

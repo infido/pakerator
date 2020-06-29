@@ -19,7 +19,6 @@ namespace LibKonfIAI
                 return false;
             }
         }
-
         public static string GetIAIKeyForCurrentSession()
         {
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
@@ -33,7 +32,6 @@ namespace LibKonfIAI
                 return "";
             }
         }
-
         public static string GetIAILoginForCurrentSession()
         {
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
@@ -47,7 +45,6 @@ namespace LibKonfIAI
                 return "";
             }
         }
-
         public static string GetIAIDomainForCurrentSession()
         {
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
@@ -61,15 +58,14 @@ namespace LibKonfIAI
                 return "";
             }
         }
-
-
-        /// <summary>
-        /// Generates SHA1 session key string
-        /// </summary>
-        /// <param name="password">SHA1 hashed password
-        /// <returns>SHA1 hash string</returns>
         public static string GenerateKey(string hashedPassword)
         {
+            /// <summary>
+            /// Generates SHA1 session key string
+            /// </summary>
+            /// <param name="password">SHA1 hashed password
+            /// <returns>SHA1 hash string</returns>
+
             System.Security.Cryptography.HashAlgorithm hash = System.Security.Cryptography.SHA1.Create();
             string date = System.String.Format("{0:yyyyMMdd}", System.DateTime.Now);
             string strToHash = date + hashedPassword;
@@ -83,13 +79,14 @@ namespace LibKonfIAI
             }
             return hashedString;
         }
-        /// <summary>
-        /// Hashes specified password with SHA1 algorithm
-        /// </summary>
-        /// <param name="password">User password
-        /// <returns>SHA1 hash  string</returns>
         public static string HashPassword(string password)
         {
+            /// <summary>
+            /// Hashes specified password with SHA1 algorithm
+            /// </summary>
+            /// <param name="password">User password
+            /// <returns>SHA1 hash  string</returns>
+
             System.Security.Cryptography.HashAlgorithm hash = System.Security.Cryptography.SHA1.Create();
             byte[] keyBytes, hashBytes;
             keyBytes = System.Text.Encoding.UTF8.GetBytes(password);
