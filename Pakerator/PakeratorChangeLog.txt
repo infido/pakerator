@@ -1,6 +1,7 @@
 ﻿Wersja 1.21 (26-06-2020)
 * Rozbudowa wyświetlania różnych statusów zamówień z www
 * Z listy zamówień www zapis pozycji zamówienia do schowka RaksSQL
+* Ustawienie statusu flagApi w sklepie IAI po zapisaniu pozycji do schowka RaksSQL
 
 Wersja 1.20 (25-06-2020)
 * Lista dokumentów do przetworzenia przez magazyn z kolorowaniem

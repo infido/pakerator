@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LibKonfIAI.dll" size="29184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LibKonfIAI.dll" size="29696">
       <assemblyIdentity name="LibKonfIAI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9RrzOLJroD99gfx5aH2oVXtYVsi52rmGQMH9zaNtc74=</dsig:DigestValue>
+        <dsig:DigestValue>EPx/k1XRQBBa8FehFm7xzQnbSbfY754BCsoyQ3uz+xo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1813504">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1814528">
       <assemblyIdentity name="Pakerator" version="1.21.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fGnU4P0JmWqk/zSOjaGuCwR0CuKj0eWP7bByILVwmaQ=</dsig:DigestValue>
+        <dsig:DigestValue>A2kzqk3vCzGBKUvMCvaJJElkc9YoZYxSo5rKvTCQ+Ns=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

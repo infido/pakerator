@@ -55,6 +55,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LibKonfIAI.dll" size="27136">
+      <assemblyIdentity name="LibKonfIAI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>i2Qhc/JbcwoHyRew+j4etsWJigmys0z164gv4c/hKIY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Threading.Tasks.dll" size="37104">
       <assemblyIdentity name="Microsoft.Threading.Tasks" version="1.0.12.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -103,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1776640">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1781248">
       <assemblyIdentity name="Pakerator" version="1.21.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>a2hXblFfoKhLaBf07iALkxwbpKCzufzqfyIdcgS2LeU=</dsig:DigestValue>
+        <dsig:DigestValue>8Z8N1rEhGeL/Qt0c1r0nTUYjzHTgRaV1zvW98RfvpEc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -150,13 +162,13 @@
       <dsig:DigestValue>JMNSEzSpvVCPXCRfRjP3tURmZK3l99OcPxnLHhARVnk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="PakeratorChangeLog.txt" size="1317">
+  <file name="PakeratorChangeLog.txt" size="1472">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>eGIU7pZ4uT7m9BetJ9JgF98yaWS85QYhGc1XD+Ypf08=</dsig:DigestValue>
+      <dsig:DigestValue>xA1ghJ71iJYHV1/iJieavSuKWTPvnrh+VtOkjCK+13U=</dsig:DigestValue>
     </hash>
   </file>
   <file name="wood_box_opened.ico" size="432254">
