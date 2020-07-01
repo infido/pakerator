@@ -180,16 +180,16 @@ namespace LibKonfIAI
                                     //To działa tylko na ID
                                     if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("prepaid"))
                                     {
-                                        sql += "0, "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Zapłacono przelewem") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Zapłacono przelewem' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                     }else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("tradecredit"))
                                     {
-                                        sql += "0, "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Przelew' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                     }
                                     else
                                     {
-                                        sql += "0, "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Pobranie") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                     }
 
@@ -367,6 +367,25 @@ namespace LibKonfIAI
                 maska = maska.Replace("##", nrKolejny.ToString("00"));
 
             return maska;
+        }
+
+        private static int GetIDtypuPlatnosci(ConnectionFB polaczenieFB, string nazwaPlatnosci)
+        {
+            FbCommand sposobPlat = new FbCommand("SELECT ID from GM_SPOSOBY_ZAP where NAZWA='" + nazwaPlatnosci + "';", polaczenieFB.getConnection());
+            try
+            {
+                var sqlPl = sposobPlat.ExecuteScalar();
+                if (sqlPl == null)
+                    return 2;
+                else
+                    return Convert.ToInt32(sqlPl);
+
+            }
+            catch (FbException expl)
+            {
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetIDtypuPlatnosci) " + System.Environment.NewLine + " Kod 1009; Bład przy ustalaniu kodu płatności" + System.Environment.NewLine + expl.Message);
+                return 2;
+            };
         }
     }
 
