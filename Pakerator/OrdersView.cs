@@ -20,6 +20,7 @@ namespace Pakerator
     public partial class OrdersView : Form
     {
         public ConnectionDB polaczenie;
+        private ConnectionFB polaczenieFB;
         //private FbDataAdapter fda;
         //private DataSet fds;
         //private DataView fDataView;
@@ -55,6 +56,8 @@ namespace Pakerator
 
                     cSaveStastusToIAI.Checked = false;
             }
+
+            polaczenieFB = new ConnectionFB(usrNam);
         }
 
         private void bRefresh_Click(object sender, EventArgs e)
@@ -240,6 +243,7 @@ namespace Pakerator
                                     nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
                                 nag.ClientNoteToOrder = www.orderDetails.clientNoteToOrder;
                                 nag.ApiFlag = www.orderDetails.apiFlag;
+                                nag.NaFakture = (www.orderDetails.clientRequestInvoice.Equals("n") ? false : true);
                             }
                             catch (Exception exn)
                             {
@@ -661,7 +665,20 @@ namespace Pakerator
 
         private void bAddCompanyToRaks_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funkcjonalność jeszcze niedostępna w tej wersji...");
+            if ((bool)dataGridView1Naglowki.CurrentRow.Cells["NaFakture"].Value)
+            {
+                MessageBox.Show("Klient oczekuje faktury, tworzenie faktu, jest niedostepne w tej wersji","Funkcjonalność nieobsługiwana");
+            }
+            else
+            {
+                string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
+                MessageBox.Show("Wynik: " + res, "Wynik operacji zapisywania do RaksSQL");
+            }
+        }
+
+        private void OrdersView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            polaczenieFB.setConnectionOFF();
         }
 
         private void setKolorowaniePOZ()
@@ -732,6 +749,7 @@ namespace Pakerator
         private string statusStanowRaks;
         private string clientNoteToOrder;
         private apiFlagType apiFlag;
+        private bool naFakture;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -753,6 +771,7 @@ namespace Pakerator
         public string ClientNoteToOrder { get => clientNoteToOrder; set => clientNoteToOrder = value; }
         public string ClientCity { get => clientCity; set => clientCity = value; }
         public string ClientCountryName { get => clientCountryName; set => clientCountryName = value; }
+        public bool NaFakture { get => naFakture; set => naFakture = value; }
         public string ClientFirm { get => clientFirm; set => clientFirm = value; }
         public string ClientFirstName { get => clientFirstName; set => clientFirstName = value; }
         public string ClientLastName { get => clientLastName; set => clientLastName = value; }
@@ -766,7 +785,7 @@ namespace Pakerator
         public string OrderBridgeNote { get => orderBridgeNote; set => orderBridgeNote = value; }
         public List<OrderItem> ItemsOfOrder { get => itemsOfOrder; set => itemsOfOrder = value; }
         public string StatusStanowRaks { get => statusStanowRaks; set => statusStanowRaks = value; }
-        
+
     }
 
     public class OrderItem

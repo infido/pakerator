@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
+            this.bAddCompanyToRaks = new System.Windows.Forms.Button();
             this.cSaveStastusToIAI = new System.Windows.Forms.CheckBox();
             this.bZapiszPozDoSchowkaRaks = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.dataGridView2Pozycje = new System.Windows.Forms.DataGridView();
             this.panel3Srodek = new System.Windows.Forms.Panel();
             this.dataGridView1Naglowki = new System.Windows.Forms.DataGridView();
-            this.bAddCompanyToRaks = new System.Windows.Forms.Button();
             this.panel1Gora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).BeginInit();
             this.panel2Dol.SuspendLayout();
@@ -64,6 +64,16 @@
             this.panel1Gora.Name = "panel1Gora";
             this.panel1Gora.Size = new System.Drawing.Size(1268, 77);
             this.panel1Gora.TabIndex = 0;
+            // 
+            // bAddCompanyToRaks
+            // 
+            this.bAddCompanyToRaks.Location = new System.Drawing.Point(670, 39);
+            this.bAddCompanyToRaks.Name = "bAddCompanyToRaks";
+            this.bAddCompanyToRaks.Size = new System.Drawing.Size(271, 23);
+            this.bAddCompanyToRaks.TabIndex = 7;
+            this.bAddCompanyToRaks.Text = "Przepisz Zamówienie sprzedaży detalicznej do Raks";
+            this.bAddCompanyToRaks.UseVisualStyleBackColor = true;
+            this.bAddCompanyToRaks.Click += new System.EventHandler(this.bAddCompanyToRaks_Click);
             // 
             // cSaveStastusToIAI
             // 
@@ -191,16 +201,6 @@
             this.dataGridView1Naglowki.TabIndex = 0;
             this.dataGridView1Naglowki.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1Naglowki_CellClick);
             // 
-            // bAddCompanyToRaks
-            // 
-            this.bAddCompanyToRaks.Location = new System.Drawing.Point(670, 39);
-            this.bAddCompanyToRaks.Name = "bAddCompanyToRaks";
-            this.bAddCompanyToRaks.Size = new System.Drawing.Size(119, 23);
-            this.bAddCompanyToRaks.TabIndex = 7;
-            this.bAddCompanyToRaks.Text = "Przepisz Kontrahenta";
-            this.bAddCompanyToRaks.UseVisualStyleBackColor = true;
-            this.bAddCompanyToRaks.Click += new System.EventHandler(this.bAddCompanyToRaks_Click);
-            // 
             // OrdersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,6 +212,7 @@
             this.Name = "OrdersView";
             this.ShowIcon = false;
             this.Text = "Zamówienia";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OrdersView_FormClosed);
             this.panel1Gora.ResumeLayout(false);
             this.panel1Gora.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).EndInit();

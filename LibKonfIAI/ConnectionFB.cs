@@ -18,8 +18,9 @@ namespace LibKonfIAI
         private int logMagID;
         private string IAIdomena, IAIklucz, IAIlogin;
 
-        public ConnectionFB()
+        public ConnectionFB(string appUser)
         {
+            logUser = appUser;
             setConnection();
             getIAISettingsFromRegistry();
         }
@@ -151,6 +152,11 @@ namespace LibKonfIAI
             }
         }
 
+        public string GetLoggedUser()
+        {
+            return logUser;
+        }
+
         public static void setErrOrLogMsg(string typ,string msg, string appName="PakeratorDLL")
         {
             SaveLogMsgInToLogEvent(appName, typ, msg);
@@ -191,7 +197,7 @@ namespace LibKonfIAI
             StreamWriter writer;
             if (Directory.Exists("c:\\imex"))
             {
-                writer = new StreamWriter("@C:\\imex\\Pakerator.log", true);
+                writer = new StreamWriter("C:\\imex\\Pakerator.log", true);
             }
             else
             {

@@ -9,11 +9,11 @@ namespace LibKonfIAI
 {
     class CustomersRaks
     {
-        private int magID, magID2;
-        private string usrNam;
+        //private int magID, magID2;
+        //private string usrNam;
         //private ConnectionFB polaczenieFB;
 
-        public int GetOrCreateRaksCustomerID(ConnectionFB polaczenieFB, string kodKontrah, string pelnaNazwa, string nip, string kodEU, string kodWal, string ulica, string nrBudynku, string miejscowosc, string kraj, string kodPoczta, string poczta, string email)
+        public static int GetOrCreateRaksCustomerID(ConnectionFB polaczenieFB, string kodKontrah, string pelnaNazwa, string nip, string kodEU, string kodWal, string ulica, string nrBudynku, string miejscowosc, string kraj, string kodPoczta, string poczta, string email)
         {
             int cid = 0;
 
@@ -82,28 +82,6 @@ namespace LibKonfIAI
                 //logg.setUstawienieLoga(Logg.RodzajLogowania.Info, Logg.MediumLoga.File, "Znaleziono kontrahenta w RaksSQL: " + kodPresta + " ," + pelnaNazwa, true);
             }
 
-            return cid;
-        }
-
-        public int GetSprzedazDetalicznaCustomerID(ConnectionFB polaczenieFB)
-        {
-            int cid = 0;
-
-            FbCommand sp = new FbCommand("SELECT ID from R3_CONTACTS where SHORT_NAME='Sprzedaż detaliczna';", polaczenieFB.getConnection());
-            try
-            {
-                FbDataReader fdk = sp.ExecuteReader();
-                if (fdk.Read())
-                {
-                    cid = (int)fdk["ID"];
-                }
-                fdk.Close();
-            }
-            catch (FbException exgen)
-            {
-                //logg.setUstawienieLoga(Logg.RodzajLogowania.Error, Logg.MediumLoga.File, "Bład odnajdywania lub zakładania kontrahenta w RaksSQL: " + exgen.Message, true);
-                //kh_id = 1;
-            };
             return cid;
         }
     }
