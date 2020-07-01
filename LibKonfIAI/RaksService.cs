@@ -30,8 +30,9 @@ namespace LibKonfIAI
 
                 request.@params.ordersIds = new string[1];
                 request.@params.ordersIds[0] = orderIdIAI;
+
                 //request.@params.ordersSerialNumbers = new int[1];
-                //request.@params.ordersSerialNumbers[0] = 1;
+                //request.@params.ordersSerialNumbers[0] = 26590;
 
                 try
                 {
@@ -211,6 +212,45 @@ namespace LibKonfIAI
                                         komunikatZwrotny = "1007 zapisu nagłówka paragonu/faktury w Raks: dla orderIdIAI: " + orderIdIAI;
                                         ConnectionFB.setErrOrLogMsg("ERROR", "Błąd zapisania do RaksSQL: " + exgen.Message + System.Environment.NewLine + komunikatZwrotny);
                                         throw;
+                                    }
+
+                                    int lp = 1;
+                                    foreach (ApiOrdersServiceGet.productResultType fspoz in response.Results[0].orderDetails.productsResults)
+                                    {
+                                        string sqlKod = "SELECT ID_TOWARU from GM_TOWARY ";
+                                        sqlKod += " where ( GM_TOWARY.SKROT='" + fspoz.productSizeCodeExternal + "' OR GM_TOWARY.SKROT2='" + fspoz.productSizeCodeExternal + "' )";
+                                        FbCommand cdkKod = new FbCommand(sqlKod, polaczenieFB.getConnection());
+
+                                        int kodTowar = 0;
+                                        try
+                                        {
+                                            var wynik = cdkKod.ExecuteScalar();
+                                            if (wynik != null)
+                                                kodTowar = Convert.ToInt32(wynik);
+                                        }
+                                        catch (Exception tex)
+                                        {
+                                            komunikatZwrotny = "1010 błąd ustalenia ID_TOWARU dla zapis pozycji paragonu/faktury w Raks: dla orderIdIAI: " + orderIdIAI + " pozycja:" + fspoz.productSizeCodeExternal;
+                                            ConnectionFB.setErrOrLogMsg("ERROR", "Błąd zapisania do RaksSQL: " + tex.Message + System.Environment.NewLine + komunikatZwrotny);
+
+                                        }
+
+                                        int pozid = 0;
+                                        FbCommand gen_id_fspos = new FbCommand("SELECT GEN_ID(GM_FS_POZ_GEN,1) from rdb$database", polaczenieFB.getConnection());
+                                        try
+                                        {
+                                            pozid = Convert.ToInt32(gen_id_fspos.ExecuteScalar());
+                                        }
+                                        catch (FbException exgen)
+                                        {
+                                            komunikatZwrotny += "1011 Bład pobrania id pozycji z generatora paragonu/faktury w Raks: dla orderIdIAI: " + orderIdIAI;
+                                            ConnectionFB.setErrOrLogMsg("ERROR", "Błąd w zamówieniu do zapisania w RaksSQL: " + exgen.Message + System.Environment.NewLine + komunikatZwrotny);
+                                            throw;
+                                        }
+
+
+
+                                        lp++;
                                     }
                                 }
                                 else
