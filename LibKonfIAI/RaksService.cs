@@ -71,23 +71,36 @@ namespace LibKonfIAI
                                     throw;
                                 }
 
+                                string typDok = "";
                                 if (response.Results[0].orderDetails.clientRequestInvoice.Equals("n"))
                                 {
+                                    typDok = "PA";
                                     //sprzesaż na paragon
-                                    string sql = "INSERT INTO GM_FS (ID,MAGNUM,TYP_DOK_MAGAZYNOWEGO,KOD,ROK,MIESIAC,NR,NUMER,SPOSOB_LICZENIA,ID_WALUTY,KURS,NAZWA_DOKUMENTU, ";
+                                    string sql = "INSERT INTO GM_FS (ID,MAGNUM,ROK,MIESIAC,TYP_DOK_MAGAZYNOWEGO,KOD,NR,NUMER,SPOSOB_LICZENIA,ID_WALUTY,KURS,NAZWA_DOKUMENTU, ";
                                     sql += " ID_PLATNIKA, ID_ODBIORCY,NAZWA_SKROCONA_PLATNIKA,NAZWA_PELNA_PLATNIKA,NAZWA_SKROCONA_ODBIORCY,NAZWA_PELNA_ODBIORCY,KOD_KRESKOWY_PLATNIKA, ";
                                     sql += " WARTOSC_ZAKUPU_KAUCJ,WAL_WARTOSC_KAUCJ,PLN_WARTOSC_KAUCJ,OPERATOR,ZMIENIL,SYGNATURA,ZNACZNIKI,MAGAZYNOWY,";
                                     sql += " GUID,ID_SPOSOBU_PLATNOSCI,NAZWA_SPOSOBU_PLATNOSCI,DOSTAWA_ULICA,DOSTAWA_KOD_POCZTOWY,DOSTAWA_MIEJSCOWOSC,DOSTAWA_PANSTWO";
                                     sql += ") values (" + fsid + ", ";
                                     sql += magId + ", ";  //MAGNUM
-                                    sql += "'PA', "; //TYP_DOK_MAGAZYNOWEGO
-                                    sql += "'PA', "; //KOD definiowany przez użytkownika w Raks
+
                                     sql += DateTime.Now.Year.ToString() + ", "; //ROK
                                     sql += DateTime.Now.Month.ToString() + ", "; //MIESIAC
 
-                                    //Wyliczanie nr z numeracji do zrobienia
-                                    sql += fsid + ", "; //NR 
-                                    sql += "'101/PA/M8" + fsid + "', "; //NUMER - symbol dokumentu
+                                    NumerDokumentu nrDoku;
+                                    sql += "'" + typDok + "', "; //TYP_DOK_MAGAZYNOWEGO
+
+                                    if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("selff_added"))
+                                        nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAP");
+                                    else if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("auction"))
+                                        nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAA");
+                                    else
+                                        nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAI");
+
+                                    sql += "'" + nrDoku.nazwaKodu + "', "; //KOD definiowany w kodach dokumentów przez administartora Raks
+                                    sql += nrDoku.nrKolejny + ", "; //NR 
+                                    sql += "'" + nrDoku.wyliczonySymbolDlaDok + "', "; //NUMER - symbol dokumentu
+
+
                                     sql += "1, "; //SPOSOB_LICZENIA 1-brutto, 0-netto
                                     sql += "0, "; //ID_WALUTY  
                                     sql += "1, "; //KURS 
@@ -203,6 +216,7 @@ namespace LibKonfIAI
                                 else
                                 {
                                     //sptrzedaż na fakturę
+                                    typDok = "FS";
                                 }
                             }
                             else
@@ -239,12 +253,138 @@ namespace LibKonfIAI
                 }
                 fdk.Close();
             }
-            catch (FbException exgen)
+            catch (FbException exgen2)
             {
                 cid = 1;
-                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService) przy pobieraniu id kontrahenta dla sprzedaży detalicznej." + System.Environment.NewLine + "Kod 1005; błąd pobrania ID sprzedaży detalicznej");
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService) przy pobieraniu id kontrahenta dla sprzedaży detalicznej." + System.Environment.NewLine + "Kod 1005; błąd pobrania ID sprzedaży detalicznej" + System.Environment.NewLine + exgen2.Message);
             };
             return cid;
+        }
+
+        private static NumerDokumentu GetKodNumeracji(ConnectionFB polaczenieFB,int magID, string kodNumeracji)
+        {
+            string sql = "SELECT GM_MAGAZYNY_KODY_DOK_POW.ID_KODU, R3_KODY_DOK.KOD, NUM_STARTOWY, R3_KODY_DOK.NUM_MASKA, GM_MAGAZYNY.NUMER SYMMAG ";
+            sql += " FROM GM_MAGAZYNY_KODY_DOK_POW ";
+            sql += " join R3_KODY_DOK on GM_MAGAZYNY_KODY_DOK_POW.ID_KODU = R3_KODY_DOK.ID ";
+            sql += " join GM_MAGAZYNY on GM_MAGAZYNY_KODY_DOK_POW.ID_MAG=GM_MAGAZYNY.ID ";
+            sql += " where GM_MAGAZYNY_KODY_DOK_POW.ID_MAG=" + magID + " AND R3_KODY_DOK.KOD='" + kodNumeracji + "'; ";
+
+            NumerDokumentu nrd = new NumerDokumentu(kodNumeracji);
+
+            FbCommand sp = new FbCommand(sql, polaczenieFB.getConnection());
+            try
+            {
+                FbDataReader fdk = sp.ExecuteReader();
+                if (fdk.Read())
+                {
+                    nrd.idkodu = (int)fdk["ID_KODU"];
+                    nrd.nazwaKodu = (string)fdk["KOD"];
+                    nrd.nrStartowy = (int)fdk["NUM_STARTOWY"];
+                    nrd.maska = (string)fdk["NUM_MASKA"];
+                    nrd.symMag = (string)fdk["SYMMAG"];
+                    nrd.wyliczonySymbolDlaDok = wymienMaskeNaWartosci(nrd.maska, nrd.symMag);
+
+                    FbCommand nrDokSp = new FbCommand("SELECT FIRST 1 NR FROM GM_FS where KOD='" + nrd.nazwaKodu + "' and ROK=" + DateTime.Now.ToString("yyyy") + " order by NR DESC;", polaczenieFB.getConnection());
+                    try
+                    {
+                        var nrDo = nrDokSp.ExecuteScalar();
+                        if (nrDo == null)
+                            nrd.nrKolejny = nrd.nrStartowy;
+                        else
+                            nrd.nrKolejny = Convert.ToInt32(nrDo) + 1;
+
+                        nrd.wyliczonySymbolDlaDok = wymienNaNrKolejny(nrd.wyliczonySymbolDlaDok, nrd.nrKolejny);
+                        nrd.err = "OK";
+                    }
+                    catch (FbException exnum)
+                    {
+                        nrd.err = "Kod 1008; wyliczenia symbolu dokumentu sprzedaży";
+                        ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetKodNumeracji) " + System.Environment.NewLine + nrd.err + System.Environment.NewLine + exnum.Message);
+                    };
+
+                }
+                else
+                {
+                    //standardowa numeracja PA i FS
+                }
+                fdk.Close();
+            }
+            catch (FbException exgen)
+            {
+                nrd.err = "Kod 1007; błąd pobrania kodu dokumentu sprzedaży";
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetKodNumeracji) " + System.Environment.NewLine + nrd.err + System.Environment.NewLine + exgen.Message);
+            };
+            return nrd;
+        }
+
+        private static string wymienMaskeNaWartosci(string maska, string magSYM)
+        {
+            if (maska.Contains("$$$$"))
+                maska = maska.Replace("$$$$", DateTime.Now.ToString("yyyy"));
+
+            if (maska.Contains("$$"))
+                maska = maska.Replace("$$", DateTime.Now.ToString("yy"));
+
+            if (maska.Contains("@@"))
+                maska = maska.Replace("@@", DateTime.Now.ToString("MM"));
+
+            if (maska.Contains("%%"))
+                maska = maska.Replace("%%", DateTime.Now.ToString("dd"));
+
+            if (maska.Contains("&&&&&&"))
+                maska = maska.Replace("&&&&&&", magSYM.Substring(0,6));
+            else if (maska.Contains("&&&&&"))
+                maska = maska.Replace("&&&&&", magSYM.Substring(0, 5));
+            else if (maska.Contains("&&&&"))
+                maska = maska.Replace("&&&&", magSYM.Substring(0, 4));
+            else if (maska.Contains("&&&"))
+                maska = maska.Replace("&&&", magSYM.Substring(0, 3));
+            else if (maska.Contains("&&"))
+                maska = maska.Replace("&&", magSYM.Substring(0, 2));
+            else if (maska.Contains("&"))
+                maska = maska.Replace("&", magSYM.Substring(0, 1));
+
+            return maska;
+        }
+
+        private static string wymienNaNrKolejny(string maska, int nrKolejny)
+        {
+            if (maska.Contains("#########"))
+                maska = maska.Replace("#########", nrKolejny.ToString("000000000") );
+            else if (maska.Contains("########"))
+                maska = maska.Replace("########", nrKolejny.ToString("00000000"));
+            else if (maska.Contains("#######"))
+                maska = maska.Replace("#######", nrKolejny.ToString("0000000"));
+            else if (maska.Contains("######"))
+                maska = maska.Replace("######", nrKolejny.ToString("000000"));
+            else if (maska.Contains("#####"))
+                maska = maska.Replace("#####", nrKolejny.ToString("00000"));
+            else if (maska.Contains("####"))
+                maska = maska.Replace("####", nrKolejny.ToString("0000"));
+            else if (maska.Contains("###"))
+                maska = maska.Replace("###", nrKolejny.ToString("000"));
+            else if (maska.Contains("##"))
+                maska = maska.Replace("##", nrKolejny.ToString("00"));
+
+            return maska;
+        }
+    }
+
+    public class NumerDokumentu
+    {
+        public string typ="PA"; //PA lub FS
+        public string nazwaKodu="PA"; //PAA, PAP, PAI... FSA, FAP, FSI...
+        public int idkodu;
+        public int nrStartowy=1;
+        public int nrKolejny;
+        public string maska;
+        public string symMag;
+        public string err;
+        public string wyliczonySymbolDlaDok;
+
+        public NumerDokumentu(string typDok)
+        {
+            typ = typDok;
         }
     }
 }

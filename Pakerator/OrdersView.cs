@@ -224,31 +224,33 @@ namespace Pakerator
                             #region 037 try na mapowanie nagłówków
                             try
                             {
-                                    nag.OrderId = www.orderId;
-                                    nag.OrderStatus = www.orderDetails.orderStatus;
-                                    nag.OrderAddDate = www.orderDetails.orderAddDate;
-                                    nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
-                                    nag.OrderConfirmation = www.orderDetails.orderConfirmation;
-                                    nag.CourierName = www.orderDetails.dispatch.courierName;
-                                    nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
-                                    nag.OrderBridgeNote = www.orderBridgeNote;
-                                    nag.OrderSerialNumber = www.orderSerialNumber;
-                                    nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
-                                    nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
-                                    nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
-                                    nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
-                                    nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
-                                    nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
-                                    nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
-                                    nag.ClientStreet = www.clientResult.clientBillingAddress.clientStreet;
-                                    nag.ClientPhone1 = www.clientResult.clientBillingAddress.clientPhone1;
-                                    nag.ClientPhone2 = www.clientResult.clientBillingAddress.clientPhone2;
-                                    nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
-                                    nag.ClientId = www.clientResult.clientAccount.clientId;
-                                    nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
+                                nag.OrderId = www.orderId;
+                                nag.OrderStatus = www.orderDetails.orderStatus;
+                                nag.OrderAddDate = www.orderDetails.orderAddDate;
+                                nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
+                                nag.OrderConfirmation = www.orderDetails.orderConfirmation;
+                                nag.CourierName = www.orderDetails.dispatch.courierName;
+                                nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
+                                nag.OrderBridgeNote = www.orderBridgeNote;
+                                nag.OrderSerialNumber = www.orderSerialNumber;
+                                nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
+                                nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
+                                nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
+                                nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
+                                nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
+                                nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
+                                nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
+                                nag.ClientStreet = www.clientResult.clientBillingAddress.clientStreet;
+                                nag.ClientPhone1 = www.clientResult.clientBillingAddress.clientPhone1;
+                                nag.ClientPhone2 = www.clientResult.clientBillingAddress.clientPhone2;
+                                nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
+                                nag.ClientId = www.clientResult.clientAccount.clientId;
+                                nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
                                 nag.ClientNoteToOrder = www.orderDetails.clientNoteToOrder;
                                 nag.ApiFlag = www.orderDetails.apiFlag;
                                 nag.NaFakture = (www.orderDetails.clientRequestInvoice.Equals("n") ? false : true);
+                                nag.OrderSourceName = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceName;
+                                nag.OrderSourceType = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceType;
                             }
                             catch (Exception exn)
                             {
@@ -767,6 +769,8 @@ namespace Pakerator
         private string clientNoteToOrder;
         private apiFlagType apiFlag;
         private bool naFakture;
+        private string orderSourceName;
+        private string orderSourceType;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -802,7 +806,8 @@ namespace Pakerator
         public string OrderBridgeNote { get => orderBridgeNote; set => orderBridgeNote = value; }
         public List<OrderItem> ItemsOfOrder { get => itemsOfOrder; set => itemsOfOrder = value; }
         public string StatusStanowRaks { get => statusStanowRaks; set => statusStanowRaks = value; }
-
+        public string OrderSourceName { get => orderSourceName; set => orderSourceName = value; }
+        public string OrderSourceType { get => orderSourceType; set => orderSourceType = value; }
     }
 
     public class OrderItem
@@ -842,6 +847,5 @@ namespace Pakerator
         public string SizePanelName { get => sizePanelName; set => sizePanelName = value; }
         public string ProductCode { get => productCode; set => productCode = value; }
         public string SizeId { get => sizeId; set => sizeId = value; }
-
     }
 }
