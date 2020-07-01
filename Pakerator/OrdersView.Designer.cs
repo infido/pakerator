@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
+            this.bCopyIndexToCliboard = new System.Windows.Forms.Button();
             this.bAddCompanyToRaks = new System.Windows.Forms.Button();
             this.cSaveStastusToIAI = new System.Windows.Forms.CheckBox();
             this.bZapiszPozDoSchowkaRaks = new System.Windows.Forms.Button();
@@ -51,6 +52,7 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.bCopyIndexToCliboard);
             this.panel1Gora.Controls.Add(this.bAddCompanyToRaks);
             this.panel1Gora.Controls.Add(this.cSaveStastusToIAI);
             this.panel1Gora.Controls.Add(this.bZapiszPozDoSchowkaRaks);
@@ -64,6 +66,17 @@
             this.panel1Gora.Name = "panel1Gora";
             this.panel1Gora.Size = new System.Drawing.Size(1268, 77);
             this.panel1Gora.TabIndex = 0;
+            // 
+            // bCopyIndexToCliboard
+            // 
+            this.bCopyIndexToCliboard.Enabled = false;
+            this.bCopyIndexToCliboard.Location = new System.Drawing.Point(12, 42);
+            this.bCopyIndexToCliboard.Name = "bCopyIndexToCliboard";
+            this.bCopyIndexToCliboard.Size = new System.Drawing.Size(145, 23);
+            this.bCopyIndexToCliboard.TabIndex = 8;
+            this.bCopyIndexToCliboard.Text = "Kopiuj &Indeks do schowka";
+            this.bCopyIndexToCliboard.UseVisualStyleBackColor = true;
+            this.bCopyIndexToCliboard.Click += new System.EventHandler(this.bCopyIndexToCliboard_Click);
             // 
             // bAddCompanyToRaks
             // 
@@ -178,6 +191,7 @@
             this.dataGridView2Pozycje.ReadOnly = true;
             this.dataGridView2Pozycje.Size = new System.Drawing.Size(1268, 150);
             this.dataGridView2Pozycje.TabIndex = 0;
+            this.dataGridView2Pozycje.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2Pozycje_CellClick);
             // 
             // panel3Srodek
             // 
@@ -239,5 +253,6 @@
         private System.Windows.Forms.Button bZapiszPozDoSchowkaRaks;
         private System.Windows.Forms.CheckBox cSaveStastusToIAI;
         private System.Windows.Forms.Button bAddCompanyToRaks;
+        private System.Windows.Forms.Button bCopyIndexToCliboard;
     }
 }

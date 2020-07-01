@@ -64,6 +64,11 @@ namespace Pakerator
         {
             lkomunikat.Visible = false;
             string kodForTry = "";
+            bCopyIndexToCliboard.Enabled = false;
+            dataGridView2Pozycje.DataSource = null;
+            dataGridView1Naglowki.DataSource = null;
+            dataGridView2Pozycje.Refresh();
+            dataGridView1Naglowki.Refresh();
 
             if (SessionIAI.GetPopertySettingsForAIA())
             {
@@ -483,6 +488,8 @@ namespace Pakerator
                 bZapiszPozDoSchowkaRaks.Visible = true;
                 bZapiszPozDoSchowkaRaks.Text = "Zapisz pozycje zamówienia " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString()  + " do schowka w RaksSQL";
             }
+
+            bCopyIndexToCliboard.Enabled = false;
         }
 
         public void Pokaz()
@@ -679,6 +686,16 @@ namespace Pakerator
         private void OrdersView_FormClosed(object sender, FormClosedEventArgs e)
         {
             polaczenieFB.setConnectionOFF();
+        }
+
+        private void dataGridView2Pozycje_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            bCopyIndexToCliboard.Enabled = true;
+        }
+
+        private void bCopyIndexToCliboard_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(dataGridView2Pozycje.CurrentRow.Cells["ProductSizeCodeExternal"].Value.ToString());
         }
 
         private void setKolorowaniePOZ()
