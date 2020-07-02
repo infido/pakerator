@@ -1,6 +1,6 @@
 ﻿Wersja 1.22 (02-07-2020)
-* Kopiowanie indeksu z pozycji zamówienia do schowka Windows
-* Zakładanie nagówków paragonów z zamówień pochodząćych z IAI
+* Kopiowanie indeksu z pozycji i nr zamówienia do schowka Windows
+* Zakładanie paragonów w RaksSQL z zamówień pochodzących z IAI
 
 Wersja 1.21 (26-06-2020)
 * Rozbudowa wyświetlania różnych statusów zamówień z www

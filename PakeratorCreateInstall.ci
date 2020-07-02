@@ -290,13 +290,13 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.21 (26-06-2020)
+                  <dlgtext >Wersja 1.22 (02-07-2020)
+* Kopiowanie indeksu z pozycji i nr zamówienia do schowka Windows
+* Zakładanie paragonów w RaksSQL z zamówień pochodząćych z IAI
+Wersja 1.21 (26-06-2020)
 * Rozbudowa wyświetlania różnych statusów zamówień z www
 * Z listy zamówień www zapis pozycji zamówienia do schowka RaksSQL
-* Ustawienie statusu flagApi w sklepie IAI po zapisaniu pozycji do schowka RaksSQL
-Wersja 1.20 (25-06-2020)
-* Lista dokumentów do przetworzenia przez magazyn z kolorowaniem
-* Kolorowanie listy zamówień pobranych z IAI (www)</>
+* Ustawienie statusu flagApi w sklepie IAI po zapisaniu pozycji do schowka RaksSQL</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >

@@ -100,7 +100,7 @@ namespace LibKonfIAI
             {
                 if (Raks3000)
                 {
-                    setloc[2] = "Database=/usr/raks/Data/RAKS0000.fdb;";
+                    setloc[2] = "Database=/usr/raks/Data/Raks3000.fdb;";
                 }
                 else
                 {
@@ -210,23 +210,26 @@ namespace LibKonfIAI
 
         private static void writeLogToLocalFile(string type, string msg)
         {
-            StreamWriter writer;
-            if (Directory.Exists("c:\\imex"))
-            {
-                writer = new StreamWriter("C:\\imex\\Pakerator.log", true);
-            }
-            else
-            {
-                writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator.log", true);
-            }
+            StreamWriter writer = null;
+
             
             try
             {
+                if (Directory.Exists("c:\\imex"))
+                {
+                    writer = new StreamWriter(@"C:\imex\Pakerator.log", true);
+                }
+                else
+                {
+                    writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator.log", true);
+                }
                 writer.WriteLine(DateTime.Now.ToString() + ";" + type + "; Komunikat: " + msg);
             }
             catch (Exception)
             {
-                throw;
+                writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator.log", true);
+                writer.WriteLine(DateTime.Now.ToString() + ";" + type + "; Komunikat: " + msg);
+                //throw;
             }
             finally
             {
