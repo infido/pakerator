@@ -21,6 +21,7 @@ namespace Pakerator
     {
         public ConnectionDB polaczenie;
         private ConnectionFB polaczenieFB;
+        private ConnectionFB polaczenieRaks3000;
         //private FbDataAdapter fda;
         //private DataSet fds;
         //private DataView fDataView;
@@ -58,6 +59,7 @@ namespace Pakerator
             }
 
             polaczenieFB = new ConnectionFB(usrNam);
+            polaczenieRaks3000 = new ConnectionFB(usrNam, true);
         }
 
         private void bRefresh_Click(object sender, EventArgs e)
@@ -422,6 +424,10 @@ namespace Pakerator
                                     throw;
                                 }
                                 #endregion
+
+                                if (poz.Status.Length == 0)
+                                    poz.Status = "PUSTY";
+
                                 orderItems.Add(poz);
 
                                 #region 041 try na sprawdzenei statusu nagłówka
@@ -683,7 +689,7 @@ namespace Pakerator
             }
             else
             {
-                string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
+                string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, polaczenieRaks3000, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
                 MessageBox.Show("Wynik: " + res, "Wynik operacji zapisywania do RaksSQL");
             }
         }
@@ -691,6 +697,7 @@ namespace Pakerator
         private void OrdersView_FormClosed(object sender, FormClosedEventArgs e)
         {
             polaczenieFB.setConnectionOFF();
+            polaczenieRaks3000.setConnectionOFF();
         }
 
         private void dataGridView2Pozycje_CellClick(object sender, DataGridViewCellEventArgs e)

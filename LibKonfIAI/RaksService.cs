@@ -10,7 +10,7 @@ namespace LibKonfIAI
 {
     public class RaksService 
     {
-        public static string saveNewOrderAsInvoiceToRaks(ConnectionFB polaczenieFB,string orderIdIAI, int magId)
+        public static string saveNewOrderAsInvoiceToRaks(ConnectionFB polaczenieFB, ConnectionFB polaczenieR3, string orderIdIAI, int magId)
         {
             string komunikatZwrotny = "";
 
@@ -215,6 +215,8 @@ namespace LibKonfIAI
                                     }
 
                                     int lp = 1;
+                                    decimal net = 0;
+                                    decimal brt = 0;
                                     foreach (ApiOrdersServiceGet.productResultType fspoz in response.Results[0].orderDetails.productsResults)
                                     {
                                         string sqlKod = "SELECT ID_TOWARU from GM_TOWARY ";
@@ -236,7 +238,7 @@ namespace LibKonfIAI
                                         }
 
                                         int pozid = 0;
-                                        FbCommand gen_id_fspos = new FbCommand("SELECT GEN_ID(GM_FS_POZ_GEN,1) from rdb$database", polaczenieFB.getConnection());
+                                        FbCommand gen_id_fspos = new FbCommand("SELECT GEN_ID(GM_FSPOZ_GEN,1) from rdb$database", polaczenieFB.getConnection());
                                         try
                                         {
                                             pozid = Convert.ToInt32(gen_id_fspos.ExecuteScalar());
@@ -248,7 +250,88 @@ namespace LibKonfIAI
                                             throw;
                                         }
 
+                                        sql = "INSERT INTO GM_FSPOZ (ID,ID_GLOWKI,LP,ID_TOWARU,ILOSC,ILOSC_ALT,";
+                                        sql += "ID_STAWKI,STAWKA,";
+                                        sql += "CENA_KATALOGOWA,CENA_SPRZEDAZY,";
+                                        sql += "CENA_SP_PLN_BRUTTO,CENA_SP_WAL_BRUTTO,CENA_SP_PLN_BRUTTO_ALT,CENA_SP_WAL_BRUTTO_ALT,";
+                                        sql += "CENA_SP_PLN_NETTO,CENA_SP_WAL_NETTO,CENA_SP_PLN_NETTO_ALT,CENA_SP_WAL_NETTO_ALT, RABAT,";
+                                        sql += "SKROT_ORYGINALNY,NAZWA_ORYGINALNA,SKROT_ALTERNATYWNY,NAZWA_ALTERNATYWNA,GUID,DATA_WYDANIA)";
+                                        sql += " values ";
+                                        sql += " (" + pozid + "," + fsid + "," + lp + "," + kodTowar + "," + fspoz.productQuantity + "," + fspoz.productQuantity + ",";
 
+                                        int idSta = GetIDstawkiVat(polaczenieFB, kodTowar);
+                                        sql += idSta + ","; //ID_STAWKI VAT
+                                        sql += GetValStawkiVat(polaczenieR3, idSta) + ","; //STAWKA VAT
+
+                                        if (fspoz.productPanelPriceNet == 0)
+                                        {
+                                            sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; // CENA_KATALOGOWA netto z cennika Raks
+                                            sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; // CENA_SPRZEDAZY netto z cennika Raks (ta sama katalogowa)
+                                        }
+                                        else
+                                        {
+                                            sql += fspoz.productPanelPriceNet.ToString().Replace(",", ".") + ","; // CENA_KATALOGOWA netto z cennika Raks
+                                            sql += fspoz.productPanelPriceNet.ToString().Replace(",", ".") + ","; // CENA_SPRZEDAZY netto z cennika Raks (ta sama katalogowa)
+                                        }
+
+                                        brt += (decimal)fspoz.productOrderPrice;
+                                        sql += fspoz.productOrderPrice.ToString().Replace(",", ".") + ","; //CENA_SP_PLN_BRUTTO
+                                        sql += fspoz.productOrderPrice.ToString().Replace(",", ".") + ","; //CENA_SP_WAL_BRUTTO
+                                        sql += fspoz.productOrderPrice.ToString().Replace(",", ".") + ","; //CENA_SP_PLN_BRUTTO_ALT
+                                        sql += fspoz.productOrderPrice.ToString().Replace(",", ".") + ","; //CENA_SP_WAL_BRUTTO_ALT
+
+                                        net += (decimal)fspoz.productOrderPriceNet;
+                                        sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; //CENA_SP_PLN_NETTO
+                                        sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; //CENA_SP_WAL_NETTO
+                                        sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; //CENA_SP_PLN_NETTO_ALT
+                                        sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; //CENA_SP_WAL_NETTO_ALT
+
+                                        sql += "0,"; //RABAT do wyliczenia
+
+                                        sql += "'" + fspoz.productSizeCodeExternal + "',"; //SKROT_ORYGINALNY
+                                        sql += "'" + fspoz.productName + "',"; //NAZWA_ORYGINALNA
+                                        sql += "'" + fspoz.productSizeCodeExternal + "',"; //SKROT_ALTERNATYWNY
+                                        sql += "'" + fspoz.productName + "',"; //NAZWA_ALTERNATYWNA
+
+                                        sql += "'" + Guid.NewGuid() + "',";
+                                        sql += "'TODAY');"; //DATA_WYDANIA
+
+                                        FbCommand new_fspoz = new FbCommand(sql, polaczenieFB.getConnection());
+                                        try
+                                        {
+                                            new_fspoz.ExecuteScalar();
+                                            komunikatZwrotny = komunikatZwrotny.Equals("OK") ? "OK" : komunikatZwrotny + "; OK";
+                                            ConnectionFB.setErrOrLogMsg("INFO", "Dodano pozycje " + fspoz.productSizeCodeExternal + " paragonu dla " + orderIdIAI + " w RaksSQL; " + System.Environment.NewLine + komunikatZwrotny);
+                                        }
+                                        catch (FbException exgen)
+                                        {
+                                            komunikatZwrotny = "1013 zapisu pozycji paragonu/faktury w Raks: dla orderIdIAI: " + orderIdIAI + "; index:" + fspoz.productSizeCodeExternal;
+                                            ConnectionFB.setErrOrLogMsg("ERROR", "Błąd zapisania do RaksSQL: " + exgen.Message + System.Environment.NewLine + komunikatZwrotny);
+                                            throw;
+                                        }
+
+                                        sql = " UPDATE GM_FS SET ";
+                                        sql += "WAL_WARTOSC_NETTO=" + net.ToString().Replace(",",".") + ", ";
+                                        sql += "PLN_WARTOSC_NETTO=" + net.ToString().Replace(",", ".") + ", ";
+                                        sql += "WAL_WARTOSC_BRUTTO=" + brt.ToString().Replace(",", ".") + ", ";
+                                        sql += "PLN_WARTOSC_BRUTTO=" + brt.ToString().Replace(",", ".") + ", ";
+                                        sql += "WARTOSC_ROZRACHUNKU=" + brt.ToString().Replace(",", ".") + ", ";
+                                        sql += "WAL_KWOTA_VAT=" + (brt - net).ToString().Replace(",", ".") + ", ";
+                                        sql += "PLN_KWOTA_VAT=" + (brt - net).ToString().Replace(",", ".") + " ";
+                                        sql += " where ID=" + fsid + ";";
+                                        FbCommand sum_fs = new FbCommand(sql, polaczenieFB.getConnection());
+                                        try
+                                        {
+                                            sum_fs.ExecuteScalar();
+                                            komunikatZwrotny = komunikatZwrotny.Equals("OK") ? "OK" : komunikatZwrotny + "; OK";
+                                            ConnectionFB.setErrOrLogMsg("INFO", "Zaktualizowano wartości nagłówka paragonu/faktury dla " + orderIdIAI + " w RaksSQL; " + System.Environment.NewLine + komunikatZwrotny);
+                                        }
+                                        catch (FbException exgen)
+                                        {
+                                            komunikatZwrotny = "1014 uzupełnienia podsumownaia wartości paragonu/faktury w Raks: dla orderIdIAI: " + orderIdIAI;
+                                            ConnectionFB.setErrOrLogMsg("ERROR", "Błąd zapisania do RaksSQL: " + exgen.Message + System.Environment.NewLine + komunikatZwrotny);
+                                            throw;
+                                        }
 
                                         lp++;
                                     }
@@ -425,6 +508,44 @@ namespace LibKonfIAI
             {
                 ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetIDtypuPlatnosci) " + System.Environment.NewLine + " Kod 1009; Bład przy ustalaniu kodu płatności" + System.Environment.NewLine + expl.Message);
                 return 2;
+            };
+        }
+
+        private static int GetIDstawkiVat(ConnectionFB polaczenieFB, int idTowaru)
+        {
+            FbCommand sVat = new FbCommand("SELECT STAWKAVAT from GM_TOWARY where ID_TOWARU=" + idTowaru + ";", polaczenieFB.getConnection());
+            try
+            {
+                var sqls = sVat.ExecuteScalar();
+                if (sqls == null)
+                    return 12;
+                else
+                    return Convert.ToInt32(sqls);
+
+            }
+            catch (FbException expl)
+            {
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetIDstawkiVat) " + System.Environment.NewLine + " Kod 1012; Bład przy ustalaniu kodu stawki VAT z towaru ID_TOWARU:" + idTowaru + System.Environment.NewLine + expl.Message);
+                return 12;
+            };
+        }
+
+        private static decimal GetValStawkiVat(ConnectionFB polaczenieRaks300, int idStawkiVAT)
+        {
+            FbCommand sVat = new FbCommand("SELECT WARTOSC from STAWKI where ID=" + idStawkiVAT + ";", polaczenieRaks300.getConnection());
+            try
+            {
+                var sqls = sVat.ExecuteScalar();
+                if (sqls == null)
+                    return 23;
+                else
+                    return Convert.ToDecimal(sqls);
+
+            }
+            catch (FbException expl)
+            {
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetValStawkiVat) " + System.Environment.NewLine + " Kod 1013; Bład przy ustalaniu wartości stawki VAT z stawki o ID:" + idStawkiVAT + System.Environment.NewLine + expl.Message);
+                return 23;
             };
         }
     }

@@ -13,20 +13,20 @@ namespace LibKonfIAI
 {
     public class ConnectionFB
     {
-        public static FbConnection conn;
+        public FbConnection conn;
         private string logUser, logMagNaz, logIP, logHost;
         private int logMagID;
         private string IAIdomena, IAIklucz, IAIlogin;
 
-        public ConnectionFB(string appUser)
+        public ConnectionFB(string appUser, bool CzyRaks3000=false)
         {
             logUser = appUser;
-            setConnection();
+            setConnection(CzyRaks3000);
             getIAISettingsFromRegistry();
         }
-        private void setConnection()
+        private void setConnection(bool czyRaks3000)
         {
-            conn = new FbConnection(getConnectionString());
+            conn = new FbConnection(getConnectionString(czyRaks3000));
             setErrOrLogMsg("LOG", "Ustawiono parametry połaczenia. " + DateTime.Now);
 
             try
@@ -58,7 +58,7 @@ namespace LibKonfIAI
         {
             conn.Close();
         }
-        private String getConnectionString()
+        private String getConnectionString(bool Raks3000)
         {
             String[] setloc = new String[6];
             RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
@@ -85,12 +85,28 @@ namespace LibKonfIAI
             };
             if (((String)rejestr.GetValue("Path")).Length > 0)
             {
-                setloc[2] = "Database=" + (String)rejestr.GetValue("Path") + ";";
+                if (Raks3000)
+                {
+                    string r3 = (String)rejestr.GetValue("Path");
+                    r3 = r3.Substring(0, r3.LastIndexOf("F000"));
+                    setloc[2] = "Database=" + r3 + "Raks3000.fdb;";
+                }
+                else
+                {
+                    setloc[2] = "Database=" + (String)rejestr.GetValue("Path") + ";";
+                }
             }
             else
             {
-                setloc[2] = "Database=C:\\Program Files\\Raks\\Data\\F00001.fdb;";
-                setloc[2] = "Database=/usr/raks/Data/F00001.fdb;";
+                if (Raks3000)
+                {
+                    setloc[2] = "Database=/usr/raks/Data/RAKS0000.fdb;";
+                }
+                else
+                {
+                    setloc[2] = "Database=C:\\Program Files\\Raks\\Data\\F00001.fdb;";
+                    setloc[2] = "Database=/usr/raks/Data/F00001.fdb;";
+                }
             };
             if (((String)rejestr.GetValue("Serwer")).Length > 0)
             {
