@@ -492,6 +492,7 @@ namespace Pakerator
             }
 
             bCopyIndexToCliboard.Enabled = false;
+            bCopyNrZamToClip.Enabled = true;
         }
 
         public void Pokaz()
@@ -698,6 +699,11 @@ namespace Pakerator
         private void bCopyIndexToCliboard_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(dataGridView2Pozycje.CurrentRow.Cells["ProductSizeCodeExternal"].Value.ToString());
+        }
+
+        private void bCopyNrZamToClip_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString());
         }
 
         private void setKolorowaniePOZ()

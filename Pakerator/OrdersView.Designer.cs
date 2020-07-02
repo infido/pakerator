@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
+            this.bCopyNrZamToClip = new System.Windows.Forms.Button();
             this.bCopyIndexToCliboard = new System.Windows.Forms.Button();
             this.bAddCompanyToRaks = new System.Windows.Forms.Button();
             this.cSaveStastusToIAI = new System.Windows.Forms.CheckBox();
@@ -52,6 +53,7 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.bCopyNrZamToClip);
             this.panel1Gora.Controls.Add(this.bCopyIndexToCliboard);
             this.panel1Gora.Controls.Add(this.bAddCompanyToRaks);
             this.panel1Gora.Controls.Add(this.cSaveStastusToIAI);
@@ -67,10 +69,21 @@
             this.panel1Gora.Size = new System.Drawing.Size(1268, 77);
             this.panel1Gora.TabIndex = 0;
             // 
+            // bCopyNrZamToClip
+            // 
+            this.bCopyNrZamToClip.Enabled = false;
+            this.bCopyNrZamToClip.Location = new System.Drawing.Point(15, 44);
+            this.bCopyNrZamToClip.Name = "bCopyNrZamToClip";
+            this.bCopyNrZamToClip.Size = new System.Drawing.Size(140, 23);
+            this.bCopyNrZamToClip.TabIndex = 9;
+            this.bCopyNrZamToClip.Text = "Kopiuj &nr zam do schowka";
+            this.bCopyNrZamToClip.UseVisualStyleBackColor = true;
+            this.bCopyNrZamToClip.Click += new System.EventHandler(this.bCopyNrZamToClip_Click);
+            // 
             // bCopyIndexToCliboard
             // 
             this.bCopyIndexToCliboard.Enabled = false;
-            this.bCopyIndexToCliboard.Location = new System.Drawing.Point(12, 42);
+            this.bCopyIndexToCliboard.Location = new System.Drawing.Point(161, 44);
             this.bCopyIndexToCliboard.Name = "bCopyIndexToCliboard";
             this.bCopyIndexToCliboard.Size = new System.Drawing.Size(145, 23);
             this.bCopyIndexToCliboard.TabIndex = 8;
@@ -254,5 +267,6 @@
         private System.Windows.Forms.CheckBox cSaveStastusToIAI;
         private System.Windows.Forms.Button bAddCompanyToRaks;
         private System.Windows.Forms.Button bCopyIndexToCliboard;
+        private System.Windows.Forms.Button bCopyNrZamToClip;
     }
 }
