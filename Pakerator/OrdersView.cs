@@ -549,9 +549,31 @@ namespace Pakerator
                     row.DefaultCellStyle.BackColor = Color.Red;
                     row.DefaultCellStyle.SelectionForeColor = Color.Red;
                 }
+
+                if (row.Cells["raksNumer"].Value==null)
+                    row.Cells["raksNumer"].Value = getNumerRaksForId(row.Cells["orderSerialNumber"].Value.ToString());
             }
         }
 
+
+        private string getNumerRaksForId(string orderSerialNumber)
+        {
+            FbCommand fssym = new FbCommand("SELECT NUMER from GM_FS where SYGNATURA like '" + orderSerialNumber + "';", polaczenie.getConnection());
+            try
+            {
+                var im = fssym.ExecuteScalar();
+                if (im != DBNull.Value)
+                    return Convert.ToString(im);
+                else
+                    return "";
+            }
+            catch (FbException ex)
+            {
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "038 Bład zapytania o NUMER/SYMBOL dokumentu dla zamówienia przy przeliczaniu rekordów prezentacji zamówień z www: " + orderSerialNumber + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, "", 0, 0);
+                MessageBox.Show("038 Bład zapytania o NUMER/SYMBOL przy przeliczaniu rekordów prezentacji zamówień z www: " + orderSerialNumber + System.Environment.NewLine + ex.Message);
+                return "";
+            }
+        }
         private string setSQLInsertSchowek(string indeks, string schoNaz, string user, string ilosc, string cena, string cenaNet)
         {
             FbCommand gen_id_schowek = new FbCommand("SELECT GEN_ID(GM_SCHOWEK_POZYCJI_GEN,1) from rdb$database", polaczenie.getConnection());
@@ -683,13 +705,16 @@ namespace Pakerator
 
         private void bAddCompanyToRaks_Click(object sender, EventArgs e)
         {
-            if ((bool)dataGridView1Naglowki.CurrentRow.Cells["NaFakture"].Value)
+            if (dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString().Length>0)
+                MessageBox.Show("Zamówienie jest powiązane z dokumentem sprzedaży " + dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString() + " w RaksSQL","Przenoszenie przerwano!");
+            else if ((bool)dataGridView1Naglowki.CurrentRow.Cells["NaFakture"].Value)
             {
                 MessageBox.Show("Klient oczekuje faktury, tworzenie faktu, jest niedostepne w tej wersji","Funkcjonalność nieobsługiwana");
             }
             else
             {
                 string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, polaczenieRaks3000, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
+                dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value = res;
                 MessageBox.Show("Wynik: " + res, "Wynik operacji zapisywania do RaksSQL");
             }
         }
@@ -786,6 +811,7 @@ namespace Pakerator
         private bool naFakture;
         private string orderSourceName;
         private string orderSourceType;
+        private string raksNumer;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -797,6 +823,7 @@ namespace Pakerator
 
         public string OrderId { get => orderId; set => orderId = value; }
         public string OrderStatus { get => orderStatus; set => orderStatus = value; }
+        public string RaksNumer { get => raksNumer; set => raksNumer = value; }
         public apiFlagType ApiFlag { get => apiFlag; set => apiFlag = value; }
         public string OrderAddDate { get => orderAddDate; set => orderAddDate = value; }
         public string OrderPaymentType { get => orderPaymentType; set => orderPaymentType = value; }

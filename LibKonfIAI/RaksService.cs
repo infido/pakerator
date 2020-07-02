@@ -13,6 +13,7 @@ namespace LibKonfIAI
         public static string saveNewOrderAsInvoiceToRaks(ConnectionFB polaczenieFB, ConnectionFB polaczenieR3, string orderIdIAI, int magId)
         {
             string komunikatZwrotny = "";
+            string symDoku = "";
 
             if (DataSessionIAI.GetPopertySettingsForAIA())
             {
@@ -52,9 +53,7 @@ namespace LibKonfIAI
                         }
                         else
                         {
-                            //Sprawdzić jeszcze raz czy mamy wszystkie indexy z pozycji i czy nie są puste
                             bool indeksyNaPozycjachSaOK = true;
-//TODO: dorobić sprawdzenie pozycji  
 
                             //mamy zamówienie można działać dalej
                             if (indeksyNaPozycjachSaOK)
@@ -99,6 +98,7 @@ namespace LibKonfIAI
 
                                     sql += "'" + nrDoku.nazwaKodu + "', "; //KOD definiowany w kodach dokumentów przez administartora Raks
                                     sql += nrDoku.nrKolejny + ", "; //NR 
+                                    symDoku = nrDoku.wyliczonySymbolDlaDok;
                                     sql += "'" + nrDoku.wyliczonySymbolDlaDok + "', "; //NUMER - symbol dokumentu
 
 
@@ -128,7 +128,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI hurt z panelu,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
+                                            sql += "'IAI hurt z panelu," + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }else if (response.Results[0].orderType.ToString().Equals("t"))
                                     {
@@ -138,7 +138,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI hurt ze sklepu,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
+                                            sql += "'IAI hurt ze sklepu," + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
                                     else if(response.Results[0].orderType.ToString().Equals("n"))
@@ -149,7 +149,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI detal ze sklepu,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
+                                            sql += "'IAI detal ze sklepu," + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
                                     else if(response.Results[0].orderType.ToString().Equals("r"))
@@ -160,18 +160,18 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI det.pan.,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
+                                            sql += "'IAI det.pan.," + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
                                     else
                                     {
                                         if (response.Results[0].orderDetails.prepaids.Length > 0)
                                         {
-                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI,, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
+                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
                                         }
                                         else
                                         {
-                                            sql += "'IAI,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
+                                            sql += "'IAI," + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
 
@@ -194,13 +194,18 @@ namespace LibKonfIAI
                                         sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                     }
 
-                                    sql += "'" + response.Results[0].orderDetails.dispatch.courierName.ToString().Substring(0,39) + "' ,"; //DOSTAWA_ULICA >> Kurier
+                                    if (response.Results[0].orderDetails.dispatch.courierName.ToString().Length>39)
+                                        sql += "'" + response.Results[0].orderDetails.dispatch.courierName.ToString().Substring(0,39) + "' ,"; //DOSTAWA_ULICA >> Kurier
+                                    else
+                                        sql += "'" + response.Results[0].orderDetails.dispatch.courierName.ToString() + "' ,"; //DOSTAWA_ULICA >> Kurier
+
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressZipCode + "' ,"; //DOSTAWA_KOD_POCZTOWY
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCity + "', "; //DOSTAWA_MIEJSCOWOSC 
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCountry + "', "; //DOSTAWA_PANSTWO (Nazwa dostawcy przesyłki)
                                     if (response.Results[0].orderDetails.prepaids.Length > 0)
                                     {
-                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ";   " + response.Results[0].orderDetails.prepaids[0].paymentAddDate + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentStatus + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentValue + "');"; //UWAGI
+                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ";   " + response.Results[0].orderDetails.prepaids[0].paymentAddDate + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentStatus + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentValue;
+                                        sql += System.Environment.NewLine + "');"; //UWAGI
                                     }
                                     else
                                     {
@@ -366,7 +371,7 @@ namespace LibKonfIAI
 
             }
             
-            return komunikatZwrotny;
+            return komunikatZwrotny + ">>" + symDoku;
         }
 
         private static int GetSprzedazDetalicznaCustomerID(ConnectionFB polaczenieFB)
