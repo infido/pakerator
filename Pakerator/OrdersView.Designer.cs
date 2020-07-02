@@ -93,6 +93,7 @@
             // 
             // bAddCompanyToRaks
             // 
+            this.bAddCompanyToRaks.Enabled = false;
             this.bAddCompanyToRaks.Location = new System.Drawing.Point(670, 39);
             this.bAddCompanyToRaks.Name = "bAddCompanyToRaks";
             this.bAddCompanyToRaks.Size = new System.Drawing.Size(271, 23);

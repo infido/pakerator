@@ -484,11 +484,13 @@ namespace Pakerator
                 dataGridView1Naglowki.CurrentRow.Cells["StatusStanowRaks"].Value.ToString().StartsWith("ARCHI"))
             {
                 bZapiszPozDoSchowkaRaks.Visible = false;
+                bAddCompanyToRaks.Enabled = false;
             }
             else
             {
                 bZapiszPozDoSchowkaRaks.Visible = true;
                 bZapiszPozDoSchowkaRaks.Text = "Zapisz pozycje zamówienia " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString()  + " do schowka w RaksSQL";
+                bAddCompanyToRaks.Enabled = true;
             }
 
             bCopyIndexToCliboard.Enabled = false;
