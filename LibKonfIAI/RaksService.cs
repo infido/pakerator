@@ -80,7 +80,7 @@ namespace LibKonfIAI
                                     string sql = "INSERT INTO GM_FS (ID,MAGNUM,ROK,MIESIAC,TYP_DOK_MAGAZYNOWEGO,KOD,NR,NUMER,SPOSOB_LICZENIA,ID_WALUTY,KURS,NAZWA_DOKUMENTU, ";
                                     sql += " ID_PLATNIKA, ID_ODBIORCY,NAZWA_SKROCONA_PLATNIKA,NAZWA_PELNA_PLATNIKA,NAZWA_SKROCONA_ODBIORCY,NAZWA_PELNA_ODBIORCY,KOD_KRESKOWY_PLATNIKA, ";
                                     sql += " WARTOSC_ZAKUPU_KAUCJ,WAL_WARTOSC_KAUCJ,PLN_WARTOSC_KAUCJ,OPERATOR,ZMIENIL,SYGNATURA,ZNACZNIKI,MAGAZYNOWY,";
-                                    sql += " GUID,ID_SPOSOBU_PLATNOSCI,NAZWA_SPOSOBU_PLATNOSCI,DOSTAWA_ULICA,DOSTAWA_KOD_POCZTOWY,DOSTAWA_MIEJSCOWOSC,DOSTAWA_PANSTWO";
+                                    sql += " GUID,ID_SPOSOBU_PLATNOSCI,NAZWA_SPOSOBU_PLATNOSCI,DOSTAWA_ULICA,DOSTAWA_KOD_POCZTOWY,DOSTAWA_MIEJSCOWOSC,DOSTAWA_PANSTWO,UWAGI";
                                     sql += ") values (" + fsid + ", ";
                                     sql += magId + ", ";  //MAGNUM
 
@@ -128,7 +128,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI hurt z panelu,' ,"; //ZNACZNIK
+                                            sql += "'IAI hurt z panelu,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }else if (response.Results[0].orderType.ToString().Equals("t"))
                                     {
@@ -138,7 +138,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI hurt ze sklepu,' ,"; //ZNACZNIK
+                                            sql += "'IAI hurt ze sklepu,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
                                     else if(response.Results[0].orderType.ToString().Equals("n"))
@@ -149,7 +149,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI detal ze sklepu,' ,"; //ZNACZNIK
+                                            sql += "'IAI detal ze sklepu,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
                                     else if(response.Results[0].orderType.ToString().Equals("r"))
@@ -160,7 +160,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI det.pan.,' ,"; //ZNACZNIK
+                                            sql += "'IAI det.pan.,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
                                     else
@@ -171,7 +171,7 @@ namespace LibKonfIAI
                                         }
                                         else
                                         {
-                                            sql += "'IAI,' ,"; //ZNACZNIK
+                                            sql += "'IAI,'" + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "' ,"; //ZNACZNIK
                                         }
                                     }
 
@@ -197,8 +197,15 @@ namespace LibKonfIAI
                                     sql += "'" + response.Results[0].orderDetails.dispatch.courierName.ToString().Substring(0,39) + "' ,"; //DOSTAWA_ULICA >> Kurier
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressZipCode + "' ,"; //DOSTAWA_KOD_POCZTOWY
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCity + "', "; //DOSTAWA_MIEJSCOWOSC 
-                                    sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCountry + "'); "; //DOSTAWA_PANSTWO (Nazwa dostawcy przesyłki)
-
+                                    sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCountry + "', "; //DOSTAWA_PANSTWO (Nazwa dostawcy przesyłki)
+                                    if (response.Results[0].orderDetails.prepaids.Length > 0)
+                                    {
+                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ";   " + response.Results[0].orderDetails.prepaids[0].paymentAddDate + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentStatus + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentValue + "');"; //UWAGI
+                                    }
+                                    else
+                                    {
+                                        sql += "'...');"; //UWAGI
+                                    }
 
                                     FbCommand new_fs = new FbCommand(sql, polaczenieFB.getConnection());
                                     try
