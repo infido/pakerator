@@ -124,7 +124,7 @@ namespace LibKonfIAI
                                     {
                                         if (response.Results[0].orderDetails.prepaids.Length > 0)
                                         {
-                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformId + ",IAI hurt z panelu,' ,"; //ZNACZNIK
+                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI-p, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
                                         }
                                         else
                                         {
@@ -134,7 +134,7 @@ namespace LibKonfIAI
                                     {
                                         if (response.Results[0].orderDetails.prepaids.Length > 0)
                                         {
-                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformId + ",IAI hurt ze sklepu,' ,"; //ZNACZNIK
+                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI-t, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
                                         }
                                         else
                                         {
@@ -145,7 +145,7 @@ namespace LibKonfIAI
                                     {
                                         if (response.Results[0].orderDetails.prepaids.Length > 0)
                                         {
-                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformId + ",IAI detal ze sklepu,' ,"; //ZNACZNIK
+                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI-n, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
                                         }
                                         else
                                         {
@@ -156,18 +156,18 @@ namespace LibKonfIAI
                                     {
                                         if (response.Results[0].orderDetails.prepaids.Length > 0)
                                         {
-                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformId + ",IAI detal z panelu,' ,"; //ZNACZNIK
+                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI-r, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
                                         }
                                         else
                                         {
-                                            sql += "'IAI detal z panelu,' ,"; //ZNACZNIK
+                                            sql += "'IAI det.pan.,' ,"; //ZNACZNIK
                                         }
                                     }
                                     else
                                     {
                                         if (response.Results[0].orderDetails.prepaids.Length > 0)
                                         {
-                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformId + ",IAI,' ,"; //ZNACZNIK
+                                            sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ",IAI,, " + response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceName + "', "; //ZNACZNIK
                                         }
                                         else
                                         {
@@ -194,7 +194,7 @@ namespace LibKonfIAI
                                         sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                     }
 
-                                    sql += "'" + response.Results[0].orderDetails.dispatch.courierName + "' ,"; //DOSTAWA_ULICA >> Kurier
+                                    sql += "'" + response.Results[0].orderDetails.dispatch.courierName.ToString().Substring(0,39) + "' ,"; //DOSTAWA_ULICA >> Kurier
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressZipCode + "' ,"; //DOSTAWA_KOD_POCZTOWY
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCity + "', "; //DOSTAWA_MIEJSCOWOSC 
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCountry + "'); "; //DOSTAWA_PANSTWO (Nazwa dostawcy przesyłki)
