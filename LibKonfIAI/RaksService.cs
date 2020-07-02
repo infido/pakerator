@@ -204,12 +204,15 @@ namespace LibKonfIAI
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCountry + "', "; //DOSTAWA_PANSTWO (Nazwa dostawcy przesyłki)
                                     if (response.Results[0].orderDetails.prepaids.Length > 0)
                                     {
-                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ";   " + response.Results[0].orderDetails.prepaids[0].paymentAddDate + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentStatus + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentValue;
-                                        sql += System.Environment.NewLine + "');"; //UWAGI
+                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ";   " + response.Results[0].orderDetails.prepaids[0].paymentAddDate + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentStatus + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentValue.ToString("C");
+                                        sql += System.Environment.NewLine + System.Environment.NewLine;
+                                        sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
+                                        sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C") + "');"; //UWAGI
                                     }
                                     else
                                     {
-                                        sql += "'...');"; //UWAGI
+                                        sql += "'Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
+                                        sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C") + "');"; //UWAGI
                                     }
 
                                     FbCommand new_fs = new FbCommand(sql, polaczenieFB.getConnection());
