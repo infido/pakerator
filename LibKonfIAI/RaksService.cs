@@ -92,7 +92,7 @@ namespace LibKonfIAI
 
                                     if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("selff_added"))
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAP");
-                                    else if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("auction"))
+                                    else if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("auctions"))
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAA");
                                     else
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAI");
