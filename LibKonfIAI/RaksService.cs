@@ -79,7 +79,8 @@ namespace LibKonfIAI
                                     string sql = "INSERT INTO GM_FS (ID,MAGNUM,ROK,MIESIAC,TYP_DOK_MAGAZYNOWEGO,KOD,NR,NUMER,SPOSOB_LICZENIA,ID_WALUTY,KURS,NAZWA_DOKUMENTU, ";
                                     sql += " ID_PLATNIKA, ID_ODBIORCY,NAZWA_SKROCONA_PLATNIKA,NAZWA_PELNA_PLATNIKA,NAZWA_SKROCONA_ODBIORCY,NAZWA_PELNA_ODBIORCY,KOD_KRESKOWY_PLATNIKA, ";
                                     sql += " WARTOSC_ZAKUPU_KAUCJ,WAL_WARTOSC_KAUCJ,PLN_WARTOSC_KAUCJ,OPERATOR,ZMIENIL,SYGNATURA,ZNACZNIKI,MAGAZYNOWY,";
-                                    sql += " GUID,ID_SPOSOBU_PLATNOSCI,NAZWA_SPOSOBU_PLATNOSCI,DOSTAWA_ULICA,DOSTAWA_KOD_POCZTOWY,DOSTAWA_MIEJSCOWOSC,DOSTAWA_PANSTWO,UWAGI";
+                                    sql += " GUID,ID_SPOSOBU_PLATNOSCI,NAZWA_SPOSOBU_PLATNOSCI,DATA_PLATNOSCI, ";
+                                    sql += " DOSTAWA_ULICA,DOSTAWA_KOD_POCZTOWY,DOSTAWA_MIEJSCOWOSC,DOSTAWA_PANSTWO,UWAGI";
                                     sql += ") values (" + fsid + ", ";
                                     sql += magId + ", ";  //MAGNUM
 
@@ -193,6 +194,13 @@ namespace LibKonfIAI
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Pobranie") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                     }
+
+                                    if (response.Results[0].orderDetails.prepaids.Length > 0)
+                                    {
+                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].paymentAddDate.Substring(0,10) + "',";  //DATA_PLATNOSCI
+                                    }
+                                    else
+                                        sql += "'NOW',"; //DATA_PLATNOSCI
 
                                     if (response.Results[0].orderDetails.dispatch.courierName.ToString().Length>39)
                                         sql += "'" + response.Results[0].orderDetails.dispatch.courierName.ToString().Substring(0,39) + "' ,"; //DOSTAWA_ULICA >> Kurier
