@@ -137,7 +137,7 @@ namespace Pakerator
             int corectDocID = 0; 
             bool toJestMMP = true;
 
-            if (kodKreskowy.Length > 0)
+            if (cSkanFZ.Checked==false && kodKreskowy.Length > 0)
             {
                 if (kodKreskowy.Contains("/P/") || kodKreskowy.Contains("/R/") || kodKreskowy.Contains("MM"))
                 {
@@ -149,9 +149,17 @@ namespace Pakerator
                 }
             }
 
-            if (czyToJestListPrzewozowy)
+            if (cSkanFZ.Checked==true)
             {
-                sql = "select ID, NUMER, NAZWA_PELNA_PLATNIKA, NAZWA_PELNA_ODBIORCY, ";
+                sql = "select ID, KOD, NUMER, NAZWA_DOKUMENTU as NAZWA_PELNA_PLATNIKA, NAZWA_PELNA_DOSTAWCY as NAZWA_PELNA_ODBIORCY,  ";
+                sql += "COALESCE(ULICA_DOSTAWCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_DOSTAWCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_DOSTAWCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_DOSTAWCY,'') as MIEJSCOWOSC_ODBIORCY, ";
+                sql += "COALESCE(PANSTWO_DOSTAWCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_DOSTAWCY,'') as KOD_ODBIORCY, OPERATOR, NR_FAKTURY_DOSTAWCY as SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_DOSTAWCY as ID_ODBIORCY, 0 as ID_PLATNIKA  ";
+                sql += "FROM GM_FZ ";
+                sql += "where MAGNUM=" + magID + " and (NUMER='" + tToSkan.Text + "' OR NR_FAKTURY_DOSTAWCY='" + tToSkan.Text + "' OR  SYGNATURA='" + tToSkan.Text + "');";
+            }
+            else if (czyToJestListPrzewozowy)
+            {
+                sql = "select ID, KOD, NUMER, NAZWA_PELNA_PLATNIKA, NAZWA_PELNA_ODBIORCY, ";
                 sql += "COALESCE(ULICA_ODBIORCY,'') as ULICA_ODBIORCY, COALESCE(NRDOMU_ODBIORCY,'') as NRDOMU_ODBIORCY, COALESCE(NRLOKALU_ODBIORCY,'') as NRLOKALU_ODBIORCY, COALESCE(MIEJSCOWOSC_ODBIORCY,'') as MIEJSCOWOSC_ODBIORCY, ";
                 sql += "COALESCE(PANSTWO_ODBIORCY,'') as PANSTWO_ODBIORCY, COALESCE(KOD_ODBIORCY,'') as KOD_ODBIORCY, OPERATOR, SYGNATURA, COALESCE(UWAGI,'') as UWAGI, ID_ODBIORCY, ID_PLATNIKA ";
                 sql += "from GM_FS ";
@@ -161,7 +169,7 @@ namespace Pakerator
             {
                 string tmpkod = "";
                 //ma być niezlależne, jak skanujemy MMR a jesteśmy na przyjeciu to robimy przyjęcie
-                sql = "select ID, MAGNUM, ZRODLO_CEL, ID_MM, KOD from GM_MM where NUMER ='" + kodKreskowy + "'";
+                sql = "select ID, KOD, MAGNUM, ZRODLO_CEL, ID_MM, KOD from GM_MM where NUMER ='" + kodKreskowy + "'";
                 FbCommand cdktmp = new FbCommand(sql, polaczenie.getConnection());
                 try
                 {
@@ -224,6 +232,7 @@ namespace Pakerator
                 if (fdk.Read())
                 {
                     dokId = (int)fdk["ID"];
+                    ltypdok.Text = (string)fdk["KOD"];
                     lDokument.Text = (string)fdk["NUMER"];
                     lListPrzewozowy.Text = kodKreskowy;
                     platnik = (int)fdk["ID_PLATNIKA"];
@@ -233,10 +242,21 @@ namespace Pakerator
                     lOdbiorcaTresc.Text += (string)fdk["ULICA_ODBIORCY"] + " " + (string)fdk["NRDOMU_ODBIORCY"] + " " + (string)fdk["NRLOKALU_ODBIORCY"];
 
                     //Tu wczytujemy pozycje dokumentu
-                    if (czyToJestListPrzewozowy)
+                    if (cSkanFZ.Checked==true)
+                    {
+                        //Dal faktury zakupowej
+                        sql = "select GM_FZPOZ.ID, GM_FZPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FZPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_FZPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FZPOZ.ID_TOWARU ";
+                        sql += ", -1 STAN_" + magKod + " ";
+                        if (magID2 != 0 && magID != magID2)
+                            sql += " , -1 STAN_" + magKod2 + " ";
+                        sql += " , -1 W_WYDANIU_" + magKod + " ";
+                        sql += "from GM_FZPOZ ";
+                        sql += "join GM_TOWARY ON GM_FZPOZ.ID_TOWARU=GM_TOWARY.ID ";
+                        sql += "where GM_FZPOZ.ID_GLOWKI=" + dokId;
+                    }
+                    else if (czyToJestListPrzewozowy)
                     {
                         //Dla faktury
-                        ltypdok.Text = "FS";
                         sql = "select GM_FSPOZ.ID, GM_FSPOZ.LP, GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, GM_FSPOZ.ILOSC, 0 as SKANOWANE, COALESCE(GM_FSPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_FSPOZ.ID_TOWARU ";
                         sql += ", -1 STAN_" + magKod + " ";
                         if (magID2 != 0 && magID != magID2)
@@ -249,7 +269,6 @@ namespace Pakerator
                     else if (toJestMMP)
                     {
                         //Dla przesunięcia między magazynowego MMP
-                        ltypdok.Text = "MMP";
                         sql =  "select GM_MMPPOZ.ID, GM_MMPPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMPPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMPPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMPPOZ.ID_TOWARU ";
@@ -264,7 +283,6 @@ namespace Pakerator
                     else if (!toJestMMP)
                     {
                         //Dla przesunięcia między magazynowego MMR
-                        ltypdok.Text = "MMR";
                         sql = "select GM_MMRPOZ.ID, GM_MMRPOZ.LP, ";
                         sql += "GM_TOWARY.TYP, GM_TOWARY.SKROT, COALESCE(GM_TOWARY.SKROT2,'') as SKROT2, COALESCE(GM_TOWARY.KOD_KRESKOWY,'') as KOD_KRESKOWY, GM_TOWARY.NAZWA, ";
                         sql += "GM_MMRPOZ.ILOSC_PO as ILOSC, 0 as SKANOWANE, COALESCE(GM_MMRPOZ.ZNACZNIKI,'') as ZNACZNIKI, GM_MMRPOZ.ID_TOWARU ";
@@ -300,7 +318,9 @@ namespace Pakerator
                     kolorowanieRekordow();
 
                     string tab = "";
-                    if (czyToJestListPrzewozowy)
+                    if (cSkanFZ.Checked)
+                        tab = "GM_FZ";
+                    else if (czyToJestListPrzewozowy)
                     {
                         tab = "GM_FS";
                     }
@@ -315,8 +335,8 @@ namespace Pakerator
                         tab = "GM_MM";
                     }
 
-                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI=COALESCE('" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                            DateTime.Now.ToShortTimeString() + ";',ZNACZNIKI)where ID=" + dokId, polaczenie.getConnection());
+                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI='" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                            DateTime.Now.ToShortTimeString() + ";' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
 
                     try
                     {
@@ -330,8 +350,10 @@ namespace Pakerator
                             tToSkan.Enabled = false;
                             lBlokadaDokwRaks.Visible = true;
                             
-                            if (tab.Equals("GM_FS"))
-                              setLog("ERROR", "011 Dokument faktury: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                            if (cSkanFZ.Checked)
+                                setLog("ERROR", "0111 Dokument faktury zakupowej: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                            else if (tab.Equals("GM_FS"))
+                              setLog("ERROR", "0112 Dokument faktury/paragonu: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                             else
                                 setLog("ERROR", "012 Dokument przesunięcia międzymagazynowego: " + lDokument.Text + " jest zablokowany przez innego użytkownika programu! Nie ustawiono informacji o rozpoczeciu skanowania!", tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                         }
@@ -382,7 +404,7 @@ namespace Pakerator
 
                             //updatsw
                             FbCommand cdk = null;
-                            if (ltypdok.Text.Equals("FS"))
+                            if (ltypdok.Text.StartsWith("FS") || ltypdok.Text.StartsWith("PA"))
                             {
                                 cdk = new FbCommand("UPDATE GM_FSPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
                             }
@@ -393,6 +415,10 @@ namespace Pakerator
                             else if (ltypdok.Text.Equals("MMR"))
                             {
                                 cdk = new FbCommand("UPDATE GM_MMRPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                            }
+                            else if (ltypdok.Text.StartsWith("FZ") || ltypdok.Text.StartsWith("DI"))
+                            {
+                                cdk = new FbCommand("UPDATE GM_FZPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
                             }
                             try
                             {
@@ -638,6 +664,7 @@ namespace Pakerator
             tToSkan.Enabled = true;
             lBlokadaDokwRaks.Visible = false;
             bSetStatusAgain.Visible = false;
+            cSkanFZ.Checked = false;
 
             dokId = 0;
             lDokument.Text = "";
@@ -772,7 +799,13 @@ namespace Pakerator
                 zapiszHistoria("003 Dokument zakończony poprawnie: " + lDokument.Text);
                 FbCommand cdk = null;
                 FbCommand controlCdk = null;
-                if (ltypdok.Text.Equals("FS"))
+                if (ltypdok.Text.StartsWith("FZ") || ltypdok.Text.StartsWith("DI"))
+                {
+                    controlCdk = new FbCommand(" SELECT ZNACZNIKI from GM_FZ where ID=" + dokId + " WITH LOCK;", polaczenie.getConnection());
+                    cdk = new FbCommand("UPDATE GM_FZ SET ZNACZNIKI='Przyjął:" + DateTime.Now.ToShortDateString() + " " +
+                          DateTime.Now.ToShortTimeString() + "; ' || ZNACZNIKI where ID=" + dokId, polaczenie.getConnection());
+                }
+                else if (ltypdok.Text.StartsWith("FS") || ltypdok.Text.StartsWith("PA"))
                 {
                     controlCdk = new FbCommand(" SELECT ZNACZNIKI from GM_FS where ID=" + dokId + " WITH LOCK;", polaczenie.getConnection());
                     cdk = new FbCommand("UPDATE GM_FS SET ZNACZNIKI='Zapakował:" + DateTime.Now.ToShortDateString() + " " +

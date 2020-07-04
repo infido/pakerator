@@ -34,7 +34,18 @@
             this.listaDokumentówDlaMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.zamówieniaNaPortaluWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.roboczaListaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwRealizowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwPakowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwGotoweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwZwrotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwReklamacjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -64,17 +75,7 @@
             this.menuStrip2DataGrid = new System.Windows.Forms.MenuStrip();
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwRealizowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwPakowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwGotoweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwZwrotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwReklamacjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.roboczaListaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cSkanFZ = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -139,12 +140,89 @@
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Text = "Zamówienia na portalu www";
             // 
+            // roboczaListaZamówieńZWwwToolStripMenuItem
+            // 
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Name = "roboczaListaZamówieńZWwwToolStripMenuItem";
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Text = "Robocza lista zamówień z www ";
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.roboczaListaZamówieńZWwwToolStripMenuItem_Click);
+            // 
             // listaZamówieńZWwwToolStripMenuItem
             // 
             this.listaZamówieńZWwwToolStripMenuItem.Name = "listaZamówieńZWwwToolStripMenuItem";
             this.listaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
             this.listaZamówieńZWwwToolStripMenuItem.Text = "Lista zamówień z www - nieobsłużone";
             this.listaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwRealizowaneToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Name = "listaZamówieńZWwwRealizowaneToolStripMenuItem";
+            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Text = "Lista zamówień z www - realizowane";
+            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwRealizowaneToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwPakowaneToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Name = "listaZamówieńZWwwPakowaneToolStripMenuItem";
+            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Text = "Lista zamówień z www - pakowane";
+            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwPakowaneToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwGotoweToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwGotoweToolStripMenuItem.Name = "listaZamówieńZWwwGotoweToolStripMenuItem";
+            this.listaZamówieńZWwwGotoweToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwGotoweToolStripMenuItem.Text = "Lista zamówień z www - gotowe";
+            this.listaZamówieńZWwwGotoweToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwGotoweToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwZwrotToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwZwrotToolStripMenuItem.Name = "listaZamówieńZWwwZwrotToolStripMenuItem";
+            this.listaZamówieńZWwwZwrotToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwZwrotToolStripMenuItem.Text = "Lista zamówień z www - zwrot";
+            this.listaZamówieńZWwwZwrotToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwZwrotToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwKlientAnulowałToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Name = "listaZamówieńZWwwKlientAnulowałToolStripMenuItem";
+            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Text = "Lista zamówień z www - klient anulował";
+            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwReklamacjeToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Name = "listaZamówieńZWwwReklamacjeToolStripMenuItem";
+            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Text = "Lista zamówień z www - reklamacje";
+            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwReklamacjeToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Name = "listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem";
+            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Text = "Lista zamówień z www - oczekujące na wpłatę";
+            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Name = "listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem";
+            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Text = "Lista zamówień z www - oczekujące na dostawę";
+            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwWstrzymaneToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Name = "listaZamówieńZWwwWstrzymaneToolStripMenuItem";
+            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Text = "Lista zamówień z www - wstrzymane";
+            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwWstrzymaneToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Name = "listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem";
+            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Text = "Lista zamówień z www - realizowane w programie F/K";
+            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem_Click);
             // 
             // konfiguracjaToolStripMenuItem
             // 
@@ -162,6 +240,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cSkanFZ);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.cMagazyn2);
             this.panel1.Controls.Add(this.label3);
@@ -447,82 +526,15 @@
             this.pobranieInfoOTowarachToolStripMenuItem.Visible = false;
             this.pobranieInfoOTowarachToolStripMenuItem.Click += new System.EventHandler(this.pobranieInfoOTowarachToolStripMenuItem_Click);
             // 
-            // listaZamówieńZWwwRealizowaneToolStripMenuItem
+            // cSkanFZ
             // 
-            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Name = "listaZamówieńZWwwRealizowaneToolStripMenuItem";
-            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Text = "Lista zamówień z www - realizowane";
-            this.listaZamówieńZWwwRealizowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwRealizowaneToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwPakowaneToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Name = "listaZamówieńZWwwPakowaneToolStripMenuItem";
-            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Text = "Lista zamówień z www - pakowane";
-            this.listaZamówieńZWwwPakowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwPakowaneToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwGotoweToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwGotoweToolStripMenuItem.Name = "listaZamówieńZWwwGotoweToolStripMenuItem";
-            this.listaZamówieńZWwwGotoweToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwGotoweToolStripMenuItem.Text = "Lista zamówień z www - gotowe";
-            this.listaZamówieńZWwwGotoweToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwGotoweToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwZwrotToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwZwrotToolStripMenuItem.Name = "listaZamówieńZWwwZwrotToolStripMenuItem";
-            this.listaZamówieńZWwwZwrotToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwZwrotToolStripMenuItem.Text = "Lista zamówień z www - zwrot";
-            this.listaZamówieńZWwwZwrotToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwZwrotToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwKlientAnulowałToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Name = "listaZamówieńZWwwKlientAnulowałToolStripMenuItem";
-            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Text = "Lista zamówień z www - klient anulował";
-            this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwKlientAnulowałToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwReklamacjeToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Name = "listaZamówieńZWwwReklamacjeToolStripMenuItem";
-            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Text = "Lista zamówień z www - reklamacje";
-            this.listaZamówieńZWwwReklamacjeToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwReklamacjeToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Name = "listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem";
-            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Text = "Lista zamówień z www - oczekujące na wpłatę";
-            this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Name = "listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem";
-            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Text = "Lista zamówień z www - oczekujące na dostawę";
-            this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwWstrzymaneToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Name = "listaZamówieńZWwwWstrzymaneToolStripMenuItem";
-            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Text = "Lista zamówień z www - wstrzymane";
-            this.listaZamówieńZWwwWstrzymaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwWstrzymaneToolStripMenuItem_Click);
-            // 
-            // listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Name = "listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem";
-            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Text = "Lista zamówień z www - realizowane w programie F/K";
-            this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem_Click);
-            // 
-            // roboczaListaZamówieńZWwwToolStripMenuItem
-            // 
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Name = "roboczaListaZamówieńZWwwToolStripMenuItem";
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Text = "Robocza lista zamówień z www ";
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.roboczaListaZamówieńZWwwToolStripMenuItem_Click);
+            this.cSkanFZ.AutoSize = true;
+            this.cSkanFZ.Location = new System.Drawing.Point(16, 107);
+            this.cSkanFZ.Name = "cSkanFZ";
+            this.cSkanFZ.Size = new System.Drawing.Size(174, 17);
+            this.cSkanFZ.TabIndex = 17;
+            this.cSkanFZ.Text = "Skanowanie faktury zakupowej";
+            this.cSkanFZ.UseVisualStyleBackColor = true;
             // 
             // Pulpit
             // 
@@ -606,6 +618,7 @@
         private System.Windows.Forms.ToolStripMenuItem listaZamówieńZWwwWstrzymaneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem roboczaListaZamówieńZWwwToolStripMenuItem;
+        private System.Windows.Forms.CheckBox cSkanFZ;
     }
 }
 
