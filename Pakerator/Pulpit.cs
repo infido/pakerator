@@ -169,7 +169,7 @@ namespace Pakerator
             {
                 string tmpkod = "";
                 //ma być niezlależne, jak skanujemy MMR a jesteśmy na przyjeciu to robimy przyjęcie
-                sql = "select ID, KOD, MAGNUM, ZRODLO_CEL, ID_MM, KOD from GM_MM where NUMER ='" + kodKreskowy + "'";
+                sql = "select ID, MAGNUM, ZRODLO_CEL, ID_MM, KOD from GM_MM where NUMER ='" + kodKreskowy + "'";
                 FbCommand cdktmp = new FbCommand(sql, polaczenie.getConnection());
                 try
                 {
@@ -205,7 +205,7 @@ namespace Pakerator
                     setLog("ERROR", "005 Błąd przy wysukiwaniu dokumentu przesunięcia MM: " + ee.Message, kodKreskowy, kodKreskowy, "", tmpkod);
                     throw;
                 }
-                sql = "select GM_MM.ID, GM_MM.NUMER, ";
+                sql = "select GM_MM.ID, GM_MM.NUMER, GM_MM.KOD,";
                 sql += " case GM_MM.KOD ";
                 sql += "  when 'MMP' then (MAG2.NUMER || ' ' || MAG2.NAZWA) ";
                 sql += "  when 'MMR' then (MAG1.NUMER || ' ' || MAG1.NAZWA) ";
