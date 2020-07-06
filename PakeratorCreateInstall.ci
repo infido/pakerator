@@ -290,13 +290,12 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.23 (03-07-2020)
-* Ustawienie terminu płatnosci w nagłówku z 1 wpisu w IAI
+                  <dlgtext >Wersja 1.24 (06-07-2020)
+* Skanowanie faktur zakupowych
+Wersja 1.23 (03-07-2020)
+* Ustawienie terminu płatności w nagłówku z 1 wpisu w IAI
 * Poprawa błędu przypisywania do PAA (auctions)
-* Ustawinie flagi ApiFlag na registered_pos po zapisie Paragonu w RaksSQL
-Wersja 1.22 (02-07-2020)
-* Kopiowanie indeksu z pozycji i nr zamówienia do schowka Windows
-* Zakładanie paragonów w RaksSQL z zamówień pochodzących z IAI</>
+* Ustawienie flagi ApiFlag na registered_pos po zapisie Paragonu w RaksSQL</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
