@@ -1,4 +1,5 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
+using LibKonfIAI.ApiOrdersServiceGet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -212,7 +213,13 @@ namespace LibKonfIAI
                                     sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressCountry + "', "; //DOSTAWA_PANSTWO (Nazwa dostawcy przesyłki)
                                     if (response.Results[0].orderDetails.prepaids.Length > 0)
                                     {
-                                        sql += "'" + response.Results[0].orderDetails.prepaids[0].payformName + ";   " + response.Results[0].orderDetails.prepaids[0].paymentAddDate + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentStatus + " ;   " + response.Results[0].orderDetails.prepaids[0].paymentValue.ToString("C");
+                                        sql += "'Płatności: " + System.Environment.NewLine;
+                                        foreach (prepaidType item in response.Results[0].orderDetails.prepaids)
+                                        {
+                                            sql += item.payformName + "; " + item.paymentAddDate + "; ";
+                                            sql += " Status: " + item.paymentStatus;
+                                            sql += "; kwota: " + item.paymentValue.ToString("C") + System.Environment.NewLine;
+                                        }
                                         sql += System.Environment.NewLine + System.Environment.NewLine;
                                         sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
                                         sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C") + "');"; //UWAGI
