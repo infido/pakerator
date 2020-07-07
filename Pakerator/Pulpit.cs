@@ -316,6 +316,7 @@ namespace Pakerator
                     dataGridViewPozycje.Columns["ID"].Visible = false;
                     dataGridViewPozycje.Columns["ID_TOWARU"].Visible = false;
                     kolorowanieRekordow();
+                    odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Enabled = true;
 
                     string tab = "";
                     if (cSkanFZ.Checked)
@@ -665,6 +666,7 @@ namespace Pakerator
             lBlokadaDokwRaks.Visible = false;
             bSetStatusAgain.Visible = false;
             cSkanFZ.Checked = false;
+            odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Enabled = false;
 
             dokId = 0;
             lDokument.Text = "";
@@ -1120,6 +1122,27 @@ namespace Pakerator
         {
             OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "", " - Wybrane statusy");
             ov.Pokaz();
+        }
+
+        private void odswieżPrzypisanieKodówKreskowychToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
+            {
+                FbCommand cdk = new FbCommand("SELECT KOD_KRESKOWY FROM GM_TOWARY WHERE SKROT='" +  row.Cells["SKROT"].Value.ToString() + "';" , polaczenie.getConnection());
+                try
+                {
+                    var wy = cdk.ExecuteScalar();
+                    if (wy!=null)
+                    {
+                        row.Cells["KOD_KRESKOWY"].Value = wy.ToString();
+                    }
+                }
+                catch (FbException ex)
+                {
+                    MessageBox.Show("0112 Błąd zapytania o nowy kod kreskowy przuy skanowaniu dokumentu");
+                    setLog("ERROR", "0112 Błąd zapytania o nowy kod kreskowy przuy skanowaniu dokumentu: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                }
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)

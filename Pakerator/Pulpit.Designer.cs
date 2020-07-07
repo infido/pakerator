@@ -76,6 +76,7 @@
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSkanFZ = new System.Windows.Forms.CheckBox();
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -504,7 +505,8 @@
             // 
             this.menuStrip2DataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu2ToolStripMenuItem,
-            this.pobranieInfoOTowarachToolStripMenuItem});
+            this.pobranieInfoOTowarachToolStripMenuItem,
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem});
             this.menuStrip2DataGrid.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2DataGrid.Name = "menuStrip2DataGrid";
             this.menuStrip2DataGrid.Size = new System.Drawing.Size(1478, 24);
@@ -535,6 +537,14 @@
             this.cSkanFZ.TabIndex = 17;
             this.cSkanFZ.Text = "Skanowanie faktury zakupowej";
             this.cSkanFZ.UseVisualStyleBackColor = true;
+            // 
+            // odswieżPrzypisanieKodówKreskowychToolStripMenuItem
+            // 
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Enabled = false;
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Name = "odswieżPrzypisanieKodówKreskowychToolStripMenuItem";
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Size = new System.Drawing.Size(229, 20);
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Text = "&Odswież przypisanie kodów kreskowych";
+            this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Click += new System.EventHandler(this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem_Click);
             // 
             // Pulpit
             // 
@@ -619,6 +629,7 @@
         private System.Windows.Forms.ToolStripMenuItem listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem roboczaListaZamówieńZWwwToolStripMenuItem;
         private System.Windows.Forms.CheckBox cSkanFZ;
+        private System.Windows.Forms.ToolStripMenuItem odswieżPrzypisanieKodówKreskowychToolStripMenuItem;
     }
 }
 
