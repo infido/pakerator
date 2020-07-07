@@ -1,4 +1,11 @@
-﻿Wersja 1.24 (06-07-2020)
+﻿Wersja 1.26 (07-07-2020)
+* Odświeżenie przypisania kodów kreskowych do indeksów bez wychodzenia z trybu skanowania dokumentu
+* Pobranie i zapis do uwag dok. sprzedażowego identyfikatora płatności z www
+
+Wersja 1.25 (06-07-2020)
+* Poprawa błędu przy skanowaniu MMR/P 
+
+Wersja 1.24 (06-07-2020)
 * Skanowanie faktur zakupowych
 
 Wersja 1.23 (03-07-2020)

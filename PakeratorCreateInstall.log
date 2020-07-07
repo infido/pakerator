@@ -1,11 +1,11 @@
 
-Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 06.07.2020 09:14:19
+Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 07.07.2020 15:43:30
 Log file: C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.log 
 Generating Sources... 
 Compiling Gentee Sources... 
 Build setup file: c:\setups\PakeratorInstall.exe 
 Adding temporary file(s) to EXE 
-C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 06.07.2020 09:14:20 4078  48.65%
+C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 07.07.2020 15:43:31 4078  48.65%
 C:\Program Files (x86)\CreateInstall Free\res\logo\default - 1.bmp 20.03.2018 18:19:53 7308  52.55%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\install\install - 1.bmp 20.03.2018 18:19:53 20678  33.44%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\uninstall\uninstall - 1.bmp 20.03.2018 18:19:53 20678  28.19%
@@ -15,14 +15,14 @@ Getting list of files
 Packing files... 
 ================================ 
 C:\imex\!pakerator\fanfare_x.wav 28.05.2020 11:03:09 14004  91.33%
-C:\imex\!pakerator\LibKonfIAI.dll 03.07.2020 22:29:10 124416  32.17%
-C:\imex\!pakerator\PakeratorChangeLog.txt 04.07.2020 13:18:42 1915  47.25%
-C:\imex\!pakerator\FirebirdSql.Data.FirebirdClient.dll 06.02.2020 07:56:26 653824  31.11%
-C:\imex\!pakerator\gun_44mag_11.wav 28.05.2020 11:03:10 24390  95.13%
+C:\imex\!pakerator\LibKonfIAI.dll 07.07.2020 15:43:14 133632  32.49%
+C:\imex\!pakerator\PakeratorChangeLog.txt 07.07.2020 15:26:00 2198  45.49%
+C:\imex\!pakerator\FirebirdSql.Data.FirebirdClient.dll 06.02.2020 07:56:26 653824  31.12%
+C:\imex\!pakerator\gun_44mag_11.wav 28.05.2020 11:03:10 24390  95.11%
 C:\imex\!pakerator\klaxon_ahooga.wav 28.05.2020 11:03:10 9588  75.19%
-C:\imex\!pakerator\app.publish\Pakerator.exe 06.07.2020 09:14:09 1788928  17.90%
-C:\imex\!pakerator\Pakerator.exe 06.07.2020 09:14:09 1788928  17.90%
+C:\imex\!pakerator\app.publish\Pakerator.exe 07.07.2020 15:43:15 1790464  17.91%
+C:\imex\!pakerator\Pakerator.exe 07.07.2020 15:43:15 1790464  17.91%
 ================================ 
-All files: 8 [ 4302KB => 906KB ] 
-File Size c:\setups\PakeratorInstall.exe: 1060 KB 
-Finish Successful 06.07.2020 09:14:22
+All files: 8 [ 4315KB => 910KB ] 
+File Size c:\setups\PakeratorInstall.exe: 1064 KB 
+Finish Successful 07.07.2020 15:43:33
