@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="ApiPayments" name="ApiPayments" targetNamespace="ApiPayments" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="ApiPayments">
+      <xsd:complexType name="getRequestType">
+        <xsd:annotation>
+          <xsd:documentation>Uwierzytelnienie wywołania metody.</xsd:documentation>
+          <xsd:documentation>Parametry przekazywane do metody.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="authenticate" type="ns:authenticateType" />
+          <xsd:element minOccurs="1" name="params" type="ns:getParamsType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="authenticateType">
+        <xsd:annotation>
+          <xsd:documentation>Klucz wykorzystywany podczas uwierzytelniania. Zapoznaj się z &lt;a href = "/pl/shop/developers/api/faq/najczesciej-zadawane-pytania-dotyczace-api-pa-IdoSell Shop-com/#3"&gt;instrukcją generowania klucza&lt;/a&gt;.</xsd:documentation>
+          <xsd:documentation>Login użytkownika panelu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="authenticateKey" type="xsd:string" />
+          <xsd:element minOccurs="1" name="userLogin" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getParamsType">
+        <xsd:annotation>
+          <xsd:documentation>Numer płatności składa się z ID źródła (zamówienie/zwrot) [order/return id] oraz liczby porządkowej płatności [payment ordinal number], np. 1234-1.</xsd:documentation>
+          <xsd:documentation>Typ źródła.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="1" name="paymentNumber" type="xsd:string" />
+          <xsd:element minOccurs="1" name="sourceType" type="ns:sourceTypeType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="sourceTypeType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="order" />
+          <xsd:enumeration value="return" />
+          <xsd:enumeration value="rma" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="getResponseType">
+        <xsd:annotation>
+          <xsd:documentation>Informacje o błędzie jaki wystąpił podczas wywołania bramki.</xsd:documentation>
+          <xsd:documentation>Wynik wykonanej operacji.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="errors" type="ns:errorsType" />
+          <xsd:element minOccurs="0" name="result" type="ns:getResultType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="errorsType">
+        <xsd:annotation>
+          <xsd:documentation>Kod błędu.
+                    Lista kodów błędów:
+                    "0" - Operacja powiodła się,
+                    "1" - Błąd logowania: błędny login lub klucz,
+					"6" - Sklep został zablokowany ze względu na nadmierne zaległości w spłacie faktur IAI S.A.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="faultCode" type="xsd:int" />
+          <xsd:element minOccurs="0" name="faultString" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="getResultType">
+        <xsd:annotation>
+          <xsd:documentation>Numer seryjny zamówienia.</xsd:documentation>
+          <xsd:documentation>Numer wpłaty dla zamówienia.</xsd:documentation>
+          <xsd:documentation>Kwota płatności.</xsd:documentation>
+          <xsd:documentation>Identyfikator waluty zamówienia (listę dostępnych walut można pobrać poprzez bramkę: getShopsData).</xsd:documentation>
+          <xsd:documentation>Data zaksięgowania.</xsd:documentation>
+          <xsd:documentation>Status wpłaty.
+                    Lista statusów wpłat:
+                    "processed" - oczekuje na przyjęcie (niezaksięgowana),
+                    "pending" - otrzymana (zaksięgowana),
+                    "cancelled" - anulowana.</xsd:documentation>
+          <xsd:documentation>Identyfikator formy płatności. Listę dostępnych identyfikatorów można pobrać przez bramkę getPaymentForms.</xsd:documentation>
+          <xsd:documentation>ID transakcji w serwisie zewnętrznym</xsd:documentation>
+          <xsd:documentation>Dziennik zdarzeń.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="orderNumber" type="xsd:int" />
+          <xsd:element minOccurs="0" name="ordinalNumber" type="xsd:int" />
+          <xsd:element minOccurs="0" name="value" type="xsd:float" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="accountingDate" type="xsd:string" />
+          <xsd:element minOccurs="0" name="status" type="ns:paymentStatusType" />
+          <xsd:element minOccurs="0" name="paymentFormId" type="xsd:int" />
+          <xsd:element minOccurs="0" name="externalPaymentId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="eventLog" type="ns:eventLogType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="paymentStatusType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="pending" />
+          <xsd:enumeration value="processed" />
+          <xsd:enumeration value="cancelled" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="eventLogType">
+        <xsd:annotation>
+          <xsd:documentation>Dziennik zdarzeń.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="eventLogList" type="ns:eventLogListType" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="eventLogListType">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="ns:eventType[]" minOccurs="0" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="eventType">
+        <xsd:annotation>
+          <xsd:documentation>Login użytkownika.</xsd:documentation>
+          <xsd:documentation>Kod błędu.</xsd:documentation>
+          <xsd:documentation>Data.</xsd:documentation>
+          <xsd:documentation>Kod błędu.</xsd:documentation>
+          <xsd:documentation>Opis błędu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:all>
+          <xsd:element minOccurs="0" name="user" type="xsd:string" />
+          <xsd:element minOccurs="0" name="eventCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="date" type="xsd:string" />
+          <xsd:element minOccurs="0" name="level" type="ns:eventLevelType" />
+          <xsd:element minOccurs="0" name="details" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:simpleType name="eventLevelType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="info" />
+          <xsd:enumeration value="error" />
+          <xsd:enumeration value="warn" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getRequest">
+    <wsdl:part name="getRequest" type="ns:getRequestType" />
+  </wsdl:message>
+  <wsdl:message name="getResponse">
+    <wsdl:part name="getResponse" type="ns:getResponseType" />
+  </wsdl:message>
+  <wsdl:portType name="ApiPaymentsPortType">
+    <wsdl:operation name="get">
+      <wsdl:documentation>Metoda pozwala na pobieranie wpłat do zamówień w panelu administracyjnym IAI-Shop.com.</wsdl:documentation>
+      <wsdl:input message="ns:getRequest" />
+      <wsdl:output message="ns:getResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ApiPaymentsBinding" type="ns:ApiPaymentsPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="get">
+      <soap:operation soapAction="#get" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="ApiPayments" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="ApiPayments" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ApiPaymentsService">
+    <wsdl:documentation><![CDATA[https://www.iai-shop.com/pl/shop/api/?action=documentation&function=payments]]></wsdl:documentation>
+    <wsdl:port name="ApiPaymentsPort" binding="ns:ApiPaymentsBinding">
+      <soap:address location="https://mm-moto.iai-shop.com/api/?gate=payments/get/71/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

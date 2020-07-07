@@ -58,6 +58,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\ApiPaymentsServicesGet\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionFB.cs" />
     <Compile Include="CustomersRaks.cs" />
     <Compile Include="DataSessionIAI.cs" />
@@ -78,11 +83,16 @@
     <None Include="Connected Services\ApiOrdersServiceUpdate\LibKonfIAI.ApiOrdersServiceUpdate.responseType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ApiPaymentsServicesGet\ApiPayments.wsdl" />
+    <None Include="Connected Services\ApiPaymentsServicesGet\LibKonfIAI.ApiPaymentsServicesGet.getResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ApiOrdersServiceUpdate\" />
     <WCFMetadataStorage Include="Connected Services\ApiOrdersServiceGet\" />
+    <WCFMetadataStorage Include="Connected Services\ApiPaymentsServicesGet\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ApiOrdersServiceUpdate\configuration91.svcinfo" />
@@ -104,6 +114,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ApiOrdersServiceGet\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ApiPaymentsServicesGet\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ApiPaymentsServicesGet\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ApiPaymentsServicesGet\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

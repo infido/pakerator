@@ -1,5 +1,6 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using LibKonfIAI.ApiOrdersServiceGet;
+using LibKonfIAI.ApiPaymentsServicesGet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -218,7 +219,7 @@ namespace LibKonfIAI
                                         {
                                             sql += item.payformName + "; " + item.paymentAddDate + "; ";
                                             sql += " Status: " + item.paymentStatus;
-                                            sql += "; kwota: " + item.paymentValue.ToString("C") + System.Environment.NewLine;
+                                            sql += "; kwota: " + item.paymentValue.ToString("C") + "; "  + GetIdentyfikatorPlatonsciZIAI(item.paymentNumber) +  System.Environment.NewLine;
                                         }
                                         sql += System.Environment.NewLine + System.Environment.NewLine;
                                         sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
@@ -577,6 +578,44 @@ namespace LibKonfIAI
                 ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetValStawkiVat) " + System.Environment.NewLine + " Kod 1013; Bład przy ustalaniu wartości stawki VAT z stawki o ID:" + idStawkiVAT + System.Environment.NewLine + expl.Message);
                 return 23;
             };
+        }
+
+        private static string GetIdentyfikatorPlatonsciZIAI(string idPlatnosci)
+        {
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("http://" + DataSessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=payments/get/107/soap");
+            var client = new ApiPaymentsServicesGet.ApiPaymentsPortTypeClient(binding, address);
+
+            var request = new ApiPaymentsServicesGet.getRequestType();
+
+            request.authenticate = new ApiPaymentsServicesGet.authenticateType();
+            request.authenticate.userLogin = DataSessionIAI.GetIAILoginForCurrentSession();
+            request.authenticate.authenticateKey = DataSessionIAI.GetIAIKeyForCurrentSession();
+
+            request.@params = new ApiPaymentsServicesGet.getParamsType();
+            request.@params.paymentNumber = idPlatnosci;
+            request.@params.sourceType = sourceTypeType.order;
+
+            ApiPaymentsServicesGet.getResponseType response = client.get(request);
+            try
+            {
+                if (response.errors.faultCode != 0)
+                {
+                    string komunikatZwrotny = "1016 Kod: " + response.errors.faultCode + "; Opis:" + response.errors.faultString + " ";
+                    ConnectionFB.setErrOrLogMsg("ERROR", "Błąd zwrócony przez API do wczytania identyfikatora płatnosci " + idPlatnosci + " do biblioteki zapisu nowego zamówienia jako GM_FS do Raks." + System.Environment.NewLine + komunikatZwrotny);
+                    return " Identyfikator: błąd: " + response.errors.faultString;
+                }
+                else
+                {
+                    return " Identyfikator: " +  response.result.externalPaymentId;
+                }
+            }
+            catch (Exception ex)
+            {
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetIdentyfikatorPlatonsciZIAI) " + System.Environment.NewLine + " Kod 1015; Bład przy ustalaniu identyfikatora płatności o ID:" + idPlatnosci + System.Environment.NewLine + ex.Message);
+                return "Identyfikator: błąd...";
+                throw;
+            }
         }
     }
 
