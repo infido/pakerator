@@ -20,8 +20,9 @@ namespace Pakerator
         private int mag1, mag2;
         private string mag1Kod, mag2Kod; 
         private string kk;
+        private bool tylkoOstatnie7Dni;
         Dictionary<string, string> statusyZamowien;
-        public DokumentyDlaMagazynu(ConnectionDB polacz, int magazyn1, string magazyn1skrot, int magazyn2, string magazyn2skrot)
+        public DokumentyDlaMagazynu(ConnectionDB polacz, int magazyn1, string magazyn1skrot, int magazyn2, string magazyn2skrot, bool czyTylkoOstatnie7Dni)
         {
             InitializeComponent();
             polaczenie = polacz;
@@ -29,6 +30,7 @@ namespace Pakerator
             mag1Kod = magazyn1skrot;
             mag2 = magazyn2;
             mag2Kod = magazyn2skrot;
+            tylkoOstatnie7Dni = czyTylkoOstatnie7Dni;
             statusyZamowien = new Dictionary<string, string>();
         }
 
@@ -49,6 +51,10 @@ namespace Pakerator
             sql += "  GM_FS.MAGAZYNOWY=0 AND GM_FS.FISKALNY=0 ";
             sql += " AND GM_WZPOZ.ILOSC_PO is null ";
             sql += " AND TYP='Towar' ";
+            if (tylkoOstatnie7Dni)
+            {
+                sql += " AND GM_FS.DATA_WYSTAWIENIA>'" + DateTime.Now.AddDays(-8).ToShortDateString() + "' ";
+            }
             sql += " AND GM_FS.MAGNUM=" + mag1 + ";";
             
 

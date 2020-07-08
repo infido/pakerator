@@ -1048,16 +1048,6 @@ namespace Pakerator
             RaportKontrolaIndeksow rap = new RaportKontrolaIndeksow(polaczenie, magID, magID2);
         }
 
-        private void listaDokumentówDlaMagazynuToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            wyczyśćToolStripMenuItem.PerformClick();
-            DokumentyDlaMagazynu dm = new DokumentyDlaMagazynu(polaczenie, magID, magKod, magID2, magKod2);
-            tToSkan.Text = dm.getKodDokumentuFromUser();
-            dm.Dispose();
-            if (tToSkan.Text.Length>0)
-                SendKeys.SendWait("{ENTER}");
-        }
-
         private void listaZamówieńZWwwRealizowaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "on_order", " - Realizowane");
@@ -1143,6 +1133,26 @@ namespace Pakerator
                     setLog("ERROR", "0112 Błąd zapytania o nowy kod kreskowy przuy skanowaniu dokumentu: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                 }
             }
+        }
+
+        private void dlaOstatnich7DniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            wyczyśćToolStripMenuItem.PerformClick();
+            DokumentyDlaMagazynu dm = new DokumentyDlaMagazynu(polaczenie, magID, magKod, magID2, magKod2,true);
+            tToSkan.Text = dm.getKodDokumentuFromUser();
+            dm.Dispose();
+            if (tToSkan.Text.Length > 0)
+                SendKeys.SendWait("{ENTER}");
+        }
+
+        private void wszystkieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            wyczyśćToolStripMenuItem.PerformClick();
+            DokumentyDlaMagazynu dm = new DokumentyDlaMagazynu(polaczenie, magID, magKod, magID2, magKod2,false);
+            tToSkan.Text = dm.getKodDokumentuFromUser();
+            dm.Dispose();
+            if (tToSkan.Text.Length > 0)
+                SendKeys.SendWait("{ENTER}");
         }
 
         private void label3_Click(object sender, EventArgs e)

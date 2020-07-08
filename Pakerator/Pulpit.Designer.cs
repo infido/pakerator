@@ -77,6 +77,8 @@
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSkanFZ = new System.Windows.Forms.CheckBox();
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dlaOstatnich7DniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wszystkieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -110,10 +112,12 @@
             // 
             // listaDokumentówDlaMagazynuToolStripMenuItem
             // 
+            this.listaDokumentówDlaMagazynuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dlaOstatnich7DniToolStripMenuItem,
+            this.wszystkieToolStripMenuItem});
             this.listaDokumentówDlaMagazynuToolStripMenuItem.Name = "listaDokumentówDlaMagazynuToolStripMenuItem";
             this.listaDokumentówDlaMagazynuToolStripMenuItem.Size = new System.Drawing.Size(194, 20);
             this.listaDokumentówDlaMagazynuToolStripMenuItem.Text = "Lista dokumentów dla magazynu";
-            this.listaDokumentówDlaMagazynuToolStripMenuItem.Click += new System.EventHandler(this.listaDokumentówDlaMagazynuToolStripMenuItem_Click);
             // 
             // kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu
             // 
@@ -546,6 +550,20 @@
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Text = "&Odswież przypisanie kodów kreskowych";
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Click += new System.EventHandler(this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem_Click);
             // 
+            // dlaOstatnich7DniToolStripMenuItem
+            // 
+            this.dlaOstatnich7DniToolStripMenuItem.Name = "dlaOstatnich7DniToolStripMenuItem";
+            this.dlaOstatnich7DniToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dlaOstatnich7DniToolStripMenuItem.Text = "dla ostatnich 7 dni";
+            this.dlaOstatnich7DniToolStripMenuItem.Click += new System.EventHandler(this.dlaOstatnich7DniToolStripMenuItem_Click);
+            // 
+            // wszystkieToolStripMenuItem
+            // 
+            this.wszystkieToolStripMenuItem.Name = "wszystkieToolStripMenuItem";
+            this.wszystkieToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wszystkieToolStripMenuItem.Text = "Wszystkie";
+            this.wszystkieToolStripMenuItem.Click += new System.EventHandler(this.wszystkieToolStripMenuItem_Click);
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -630,6 +648,8 @@
         private System.Windows.Forms.ToolStripMenuItem roboczaListaZamówieńZWwwToolStripMenuItem;
         private System.Windows.Forms.CheckBox cSkanFZ;
         private System.Windows.Forms.ToolStripMenuItem odswieżPrzypisanieKodówKreskowychToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dlaOstatnich7DniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wszystkieToolStripMenuItem;
     }
 }
 
