@@ -315,7 +315,19 @@ namespace Pakerator
 
                     dataGridViewPozycje.Columns["ID"].Visible = false;
                     dataGridViewPozycje.Columns["ID_TOWARU"].Visible = false;
-                    kolorowanieRekordow();
+
+                    if (ltypdok.Text.Contains("MMR") || ltypdok.Text.Contains("MMP"))
+                    {
+                        dataGridViewPozycje.Columns["STAN_" + magKod].Visible = false;
+                        if (magID2 != 0 && magID != magID2)
+                            dataGridViewPozycje.Columns["STAN_" + magKod2].Visible = false;
+                        dataGridViewPozycje.Columns["W_WYDANIU_" + magKod].Visible = false;
+                        kolorowanieRekordow(true);
+                    }
+                    else
+                    {
+                        kolorowanieRekordow();
+                    }
                     odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Enabled = true;
 
                     string tab = "";
@@ -680,7 +692,7 @@ namespace Pakerator
             dataGridViewPozycje.Refresh();
         }
 
-        private void kolorowanieRekordow()
+        private void kolorowanieRekordow(bool trybMM=false)
         {
             Int32 magA = 0;
             Int32 magB = 0;
@@ -705,29 +717,32 @@ namespace Pakerator
                     row.DefaultCellStyle.BackColor = Color.Red;
                 }
 
-                magA = sprawdzenieStanuMagazynu(magID, row.Cells["SKROT"].Value.ToString());
-                row.Cells["STAN_" + magKod].Value = magA;
-
-                row.Cells["W_WYDANIU_" + magKod].Value = getIloscWWydaniu(magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
-
-                if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                if (trybMM==false)
                 {
-                    row.Cells["W_WYDANIU_" + magKod].Style.BackColor = Color.DeepPink;
-                    row.Cells["W_WYDANIU_" + magKod].Style.ForeColor = Color.Yellow;
-                    row.Cells["STAN_" + magKod].Style.BackColor = Color.DeepPink;
-                    row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
-                }
+                    magA = sprawdzenieStanuMagazynu(magID, row.Cells["SKROT"].Value.ToString());
+                    row.Cells["STAN_" + magKod].Value = magA;
 
-                if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
-                {
-                    row.Cells["STAN_" + magKod].Style.BackColor = Color.DarkRed;
-                    row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
-                }
+                    row.Cells["W_WYDANIU_" + magKod].Value = getIloscWWydaniu(magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
 
-                if (magID2 != 0 && magID != magID2)
-                {
-                    magB = sprawdzenieStanuMagazynu(magID2, row.Cells["SKROT"].Value.ToString());
-                    row.Cells["STAN_" + magKod2].Value = magB;
+                    if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                    {
+                        row.Cells["W_WYDANIU_" + magKod].Style.BackColor = Color.DeepPink;
+                        row.Cells["W_WYDANIU_" + magKod].Style.ForeColor = Color.Yellow;
+                        row.Cells["STAN_" + magKod].Style.BackColor = Color.DeepPink;
+                        row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
+                    }
+
+                    if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                    {
+                        row.Cells["STAN_" + magKod].Style.BackColor = Color.DarkRed;
+                        row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
+                    }
+
+                    if (magID2 != 0 && magID != magID2)
+                    {
+                        magB = sprawdzenieStanuMagazynu(magID2, row.Cells["SKROT"].Value.ToString());
+                        row.Cells["STAN_" + magKod2].Value = magB;
+                    }
                 }
             }
         }
