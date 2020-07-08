@@ -1172,6 +1172,12 @@ namespace Pakerator
                 SendKeys.SendWait("{ENTER}");
         }
 
+        private void listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "pnr", " - Nieobsłużone, Realizowane, Pakowane");
+            ov.Pokaz();
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 

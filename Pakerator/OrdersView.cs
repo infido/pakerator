@@ -92,10 +92,17 @@ namespace Pakerator
 
                 //request.@params.orderPrepaidStatus = "orderPrepaidStatus";
 
-                if (filtrStatus.Length > 0)
+                if (filtrStatus.Length > 4) 
                 {
                     request.@params.ordersStatuses = new string[1];
                     request.@params.ordersStatuses[0] = filtrStatus;
+                }
+                else if (filtrStatus.Length > 0)
+                {
+                    request.@params.ordersStatuses = new string[3];
+                    request.@params.ordersStatuses[0] = "on_order";
+                    request.@params.ordersStatuses[1] = "new";
+                    request.@params.ordersStatuses[2] = "packed";
                 }
                 else
                 {
