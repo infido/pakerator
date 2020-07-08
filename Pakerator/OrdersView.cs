@@ -691,7 +691,7 @@ namespace Pakerator
 
             if (cSaveStastusToIAI.Checked)
             {
-                string res = OrdersIAI.setIAIapiFlag(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
+                string res = OrdersIAI.setIAIapiFlag(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString()); 
                 MessageBox.Show(res, "Wynik operacji zmiany statusu dla " + dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString());
                 Pulpit.putLog(polaczenie, usrNam, "API", res, "", "", "", 0, "", 0, "", magID, "", 0, 0);
             }
@@ -728,7 +728,7 @@ namespace Pakerator
                 {
                     if (res.StartsWith("OK"))
                     {
-                        OrdersIAI.setIAIapiFlag(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
+                        OrdersIAI.setIAIapiStatus(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), dataGridView1Naglowki.CurrentRow.Cells["statusStanowRaks"].Value.ToString());
                         dataGridView1Naglowki.CurrentRow.Cells["ApiFlag"].Value = apiFlagType.registered_pos;
                     }
                 }
