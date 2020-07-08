@@ -410,7 +410,9 @@ namespace Pakerator
                     zapiszHistoria("002 Skanowanie towaru: " + tToSkan.Text);
                     foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
                     {
-                        if (row.Cells["KOD_KRESKOWY"].Value.Equals(tToSkan.Text))
+                        if (row.Cells["KOD_KRESKOWY"].Value.Equals(tToSkan.Text) &&
+                            (Convert.ToDecimal( row.Cells["SKANOWANE"].Value) < Convert.ToDecimal( row.Cells["ILOSC"].Value))
+                            )
                         {
                             //zapis do bazy
                             row.Cells["SKANOWANE"].Value = (int)row.Cells["SKANOWANE"].Value + 1;
