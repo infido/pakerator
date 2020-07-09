@@ -1,4 +1,11 @@
-﻿Wersja 1.26 (07-07-2020)
+﻿Wersja 1.27 (09-07-2020)
+* Opcja wyświetlenia dokumentów sprzedaży dla magazynu tylko za ostatnie 7 dni
+* Optymalizacja wczytywanie przesunieć między magazynowych - wyłączenie przeliczania stanów magazynowych
+* Skanowane i przypisywanie kodu do kolejnych wierszy jeżeli w doumencie są takie same ideksy z różnych dostaw 
+* Ustawianie statusów Realizowane i Pakowane po zapisaniu zamówienia do RaksSQL
+* Raport rozchodów wg towarów na zamówieniach z IAI
+
+Wersja 1.26 (07-07-2020)
 * Odświeżenie przypisania kodów kreskowych do indeksów bez wychodzenia z trybu skanowania dokumentu
 * Pobranie i zapis do uwag dok. sprzedażowego identyfikatora płatności z www
 

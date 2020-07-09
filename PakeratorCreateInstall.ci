@@ -290,12 +290,12 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.26 (07-07-2020)
-* Odświeżenie przypisania kodów kreskowych do indeksów bez wychodzenia z trybu skanowania dokumentu
-* Pobranie i zapis do uwag dok. sprzedażowego identyfikatora płatnosci z www
-
-Wersja 1.25 (06-07-2020)
-* Poprawa błędu przy skanowaniu MMR/P</>
+                  <dlgtext >Wersja 1.27 (09-07-2020)
+* Wyświetlenia dokumentów sprzedaży dla mag za ostatnie 7 dni
+* Wczytywanie przesunieć między magazynowych bez przeliczania stanów
+* Skanowane do kolejnych wierszy gdy są takie same ideksy z różnych dostaw 
+* Ustawianie statusów Realizowane i Pakowane w IAI
+* Raport rozchodów wg towarów na zamówieniach z IAI</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
