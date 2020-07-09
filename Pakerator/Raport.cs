@@ -22,6 +22,8 @@ namespace Pakerator
             InitializeComponent();
             dataGridViewRaport.AutoGenerateColumns = true;
             dataGridViewRaport.DataSource = dane.Tables["TAB"];
+
+            lWynikRaportu.Text = "Raport wyświetlił " + dane.Tables["TAB"].Rows.Count + " wierszy";
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

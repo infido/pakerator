@@ -81,6 +81,19 @@
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo1400ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odWczorajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo1200ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odWczorajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odPrzedwczorajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odPrzedwczorajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ostatanie7DniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -97,6 +110,7 @@
             this.listaDokumentówDlaMagazynuToolStripMenuItem,
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu,
             this.zamówieniaNaPortaluWwwToolStripMenuItem,
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem,
             this.konfiguracjaToolStripMenuItem,
             this.historiaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -580,6 +594,104 @@
             this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Text = "Lista zamówień z www - nieobsłużone, pakowane, realizowane";
             this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem_Click);
             // 
+            // raportRozchodówZZamówieńWwwToolStripMenuItem
+            // 
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stanDzisiajPo900ToolStripMenuItem,
+            this.stanDzisiajPo1200ToolStripMenuItem,
+            this.stanDzisiajPo1400ToolStripMenuItem,
+            this.stanDzisiajPo1600ToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.odWczorajPo1600ToolStripMenuItem,
+            this.odWczorajPo900ToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.odPrzedwczorajPo1600ToolStripMenuItem,
+            this.odPrzedwczorajPo900ToolStripMenuItem,
+            this.toolStripMenuItem4,
+            this.ostatanie7DniToolStripMenuItem});
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Name = "raportRozchodówZZamówieńWwwToolStripMenuItem";
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Size = new System.Drawing.Size(211, 20);
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Text = "Raport rozchodów z zamówień www";
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Click += new System.EventHandler(this.raportRozchodówZZamówieńWwwToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo1400ToolStripMenuItem
+            // 
+            this.stanDzisiajPo1400ToolStripMenuItem.Name = "stanDzisiajPo1400ToolStripMenuItem";
+            this.stanDzisiajPo1400ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo1400ToolStripMenuItem.Text = "Stan dzisiaj po 14:00";
+            this.stanDzisiajPo1400ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1400ToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo900ToolStripMenuItem
+            // 
+            this.stanDzisiajPo900ToolStripMenuItem.Name = "stanDzisiajPo900ToolStripMenuItem";
+            this.stanDzisiajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo900ToolStripMenuItem.Text = "Stan dzisiaj po 9:00";
+            this.stanDzisiajPo900ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo900ToolStripMenuItem_Click);
+            // 
+            // odWczorajPo1600ToolStripMenuItem
+            // 
+            this.odWczorajPo1600ToolStripMenuItem.Name = "odWczorajPo1600ToolStripMenuItem";
+            this.odWczorajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odWczorajPo1600ToolStripMenuItem.Text = "Od wczoraj po 16:00 ";
+            this.odWczorajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.odWczorajPo1600ToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo1600ToolStripMenuItem
+            // 
+            this.stanDzisiajPo1600ToolStripMenuItem.Name = "stanDzisiajPo1600ToolStripMenuItem";
+            this.stanDzisiajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo1600ToolStripMenuItem.Text = "Stan dzisiaj po 16:00";
+            this.stanDzisiajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1600ToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo1200ToolStripMenuItem
+            // 
+            this.stanDzisiajPo1200ToolStripMenuItem.Name = "stanDzisiajPo1200ToolStripMenuItem";
+            this.stanDzisiajPo1200ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo1200ToolStripMenuItem.Text = "Stan dzisiaj po 12:00";
+            this.stanDzisiajPo1200ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1200ToolStripMenuItem_Click);
+            // 
+            // odWczorajPo900ToolStripMenuItem
+            // 
+            this.odWczorajPo900ToolStripMenuItem.Name = "odWczorajPo900ToolStripMenuItem";
+            this.odWczorajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odWczorajPo900ToolStripMenuItem.Text = "Od wczoraj po 9:00";
+            this.odWczorajPo900ToolStripMenuItem.Click += new System.EventHandler(this.odWczorajPo900ToolStripMenuItem_Click);
+            // 
+            // odPrzedwczorajPo1600ToolStripMenuItem
+            // 
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Name = "odPrzedwczorajPo1600ToolStripMenuItem";
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Text = "Od przedwczoraj po 16:00";
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.odPrzedwczorajPo1600ToolStripMenuItem_Click);
+            // 
+            // odPrzedwczorajPo900ToolStripMenuItem
+            // 
+            this.odPrzedwczorajPo900ToolStripMenuItem.Name = "odPrzedwczorajPo900ToolStripMenuItem";
+            this.odPrzedwczorajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odPrzedwczorajPo900ToolStripMenuItem.Text = "Od przedwczoraj po 9:00";
+            this.odPrzedwczorajPo900ToolStripMenuItem.Click += new System.EventHandler(this.odPrzedwczorajPo900ToolStripMenuItem_Click);
+            // 
+            // ostatanie7DniToolStripMenuItem
+            // 
+            this.ostatanie7DniToolStripMenuItem.Name = "ostatanie7DniToolStripMenuItem";
+            this.ostatanie7DniToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.ostatanie7DniToolStripMenuItem.Text = "Ostatanie 7 dni";
+            this.ostatanie7DniToolStripMenuItem.Click += new System.EventHandler(this.ostatanie7DniToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(206, 6);
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,6 +780,19 @@
         private System.Windows.Forms.ToolStripMenuItem wszystkieToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem raportRozchodówZZamówieńWwwToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stanDzisiajPo900ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stanDzisiajPo1400ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stanDzisiajPo1600ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem odWczorajPo1600ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stanDzisiajPo1200ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem odWczorajPo900ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem odPrzedwczorajPo1600ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem odPrzedwczorajPo900ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ostatanie7DniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
     }
 }
 

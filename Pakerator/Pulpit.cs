@@ -13,6 +13,7 @@ using System.Net;
 using System.ServiceModel;
 using Pakerator.ApiProductsSocksServiceGet;
 using Microsoft.Win32;
+using Pakerator.ApiGetOrdersNotFinishedGet;
 
 namespace Pakerator
 {
@@ -1176,6 +1177,197 @@ namespace Pakerator
         {
             OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "pnr", " - Nieobsłużone, Realizowane, Pakowane");
             ov.Pokaz();
+        }
+
+        private void raportRozchodówZZamówieńWwwToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void getRaportRozchodowWgZamowienZwww(int dniWstecz, int odGodziny)
+        {
+            if (SessionIAI.GetPopertySettingsForAIA())
+            {
+
+                var binding = new BasicHttpBinding();
+                var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=orders/getOrdersNotFinished/106/soap");
+                var client = new ApiGetOrdersNotFinishedGet.ApiOrdersPortTypeClient(binding, address);
+                binding.MaxReceivedMessageSize = 2000000; //2MB
+
+                var request = new ApiGetOrdersNotFinishedGet.requestType();
+
+                request.authenticate = new ApiGetOrdersNotFinishedGet.authenticateType();
+                request.authenticate.userLogin = SessionIAI.GetIAILoginForCurrentSession();
+                request.authenticate.authenticateKey = SessionIAI.GetIAIKeyForCurrentSession();
+
+                request.@params = new ApiGetOrdersNotFinishedGet.paramsType();
+
+
+                request.@params.ordersStatuses = new string[3];
+                request.@params.ordersStatuses[0] = "on_order";
+                request.@params.ordersStatuses[1] = "new";
+                request.@params.ordersStatuses[2] = "packed";
+
+
+                request.@params.ordersRange = new ApiGetOrdersNotFinishedGet.ordersRangeType();
+                request.@params.ordersRange.ordersDateRange = new ApiGetOrdersNotFinishedGet.ordersDateRangeType();
+                request.@params.ordersRange.ordersDateRange.ordersDateType = ApiGetOrdersNotFinishedGet.ordersDateTypeType.add;
+                request.@params.ordersRange.ordersDateRange.ordersDateTypeSpecified = true;
+                request.@params.ordersRange.ordersDateRange.ordersDatesTypes = new ApiGetOrdersNotFinishedGet.ordersDatesTypeType[1];
+                request.@params.ordersRange.ordersDateRange.ordersDatesTypes[0] = ApiGetOrdersNotFinishedGet.ordersDatesTypeType.add;
+
+                request.@params.ordersRange.ordersDateRange.ordersDateBegin = DateTime.Now.AddDays(-dniWstecz).ToString("yyyy-MM-dd " + odGodziny.ToString("00") + ":00:00");
+                request.@params.ordersRange.ordersDateRange.ordersDateEnd = DateTime.Now.ToString("yyyy-MM-dd 23:59:59");
+
+                request.@params.resultsLimit = 300;
+                request.@params.resultsLimitSpecified = true;
+
+                DataSet fdsr = new DataSet();
+                fdsr.Tables.Add("TAB");
+                fdsr.Tables["TAB"].Columns.Add("SKROT", typeof(String));
+                fdsr.Tables["TAB"].Columns.Add("NAZWA", typeof(String));
+                fdsr.Tables["TAB"].Columns.Add("STAN", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("ROZCHOD", typeof(Double));
+                fdsr.Tables["TAB"].Columns.Add("W_WYDANIU", typeof(Double)); //To co zarejestrowane
+                fdsr.Tables["TAB"].Columns.Add("BILANS", typeof(Double));
+
+                Dictionary<string, int> rozchody = new Dictionary<string, int>();
+                Dictionary<string, int> w_wydaniu = new Dictionary<string, int>();
+                Dictionary<string, Double> stan = new Dictionary<string, Double>();
+                Dictionary<string, string> nazwa = new Dictionary<string, string>();
+
+                try
+                {
+                    ApiGetOrdersNotFinishedGet.responseType response = client.getOrdersNotFinished(request);
+
+                    if (response.errors.faultCode != 0)
+                    {
+                        MessageBox.Show("1023 Błąd pobrania danych o zamówienia z IAI: " + response.errors.faultString);
+                    }
+                    else
+                    {
+                        foreach (ApiGetOrdersNotFinishedGet.ResultType www in response.Results)
+                        {
+                            foreach (ApiGetOrdersNotFinishedGet.productResultType pozwww in www.orderDetails.productsResults)
+                            {
+                                if (www.orderDetails.apiFlag == apiFlagType.registered_pos)
+                                {
+                                    if (w_wydaniu.ContainsKey(pozwww.productSizeCodeExternal))
+                                        w_wydaniu[pozwww.productSizeCodeExternal] += (int)pozwww.productQuantity;
+                                    else
+                                    {
+                                        w_wydaniu.Add(pozwww.productSizeCodeExternal, (int)pozwww.productQuantity);
+                                        rozchody.Add(pozwww.productSizeCodeExternal, 0);
+                                        nazwa.Add(pozwww.productSizeCodeExternal, pozwww.productName);
+                                        stan.Add(pozwww.productSizeCodeExternal, getStanRaksZMagazynu(pozwww.productSizeCodeExternal));
+                                    }
+                                }
+                                else
+                                {
+                                    if (rozchody.ContainsKey(pozwww.productSizeCodeExternal))
+                                        rozchody[pozwww.productSizeCodeExternal] += (int)pozwww.productQuantity;
+                                    else
+                                    {
+                                        rozchody.Add(pozwww.productSizeCodeExternal, (int)pozwww.productQuantity);
+                                        w_wydaniu.Add(pozwww.productSizeCodeExternal, 0);
+                                        nazwa.Add(pozwww.productSizeCodeExternal, pozwww.productName);
+                                        stan.Add(pozwww.productSizeCodeExternal, getStanRaksZMagazynu(pozwww.productSizeCodeExternal));
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("1024 Nieznany błąd pobrania danych o zamówienia z IAI: " + ex.Message);
+                    throw;
+                }
+
+
+                foreach (var key in rozchody.Keys)
+                {
+                    fdsr.Tables["TAB"].Rows.Add(key, nazwa[key], (Double)stan[key], (Double)rozchody[key], (Double)w_wydaniu[key], (Double)stan[key] - (Double)rozchody[key] - (Double)w_wydaniu[key]);
+                }
+
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "REPORT", "705 Wykonanie raportu Raport rozchodów na magazynach wg IAI, wyświetlono rekordów " + fdsr.Tables["TAB"].Rows.Count, "", lListPrzewozowy.Text, lDokument.Text, 0, ltypdok.Text, dokId, magNazwa, magID, lNabywcaTresc.Text, odbiorca, platnik);
+                Raport rt = new Raport(fdsr);
+                rt.Show();
+            }
+        }
+
+        private Double getStanRaksZMagazynu(string indexExternal)
+        {
+            string sql = "SELECT sum(ILOSC) from GM_MAGAZYN join GM_TOWARY on ID_TOWAR=GM_TOWARY.ID_TOWARU ";
+            sql += " where ";
+            sql += " ( GM_TOWARY.SKROT='" + indexExternal + "' OR GM_TOWARY.SKROT2='" + indexExternal + "' )";
+            if (magID != magID2)
+                sql += " and (GM_MAGAZYN.MAGNUM = " + magID + " or GM_MAGAZYN.MAGNUM = " + magID2 + ");";
+            else
+                sql += " and GM_MAGAZYN.MAGNUM = " + magID + " ;";
+
+            FbCommand cdk = new FbCommand(sql, polaczenie.getConnection());
+
+            try
+            {
+                var im = cdk.ExecuteScalar();
+                if (im != DBNull.Value)
+                    return Convert.ToDouble(im);
+                else
+                    return 0;
+            }
+            catch (FbException ex)
+            {
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "ERROR", "1034 Bład zapytania o stany magazynu przy przeliczaniu raportu rozchodów dla towaru: " + indexExternal + System.Environment.NewLine + ex.Message, "", "", "", 0, "", 0, "", magID, "", 0, 0);
+                MessageBox.Show("1034 Bład zapytania o stany magazynu przy przeliczaniu raportu rozchodów dla towaru: " + indexExternal + System.Environment.NewLine + ex.Message);
+                return -2;
+            }
+        }
+
+        private void stanDzisiajPo1400ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(0, 14);
+        }
+
+        private void stanDzisiajPo900ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(0, 9);
+        }
+
+        private void odWczorajPo900ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(1, 9);
+        }
+
+        private void stanDzisiajPo1200ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(0, 12);
+        }
+
+        private void stanDzisiajPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(0, 16);
+        }
+
+        private void odWczorajPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(1, 16);
+        }
+
+        private void odPrzedwczorajPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(2, 16);
+        }
+
+        private void odPrzedwczorajPo900ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(2, 16);
+        }
+
+        private void ostatanie7DniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(7, 0);
         }
 
         private void label3_Click(object sender, EventArgs e)

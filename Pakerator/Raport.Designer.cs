@@ -32,6 +32,7 @@
             this.dataGridViewRaport = new System.Windows.Forms.DataGridView();
             this.panel2Dol = new System.Windows.Forms.Panel();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.lWynikRaportu = new System.Windows.Forms.Label();
             this.panel1Gora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRaport)).BeginInit();
             this.panel2Dol.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // panel2Dol
             // 
+            this.panel2Dol.Controls.Add(this.lWynikRaportu);
             this.panel2Dol.Controls.Add(this.buttonClose);
             this.panel2Dol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2Dol.Location = new System.Drawing.Point(0, 579);
@@ -78,6 +80,15 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // lWynikRaportu
+            // 
+            this.lWynikRaportu.AutoSize = true;
+            this.lWynikRaportu.Location = new System.Drawing.Point(13, 14);
+            this.lWynikRaportu.Name = "lWynikRaportu";
+            this.lWynikRaportu.Size = new System.Drawing.Size(122, 13);
+            this.lWynikRaportu.TabIndex = 1;
+            this.lWynikRaportu.Text = "Wynik raportu:... wierszy";
+            // 
             // Raport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,6 +102,7 @@
             this.panel1Gora.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRaport)).EndInit();
             this.panel2Dol.ResumeLayout(false);
+            this.panel2Dol.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -101,5 +113,6 @@
         private System.Windows.Forms.DataGridView dataGridViewRaport;
         private System.Windows.Forms.Panel panel2Dol;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Label lWynikRaportu;
     }
 }
