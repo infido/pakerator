@@ -1,4 +1,8 @@
-﻿Wersja 1.27 (09-07-2020)
+﻿Wersja 1.28 (13-07-2020)
+* Kopiowanie NIP z listy zamówień do schowka Windows
+* Przepisanie uwag z zamówienia na dok. sprzed.
+
+Wersja 1.27 (09-07-2020)
 * Opcja wyświetlenia dokumentów sprzedaży dla magazynu tylko za ostatnie 7 dni
 * Optymalizacja wczytywanie przesunieć między magazynowych - wyłączenie przeliczania stanów magazynowych
 * Skanowane i przypisywanie kodu do kolejnych wierszy jeżeli w doumencie są takie same ideksy z różnych dostaw 

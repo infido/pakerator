@@ -290,12 +290,9 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.27 (09-07-2020)
-* Wyświetlenia dokumentów sprzedaży dla mag za ostatnie 7 dni
-* Wczytywanie przesunieć między magazynowych bez przeliczania stanów
-* Skanowane do kolejnych wierszy gdy są takie same ideksy z różnych dostaw 
-* Ustawianie statusów Realizowane i Pakowane w IAI
-* Raport rozchodów wg towarów na zamówieniach z IAI</>
+                  <dlgtext >Wersja 1.28 (13-07-2020)
+* Kopiowanie NIP z listy zamówień do schowka Windows
+* Przepisanie uwag z zamówienia na dok. sprzed.</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
