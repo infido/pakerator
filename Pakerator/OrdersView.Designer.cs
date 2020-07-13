@@ -43,6 +43,7 @@
             this.dataGridView2Pozycje = new System.Windows.Forms.DataGridView();
             this.panel3Srodek = new System.Windows.Forms.Panel();
             this.dataGridView1Naglowki = new System.Windows.Forms.DataGridView();
+            this.bCopyNIPToClipboard = new System.Windows.Forms.Button();
             this.panel1Gora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).BeginInit();
             this.panel2Dol.SuspendLayout();
@@ -53,6 +54,7 @@
             // 
             // panel1Gora
             // 
+            this.panel1Gora.Controls.Add(this.bCopyNIPToClipboard);
             this.panel1Gora.Controls.Add(this.bCopyNrZamToClip);
             this.panel1Gora.Controls.Add(this.bCopyIndexToCliboard);
             this.panel1Gora.Controls.Add(this.bAddCompanyToRaks);
@@ -229,6 +231,17 @@
             this.dataGridView1Naglowki.TabIndex = 0;
             this.dataGridView1Naglowki.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1Naglowki_CellClick);
             // 
+            // bCopyNIPToClipboard
+            // 
+            this.bCopyNIPToClipboard.Enabled = false;
+            this.bCopyNIPToClipboard.Location = new System.Drawing.Point(312, 44);
+            this.bCopyNIPToClipboard.Name = "bCopyNIPToClipboard";
+            this.bCopyNIPToClipboard.Size = new System.Drawing.Size(145, 23);
+            this.bCopyNIPToClipboard.TabIndex = 10;
+            this.bCopyNIPToClipboard.Text = "Kopiuj &NIP do schowka";
+            this.bCopyNIPToClipboard.UseVisualStyleBackColor = true;
+            this.bCopyNIPToClipboard.Click += new System.EventHandler(this.bCopyNIPToClipboard_Click);
+            // 
             // OrdersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,5 +282,6 @@
         private System.Windows.Forms.Button bAddCompanyToRaks;
         private System.Windows.Forms.Button bCopyIndexToCliboard;
         private System.Windows.Forms.Button bCopyNrZamToClip;
+        private System.Windows.Forms.Button bCopyNIPToClipboard;
     }
 }

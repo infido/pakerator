@@ -763,6 +763,11 @@ namespace Pakerator
             Clipboard.SetText(dataGridView1Naglowki.CurrentRow.Cells["orderSerialNumber"].Value.ToString());
         }
 
+        private void bCopyNIPToClipboard_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(dataGridView1Naglowki.CurrentRow.Cells["clientNip"].Value.ToString());
+        }
+
         private void setKolorowaniePOZ()
         {
             foreach (DataGridViewRow row in dataGridView2Pozycje.Rows)
