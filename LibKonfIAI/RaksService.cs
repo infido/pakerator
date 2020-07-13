@@ -221,14 +221,16 @@ namespace LibKonfIAI
                                             sql += " Status: " + item.paymentStatus;
                                             sql += "; kwota: " + item.paymentValue.ToString("C") + "; "  + GetIdentyfikatorPlatonsciZIAI(item.paymentNumber) +  System.Environment.NewLine;
                                         }
-                                        sql += System.Environment.NewLine + System.Environment.NewLine;
+                                        sql += System.Environment.NewLine;
                                         sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
-                                        sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C") + "');"; //UWAGI
+                                        sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C");
+                                        sql += System.Environment.NewLine + response.Results[0].orderDetails.clientNoteToOrder + "');"; //UWAGI
                                     }
                                     else
                                     {
                                         sql += "'Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
-                                        sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C") + "');"; //UWAGI
+                                        sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C");
+                                        sql += System.Environment.NewLine + response.Results[0].orderDetails.clientNoteToOrder + "');"; //UWAGI
                                     }
 
                                     FbCommand new_fs = new FbCommand(sql, polaczenieFB.getConnection());
