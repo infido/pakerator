@@ -506,6 +506,11 @@ namespace Pakerator
                 bAddCompanyToRaks.Enabled = true;
             }
 
+            if (dataGridView1Naglowki.CurrentRow.Cells["clientNip"].Value.ToString().Length > 1)
+                bCopyNIPToClipboard.Enabled = true;
+            else
+                bCopyNIPToClipboard.Enabled = false;
+
             bCopyIndexToCliboard.Enabled = false;
             bCopyNrZamToClip.Enabled = true;
         }
@@ -719,7 +724,7 @@ namespace Pakerator
                 MessageBox.Show("Zamówienie jest powiązane z dokumentem sprzedaży " + dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString() + " w RaksSQL","Przenoszenie przerwano!");
             else if ((bool)dataGridView1Naglowki.CurrentRow.Cells["NaFakture"].Value)
             {
-                MessageBox.Show("Klient oczekuje faktury, tworzenie faktu, jest niedostepne w tej wersji","Funkcjonalność nieobsługiwana");
+                MessageBox.Show("Klient oczekuje faktury, tworzenie faktu, jest niedostepne w tej wersji", "Funkcjonalność nieobsługiwana");
             }
             else
             {
