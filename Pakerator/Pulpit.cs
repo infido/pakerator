@@ -329,8 +329,7 @@ namespace Pakerator
                     {
                         kolorowanieRekordow();
                     }
-                    odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Enabled = true;
-
+                    
                     string tab = "";
                     if (cSkanFZ.Checked)
                         tab = "GM_FZ";
@@ -377,7 +376,7 @@ namespace Pakerator
                             throw;
                         }
                     }
-                    
+                    odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
