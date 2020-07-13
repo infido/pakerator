@@ -393,10 +393,12 @@ namespace Pakerator
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {
+                bool czyBezObliczaniaStanow;
                 if (dokId == 0)
                 {
                     //wybór dokumentu
                     //textHistoria.Text = "List przewozowy: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
+                    czyBezObliczaniaStanow = false;
                     zapiszHistoria("001 Wybór dokumentu >> List przewozowy: " + tToSkan.Text); 
                     SetDokument(tToSkan.Text);
                     tToSkan.Text = "";
@@ -405,6 +407,7 @@ namespace Pakerator
                 {
                     //skanowanie towaru
                     bool znalazlem = false;
+                    czyBezObliczaniaStanow = true;
 
                     //textHistoria.Text = "Towar: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
                     zapiszHistoria("002 Skanowanie towaru: " + tToSkan.Text);
@@ -452,7 +455,7 @@ namespace Pakerator
 
                     if (znalazlem)
                     {
-                        kolorowanieRekordow();
+                        kolorowanieRekordow(czyBezObliczaniaStanow);
                         sprawdzenieCzySkonczone();
                     }
                     else
