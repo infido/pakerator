@@ -32,6 +32,7 @@ namespace Pakerator
         public string magKod, magKod2;
         public string magNazwa, magNazwa2;
         Dictionary<int, string> listMagazyny;
+        private bool czyBezObliczaniaStanow;
 
         public Pulpit()
         {
@@ -393,7 +394,6 @@ namespace Pakerator
         {
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {
-                bool czyBezObliczaniaStanow;
                 if (dokId == 0)
                 {
                     //wybór dokumentu
