@@ -1,11 +1,11 @@
 
-Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 13.07.2020 09:49:10
+Processing C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.ci 14.07.2020 10:51:59
 Log file: C:\Users\jacek\source\repos\pakerator\PakeratorCreateInstall.log 
 Generating Sources... 
 Compiling Gentee Sources... 
 Build setup file: c:\setups\PakeratorInstall.exe 
 Adding temporary file(s) to EXE 
-C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 13.07.2020 09:49:11 4078  48.65%
+C:\Users\jacek\AppData\Local\Temp\gentee01\polish.lng 14.07.2020 10:51:59 4078  48.65%
 C:\Program Files (x86)\CreateInstall Free\res\logo\default - 1.bmp 20.03.2018 18:19:53 7308  52.55%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\install\install - 1.bmp 20.03.2018 18:19:53 20678  33.44%
 C:\Program Files (x86)\CreateInstall Free\res\leftimg\uninstall\uninstall - 1.bmp 20.03.2018 18:19:53 20678  28.19%
@@ -15,14 +15,14 @@ Getting list of files
 Packing files... 
 ================================ 
 C:\imex\!pakerator\fanfare_x.wav 28.05.2020 11:03:09 14004  91.33%
-C:\imex\!pakerator\LibKonfIAI.dll 13.07.2020 09:48:06 134656  32.34%
-C:\imex\!pakerator\PakeratorChangeLog.txt 13.07.2020 09:47:33 2811  44.32%
+C:\imex\!pakerator\LibKonfIAI.dll 14.07.2020 10:51:11 134656  32.33%
+C:\imex\!pakerator\PakeratorChangeLog.txt 14.07.2020 10:35:01 2980  43.92%
 C:\imex\!pakerator\FirebirdSql.Data.FirebirdClient.dll 06.02.2020 07:56:26 653824  31.12%
 C:\imex\!pakerator\gun_44mag_11.wav 28.05.2020 11:03:10 24390  95.11%
 C:\imex\!pakerator\klaxon_ahooga.wav 28.05.2020 11:03:10 9588  75.19%
-C:\imex\!pakerator\app.publish\Pakerator.exe 13.07.2020 09:48:07 1800192  18.02%
-C:\imex\!pakerator\Pakerator.exe 13.07.2020 09:48:07 1800192  18.02%
+C:\imex\!pakerator\app.publish\Pakerator.exe 14.07.2020 10:51:25 1801216  18.03%
+C:\imex\!pakerator\Pakerator.exe 14.07.2020 10:51:25 1801216  18.03%
 ================================ 
-All files: 8 [ 4335KB => 918KB ] 
+All files: 8 [ 4337KB => 919KB ] 
 File Size c:\setups\PakeratorInstall.exe: 1072 KB 
-Finish Successful 13.07.2020 09:49:13
+Finish Successful 14.07.2020 10:52:02

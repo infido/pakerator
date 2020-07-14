@@ -290,7 +290,11 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.28 (13-07-2020)
+                  <dlgtext >Wersja 1.29 (14-07-2020)
+* Optymalizacja przeliczeń stanów przy skanowaniu towarów
+* Poprawa błędu z obsługą znaku specjalnego (apostrof) w nazwach towarów
+
+Wersja 1.28 (13-07-2020)
 * Kopiowanie NIP z listy zamówień do schowka Windows
 * Przepisanie uwag z zamówienia na dok. sprzed.</>
                   <if ></>
