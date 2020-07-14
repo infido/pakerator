@@ -321,10 +321,10 @@ namespace LibKonfIAI
 
                                         sql += "0,"; //RABAT do wyliczenia
 
-                                        sql += "'" + fspoz.productSizeCodeExternal + "',"; //SKROT_ORYGINALNY
-                                        sql += "'" + fspoz.productName + "',"; //NAZWA_ORYGINALNA
-                                        sql += "'" + fspoz.productSizeCodeExternal + "',"; //SKROT_ALTERNATYWNY
-                                        sql += "'" + fspoz.productName + "',"; //NAZWA_ALTERNATYWNA
+                                        sql += "'" + fspoz.productSizeCodeExternal.Replace("'","_") + "',"; //SKROT_ORYGINALNY
+                                        sql += "'" + fspoz.productName.Replace("'", "_") + "',"; //NAZWA_ORYGINALNA
+                                        sql += "'" + fspoz.productSizeCodeExternal.Replace("'", "_") + "',"; //SKROT_ALTERNATYWNY
+                                        sql += "'" + fspoz.productName.Replace("'", "_") + "',"; //NAZWA_ALTERNATYWNA
 
                                         sql += "'" + Guid.NewGuid() + "',";
                                         sql += "'TODAY');"; //DATA_WYDANIA
