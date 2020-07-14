@@ -468,6 +468,7 @@ namespace Pakerator
                         dataGridView1Naglowki.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                         dataGridView1Naglowki.AutoGenerateColumns = true;
                         dataGridView1Naglowki.DataSource = orders;
+                        //dataGridView1Naglowki.Sort(dataGridView1Naglowki.Columns[cOrderByColumn.Text], ListSortDirection.Ascending);
 
                         Pulpit.putLog(polaczenie, usrNam, "REPORT", "703 Widok zamówień z pozycjami, pobrano i wyświetlono:" + orders.Count + " zamówień", "", "", "", 0, "", 0, "", magID, "", 0, 0);
 
