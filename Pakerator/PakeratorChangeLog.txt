@@ -1,4 +1,9 @@
-﻿Wersja 1.29 (14-07-2020)
+﻿Wersja 1.30 (16-07-2020)
+* Sortowanie na liście zamówień z IAI po dowolnej kolumnie (klikając w kolumnę) 
+* Zapisywanie do RaksSQL zamówień na Fakturę VAT z tworzeniem faktury
+* Ustawienie komunikatu Alarm w RaksSQL gdy klient dopisał uwagi do zamowienia w IAI
+
+Wersja 1.29 (14-07-2020)
 * Optymalizacja przeliczeń stanów przy skanowaniu towarów
 * Poprawa błędu z obsługą znaku specjalnego (apostrof) w nazwach towarów
 

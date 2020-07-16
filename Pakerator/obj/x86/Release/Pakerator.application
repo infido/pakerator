@@ -7,14 +7,14 @@
     <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Pakerator.exe.manifest" size="10479">
+    <dependentAssembly dependencyType="install" codebase="Pakerator.exe.manifest" size="10480">
       <assemblyIdentity name="Pakerator.exe" version="1.9.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+XO7G4gVgZ8BMo5/aw4ILbSZXKOt6hFBmE8ocojLPXA=</dsig:DigestValue>
+        <dsig:DigestValue>0MhLEHjGlNzIslisL8LBL338B+32B023FdHTy1P/kpM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

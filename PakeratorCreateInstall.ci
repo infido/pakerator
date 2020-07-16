@@ -290,13 +290,10 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.29 (14-07-2020)
-* Optymalizacja przeliczeń stanów przy skanowaniu towarów
-* Poprawa błędu z obsługą znaku specjalnego (apostrof) w nazwach towarów
-
-Wersja 1.28 (13-07-2020)
-* Kopiowanie NIP z listy zamówień do schowka Windows
-* Przepisanie uwag z zamówienia na dok. sprzed.</>
+                  <dlgtext >Wersja 1.30 (16-07-2020)
+* Sortowanie na liście zamówień z IAI po dowolnej kolumnie (klikając w kolumnę) 
+* Zapisywanie do RaksSQL zamówień na Fakturę VAT z tworzeniem faktury
+* Ustawienie komunikatu Alarm w RaksSQL gdy klient dopisał uwagi do zamowienia w IAI</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
