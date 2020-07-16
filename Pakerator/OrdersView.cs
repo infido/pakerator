@@ -604,7 +604,7 @@ namespace Pakerator
                     row.DefaultCellStyle.SelectionForeColor = Color.Red;
                 }
 
-                if (row.Cells["raksNumer"].Value==null)
+                if (row.Cells["raksNumer"].Value==null || row.Cells["raksNumer"].Value.ToString()=="")
                     row.Cells["raksNumer"].Value = getNumerRaksForId(row.Cells["orderSerialNumber"].Value.ToString());
             }
         }
