@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1Gora = new System.Windows.Forms.Panel();
-            this.cOrderByColumn = new System.Windows.Forms.ComboBox();
             this.bCopyNIPToClipboard = new System.Windows.Forms.Button();
             this.bCopyNrZamToClip = new System.Windows.Forms.Button();
             this.bCopyIndexToCliboard = new System.Windows.Forms.Button();
@@ -55,7 +54,6 @@
             // 
             // panel1Gora
             // 
-            this.panel1Gora.Controls.Add(this.cOrderByColumn);
             this.panel1Gora.Controls.Add(this.bCopyNIPToClipboard);
             this.panel1Gora.Controls.Add(this.bCopyNrZamToClip);
             this.panel1Gora.Controls.Add(this.bCopyIndexToCliboard);
@@ -72,31 +70,6 @@
             this.panel1Gora.Name = "panel1Gora";
             this.panel1Gora.Size = new System.Drawing.Size(1268, 77);
             this.panel1Gora.TabIndex = 0;
-            // 
-            // cOrderByColumn
-            // 
-            this.cOrderByColumn.FormattingEnabled = true;
-            this.cOrderByColumn.Items.AddRange(new object[] {
-            "OrderSerialNumber",
-            "StatusStanowRaks",
-            "OrderStatus",
-            "RaksNumer",
-            "ApiFlag",
-            "OrderAddDate",
-            "CourierName",
-            "DeliveryDate",
-            "ClientCity",
-            "ClientFirm",
-            "ClientNip",
-            "OrderSourceName",
-            "OrderSourceType"});
-            this.cOrderByColumn.Location = new System.Drawing.Point(143, 15);
-            this.cOrderByColumn.MaxDropDownItems = 14;
-            this.cOrderByColumn.Name = "cOrderByColumn";
-            this.cOrderByColumn.Size = new System.Drawing.Size(121, 21);
-            this.cOrderByColumn.TabIndex = 11;
-            this.cOrderByColumn.Text = "OrderSerialNumber";
-            this.cOrderByColumn.Visible = false;
             // 
             // bCopyNIPToClipboard
             // 
@@ -198,7 +171,7 @@
             // lkomunikat
             // 
             this.lkomunikat.AutoSize = true;
-            this.lkomunikat.Location = new System.Drawing.Point(351, 18);
+            this.lkomunikat.Location = new System.Drawing.Point(224, 18);
             this.lkomunikat.Name = "lkomunikat";
             this.lkomunikat.Size = new System.Drawing.Size(35, 13);
             this.lkomunikat.TabIndex = 2;
@@ -207,7 +180,7 @@
             // 
             // bRefresh
             // 
-            this.bRefresh.Location = new System.Drawing.Point(270, 13);
+            this.bRefresh.Location = new System.Drawing.Point(143, 13);
             this.bRefresh.Name = "bRefresh";
             this.bRefresh.Size = new System.Drawing.Size(75, 23);
             this.bRefresh.TabIndex = 1;
@@ -268,6 +241,7 @@
             this.dataGridView1Naglowki.Size = new System.Drawing.Size(1268, 370);
             this.dataGridView1Naglowki.TabIndex = 0;
             this.dataGridView1Naglowki.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1Naglowki_CellClick);
+            this.dataGridView1Naglowki.Sorted += new System.EventHandler(this.dataGridView1Naglowki_Sorted);
             // 
             // OrdersView
             // 
@@ -310,6 +284,5 @@
         private System.Windows.Forms.Button bCopyIndexToCliboard;
         private System.Windows.Forms.Button bCopyNrZamToClip;
         private System.Windows.Forms.Button bCopyNIPToClipboard;
-        private System.Windows.Forms.ComboBox cOrderByColumn;
     }
 }

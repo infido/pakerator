@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibKonfIAI;
 using Microsoft.Win32;
+using System.Data.Common;
 
 namespace Pakerator
 {
@@ -28,7 +29,7 @@ namespace Pakerator
         int magID, magID2;
         string usrNam;
         string filtrStatus;
-        List<Order> orders;
+        BindingList<Order> orders;
         List<OrderItem> orderItems;
 
         private void bClose_Click(object sender, EventArgs e)
@@ -75,7 +76,7 @@ namespace Pakerator
             if (SessionIAI.GetPopertySettingsForAIA())
             {
 
-                orders = new List<Order>();
+                orders = new BindingList<Order>();
 
                 var binding = new BasicHttpBinding();
                 var address = new EndpointAddress("http://" + SessionIAI.GetIAIDomainForCurrentSession() + "/api/?gate=orders/getOrdersNotFinished/106/soap");
@@ -225,41 +226,75 @@ namespace Pakerator
                     }
                     else
                     {
+                        DataView dv = new DataView();
+                        DataSet ds = new DataSet();
+                        ds.Tables.Add("HEAD");
+                        ds.Tables["HEAD"].Columns.Add("OrderSerialNumber", typeof(int));
+                        ds.Tables["HEAD"].Columns.Add("StatusStanowRaks", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderStatus", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("RaksNumer", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ApiFlag", typeof(apiFlagType));
+                        ds.Tables["HEAD"].Columns.Add("OrderAddDate", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderPaymentType", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderConfirmation", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("CourierName", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("DeliveryDate", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientPhone1", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientNoteToOrder", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientCity", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientCountryName", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("NaFakture", typeof(bool));
+                        ds.Tables["HEAD"].Columns.Add("ClientFirm", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientFirstName", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientLastName", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientNip", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientStreet", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientZipCode", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientEmail", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientPhone2", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("ClientId", typeof(int));
+                        ds.Tables["HEAD"].Columns.Add("ClientLogin", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderBridgeNote", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderId", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderSourceName", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("OrderSourceType", typeof(String));
+
                         lkomunikat.Visible = true;
                         lkomunikat.Text = "Pobrano informacje ze sklepu www o " + response.resultsNumberAll + " zamówieniach";
                         foreach (ApiGetOrdersNotFinishedGet.ResultType www in response.Results)
                         {
                             Order nag = new Order();
+                            DataRow row = ds.Tables["HEAD"].NewRow();
                             #region 037 try na mapowanie nagłówków
                             try
                             {
-                                nag.OrderId = www.orderId;
-                                nag.OrderStatus = www.orderDetails.orderStatus;
-                                nag.OrderAddDate = www.orderDetails.orderAddDate;
-                                nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
-                                nag.OrderConfirmation = www.orderDetails.orderConfirmation;
-                                nag.CourierName = www.orderDetails.dispatch.courierName;
-                                nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
-                                nag.OrderBridgeNote = www.orderBridgeNote;
-                                nag.OrderSerialNumber = www.orderSerialNumber;
-                                nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
-                                nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
-                                nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
-                                nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
-                                nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
-                                nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
-                                nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
-                                nag.ClientStreet = www.clientResult.clientBillingAddress.clientStreet;
-                                nag.ClientPhone1 = www.clientResult.clientBillingAddress.clientPhone1;
-                                nag.ClientPhone2 = www.clientResult.clientBillingAddress.clientPhone2;
-                                nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
-                                nag.ClientId = www.clientResult.clientAccount.clientId;
-                                nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
-                                nag.ClientNoteToOrder = www.orderDetails.clientNoteToOrder;
-                                nag.ApiFlag = www.orderDetails.apiFlag;
-                                nag.NaFakture = (www.orderDetails.clientRequestInvoice.Equals("n") ? false : true);
-                                nag.OrderSourceName = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceName;
-                                nag.OrderSourceType = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceType;
+                                row["OrderId"] = nag.OrderId = www.orderId;
+                                row["OrderStatus"] = nag.OrderStatus = www.orderDetails.orderStatus;
+                                row["OrderAddDate"] = nag.OrderAddDate = www.orderDetails.orderAddDate;
+                                row["OrderPaymentType"] = nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
+                                row["OrderConfirmation"] = nag.OrderConfirmation = www.orderDetails.orderConfirmation;
+                                row["CourierName"] = nag.CourierName = www.orderDetails.dispatch.courierName;
+                                row["DeliveryDate"] = nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
+                                row["OrderBridgeNote"] = nag.OrderBridgeNote = www.orderBridgeNote;
+                                row["OrderSerialNumber"] = nag.OrderSerialNumber = www.orderSerialNumber;
+                                row["ClientFirm"] = nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
+                                row["ClientFirstName"] = nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
+                                row["ClientLastName"] = nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
+                                row["ClientNip"] = nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
+                                row["ClientCountryName"] = nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
+                                row["ClientCity"] = nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
+                                row["ClientZipCode"] = nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
+                                row["ClientStreet"] = nag.ClientStreet = www.clientResult.clientBillingAddress.clientStreet;
+                                row["ClientPhone1"] = nag.ClientPhone1 = www.clientResult.clientBillingAddress.clientPhone1;
+                                row["ClientPhone2"] = nag.ClientPhone2 = www.clientResult.clientBillingAddress.clientPhone2;
+                                row["ClientEmail"] = nag.ClientEmail = www.clientResult.clientAccount.clientEmail;
+                                row["ClientId"] = nag.ClientId = www.clientResult.clientAccount.clientId;
+                                row["ClientLogin"] = nag.ClientLogin = www.clientResult.clientAccount.clientLogin;
+                                row["ClientNoteToOrder"] = nag.ClientNoteToOrder = www.orderDetails.clientNoteToOrder;
+                                row["ApiFlag"] = nag.ApiFlag = www.orderDetails.apiFlag;
+                                row["NaFakture"] = nag.NaFakture = (www.orderDetails.clientRequestInvoice.Equals("n") ? false : true);
+                                row["OrderSourceName"] = nag.OrderSourceName = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceName;
+                                row["OrderSourceType"] = nag.OrderSourceType = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceType;
                             }
                             catch (Exception exn)
                             {
@@ -462,13 +497,19 @@ namespace Pakerator
                             }
 
                             nag.ItemsOfOrder = orderItems;
+                            row["StatusStanowRaks"] = nag.StatusStanowRaks;
                             orders.Add(nag);
+                            ds.Tables["HEAD"].Rows.Add(row);
                         }
 
                         dataGridView1Naglowki.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                         dataGridView1Naglowki.AutoGenerateColumns = true;
-                        dataGridView1Naglowki.DataSource = orders;
-                        //dataGridView1Naglowki.Sort(dataGridView1Naglowki.Columns[cOrderByColumn.Text], ListSortDirection.Ascending);
+
+                        //dataGridView1Naglowki.DataSource = orders;
+
+                        dv.Table = ds.Tables["HEAD"];
+                        dataGridView1Naglowki.DataSource = dv;
+
 
                         Pulpit.putLog(polaczenie, usrNam, "REPORT", "703 Widok zamówień z pozycjami, pobrano i wyświetlono:" + orders.Count + " zamówień", "", "", "", 0, "", 0, "", magID, "", 0, 0);
 
@@ -487,7 +528,7 @@ namespace Pakerator
         private void dataGridView1Naglowki_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView2Pozycje.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            Order cur = orders.Find(x => x.OrderId == dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
+            Order cur = orders.First(x => x.OrderId == dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString());
             if (cur != null)
             {
                 dataGridView2Pozycje.DataSource = cur.ItemsOfOrder;
@@ -723,10 +764,10 @@ namespace Pakerator
         {
             if (dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString().Length>0)
                 MessageBox.Show("Zamówienie jest powiązane z dokumentem sprzedaży " + dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString() + " w RaksSQL","Przenoszenie przerwano!");
-            else if ((bool)dataGridView1Naglowki.CurrentRow.Cells["NaFakture"].Value)
-            {
-                MessageBox.Show("Klient oczekuje faktury, tworzenie faktu, jest niedostepne w tej wersji", "Funkcjonalność nieobsługiwana");
-            }
+            //else if ((bool)dataGridView1Naglowki.CurrentRow.Cells["NaFakture"].Value)
+            //{
+            //    MessageBox.Show("Klient oczekuje faktury, tworzenie faktu, jest niedostepne w tej wersji", "Funkcjonalność nieobsługiwana");
+            //}
             else
             {
                 string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, polaczenieRaks3000, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
@@ -772,6 +813,11 @@ namespace Pakerator
         private void bCopyNIPToClipboard_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(dataGridView1Naglowki.CurrentRow.Cells["clientNip"].Value.ToString());
+        }
+
+        private void dataGridView1Naglowki_Sorted(object sender, EventArgs e)
+        {
+            setKolorowanieNAG();
         }
 
         private void setKolorowaniePOZ()
@@ -853,8 +899,8 @@ namespace Pakerator
         {
 
         }
-        public int OrderSerialNumber { get => orderSerialNumber; set => orderSerialNumber = value; }
 
+        public int OrderSerialNumber { get => orderSerialNumber; set => orderSerialNumber = value; }
         public string OrderId { get => orderId; set => orderId = value; }
         public string OrderStatus { get => orderStatus; set => orderStatus = value; }
         public string RaksNumer { get => raksNumer; set => raksNumer = value; }
