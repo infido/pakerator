@@ -61,6 +61,9 @@ namespace LibKonfIAI
                             if (indeksyNaPozycjachSaOK)
                             {
                                 int fsid = 0;
+                                string rekGIUD="";
+                                string rekOpis = "";
+
                                 FbCommand gen_id_fs = new FbCommand("SELECT GEN_ID(GM_FS_GEN,1) from rdb$database", polaczenieFB.getConnection());
                                 try
                                 {
@@ -93,11 +96,20 @@ namespace LibKonfIAI
 
                                     sql += "'" + typDok + "', "; //TYP_DOK_MAGAZYNOWEGO
                                     if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("selff_added"))
+                                    {
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAP");
+                                        rekOpis = "PAP ";
+                                    }
                                     else if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("auctions"))
+                                    {
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAA");
+                                        rekOpis = "PAA ";
+                                    }
                                     else
+                                    {
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "PAI");
+                                        rekOpis = "PAI ";
+                                    }
                                 }
                                 else
                                 {
@@ -106,18 +118,27 @@ namespace LibKonfIAI
 
                                     sql += "'" + typDok + "', "; //TYP_DOK_MAGAZYNOWEGO
                                     if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("selff_added"))
+                                    {
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "FAP");
+                                        rekOpis = "FAP ";
+                                    }
                                     else if (response.Results[0].orderDetails.orderSourceResults.orderSourceDetails.orderSourceType.ToString().Equals("auctions"))
+                                    {
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "FSA");
+                                        rekOpis = "FSA ";
+                                    }
                                     else
+                                    {
                                         nrDoku = GetKodNumeracji(polaczenieFB, magId, "FSI");
+                                        rekOpis = "FSI ";
+                                    }
                                 }
 
                                 sql += "'" + nrDoku.nazwaKodu + "', "; //KOD definiowany w kodach dokumentów przez administartora Raks
                                 sql += nrDoku.nrKolejny + ", "; //NR 
                                 symDoku = nrDoku.wyliczonySymbolDlaDok;
                                 sql += "'" + nrDoku.wyliczonySymbolDlaDok + "', "; //NUMER - symbol dokumentu
-
+                                rekOpis += nrDoku.wyliczonySymbolDlaDok;
 
                                 sql += "1, "; //SPOSOB_LICZENIA 1-brutto, 0-netto
                                 sql += "0, "; //ID_WALUTY  
@@ -220,7 +241,8 @@ namespace LibKonfIAI
                                 }
 
                                 sql += "0, "; //MAGAZYNOWY 
-                                sql += "'" + Guid.NewGuid() + "' ,"; //GUID
+                                rekGIUD = Guid.NewGuid().ToString();
+                                sql += "'" + rekGIUD + "' ,"; //GUID
 
                                 //To działa tylko na ID
                                 if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("prepaid"))
@@ -290,6 +312,8 @@ namespace LibKonfIAI
                                     ConnectionFB.setErrOrLogMsg("ERROR", "Błąd zapisania do RaksSQL: " + exgen.Message + System.Environment.NewLine + komunikatZwrotny);
                                     throw;
                                 }
+                                if (response.Results[0].orderDetails.clientNoteToOrder.ToString().Length > 0)
+                                    SetKomunikatDlaFS(polaczenieFB, rekGIUD, rekOpis, response.Results[0].orderDetails.clientNoteToOrder.ToString());
 
                                 int lp = 1;
                                 decimal net = 0;
@@ -687,6 +711,49 @@ namespace LibKonfIAI
             {
                 ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.GetValStawkiVat) " + System.Environment.NewLine + " Kod 1013; Bład przy ustalaniu wartości stawki VAT z stawki o ID:" + idStawkiVAT + System.Environment.NewLine + expl.Message);
                 return 23;
+            };
+        }
+
+        private static void SetKomunikatDlaFS(ConnectionFB polaczenieFB, string guid, string sym, string uwagi)
+        {
+            FbCommand gen_id_msg = new FbCommand("SELECT GEN_ID(R3_ALARMY_ID_GEN,1) from rdb$database", polaczenieFB.getConnection());
+            try
+            {
+                var sqlPl = gen_id_msg.ExecuteScalar();
+                int locId = 0;
+                if (sqlPl != null)
+                    locId = Convert.ToInt32(sqlPl);
+
+                string sql = "INSERT INTO R3_ALARMY (ID, RECORD_GUID, TRESC, AKTYWNY, PRYWATNY, DATA_OD, DATA_DO, ID_PRIOR, C_DATE, M_DATE, C_IDENT, M_IDENT, DATA_AKTYW, DATA_DEZAKTYW, URUCHOM_EDYCJA, URUCHOM_WYBOR, UWAGI, AM_TYPE, RECORD_DESC)";
+                sql += " VALUES (";
+                sql += " " + locId + ", ";
+                sql += " '" + guid + "', ";
+                sql += " 'Uwagi zamawiającego do zamówienia', ";
+                sql += " 1, ";
+                sql += " 0, ";
+                sql += " 'NOW', ";
+                sql += " null, ";
+                sql += " 0, ";
+                sql += " current_timestamp, ";
+                sql += " current_timestamp, ";
+                sql += " 'WWW', ";
+                sql += " 'WWW', ";
+                sql += " current_timestamp, ";
+                sql += " null, ";
+                sql += " 1, ";
+                sql += " 1, ";
+                sql += " '" + uwagi + "',";
+                sql += " 28, ";
+                sql += " '" + sym + "'";
+                sql += " );";
+
+                FbCommand ins_msg = new FbCommand(sql, polaczenieFB.getConnection());
+                ins_msg.ExecuteScalar();
+
+            }
+            catch (FbException expl)
+            {
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService.SetKomunikatDlaFS) " + System.Environment.NewLine + " Kod 1063; Bład przy ustawianiu wartości komunikatu dla dok sprzedażowego:" + sym + System.Environment.NewLine + expl.Message);
             };
         }
 
