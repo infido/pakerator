@@ -393,7 +393,7 @@ namespace LibKonfIAI
 
                                     if (cennaKatalogowaNetto!= fspoz.productOrderPriceNet)
                                     {
-                                        sql += Math.Round(Convert.ToDecimal((cennaKatalogowaNetto - fspoz.productOrderPriceNet) / (cennaKatalogowaNetto / 100)), 0).ToString().Replace(",", ".") + ", "; //RABAT
+                                        sql += Math.Round(Convert.ToDecimal((cennaKatalogowaNetto - fspoz.productOrderPriceNet) / (cennaKatalogowaNetto / 100)), 2).ToString().Replace(",", ".") + ", "; //RABAT
                                     }
                                     else
                                         sql +=  "0,"; //brak RABAT-u
