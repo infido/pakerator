@@ -255,6 +255,7 @@
             this.ShowIcon = false;
             this.Text = "Zamówienia";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OrdersView_FormClosed);
+            this.Shown += new System.EventHandler(this.OrdersView_Shown);
             this.panel1Gora.ResumeLayout(false);
             this.panel1Gora.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nDniWstecz)).EndInit();

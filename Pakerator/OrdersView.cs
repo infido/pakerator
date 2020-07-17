@@ -825,6 +825,12 @@ namespace Pakerator
             setKolorowanieNAG();
         }
 
+        private void OrdersView_Shown(object sender, EventArgs e)
+        {
+            lkomunikat.Text = "Proszę czekać wczytuję dane ze sklepu IAI...";
+            bRefresh.PerformClick();
+        }
+
         private void setKolorowaniePOZ()
         {
             foreach (DataGridViewRow row in dataGridView2Pozycje.Rows)
