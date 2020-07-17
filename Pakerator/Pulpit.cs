@@ -417,26 +417,44 @@ namespace Pakerator
                             (Convert.ToDecimal( row.Cells["SKANOWANE"].Value) < Convert.ToDecimal( row.Cells["ILOSC"].Value))
                             )
                         {
-                            //zapis do bazy
-                            row.Cells["SKANOWANE"].Value = (int)row.Cells["SKANOWANE"].Value + 1;
 
+                            //zapis do bazy
+                            try
+                            {
+                                row.Cells["SKANOWANE"].Value = (int)row.Cells["SKANOWANE"].Value + 1;
+                            }
+                            catch (Exception ein)
+                            {
+                                MessageBox.Show("Błąd zwiekszania wartości pola SKANOWANIE dla: " + row.Cells["SKROT"].Value + System.Environment.NewLine + ein.Message);
+                                throw;
+                            }
+                            
                             //updatsw
                             FbCommand cdk = null;
-                            if (ltypdok.Text.StartsWith("FS") || ltypdok.Text.StartsWith("PA"))
+                            try
                             {
-                                cdk = new FbCommand("UPDATE GM_FSPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                                if (ltypdok.Text.StartsWith("FS")  || ltypdok.Text.StartsWith("FH") || ltypdok.Text.StartsWith("PA"))
+                                {
+                                    cdk = new FbCommand("UPDATE GM_FSPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                                }
+                                else if (ltypdok.Text.Equals("MMP"))
+                                {
+                                    cdk = new FbCommand("UPDATE GM_MMPPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                                }
+                                else if (ltypdok.Text.Equals("MMR"))
+                                {
+                                    cdk = new FbCommand("UPDATE GM_MMRPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                                }
+                                else if (ltypdok.Text.StartsWith("FZ") || ltypdok.Text.StartsWith("DI"))
+                                {
+                                    cdk = new FbCommand("UPDATE GM_FZPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                                }else
+                                    MessageBox.Show("Próba skanowania dokumentu, z nieobsługiwanym typem numeracji: " + ltypdok.Text + System.Environment.NewLine + "Zgłoś problem do administartora systemu.", "Nieobsługiwany typ dokumentu");
                             }
-                            else if (ltypdok.Text.Equals("MMP"))
+                            catch (Exception exc)
                             {
-                                cdk = new FbCommand("UPDATE GM_MMPPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
-                            }
-                            else if (ltypdok.Text.Equals("MMR"))
-                            {
-                                cdk = new FbCommand("UPDATE GM_MMRPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
-                            }
-                            else if (ltypdok.Text.StartsWith("FZ") || ltypdok.Text.StartsWith("DI"))
-                            {
-                                cdk = new FbCommand("UPDATE GM_FZPOZ SET ZNACZNIKI=" + row.Cells["SKANOWANE"].Value + " where ID=" + row.Cells["ID"].Value, polaczenie.getConnection());
+                                MessageBox.Show("Błąd formułowania zapytania ustawiającego wartość pozycji po skanowaniu: " + row.Cells["SKROT"].Value + System.Environment.NewLine + exc.Message,"Błąd w programoie");
+                                throw;
                             }
                             try
                             {
@@ -445,6 +463,7 @@ namespace Pakerator
                             }
                             catch (FbException ex)
                             {
+                                MessageBox.Show("012 Bład zapytania: " + ex.Message);
                                 setLog("ERROR", "012 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                                 throw;
                             }
@@ -455,12 +474,14 @@ namespace Pakerator
 
                     if (znalazlem)
                     {
+                        zapiszHistoria("003 Znalaleziono pozycję w loop, jest przed kolorowaniem : " + tToSkan.Text);
                         kolorowanieRekordow(czyBezObliczaniaStanow);
+                        zapiszHistoria("004 Znalaleziono pozycję w loop, jest przed sprawdzeneim czy skończony dokument : " + tToSkan.Text);
                         sprawdzenieCzySkonczone();
                     }
                     else
                     {
-                        
+                        zapiszHistoria("005 Nieznalaleziono pozycji w loop, jest przed ogłoszeniem : " + tToSkan.Text);
                         SoundPlayer player = new SoundPlayer();
                         player.SoundLocation = Application.StartupPath + "\\klaxon_ahooga.wav";
                         player.Load();
@@ -722,33 +743,42 @@ namespace Pakerator
                     row.DefaultCellStyle.BackColor = Color.Red;
                 }
 
-                if (trybMM==false)
+                try
                 {
-                    magA = sprawdzenieStanuMagazynu(magID, row.Cells["SKROT"].Value.ToString());
-                    row.Cells["STAN_" + magKod].Value = magA;
-
-                    row.Cells["W_WYDANIU_" + magKod].Value = getIloscWWydaniu(magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
-
-                    if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                    if (trybMM == false)
                     {
-                        row.Cells["W_WYDANIU_" + magKod].Style.BackColor = Color.DeepPink;
-                        row.Cells["W_WYDANIU_" + magKod].Style.ForeColor = Color.Yellow;
-                        row.Cells["STAN_" + magKod].Style.BackColor = Color.DeepPink;
-                        row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
-                    }
+                        magA = sprawdzenieStanuMagazynu(magID, row.Cells["SKROT"].Value.ToString());
+                        row.Cells["STAN_" + magKod].Value = magA;
 
-                    if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
-                    {
-                        row.Cells["STAN_" + magKod].Style.BackColor = Color.DarkRed;
-                        row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
-                    }
+                        row.Cells["W_WYDANIU_" + magKod].Value = getIloscWWydaniu(magID, row.Cells["SKROT"].Value.ToString()) - Convert.ToInt32(row.Cells["ILOSC"].Value);
 
-                    if (magID2 != 0 && magID != magID2)
-                    {
-                        magB = sprawdzenieStanuMagazynu(magID2, row.Cells["SKROT"].Value.ToString());
-                        row.Cells["STAN_" + magKod2].Value = magB;
+                        if ((magA - Convert.ToInt32(row.Cells["W_WYDANIU_" + magKod].Value)) <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                        {
+                            row.Cells["W_WYDANIU_" + magKod].Style.BackColor = Color.DeepPink;
+                            row.Cells["W_WYDANIU_" + magKod].Style.ForeColor = Color.Yellow;
+                            row.Cells["STAN_" + magKod].Style.BackColor = Color.DeepPink;
+                            row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
+                        }
+
+                        if (magA <= Convert.ToInt32(row.Cells["ILOSC"].Value))
+                        {
+                            row.Cells["STAN_" + magKod].Style.BackColor = Color.DarkRed;
+                            row.Cells["STAN_" + magKod].Style.ForeColor = Color.Yellow;
+                        }
+
+                        if (magID2 != 0 && magID != magID2)
+                        {
+                            magB = sprawdzenieStanuMagazynu(magID2, row.Cells["SKROT"].Value.ToString());
+                            row.Cells["STAN_" + magKod2].Value = magB;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd wyliczania stanów przy kolorowaniu rekordów: " + ex.Message,"Błąd..." );
+                    throw;
+                }
+
             }
         }
 
@@ -807,10 +837,18 @@ namespace Pakerator
             jestSkonczone = true;
             foreach (DataGridViewRow row in dataGridViewPozycje.Rows)
             {
-                if (row.Cells["TYP"].Value.ToString().Equals("Towar") && jestSkonczone &&
-                    Int32.Parse(row.Cells["SKANOWANE"].Value.ToString()) < Int32.Parse(row.Cells["ILOSC"].Value.ToString()))
+                try
                 {
-                    jestSkonczone = false;
+                    if (row.Cells["TYP"].Value.ToString().Equals("Towar") && jestSkonczone &&
+                                Int32.Parse(row.Cells["SKANOWANE"].Value.ToString()) < Int32.Parse(row.Cells["ILOSC"].Value.ToString()))
+                    {
+                        jestSkonczone = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy sprawdzaniu czy dokument skończony: " + ex.Message);
+                    throw;
                 }
                
             }
