@@ -28,6 +28,7 @@ namespace Pakerator
         //private DataView fDataView;
         int magID, magID2;
         string usrNam;
+        string magNazLoc;
         string filtrStatus;
         BindingList<Order> orders;
         List<OrderItem> orderItems;
@@ -37,10 +38,11 @@ namespace Pakerator
             Close();
         }
 
-        public OrdersView(int magazyn1, int magazyn2, ConnectionDB conn, string userName, string statusZamowien, string tytulOkna)
+        public OrdersView(int magazyn1, int magazyn2, ConnectionDB conn, string userName, string statusZamowien, string tytulOkna, string mag1Naz)
         {
             InitializeComponent();
             magID = magazyn1;
+            magNazLoc = mag1Naz;
             magID2 = magazyn2;
             polaczenie = conn;
             usrNam = userName;
@@ -773,7 +775,9 @@ namespace Pakerator
                 string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, polaczenieRaks3000, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
                 dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value = res;
                 MessageBox.Show("Wynik: " + res, "Wynik operacji zapisywania do RaksSQL");
-
+                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "INFO", "Zapis zamówienia z IAI " + dataGridView1Naglowki.CurrentRow.Cells["OrderSerialNumber"].Value.ToString()
+                                            + " do dokumentu sprzedaży: " + res, "", "", dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString(), 0, "", 0, magNazLoc, magID,
+                                            dataGridView1Naglowki.CurrentRow.Cells["ClientPhone1"].Value.ToString(), 0, 0);
                 bool isDebugMode = false;
 #if DEBUG
                 isDebugMode = true;
@@ -784,6 +788,7 @@ namespace Pakerator
                     {
                         OrdersIAI.setIAIapiStatus(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), dataGridView1Naglowki.CurrentRow.Cells["statusStanowRaks"].Value.ToString());
                         dataGridView1Naglowki.CurrentRow.Cells["ApiFlag"].Value = apiFlagType.registered_pos;
+                        
                     }
                 }
             }
