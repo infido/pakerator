@@ -365,15 +365,18 @@ namespace LibKonfIAI
                                     sql += GetValStawkiVat(polaczenieR3, idSta) + ","; //STAWKA VAT
                                     sql += GetCenaDetalID(polaczenieFB) + ","; //RODZAJ_CENY
 
+                                    float cennaKatalogowaNetto;
                                     if (fspoz.productPanelPriceNet == 0)
                                     {
-                                        sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; // CENA_KATALOGOWA netto z cennika Raks
-                                        sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; // CENA_SPRZEDAZY netto z cennika Raks (ta sama katalogowa)
+                                        cennaKatalogowaNetto = GetCenaKatalogowaNettoDETAL(polaczenieFB, kodTowar, fspoz.productOrderPriceNet);
+                                        sql += cennaKatalogowaNetto.ToString().Replace(",", ".") + ","; // CENA_KATALOGOWA netto z cennika Raks
+                                        sql += cennaKatalogowaNetto.ToString().Replace(",", ".") + ","; // CENA_SPRZEDAZY netto z cennika Raks (ta sama katalogowa)
                                     }
                                     else
                                     {
-                                        sql += fspoz.productPanelPriceNet.ToString().Replace(",", ".") + ","; // CENA_KATALOGOWA netto z cennika Raks
-                                        sql += fspoz.productPanelPriceNet.ToString().Replace(",", ".") + ","; // CENA_SPRZEDAZY netto z cennika Raks (ta sama katalogowa)
+                                        cennaKatalogowaNetto = GetCenaKatalogowaNettoDETAL(polaczenieFB, kodTowar, fspoz.productPanelPriceNet);
+                                        sql += cennaKatalogowaNetto.ToString().Replace(",", ".") + ","; // CENA_KATALOGOWA netto z cennika Raks
+                                        sql += cennaKatalogowaNetto.ToString().Replace(",", ".") + ","; // CENA_SPRZEDAZY netto z cennika Raks (ta sama katalogowa)
                                     }
 
                                     brt += (decimal)fspoz.productOrderPrice;
@@ -388,7 +391,12 @@ namespace LibKonfIAI
                                     sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; //CENA_SP_PLN_NETTO_ALT
                                     sql += fspoz.productOrderPriceNet.ToString().Replace(",", ".") + ","; //CENA_SP_WAL_NETTO_ALT
 
-                                    sql += "0,"; //RABAT do wyliczenia
+                                    if (cennaKatalogowaNetto!= fspoz.productOrderPriceNet)
+                                    {
+                                        sql += Math.Round(Convert.ToDecimal((cennaKatalogowaNetto - fspoz.productOrderPriceNet) / (cennaKatalogowaNetto / 100)), 0).ToString().Replace(",", ".") + ", "; //RABAT
+                                    }
+                                    else
+                                        sql +=  "0,"; //brak RABAT-u
 
                                     sql += "'" + fspoz.productSizeCodeExternal.Replace("'", "_") + "',"; //SKROT_ORYGINALNY
                                     sql += "'" + fspoz.productName.Replace("'", "_") + "',"; //NAZWA_ORYGINALNA
@@ -503,6 +511,33 @@ namespace LibKonfIAI
                 ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService) przy pobieraniu id ceny DETAL." + System.Environment.NewLine + "Kod 1005; błąd pobrania ID sprzedaży detalicznej" + System.Environment.NewLine + exgen2.Message);
             };
             return cid;
+        }
+
+        private static float GetCenaKatalogowaNettoDETAL(ConnectionFB polaczenieFB, int idTowaru, float cenaZeSklepu)
+        {
+            int idCenaDetal = GetCenaDetalID(polaczenieFB);
+
+            float cena = 0;
+
+            FbCommand cen = new FbCommand("SELECT CENA from GM_CENNIK where ID_TOWARU=" + idTowaru + " and IDCENY=" + idCenaDetal + ";", polaczenieFB.getConnection());
+            try
+            {
+                FbDataReader fdk = cen.ExecuteReader();
+                if (fdk.Read())
+                {
+                    cena = (float)Convert.ToDecimal(fdk["CENA"]);
+                }
+                else
+                    cena = cenaZeSklepu;
+
+                fdk.Close();
+            }
+            catch (FbException exgen2)
+            {
+                cena = cenaZeSklepu;
+                ConnectionFB.setErrOrLogMsg("ERROR", "Błąd-wyjątek (RaksService) przy wyliczaniu ceny DETAL." + System.Environment.NewLine + "Kod 1055; błąd pobrania wartości ceny DETAL ID_TOWARU: " + idTowaru + System.Environment.NewLine + exgen2.Message);
+            };
+            return cena;
         }
 
         private static int GetCustomerIDbyNIP(ConnectionFB polaczenieFB, string nip, string nazwaPelna, string nazwaSkrot)
