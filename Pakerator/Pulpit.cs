@@ -408,6 +408,7 @@ namespace Pakerator
                     //skanowanie towaru
                     bool znalazlem = false;
                     czyBezObliczaniaStanow = true;
+                    tToSkan.Text = tToSkan.Text.Trim();
 
                     //textHistoria.Text = "Towar: " + tToSkan.Text + Environment.NewLine + textHistoria.Text;
                     zapiszHistoria("002 Skanowanie towaru: " + tToSkan.Text);
