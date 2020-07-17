@@ -1,4 +1,9 @@
-﻿Wersja 1.30 (16-07-2020)
+﻿Wersja 1.31 (17-07-2020)
+* Obliczanie ceny katalogowej z cennika Raks i wyliczanie rabatu
+* Wczytywanie danych o zamówieniach z IAI po wejściu do okna bez klikania odśwież 
+* Dodanie obsługi skanowania dokumentów typu FHURT
+
+Wersja 1.30 (16-07-2020)
 * Sortowanie na liście zamówień z IAI po dowolnej kolumnie (klikając w kolumnę) 
 * Zapisywanie do RaksSQL zamówień na Fakturę VAT z tworzeniem faktury
 * Ustawienie komunikatu Alarm w RaksSQL gdy klient dopisał uwagi do zamowienia w IAI
