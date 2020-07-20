@@ -67,6 +67,7 @@ namespace Pakerator
 
         private void bRefresh_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             lkomunikat.Visible = false;
             string kodForTry = "";
             bCopyIndexToCliboard.Enabled = false;
@@ -525,6 +526,7 @@ namespace Pakerator
                 }
                 setKolorowanieNAG();
             }
+            Cursor.Current = Cursors.Default;
         }
 
         private void dataGridView1Naglowki_CellClick(object sender, DataGridViewCellEventArgs e)
