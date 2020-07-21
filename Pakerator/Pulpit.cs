@@ -349,8 +349,8 @@ namespace Pakerator
                         tab = "GM_MM";
                     }
 
-                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI='" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
-                            DateTime.Now.ToShortTimeString() + ";' || COALESCE(ZNACZNIKI,'') where ID=" + dokId, polaczenie.getConnection());
+                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI=SUBSTRING('" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                            DateTime.Now.ToShortTimeString() + ";' || COALESCE(ZNACZNIKI,'') FROM 1 FOR 249) where ID=" + dokId, polaczenie.getConnection());
 
                     try
                     {
@@ -373,7 +373,7 @@ namespace Pakerator
                         }
                         else
                         {
-                            setLog("ERROR", "008 Bład zapytania: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
+                            setLog("ERROR", "008 Bład zapytania przy aktualizacji znacznika na nagłówku dokumentu sprzedażowego: " + ex.Message, tToSkan.Text, lListPrzewozowy.Text, lDokument.Text, ltypdok.Text);
                             throw;
                         }
                     }
