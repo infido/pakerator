@@ -239,6 +239,7 @@ namespace Pakerator
                         ds.Tables["HEAD"].Columns.Add("ApiFlag", typeof(apiFlagType));
                         ds.Tables["HEAD"].Columns.Add("OrderAddDate", typeof(String));
                         ds.Tables["HEAD"].Columns.Add("OrderPaymentType", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("StatusWplaty", typeof(String));
                         ds.Tables["HEAD"].Columns.Add("OrderConfirmation", typeof(String));
                         ds.Tables["HEAD"].Columns.Add("CourierName", typeof(String));
                         ds.Tables["HEAD"].Columns.Add("DeliveryDate", typeof(String));
@@ -275,6 +276,32 @@ namespace Pakerator
                                 row["OrderStatus"] = nag.OrderStatus = www.orderDetails.orderStatus;
                                 row["OrderAddDate"] = nag.OrderAddDate = www.orderDetails.orderAddDate;
                                 row["OrderPaymentType"] = nag.OrderPaymentType = www.orderDetails.payments.orderPaymentType;
+                                if (www.orderDetails.payments.orderPaymentType.Equals("prepaid"))
+                                {
+                                    decimal sumaWplat = 0;
+                                    if (www.orderDetails.prepaids.Length > 0)
+                                    {
+                                        foreach (prepaidType item in www.orderDetails.prepaids)
+                                        {
+                                            if (item.paymentStatus.Equals("y"))
+                                            {
+                                                sumaWplat += Convert.ToDecimal(item.paymentValue);
+                                            }
+                                        }
+                                        if (sumaWplat > 0 &&
+                                            (sumaWplat - Convert.ToDecimal(www.orderDetails.payments.orderBaseCurrency.orderProductsCost + www.orderDetails.payments.orderBaseCurrency.orderDeliveryCost) != 0)
+                                            )
+                                            row["StatusWplaty"] = "POZOSTAŁO " + (Convert.ToDecimal(www.orderDetails.payments.orderBaseCurrency.orderProductsCost + www.orderDetails.payments.orderBaseCurrency.orderDeliveryCost)- sumaWplat).ToString("C");
+                                        else if (sumaWplat > 0)
+                                            row["StatusWplaty"] = "WPŁACONO " + sumaWplat.ToString("C");
+                                        else
+                                            row["StatusWplaty"] = "BRAK WPŁATY";
+                                    }
+                                    else
+                                    {
+                                        row["StatusWplaty"] = "BRAK WPŁATY";
+                                    }
+                                }
                                 row["OrderConfirmation"] = nag.OrderConfirmation = www.orderDetails.orderConfirmation;
                                 row["CourierName"] = nag.CourierName = www.orderDetails.dispatch.courierName;
                                 row["DeliveryDate"] = nag.DeliveryDate = www.orderDetails.dispatch.deliveryDate;
@@ -905,6 +932,7 @@ namespace Pakerator
         private string orderSourceName;
         private string orderSourceType;
         private string raksNumer;
+        private string statusWplaty;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -920,6 +948,7 @@ namespace Pakerator
         public apiFlagType ApiFlag { get => apiFlag; set => apiFlag = value; }
         public string OrderAddDate { get => orderAddDate; set => orderAddDate = value; }
         public string OrderPaymentType { get => orderPaymentType; set => orderPaymentType = value; }
+        public string StatusWplaty { get => statusWplaty; set => statusWplaty = value; }
         public string OrderConfirmation { get => orderConfirmation; set => orderConfirmation = value; }
         public string CourierName { get => courierName; set => courierName = value; }
         public string DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
