@@ -626,15 +626,27 @@ namespace Pakerator
                     row.DefaultCellStyle.ForeColor = Color.White;
                     row.DefaultCellStyle.SelectionForeColor = Color.BlueViolet;
                 }
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA") && (row.Cells["StatusWplaty"].Value.ToString().Length == 0 || row.Cells["StatusWplaty"].Value.ToString().StartsWith("WP")))
                 {
                     row.DefaultCellStyle.BackColor = Color.Yellow;
                     row.DefaultCellStyle.SelectionForeColor = Color.YellowGreen;
                 }
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.DarkBlue;
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                    row.DefaultCellStyle.SelectionForeColor = Color.BlueViolet;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE") && (row.Cells["StatusWplaty"].Value.ToString().Length == 0 || row.Cells["StatusWplaty"].Value.ToString().StartsWith("WP")))
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                     row.DefaultCellStyle.SelectionForeColor = Color.Orange;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_ZAMÓWIENIE"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.DarkBlue;
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                    row.DefaultCellStyle.SelectionForeColor = Color.BlueViolet;
                 }
                 else if (row.Cells["StatusStanowRaks"].Value.ToString().StartsWith("ARCHI"))
                 {
