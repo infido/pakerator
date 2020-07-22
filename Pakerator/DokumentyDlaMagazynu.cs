@@ -48,7 +48,8 @@ namespace Pakerator
             sql += " left join GM_WZ on GM_WZ.ID_FS = GM_FS.ID ";
             sql += " left join GM_WZPOZ on GM_WZPOZ.ID_GLOWKI=GM_WZ.ID ";
             sql += " where ";
-            sql += "  GM_FS.MAGAZYNOWY=0 AND GM_FS.FISKALNY=0 ";
+            //sql += "  GM_FS.MAGAZYNOWY=0 AND GM_FS.FISKALNY=0 "; Wyłączone dla Darka
+            sql += "  GM_FS.MAGAZYNOWY=0 ";
             sql += " AND GM_WZPOZ.ILOSC_PO is null ";
             sql += " AND TYP='Towar' ";
             if (tylkoOstatnie7Dni)
