@@ -603,16 +603,28 @@ namespace Pakerator
                 }
                 row.DefaultCellStyle.SelectionBackColor = Color.WhiteSmoke;
 
-                if (row.Cells["StatusStanowRaks"].Value.Equals("OK"))
+                if (row.Cells["StatusStanowRaks"].Value.Equals("OK") && (row.Cells["StatusWplaty"].Value.ToString().Length==0 || row.Cells["StatusWplaty"].Value.ToString().StartsWith("WP")) )
                 {
                     row.DefaultCellStyle.BackColor = Color.GreenYellow;
                     row.DefaultCellStyle.SelectionForeColor = Color.Green;
                 }
-                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2"))
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("OK"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.DarkBlue;
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                    row.DefaultCellStyle.SelectionForeColor = Color.BlueViolet;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2") && (row.Cells["StatusWplaty"].Value.ToString().Length == 0 || row.Cells["StatusWplaty"].Value.ToString().StartsWith("WP")))
                 {
                     row.DefaultCellStyle.BackColor = Color.DarkGreen;
                     row.DefaultCellStyle.ForeColor = Color.GreenYellow;
                     row.DefaultCellStyle.SelectionForeColor = Color.DarkGreen;
+                }
+                else if (row.Cells["StatusStanowRaks"].Value.Equals("NA_MAGAZYNIE2"))
+                {
+                    row.DefaultCellStyle.BackColor = Color.DarkBlue;
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                    row.DefaultCellStyle.SelectionForeColor = Color.BlueViolet;
                 }
                 else if (row.Cells["StatusStanowRaks"].Value.Equals("DO_PRZESUNIĘCIA"))
                 {
