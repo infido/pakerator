@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             this.panelGora = new System.Windows.Forms.Panel();
+            this.dataGridViewDokSP = new Pakerator.DataGridViewGroup();
             this.panelDol = new System.Windows.Forms.Panel();
+            this.cCzyPokazywacZaliczki = new System.Windows.Forms.CheckBox();
             this.cBRAK = new System.Windows.Forms.CheckBox();
             this.cForMove = new System.Windows.Forms.CheckBox();
             this.cOK = new System.Windows.Forms.CheckBox();
             this.bWybierz = new System.Windows.Forms.Button();
             this.bAnuluj = new System.Windows.Forms.Button();
-            this.dataGridViewDokSP = new Pakerator.DataGridViewGroup();
             this.panelGora.SuspendLayout();
-            this.panelDol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDokSP)).BeginInit();
+            this.panelDol.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelGora
@@ -50,8 +51,22 @@
             this.panelGora.Size = new System.Drawing.Size(1233, 602);
             this.panelGora.TabIndex = 0;
             // 
+            // dataGridViewDokSP
+            // 
+            this.dataGridViewDokSP.AllowUserToAddRows = false;
+            this.dataGridViewDokSP.AllowUserToDeleteRows = false;
+            this.dataGridViewDokSP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewDokSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDokSP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewDokSP.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewDokSP.Name = "dataGridViewDokSP";
+            this.dataGridViewDokSP.ReadOnly = true;
+            this.dataGridViewDokSP.Size = new System.Drawing.Size(1233, 602);
+            this.dataGridViewDokSP.TabIndex = 0;
+            // 
             // panelDol
             // 
+            this.panelDol.Controls.Add(this.cCzyPokazywacZaliczki);
             this.panelDol.Controls.Add(this.cBRAK);
             this.panelDol.Controls.Add(this.cForMove);
             this.panelDol.Controls.Add(this.cOK);
@@ -62,6 +77,17 @@
             this.panelDol.Name = "panelDol";
             this.panelDol.Size = new System.Drawing.Size(1233, 53);
             this.panelDol.TabIndex = 1;
+            // 
+            // cCzyPokazywacZaliczki
+            // 
+            this.cCzyPokazywacZaliczki.AutoSize = true;
+            this.cCzyPokazywacZaliczki.Location = new System.Drawing.Point(380, 19);
+            this.cCzyPokazywacZaliczki.Name = "cCzyPokazywacZaliczki";
+            this.cCzyPokazywacZaliczki.Size = new System.Drawing.Size(105, 17);
+            this.cCzyPokazywacZaliczki.TabIndex = 5;
+            this.cCzyPokazywacZaliczki.Text = "Wyświetl zaliczki";
+            this.cCzyPokazywacZaliczki.UseVisualStyleBackColor = true;
+            this.cCzyPokazywacZaliczki.CheckedChanged += new System.EventHandler(this.cCzyPokazywacZaliczki_CheckedChanged);
             // 
             // cBRAK
             // 
@@ -120,19 +146,6 @@
             this.bAnuluj.UseVisualStyleBackColor = true;
             this.bAnuluj.Click += new System.EventHandler(this.bAnuluj_Click);
             // 
-            // dataGridViewDokSP
-            // 
-            this.dataGridViewDokSP.AllowUserToAddRows = false;
-            this.dataGridViewDokSP.AllowUserToDeleteRows = false;
-            this.dataGridViewDokSP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewDokSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDokSP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDokSP.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewDokSP.Name = "dataGridViewDokSP";
-            this.dataGridViewDokSP.ReadOnly = true;
-            this.dataGridViewDokSP.Size = new System.Drawing.Size(1233, 602);
-            this.dataGridViewDokSP.TabIndex = 0;
-            // 
             // DokumentyDlaMagazynu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,9 +157,9 @@
             this.ShowIcon = false;
             this.Text = "Lista dokumentów sprzedaży dla magazynu ";
             this.panelGora.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDokSP)).EndInit();
             this.panelDol.ResumeLayout(false);
             this.panelDol.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDokSP)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -162,5 +175,6 @@
         private System.Windows.Forms.CheckBox cBRAK;
         private System.Windows.Forms.CheckBox cForMove;
         private System.Windows.Forms.CheckBox cOK;
+        private System.Windows.Forms.CheckBox cCzyPokazywacZaliczki;
     }
 }

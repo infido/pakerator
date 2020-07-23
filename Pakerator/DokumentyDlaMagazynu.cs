@@ -121,6 +121,15 @@ namespace Pakerator
             {
                 fDataView.RowFilter = " STATUS_ZAM LIKE '%BRAK%' ";
             }
+
+            if (cCzyPokazywacZaliczki.Checked==false && fDataView.RowFilter.Length > 0)
+            {
+                fDataView.RowFilter += " AND (SYGNATURA NOT LIKE '%zalicz%' OR SYGNATURA is null OR SYGNATURA='' )";
+            }
+            else if (cCzyPokazywacZaliczki.Checked==false)
+            {
+                fDataView.RowFilter = " SYGNATURA NOT LIKE '%zalicz%'  OR SYGNATURA=null OR SYGNATURA='' ";
+            }
         }
 
         private void setKolorowanieRekordow()
@@ -235,6 +244,12 @@ namespace Pakerator
         }
 
         private void cBRAK_CheckedChanged(object sender, EventArgs e)
+        {
+            setRowFilter();
+            dataGridViewDokSP.Refresh();
+        }
+
+        private void cCzyPokazywacZaliczki_CheckedChanged(object sender, EventArgs e)
         {
             setRowFilter();
             dataGridViewDokSP.Refresh();
