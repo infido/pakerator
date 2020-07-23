@@ -158,12 +158,12 @@ namespace LibKonfIAI
                                 else
                                 {
                                     sql += "'Faktura VAT' ,"; //NAZWA_DOKUMENTU  >>  To też trzeba wyciągnąć z numeracji
-                                    string idkh = GetCustomerIDbyNIP(polaczenieFB, response.Results[0].clientResult.clientBillingAddress.clientNip, response.Results[0].clientResult.clientBillingAddress.clientFirm, response.Results[0].clientResult.clientBillingAddress.clientPhone1).ToString();
+                                    string idkh = GetCustomerIDbyNIP(polaczenieFB, response.Results[0].clientResult.clientBillingAddress.clientNip.Replace("-",""), response.Results[0].clientResult.clientBillingAddress.clientFirm, response.Results[0].clientResult.clientBillingAddress.clientPhone1).ToString();
                                     sql += idkh + ", "; //ID_PLATNIKA
                                     sql += idkh + ", "; //ID_ODBIORCY
                                     sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientPhone1 + "'" + ", "; //NAZWA_SKROCONA_PLATNIKA
                                     sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientFirm + "'" + ", "; //NAZWA_PELNA_PLATNIKA
-                                    sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientNip + "'" + ", "; //NIP_PLATNIKA  
+                                    sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientNip.Replace("-","") + "'" + ", "; //NIP_PLATNIKA  
                                     if (response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressFirm.ToString().Length > 0)
                                     {
                                         sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressPhone1 + "'" + ", "; //NAZWA_SKROCONA_ODBIORCY 
@@ -174,7 +174,7 @@ namespace LibKonfIAI
                                         sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientPhone1 + "'" + ", "; //NAZWA_SKROCONA_ODBIORCY
                                         sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientFirm + "'" + ", "; //NAZWA_PELNA_ODBIORCY
                                     }
-                                    sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientNip + "'" + ", "; //NIP_ODBIORCY    
+                                    sql += "'" + response.Results[0].clientResult.clientBillingAddress.clientNip.Replace("-", "") + "'" + ", "; //NIP_ODBIORCY    
                                 }
                                 sql += "'" + response.Results[0].clientResult.clientDeliveryAddress.clientDeliveryAddressPhone1 + "', "; //KOD_KRESKOWY_PLATNIKA
                                 sql += "0, "; //WARTOSC_ZAKUPU_KAUCJI 

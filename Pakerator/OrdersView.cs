@@ -310,7 +310,7 @@ namespace Pakerator
                                 row["ClientFirm"] = nag.ClientFirm = www.clientResult.clientBillingAddress.clientFirm;
                                 row["ClientFirstName"] = nag.ClientFirstName = www.clientResult.clientBillingAddress.clientFirstName;
                                 row["ClientLastName"] = nag.ClientLastName = www.clientResult.clientBillingAddress.clientLastName;
-                                row["ClientNip"] = nag.ClientNip = www.clientResult.clientBillingAddress.clientNip;
+                                row["ClientNip"] = nag.ClientNip = www.clientResult.clientBillingAddress.clientNip.Replace("-","");
                                 row["ClientCountryName"] = nag.ClientCountryName = www.clientResult.clientBillingAddress.clientCountryName;
                                 row["ClientCity"] = nag.ClientCity = www.clientResult.clientBillingAddress.clientCity;
                                 row["ClientZipCode"] = nag.ClientZipCode = www.clientResult.clientBillingAddress.clientZipCode;
