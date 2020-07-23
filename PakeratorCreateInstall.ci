@@ -290,10 +290,11 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 1.32 (22-07-2020)
-* Dodanie do widoku listy magazynowej dokumentów zafiskalizowanych ale bez WZ-tek
-* Dodanie do listy zamówień z www statusu wpłaty
-* Dodatkowy kolor na widoku zamówień z www gdy brak, lub niepełna wpłata</>
+                  <dlgtext >Wersja 1.34 (23-07-2020)
+* Usuwanie z NIP kresek
+* Dodanie opcji na liście dokumentów dla magazynu pomijanie zaliczek
+Wersja 1.33 (22-07-2020)
+* Kolorowanie na granatowo także zamówień bez wpłaty dla statusów NA_ZAMÓWIENIE i DO_PRZESUNIĘCIA</>
                   <if ></>
                </>
                <_ tag = 0 id = unpack >
