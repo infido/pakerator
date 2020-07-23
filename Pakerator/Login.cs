@@ -98,6 +98,7 @@ namespace Pakerator
         private void linkLabelInstalatorGdrive_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://drive.google.com/drive/u/0/folders/187lxq5W6cFT7s2bkd1_A10PziIgzbXzF");
+            Application.Exit();
         }
     }
 }
