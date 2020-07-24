@@ -60,6 +60,7 @@
             this.dataGridViewRaport.Size = new System.Drawing.Size(1186, 579);
             this.dataGridViewRaport.TabIndex = 0;
             this.dataGridViewRaport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRaport_CellClick);
+            this.dataGridViewRaport.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewRaport_KeyDown);
             this.dataGridViewRaport.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewRaport_KeyPress);
             // 
             // panel2Dol

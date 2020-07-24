@@ -14,6 +14,7 @@ namespace Pakerator
     {
         int kolumnaFiltr = 0;
         string filtr = "";
+        bool ctrlK = false;
         public Raport()
         {
             InitializeComponent();
@@ -44,7 +45,11 @@ namespace Pakerator
 
         private void dataGridViewRaport_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Escape)
+            if (ctrlK)
+            {
+                Clipboard.SetText(dataGridViewRaport.CurrentCell.Value.ToString());
+            }
+            else if (e.KeyChar == (char)Keys.Escape)
             {
                 Text = "Raport";
                 filtr = "";
@@ -59,7 +64,9 @@ namespace Pakerator
                 Text = "Raport filtr=" + filtr;
             }
 
-            if (filtr.Length>0)
+            if (ctrlK)
+                ctrlK = false;
+            else if(filtr.Length>0)
             {
                 List<DataGridViewRow> li = new List<DataGridViewRow>();
                 foreach (DataGridViewRow row in dataGridViewRaport.Rows)
@@ -95,6 +102,12 @@ namespace Pakerator
                     }
                 }
             }
+        }
+
+        private void dataGridViewRaport_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode==Keys.K)
+                ctrlK = true;
         }
     }
 }
