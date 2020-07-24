@@ -31,8 +31,8 @@
             this.panel1Gora = new System.Windows.Forms.Panel();
             this.dataGridViewRaport = new System.Windows.Forms.DataGridView();
             this.panel2Dol = new System.Windows.Forms.Panel();
-            this.buttonClose = new System.Windows.Forms.Button();
             this.lWynikRaportu = new System.Windows.Forms.Label();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.panel1Gora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRaport)).BeginInit();
             this.panel2Dol.SuspendLayout();
@@ -59,6 +59,8 @@
             this.dataGridViewRaport.ReadOnly = true;
             this.dataGridViewRaport.Size = new System.Drawing.Size(1186, 579);
             this.dataGridViewRaport.TabIndex = 0;
+            this.dataGridViewRaport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRaport_CellClick);
+            this.dataGridViewRaport.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewRaport_KeyPress);
             // 
             // panel2Dol
             // 
@@ -70,6 +72,15 @@
             this.panel2Dol.Size = new System.Drawing.Size(1186, 39);
             this.panel2Dol.TabIndex = 1;
             // 
+            // lWynikRaportu
+            // 
+            this.lWynikRaportu.AutoSize = true;
+            this.lWynikRaportu.Location = new System.Drawing.Point(13, 14);
+            this.lWynikRaportu.Name = "lWynikRaportu";
+            this.lWynikRaportu.Size = new System.Drawing.Size(122, 13);
+            this.lWynikRaportu.TabIndex = 1;
+            this.lWynikRaportu.Text = "Wynik raportu:... wierszy";
+            // 
             // buttonClose
             // 
             this.buttonClose.Location = new System.Drawing.Point(1099, 6);
@@ -79,15 +90,6 @@
             this.buttonClose.Text = "&Zamknij";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // lWynikRaportu
-            // 
-            this.lWynikRaportu.AutoSize = true;
-            this.lWynikRaportu.Location = new System.Drawing.Point(13, 14);
-            this.lWynikRaportu.Name = "lWynikRaportu";
-            this.lWynikRaportu.Size = new System.Drawing.Size(122, 13);
-            this.lWynikRaportu.TabIndex = 1;
-            this.lWynikRaportu.Text = "Wynik raportu:... wierszy";
             // 
             // Raport
             // 
