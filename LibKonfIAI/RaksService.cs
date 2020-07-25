@@ -280,8 +280,23 @@ namespace LibKonfIAI
                                 }
                                 else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("tradecredit"))
                                 {
-                                    sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew") + ", "; //ID_SPOSOBU_PLATNOSCI 
-                                    sql += "'Przelew' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    if (response.Results[0].orderDetails.payments.orderPaymentDays<=3)
+                                    {
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 3 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Przelew 3 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }else if (response.Results[0].orderDetails.payments.orderPaymentDays <= 7)
+                                    {
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 7 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Przelew 7 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }else if (response.Results[0].orderDetails.payments.orderPaymentDays <= 14)
+                                    {
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 14 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Przelew 14 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }else 
+                                    {
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 21 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Przelew 21 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }
                                 }
                                 else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("cash_on_delivery"))
                                 {
