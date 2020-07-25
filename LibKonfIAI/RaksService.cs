@@ -300,8 +300,18 @@ namespace LibKonfIAI
                                 }
                                 else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("cash_on_delivery"))
                                 {
-                                    sql += GetIDtypuPlatnosci(polaczenieFB, "Pobranie") + ", "; //ID_SPOSOBU_PLATNOSCI 
-                                    sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    string nazwaKuriera = response.Results[0].orderDetails.dispatch.courierName;
+                                    idTypuPlatnosci = GetIDtypuPlatnosci(polaczenieFB, "Pobranie " + nazwaKuriera);
+                                    if (idTypuPlatnosci != 2)
+                                    {
+                                        sql += idTypuPlatnosci + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Pobranie" + nazwaKuriera + "' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }
+                                    else
+                                    {
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Pobranie") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }
                                 }else
                                 {
                                     sql += GetIDtypuPlatnosci(polaczenieFB, "Płatność złożona") + ", "; //ID_SPOSOBU_PLATNOSCI 
