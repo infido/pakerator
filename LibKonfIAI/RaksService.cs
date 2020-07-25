@@ -286,6 +286,7 @@ namespace LibKonfIAI
                                         sql += "; kwota: " + item.paymentValue.ToString("C") + "; " + GetIdentyfikatorPlatonsciZIAI(item.paymentNumber) + System.Environment.NewLine;
                                     }
                                     sql += System.Environment.NewLine;
+                                    sql += "Nazwa kuriera: " + response.Results[0].orderDetails.dispatch.courierName.ToString() + System.Environment.NewLine;
                                     sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
                                     sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C");
                                     sql += System.Environment.NewLine + response.Results[0].orderDetails.clientNoteToOrder + "',"; //UWAGI
@@ -293,6 +294,7 @@ namespace LibKonfIAI
                                 else
                                 {
                                     sql += "'Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
+                                    sql += "Nazwa kuriera: " + response.Results[0].orderDetails.dispatch.courierName.ToString() + System.Environment.NewLine;
                                     sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C");
                                     sql += System.Environment.NewLine + response.Results[0].orderDetails.clientNoteToOrder + "',"; //UWAGI
                                 }
