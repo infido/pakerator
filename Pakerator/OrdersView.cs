@@ -262,6 +262,7 @@ namespace Pakerator
                         ds.Tables["HEAD"].Columns.Add("OrderId", typeof(String));
                         ds.Tables["HEAD"].Columns.Add("OrderSourceName", typeof(String));
                         ds.Tables["HEAD"].Columns.Add("OrderSourceType", typeof(String));
+                        ds.Tables["HEAD"].Columns.Add("FormyPlatnosci", typeof(String));
 
                         lkomunikat.Visible = true;
                         lkomunikat.Text = "Pobrano informacje ze sklepu www o " + response.resultsNumberAll + " zamówieniach";
@@ -325,6 +326,20 @@ namespace Pakerator
                                 row["NaFakture"] = nag.NaFakture = (www.orderDetails.clientRequestInvoice.Equals("n") ? false : true);
                                 row["OrderSourceName"] = nag.OrderSourceName = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceName;
                                 row["OrderSourceType"] = nag.OrderSourceType = www.orderDetails.orderSourceResults.orderSourceDetails.orderSourceType;
+
+                                foreach (prepaidType pre in www.orderDetails.prepaids)
+                                {
+                                    if (!pre.paymentStatus.Equals("c"))
+                                    {
+                                        if (nag.FormyPlatnosci == null)
+                                            row["FormyPlatnosci"] = nag.FormyPlatnosci = pre.payformName;
+                                        else
+                                        {
+                                            if (!nag.FormyPlatnosci.Contains(pre.payformName))
+                                                row["FormyPlatnosci"] = nag.FormyPlatnosci = (row["FormyPlatnosci"] + "," + pre.payformName);
+                                        }
+                                    }
+                                }
                             }
                             catch (Exception exn)
                             {
@@ -957,6 +972,7 @@ namespace Pakerator
         private string orderSourceType;
         private string raksNumer;
         private string statusWplaty;
+        private string formyPlatnosci;
 
         private List<OrderItem> itemsOfOrder;
 
@@ -996,6 +1012,7 @@ namespace Pakerator
         public string StatusStanowRaks { get => statusStanowRaks; set => statusStanowRaks = value; }
         public string OrderSourceName { get => orderSourceName; set => orderSourceName = value; }
         public string OrderSourceType { get => orderSourceType; set => orderSourceType = value; }
+        public string FormyPlatnosci { get => formyPlatnosci; set => formyPlatnosci = value; }
     }
 
     public class OrderItem
