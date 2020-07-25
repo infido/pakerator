@@ -245,21 +245,54 @@ namespace LibKonfIAI
                                 sql += "'" + rekGIUD + "' ,"; //GUID
 
                                 //To działa tylko na ID
+                                int idTypuPlatnosci = 0;
                                 if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("prepaid"))
                                 {
-                                    sql += GetIDtypuPlatnosci(polaczenieFB, "Zapłacono przelewem") + ", "; //ID_SPOSOBU_PLATNOSCI 
-                                    sql += "'Zapłacono przelewem' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    string nazwaUzytychPlatnosci="";
+                                    bool rozneRodzajePlatnosci = false;
+                                    foreach (prepaidType pre in response.Results[0].orderDetails.prepaids)
+                                    {
+                                        if (!pre.paymentStatus.Equals("c"))
+                                        {
+                                            if (nazwaUzytychPlatnosci.Length==0)
+                                                nazwaUzytychPlatnosci = pre.payformName;
+                                            else
+                                            {
+                                                if (!nazwaUzytychPlatnosci.Contains(pre.payformName))
+                                                    rozneRodzajePlatnosci = true;
+                                            }
+                                        }
+                                    }
+                                    if (rozneRodzajePlatnosci)
+                                    {
+                                        sql += GetIDtypuPlatnosci(polaczenieFB, "Płatność złożona") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        sql += "'Płatność złożona' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }
+                                    else
+                                    {
+                                        idTypuPlatnosci = GetIDtypuPlatnosci(polaczenieFB, nazwaUzytychPlatnosci);
+                                        sql += idTypuPlatnosci + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                        if (idTypuPlatnosci == 2)
+                                            sql += "'Płatność złożona' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                        else
+                                            sql += "'" + nazwaUzytychPlatnosci + "' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    }
                                 }
                                 else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("tradecredit"))
                                 {
                                     sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                     sql += "'Przelew' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                 }
-                                else
+                                else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("cash_on_delivery"))
                                 {
                                     sql += GetIDtypuPlatnosci(polaczenieFB, "Pobranie") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                     sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                }else
+                                {
+                                    sql += GetIDtypuPlatnosci(polaczenieFB, "Płatność złożona") + ", "; //ID_SPOSOBU_PLATNOSCI 
+                                    sql += "'Płatność złożona' ,"; //NAZWA_SPOSOBU_PLATNOSCI
                                 }
+                                
 
                                 if (response.Results[0].orderDetails.prepaids.Length > 0)
                                 {
