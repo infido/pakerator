@@ -252,7 +252,7 @@ namespace LibKonfIAI
                                     bool rozneRodzajePlatnosci = false;
                                     foreach (prepaidType pre in response.Results[0].orderDetails.prepaids)
                                     {
-                                        if (!pre.paymentStatus.Equals("c"))
+                                        if (!pre.paymentStatus.Equals("c") && !pre.payformName.Equals("Saldo klienta"))
                                         {
                                             if (nazwaUzytychPlatnosci.Length==0)
                                                 nazwaUzytychPlatnosci = pre.payformName;
