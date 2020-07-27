@@ -14,6 +14,7 @@ using System.ServiceModel;
 using Pakerator.ApiProductsSocksServiceGet;
 using Microsoft.Win32;
 using Pakerator.ApiGetOrdersNotFinishedGet;
+using System.Runtime.CompilerServices;
 
 namespace Pakerator
 {
@@ -34,6 +35,7 @@ namespace Pakerator
         Dictionary<int, string> listMagazyny;
         private bool czyBezObliczaniaStanow;
         private bool czyLogowanieByloNiepoprawneImamZamknacApp = false;
+        private int curIDUsr;
 
         public Pulpit()
         {
@@ -52,6 +54,7 @@ namespace Pakerator
                 {
                     logToSys.SetTimestampLastLogin();
                     polaczenie.setCurrUser(logToSys.GetCurrentUserLogin());
+                    curIDUsr = logToSys.GetCurrentUserID();
                     tryLogin = -1;
                     break;
                 }
@@ -59,6 +62,7 @@ namespace Pakerator
                 {
                     logToSys.SetTimestampLastLogin();
                     polaczenie.setCurrUser(logToSys.GetCurrentUserLogin());
+                    curIDUsr = logToSys.GetCurrentUserID();
                     tryLogin = -1;
                     break;
                 }
@@ -159,7 +163,7 @@ namespace Pakerator
 
         private void konfiguracjaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            polaczenie.showForTest(polaczenie.getCurrentUser(), magNazwa, magID, getIpAdress(), Dns.GetHostName());
+            
         }
 
         private void SetDokument(string kodKreskowy)
@@ -1445,6 +1449,24 @@ namespace Pakerator
         {
             if (czyLogowanieByloNiepoprawneImamZamknacApp)
                 Application.Exit();
+        }
+
+        private void konfiguracjaPołaczeniaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            polaczenie.showForTest(polaczenie.getCurrentUser(), magNazwa, magID, getIpAdress(), Dns.GetHostName());
+        }
+
+        private void zmianaHasłaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Autentykacja at = new Autentykacja(polaczenie, curIDUsr);
+            if (at.SetNewPassByUser() == AutoryzationType.PassChanged)
+            {
+                MessageBox.Show("Zmiana przeprowadzona prawidłowo", "Zmiana hasła");
+            }
+            else
+            {
+                MessageBox.Show("Zmianę hasła anulowano!", "Zmiana hasła");
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)

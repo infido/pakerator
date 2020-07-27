@@ -94,6 +94,8 @@
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.konfiguracjaPołaczeniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zmianaHasłaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -373,6 +375,9 @@
             // 
             // konfiguracjaToolStripMenuItem
             // 
+            this.konfiguracjaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.konfiguracjaPołaczeniaToolStripMenuItem,
+            this.zmianaHasłaToolStripMenuItem});
             this.konfiguracjaToolStripMenuItem.Name = "konfiguracjaToolStripMenuItem";
             this.konfiguracjaToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.konfiguracjaToolStripMenuItem.Text = "&Konfiguracja";
@@ -692,6 +697,20 @@
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Text = "&Odswież przypisanie kodów kreskowych";
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Click += new System.EventHandler(this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem_Click);
             // 
+            // konfiguracjaPołaczeniaToolStripMenuItem
+            // 
+            this.konfiguracjaPołaczeniaToolStripMenuItem.Name = "konfiguracjaPołaczeniaToolStripMenuItem";
+            this.konfiguracjaPołaczeniaToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.konfiguracjaPołaczeniaToolStripMenuItem.Text = "Konfiguracja połaczenia";
+            this.konfiguracjaPołaczeniaToolStripMenuItem.Click += new System.EventHandler(this.konfiguracjaPołaczeniaToolStripMenuItem_Click);
+            // 
+            // zmianaHasłaToolStripMenuItem
+            // 
+            this.zmianaHasłaToolStripMenuItem.Name = "zmianaHasłaToolStripMenuItem";
+            this.zmianaHasłaToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.zmianaHasłaToolStripMenuItem.Text = "Zmiana hasła";
+            this.zmianaHasłaToolStripMenuItem.Click += new System.EventHandler(this.zmianaHasłaToolStripMenuItem_Click);
+            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -794,6 +813,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem konfiguracjaPołaczeniaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zmianaHasłaToolStripMenuItem;
     }
 }
 
