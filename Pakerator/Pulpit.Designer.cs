@@ -36,7 +36,6 @@
             this.wszystkieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.zamówieniaNaPortaluWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.roboczaListaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwRealizowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwPakowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +47,22 @@
             this.listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwWstrzymaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.roboczaListaZamówieńZWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo1200ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo1400ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanDzisiajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.odWczorajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odWczorajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.odPrzedwczorajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odPrzedwczorajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.ostatanie7DniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konfiguracjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -79,21 +94,6 @@
             this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pobranieInfoOTowarachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.raportRozchodówZZamówieńWwwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stanDzisiajPo1400ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stanDzisiajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.odWczorajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stanDzisiajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stanDzisiajPo1200ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.odWczorajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.odPrzedwczorajPo1600ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.odPrzedwczorajPo900ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ostatanie7DniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -138,14 +138,14 @@
             // dlaOstatnich7DniToolStripMenuItem
             // 
             this.dlaOstatnich7DniToolStripMenuItem.Name = "dlaOstatnich7DniToolStripMenuItem";
-            this.dlaOstatnich7DniToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dlaOstatnich7DniToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.dlaOstatnich7DniToolStripMenuItem.Text = "dla ostatnich 7 dni";
             this.dlaOstatnich7DniToolStripMenuItem.Click += new System.EventHandler(this.dlaOstatnich7DniToolStripMenuItem_Click);
             // 
             // wszystkieToolStripMenuItem
             // 
             this.wszystkieToolStripMenuItem.Name = "wszystkieToolStripMenuItem";
-            this.wszystkieToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wszystkieToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.wszystkieToolStripMenuItem.Text = "Wszystkie";
             this.wszystkieToolStripMenuItem.Click += new System.EventHandler(this.wszystkieToolStripMenuItem_Click);
             // 
@@ -176,13 +176,6 @@
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Name = "zamówieniaNaPortaluWwwToolStripMenuItem";
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
             this.zamówieniaNaPortaluWwwToolStripMenuItem.Text = "Zamówienia na portalu www";
-            // 
-            // roboczaListaZamówieńZWwwToolStripMenuItem
-            // 
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Name = "roboczaListaZamówieńZWwwToolStripMenuItem";
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Text = "Robocza lista zamówień z www ";
-            this.roboczaListaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.roboczaListaZamówieńZWwwToolStripMenuItem_Click);
             // 
             // listaZamówieńZWwwToolStripMenuItem
             // 
@@ -260,6 +253,123 @@
             this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
             this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Text = "Lista zamówień z www - realizowane w programie F/K";
             this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(399, 6);
+            // 
+            // roboczaListaZamówieńZWwwToolStripMenuItem
+            // 
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Name = "roboczaListaZamówieńZWwwToolStripMenuItem";
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Text = "Robocza lista zamówień z www ";
+            this.roboczaListaZamówieńZWwwToolStripMenuItem.Click += new System.EventHandler(this.roboczaListaZamówieńZWwwToolStripMenuItem_Click);
+            // 
+            // listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem
+            // 
+            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Name = "listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem";
+            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
+            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Text = "Lista zamówień z www - nieobsłużone, pakowane, realizowane";
+            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem_Click);
+            // 
+            // raportRozchodówZZamówieńWwwToolStripMenuItem
+            // 
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stanDzisiajPo900ToolStripMenuItem,
+            this.stanDzisiajPo1200ToolStripMenuItem,
+            this.stanDzisiajPo1400ToolStripMenuItem,
+            this.stanDzisiajPo1600ToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.odWczorajPo1600ToolStripMenuItem,
+            this.odWczorajPo900ToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.odPrzedwczorajPo1600ToolStripMenuItem,
+            this.odPrzedwczorajPo900ToolStripMenuItem,
+            this.toolStripMenuItem4,
+            this.ostatanie7DniToolStripMenuItem});
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Name = "raportRozchodówZZamówieńWwwToolStripMenuItem";
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Size = new System.Drawing.Size(211, 20);
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Text = "Raport rozchodów z zamówień www";
+            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Click += new System.EventHandler(this.raportRozchodówZZamówieńWwwToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo900ToolStripMenuItem
+            // 
+            this.stanDzisiajPo900ToolStripMenuItem.Name = "stanDzisiajPo900ToolStripMenuItem";
+            this.stanDzisiajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo900ToolStripMenuItem.Text = "Stan dzisiaj po 9:00";
+            this.stanDzisiajPo900ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo900ToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo1200ToolStripMenuItem
+            // 
+            this.stanDzisiajPo1200ToolStripMenuItem.Name = "stanDzisiajPo1200ToolStripMenuItem";
+            this.stanDzisiajPo1200ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo1200ToolStripMenuItem.Text = "Stan dzisiaj po 12:00";
+            this.stanDzisiajPo1200ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1200ToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo1400ToolStripMenuItem
+            // 
+            this.stanDzisiajPo1400ToolStripMenuItem.Name = "stanDzisiajPo1400ToolStripMenuItem";
+            this.stanDzisiajPo1400ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo1400ToolStripMenuItem.Text = "Stan dzisiaj po 14:00";
+            this.stanDzisiajPo1400ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1400ToolStripMenuItem_Click);
+            // 
+            // stanDzisiajPo1600ToolStripMenuItem
+            // 
+            this.stanDzisiajPo1600ToolStripMenuItem.Name = "stanDzisiajPo1600ToolStripMenuItem";
+            this.stanDzisiajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.stanDzisiajPo1600ToolStripMenuItem.Text = "Stan dzisiaj po 16:00";
+            this.stanDzisiajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1600ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(206, 6);
+            // 
+            // odWczorajPo1600ToolStripMenuItem
+            // 
+            this.odWczorajPo1600ToolStripMenuItem.Name = "odWczorajPo1600ToolStripMenuItem";
+            this.odWczorajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odWczorajPo1600ToolStripMenuItem.Text = "Od wczoraj po 16:00 ";
+            this.odWczorajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.odWczorajPo1600ToolStripMenuItem_Click);
+            // 
+            // odWczorajPo900ToolStripMenuItem
+            // 
+            this.odWczorajPo900ToolStripMenuItem.Name = "odWczorajPo900ToolStripMenuItem";
+            this.odWczorajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odWczorajPo900ToolStripMenuItem.Text = "Od wczoraj po 9:00";
+            this.odWczorajPo900ToolStripMenuItem.Click += new System.EventHandler(this.odWczorajPo900ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(206, 6);
+            // 
+            // odPrzedwczorajPo1600ToolStripMenuItem
+            // 
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Name = "odPrzedwczorajPo1600ToolStripMenuItem";
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Text = "Od przedwczoraj po 16:00";
+            this.odPrzedwczorajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.odPrzedwczorajPo1600ToolStripMenuItem_Click);
+            // 
+            // odPrzedwczorajPo900ToolStripMenuItem
+            // 
+            this.odPrzedwczorajPo900ToolStripMenuItem.Name = "odPrzedwczorajPo900ToolStripMenuItem";
+            this.odPrzedwczorajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.odPrzedwczorajPo900ToolStripMenuItem.Text = "Od przedwczoraj po 9:00";
+            this.odPrzedwczorajPo900ToolStripMenuItem.Click += new System.EventHandler(this.odPrzedwczorajPo900ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(206, 6);
+            // 
+            // ostatanie7DniToolStripMenuItem
+            // 
+            this.ostatanie7DniToolStripMenuItem.Name = "ostatanie7DniToolStripMenuItem";
+            this.ostatanie7DniToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.ostatanie7DniToolStripMenuItem.Text = "Ostatanie 7 dni";
+            this.ostatanie7DniToolStripMenuItem.Click += new System.EventHandler(this.ostatanie7DniToolStripMenuItem_Click);
             // 
             // konfiguracjaToolStripMenuItem
             // 
@@ -582,116 +692,6 @@
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Text = "&Odswież przypisanie kodów kreskowych";
             this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem.Click += new System.EventHandler(this.odswieżPrzypisanieKodówKreskowychToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(399, 6);
-            // 
-            // listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem
-            // 
-            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Name = "listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem";
-            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Size = new System.Drawing.Size(402, 22);
-            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Text = "Lista zamówień z www - nieobsłużone, pakowane, realizowane";
-            this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem.Click += new System.EventHandler(this.listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem_Click);
-            // 
-            // raportRozchodówZZamówieńWwwToolStripMenuItem
-            // 
-            this.raportRozchodówZZamówieńWwwToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stanDzisiajPo900ToolStripMenuItem,
-            this.stanDzisiajPo1200ToolStripMenuItem,
-            this.stanDzisiajPo1400ToolStripMenuItem,
-            this.stanDzisiajPo1600ToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.odWczorajPo1600ToolStripMenuItem,
-            this.odWczorajPo900ToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.odPrzedwczorajPo1600ToolStripMenuItem,
-            this.odPrzedwczorajPo900ToolStripMenuItem,
-            this.toolStripMenuItem4,
-            this.ostatanie7DniToolStripMenuItem});
-            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Name = "raportRozchodówZZamówieńWwwToolStripMenuItem";
-            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Size = new System.Drawing.Size(211, 20);
-            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Text = "Raport rozchodów z zamówień www";
-            this.raportRozchodówZZamówieńWwwToolStripMenuItem.Click += new System.EventHandler(this.raportRozchodówZZamówieńWwwToolStripMenuItem_Click);
-            // 
-            // stanDzisiajPo1400ToolStripMenuItem
-            // 
-            this.stanDzisiajPo1400ToolStripMenuItem.Name = "stanDzisiajPo1400ToolStripMenuItem";
-            this.stanDzisiajPo1400ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.stanDzisiajPo1400ToolStripMenuItem.Text = "Stan dzisiaj po 14:00";
-            this.stanDzisiajPo1400ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1400ToolStripMenuItem_Click);
-            // 
-            // stanDzisiajPo900ToolStripMenuItem
-            // 
-            this.stanDzisiajPo900ToolStripMenuItem.Name = "stanDzisiajPo900ToolStripMenuItem";
-            this.stanDzisiajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.stanDzisiajPo900ToolStripMenuItem.Text = "Stan dzisiaj po 9:00";
-            this.stanDzisiajPo900ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo900ToolStripMenuItem_Click);
-            // 
-            // odWczorajPo1600ToolStripMenuItem
-            // 
-            this.odWczorajPo1600ToolStripMenuItem.Name = "odWczorajPo1600ToolStripMenuItem";
-            this.odWczorajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.odWczorajPo1600ToolStripMenuItem.Text = "Od wczoraj po 16:00 ";
-            this.odWczorajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.odWczorajPo1600ToolStripMenuItem_Click);
-            // 
-            // stanDzisiajPo1600ToolStripMenuItem
-            // 
-            this.stanDzisiajPo1600ToolStripMenuItem.Name = "stanDzisiajPo1600ToolStripMenuItem";
-            this.stanDzisiajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.stanDzisiajPo1600ToolStripMenuItem.Text = "Stan dzisiaj po 16:00";
-            this.stanDzisiajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1600ToolStripMenuItem_Click);
-            // 
-            // stanDzisiajPo1200ToolStripMenuItem
-            // 
-            this.stanDzisiajPo1200ToolStripMenuItem.Name = "stanDzisiajPo1200ToolStripMenuItem";
-            this.stanDzisiajPo1200ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.stanDzisiajPo1200ToolStripMenuItem.Text = "Stan dzisiaj po 12:00";
-            this.stanDzisiajPo1200ToolStripMenuItem.Click += new System.EventHandler(this.stanDzisiajPo1200ToolStripMenuItem_Click);
-            // 
-            // odWczorajPo900ToolStripMenuItem
-            // 
-            this.odWczorajPo900ToolStripMenuItem.Name = "odWczorajPo900ToolStripMenuItem";
-            this.odWczorajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.odWczorajPo900ToolStripMenuItem.Text = "Od wczoraj po 9:00";
-            this.odWczorajPo900ToolStripMenuItem.Click += new System.EventHandler(this.odWczorajPo900ToolStripMenuItem_Click);
-            // 
-            // odPrzedwczorajPo1600ToolStripMenuItem
-            // 
-            this.odPrzedwczorajPo1600ToolStripMenuItem.Name = "odPrzedwczorajPo1600ToolStripMenuItem";
-            this.odPrzedwczorajPo1600ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.odPrzedwczorajPo1600ToolStripMenuItem.Text = "Od przedwczoraj po 16:00";
-            this.odPrzedwczorajPo1600ToolStripMenuItem.Click += new System.EventHandler(this.odPrzedwczorajPo1600ToolStripMenuItem_Click);
-            // 
-            // odPrzedwczorajPo900ToolStripMenuItem
-            // 
-            this.odPrzedwczorajPo900ToolStripMenuItem.Name = "odPrzedwczorajPo900ToolStripMenuItem";
-            this.odPrzedwczorajPo900ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.odPrzedwczorajPo900ToolStripMenuItem.Text = "Od przedwczoraj po 9:00";
-            this.odPrzedwczorajPo900ToolStripMenuItem.Click += new System.EventHandler(this.odPrzedwczorajPo900ToolStripMenuItem_Click);
-            // 
-            // ostatanie7DniToolStripMenuItem
-            // 
-            this.ostatanie7DniToolStripMenuItem.Name = "ostatanie7DniToolStripMenuItem";
-            this.ostatanie7DniToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.ostatanie7DniToolStripMenuItem.Text = "Ostatanie 7 dni";
-            this.ostatanie7DniToolStripMenuItem.Click += new System.EventHandler(this.ostatanie7DniToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(206, 6);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(206, 6);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(206, 6);
-            // 
             // Pulpit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -706,6 +706,7 @@
             this.Text = "Form1";
             this.Activated += new System.EventHandler(this.Pulpit_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Pulpit_FormClosed);
+            this.Load += new System.EventHandler(this.Pulpit_Load);
             this.Shown += new System.EventHandler(this.Pulpit_Shown);
             this.Leave += new System.EventHandler(this.Pulpit_Leave);
             this.menuStrip1.ResumeLayout(false);

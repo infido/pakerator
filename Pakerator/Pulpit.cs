@@ -23,7 +23,7 @@ namespace Pakerator
         private FbDataAdapter fda;
         private DataSet fds;
         private DataView fDataView;
-        private Login logowanie;
+        //private Login logowanie;
         int dokId = 0;
         int odbiorca = 0;
         int platnik = 0;
@@ -33,22 +33,52 @@ namespace Pakerator
         public string magNazwa, magNazwa2;
         Dictionary<int, string> listMagazyny;
         private bool czyBezObliczaniaStanow;
+        private bool czyLogowanieByloNiepoprawneImamZamknacApp = false;
 
         public Pulpit()
         {
             InitializeComponent();
             Text = "Pakerator " + Application.ProductVersion;
             polaczenie = new ConnectionDB();
-            logowanie = new Login(polaczenie);
+            
+            //logowanie = new Login(polaczenie);
+            //logowanie.ShowDialog();
 
-            logowanie.ShowDialog();
+            int tryLogin = 3;
+            while (tryLogin > 0)
+            {
+                Autentykacja logToSys = new Autentykacja(polaczenie);
+                if (logToSys.GetAutoryzationResult().Equals(AutoryzationType.Uzytkownik))
+                {
+                    logToSys.SetTimestampLastLogin();
+                    polaczenie.setCurrUser(logToSys.GetCurrentUserLogin());
+                    tryLogin = -1;
+                    break;
+                }
+                else if (logToSys.GetAutoryzationResult().Equals(AutoryzationType.Administartor))
+                {
+                    logToSys.SetTimestampLastLogin();
+                    polaczenie.setCurrUser(logToSys.GetCurrentUserLogin());
+                    tryLogin = -1;
+                    break;
+                }
+                tryLogin--;
+            }
 
-            polaczenie.setCurrUser(logowanie.userName);
-            setDictonary();
-            setCMagazynFromReg();
-            setSetingsOfStores();
-            setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + logowanie.userName + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
-            chkTableLOGSKAN();
+            if (tryLogin == -1)
+            {
+                setDictonary();
+                setCMagazynFromReg();
+                setSetingsOfStores();
+                setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + polaczenie.getCurrentUser() + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
+                chkTableLOGSKAN();
+            }
+            else
+            {
+                MessageBox.Show("Nieudane logowanie do programu! Program zostanie zamkniety ", "Bład logowania");
+                polaczenie.setConnectionOFF();
+                czyLogowanieByloNiepoprawneImamZamknacApp = true;
+            }
         }
 
         #region sprawdzanie czy jest założona tabela w bazie
@@ -129,7 +159,7 @@ namespace Pakerator
 
         private void konfiguracjaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            polaczenie.showForTest(logowanie.userName, magNazwa, magID, getIpAdress(), Dns.GetHostName());
+            polaczenie.showForTest(polaczenie.getCurrentUser(), magNazwa, magID, getIpAdress(), Dns.GetHostName());
         }
 
         private void SetDokument(string kodKreskowy)
@@ -349,7 +379,7 @@ namespace Pakerator
                         tab = "GM_MM";
                     }
 
-                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI=SUBSTRING('" + logowanie.userName + " " + DateTime.Now.ToShortDateString() + " " +
+                    cdk = new FbCommand("UPDATE " + tab + " SET ZNACZNIKI=SUBSTRING('" + polaczenie.getCurrentUser() + " " + DateTime.Now.ToShortDateString() + " " +
                             DateTime.Now.ToShortTimeString() + ";' || COALESCE(ZNACZNIKI,'') FROM 1 FOR 249) where ID=" + dokId, polaczenie.getConnection());
 
                     try
@@ -592,7 +622,7 @@ namespace Pakerator
                 sql += "(pracownik, kodkreskowy, list_przewozowy , dokument_fs_id, dokument_mm_id, dokument_zo_id ,towar_id, komunikat, operacja";
                 sql += ", magazyn_nazwa, magazyn_id, kontrahent, ip, host, odbiorca, platnik ) ";
                 sql += " values ";
-                sql += " ('" + logowanie.userName + "','" + tToSkan.Text + "','" + lListPrzewozowy.Text + "',";
+                sql += " ('" + polaczenie.getCurrentUser() + "','" + tToSkan.Text + "','" + lListPrzewozowy.Text + "',";
                 if (typDok.Equals("FS"))
                 {
                     sql += dokId + ",0,0,"; //zera mm_id i zo_id 
@@ -652,7 +682,7 @@ namespace Pakerator
             StreamWriter writer = new StreamWriter(Environment.GetEnvironmentVariable("temp") + "\\Pakerator_" + DateTime.Now.ToShortDateString() + ".log", true);
             try
             {
-                writer.WriteLine(DateTime.Now.ToString() + "; User:" + logowanie.userName + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text + "; ststus połączenia: " + polaczenie.getConnectioState() + " Bład zapytania: " + tekst);
+                writer.WriteLine(DateTime.Now.ToString() + "; User:" + polaczenie.getCurrentUser() + "; Kod kreskowy: " + tToSkan.Text + "; List przewozowy: " + lListPrzewozowy.Text + "; Dokument: " + lDokument.Text + "; ststus połączenia: " + polaczenie.getConnectioState() + " Bład zapytania: " + tekst);
                 if (polaczenie.getConnectioState() <= 0)
                 {
                     writer.WriteLine("Proba zakniecia systemu z braku polaczenia do bazy danych");
@@ -1098,7 +1128,7 @@ namespace Pakerator
 
         private void listaZamówieńZWwwToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "new", " - Nowe", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "new", " - Nowe", magNazwa);
             ov.Pokaz();
         }
 
@@ -1109,67 +1139,67 @@ namespace Pakerator
 
         private void listaZamówieńZWwwRealizowaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "on_order", " - Realizowane", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "on_order", " - Realizowane", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwPakowaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "packed", " - Pakowane", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "packed", " - Pakowane", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwGotoweToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "ready", " - Gotowe", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "ready", " - Gotowe", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwZwrotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "returned", " - Zwrot", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "returned", " - Zwrot", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwKlientAnulowałToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "canceled", " - Klient anulował", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "canceled", " - Klient anulował", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwReklamacjeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "complainted", " - Reklamacje", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "complainted", " - Reklamacje", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwOczekująceNaWpłatęToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "payment_waiting", " - Oczekuje na włatę", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "payment_waiting", " - Oczekuje na włatę", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwOczekująceNaDostawęToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "delivery_waiting", " - Oczekujące na dostawę", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "delivery_waiting", " - Oczekujące na dostawę", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwWstrzymaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "suspended", " - Wstrzymane", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "suspended", " - Wstrzymane", magNazwa);
             ov.Pokaz();
         }
 
         private void listaZamówieńZWwwRealizowaneWProgramieFKToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "finished_ext", " - Realizowane w programie F/K", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "finished_ext", " - Realizowane w programie F/K", magNazwa);
             ov.Pokaz();
         }
 
         private void roboczaListaZamówieńZWwwToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "", " - Wybrane statusy", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "", " - Wybrane statusy", magNazwa);
             ov.Pokaz();
         }
 
@@ -1216,7 +1246,7 @@ namespace Pakerator
 
         private void listaZamówieńZWwwNieobsłużonePakowaneRealizowaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OrdersView ov = new OrdersView(magID, magID2, polaczenie, logowanie.userName, "pnr", " - Nieobsłużone, Realizowane, Pakowane", magNazwa);
+            OrdersView ov = new OrdersView(magID, magID2, polaczenie, polaczenie.getCurrentUser(), "pnr", " - Nieobsłużone, Realizowane, Pakowane", magNazwa);
             ov.Pokaz();
         }
 
@@ -1411,6 +1441,12 @@ namespace Pakerator
             getRaportRozchodowWgZamowienZwww(7, 0);
         }
 
+        private void Pulpit_Load(object sender, EventArgs e)
+        {
+            if (czyLogowanieByloNiepoprawneImamZamknacApp)
+                Application.Exit();
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -1452,7 +1488,7 @@ namespace Pakerator
             magNazwa2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value;
             magKod2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.IndexOf(" ")));
 
-            lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + magNazwa + "   Użytkownik:" + logowanie.userName;
+            lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + magNazwa + "   Użytkownik:" + polaczenie.getCurrentUser();
         }
     }
 }
