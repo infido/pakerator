@@ -36,6 +36,7 @@ namespace Pakerator
         private bool czyBezObliczaniaStanow;
         private bool czyLogowanieByloNiepoprawneImamZamknacApp = false;
         private int curIDUsr;
+        private string magazyny;
 
         public Pulpit()
         {
@@ -55,6 +56,7 @@ namespace Pakerator
                     logToSys.SetTimestampLastLogin();
                     polaczenie.setCurrUser(logToSys.GetCurrentUserLogin());
                     curIDUsr = logToSys.GetCurrentUserID();
+                    magazyny = logToSys.GetMagazyny();
                     tryLogin = -1;
                     break;
                 }
@@ -63,6 +65,7 @@ namespace Pakerator
                     logToSys.SetTimestampLastLogin();
                     polaczenie.setCurrUser(logToSys.GetCurrentUserLogin());
                     curIDUsr = logToSys.GetCurrentUserID();
+                    magazyny = logToSys.GetMagazyny();
                     tryLogin = -1;
                     break;
                 }
@@ -71,7 +74,7 @@ namespace Pakerator
 
             if (tryLogin == -1)
             {
-                setDictonary();
+                setDictonary(magazyny);
                 setCMagazynFromReg();
                 setSetingsOfStores();
                 setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + polaczenie.getCurrentUser() + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
@@ -991,15 +994,22 @@ namespace Pakerator
 
         private void setCMagazynFromReg()
         {
-            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
-            if (rejestr.GetValue("Mag1Settings")!=null)
+            try
             {
-                cMagazyn.SelectedValue = magID = (int)rejestr.GetValue("Mag1Settings");
-            }
+                RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+                if (rejestr.GetValue("Mag1Settings") != null)
+                {
+                    cMagazyn.SelectedValue = magID = (int)rejestr.GetValue("Mag1Settings");
+                }
 
-            if (rejestr.GetValue("Mag2Settings") != null)
+                if (rejestr.GetValue("Mag2Settings") != null)
+                {
+                    cMagazyn2.SelectedValue = magID2 = (int)rejestr.GetValue("Mag2Settings");
+                }
+            }
+            catch (Exception ex)
             {
-                cMagazyn2.SelectedValue = magID2 = (int)rejestr.GetValue("Mag2Settings");
+                MessageBox.Show("NIeznany błąd przy ustawianiu wartości domyslnej Magazynu " + ex.Message,"Nieznany błąd");
             }
         }
 
@@ -1474,16 +1484,18 @@ namespace Pakerator
 
         }
 
-        private void setDictonary()
+        private void setDictonary(string listaMagazynow)
         {
             listMagazyny = new Dictionary<int, string>();
-            FbCommand cdk = new FbCommand("SELECT ID, NUMER || ' ' || NAZWA AS NUMER FROM GM_MAGAZYNY WHERE ARCHIWALNY=0", polaczenie.getConnection());
+            FbCommand cdk = new FbCommand("SELECT ID, NUMER || ' ' || NAZWA AS NAZWA, NUMER FROM GM_MAGAZYNY WHERE ARCHIWALNY=0", polaczenie.getConnection());
             try
             {
                 FbDataReader fdk = cdk.ExecuteReader();
                 while (fdk.Read())
                 {
-                    listMagazyny.Add((int)fdk["ID"], (string)fdk["NUMER"]);
+                    string curMagazyn = (string)fdk["NUMER"];
+                    if (listaMagazynow.Contains(curMagazyn))
+                        listMagazyny.Add((int)fdk["ID"], (string)fdk["NAZWA"]);
                 }
             }
             catch (FbException ex)
@@ -1491,24 +1503,47 @@ namespace Pakerator
                 MessageBox.Show("Błąd wczytywania listy magazynów: " + ex.Message);
             }
 
-            cMagazyn.DataSource = new BindingSource(listMagazyny, null);
-            cMagazyn.DisplayMember = "Value";
-            cMagazyn.ValueMember = "Key";
+            try
+            {
+                cMagazyn.DataSource = new BindingSource(listMagazyny, null);
+                cMagazyn.DisplayMember = "Value";
+                cMagazyn.ValueMember = "Key";
+            }
+            catch (Exception em1)
+            {
+                MessageBox.Show("Nieznany błąd ustawienienia domyślnego magazynu 1. Możliwe, że nastąpiła zmiana uprawnień do magazynów. Jeżeli komunikat będzie się powtarzał skontaktuj się z Administratorem. " + em1.Message,"Nieznany błąd");
+                //throw;
+            }
 
-            cMagazyn2.DataSource = new BindingSource(listMagazyny, null);
-            cMagazyn2.DisplayMember = "Value";
-            cMagazyn2.ValueMember = "Key";
+            try
+            {
+                cMagazyn2.DataSource = new BindingSource(listMagazyny, null);
+                cMagazyn2.DisplayMember = "Value";
+                cMagazyn2.ValueMember = "Key";
+            }
+            catch (Exception em2)
+            {
+                MessageBox.Show("Nieznany błąd ustawienienia domyślnego magazynu 2. Możliwe, że nastąpiła zmiana uprawnień do magazynów. Jeżeli komunikat będzie się powtarzał skontaktuj się z Administratorem. " + em2.Message, "Nieznany błąd");
+                //throw;
+            }
         }
 
         private void setSetingsOfStores()
         {
-            magID = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Key;
-            magNazwa = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value;
-            magKod = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.IndexOf(" ")));
+            try
+            {
+                magID = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Key;
+                magNazwa = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value;
+                magKod = ((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn.SelectedItem).Value.IndexOf(" ")));
 
-            magID2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key;
-            magNazwa2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value;
-            magKod2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.IndexOf(" ")));
+                magID2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Key;
+                magNazwa2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value;
+                magKod2 = ((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.Substring(0, (((KeyValuePair<int, string>)cMagazyn2.SelectedItem).Value.IndexOf(" ")));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd przy zapamiętywaniu bieżących wybranych magazynów...","Nieznany błąd");
+            }
 
             lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + magNazwa + "   Użytkownik:" + polaczenie.getCurrentUser();
         }
