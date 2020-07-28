@@ -1542,7 +1542,7 @@ namespace Pakerator
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Błąd przy zapamiętywaniu bieżących wybranych magazynów...","Nieznany błąd");
+                MessageBox.Show("Błąd przy zapamiętywaniu bieżących wybranych magazynów..." + ex.Message,"Nieznany błąd");
             }
 
             lKontekstPracyMagazyn.Text = "Praca z dokumentami w: " + magNazwa + "   Użytkownik:" + polaczenie.getCurrentUser();

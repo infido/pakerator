@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Autentykacja));
-            this.tLogin = new System.Windows.Forms.TextBox();
             this.tPass = new System.Windows.Forms.TextBox();
             this.tPassToConfirmation = new System.Windows.Forms.TextBox();
             this.bLogin = new System.Windows.Forms.Button();
@@ -39,16 +38,8 @@
             this.lPassToConfirmation = new System.Windows.Forms.Label();
             this.lPassWrong = new System.Windows.Forms.Label();
             this.linkLabelInstalatorGdrive = new System.Windows.Forms.LinkLabel();
+            this.tLogin = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // tLogin
-            // 
-            this.tLogin.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tLogin.Location = new System.Drawing.Point(115, 12);
-            this.tLogin.MaxLength = 8;
-            this.tLogin.Name = "tLogin";
-            this.tLogin.Size = new System.Drawing.Size(100, 20);
-            this.tLogin.TabIndex = 0;
             // 
             // tPass
             // 
@@ -144,6 +135,14 @@
             this.linkLabelInstalatorGdrive.Text = "Instalator pakeratora";
             this.linkLabelInstalatorGdrive.Click += new System.EventHandler(this.linkLabelInstalatorGdrive_Click);
             // 
+            // tLogin
+            // 
+            this.tLogin.FormattingEnabled = true;
+            this.tLogin.Location = new System.Drawing.Point(115, 12);
+            this.tLogin.Name = "tLogin";
+            this.tLogin.Size = new System.Drawing.Size(102, 21);
+            this.tLogin.TabIndex = 10;
+            // 
             // Autentykacja
             // 
             this.AcceptButton = this.bLogin;
@@ -151,6 +150,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.bCancel;
             this.ClientSize = new System.Drawing.Size(246, 155);
+            this.Controls.Add(this.tLogin);
             this.Controls.Add(this.linkLabelInstalatorGdrive);
             this.Controls.Add(this.lPassWrong);
             this.Controls.Add(this.lPassToConfirmation);
@@ -160,7 +160,6 @@
             this.Controls.Add(this.bLogin);
             this.Controls.Add(this.tPassToConfirmation);
             this.Controls.Add(this.tPass);
-            this.Controls.Add(this.tLogin);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Autentykacja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -171,8 +170,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tLogin;
         private System.Windows.Forms.TextBox tPass;
         private System.Windows.Forms.TextBox tPassToConfirmation;
         private System.Windows.Forms.Button bLogin;
@@ -182,5 +179,6 @@
         private System.Windows.Forms.Label lPassToConfirmation;
         private System.Windows.Forms.Label lPassWrong;
         private System.Windows.Forms.LinkLabel linkLabelInstalatorGdrive;
+        private System.Windows.Forms.ComboBox tLogin;
     }
 }

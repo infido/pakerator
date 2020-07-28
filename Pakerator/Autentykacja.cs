@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FirebirdSql.Data.FirebirdClient;
 using System.Security.Cryptography;
+using Microsoft.Win32;
 
 namespace Pakerator
 {
@@ -22,11 +23,13 @@ namespace Pakerator
         private bool isadmin;
         private string magazyny;
         private string pass;
+        private string logList = "";
 
         //wersja logowanie do systemu 
         public Autentykacja(ConnectionDB fbc)
         {
             InitializeComponent();
+            getUsersListReg();
             fbconn = fbc;
             GetMMUSERSexists();
             ShowDialog();
@@ -45,7 +48,7 @@ namespace Pakerator
             tPassToConfirmation.Visible = true;
             lPassToConfirmation.Visible = true;
             tLogin.Text = GetUserNameById(locIdUser);
-            tLogin.ReadOnly = true;
+            tLogin.Enabled = false;
             bLogin.Enabled = false;
             ShowDialog();
             return loginResult;
@@ -169,6 +172,7 @@ namespace Pakerator
 
         private void bLogin_Click(object sender, EventArgs e)
         {
+            tLogin.Text = tLogin.Text.ToUpper();
             if (locIdUser == 0)
                 {
                     //logowanie do systemu
@@ -180,7 +184,7 @@ namespace Pakerator
                         lPassWrong.Visible = true;
                         tPassToConfirmation.Visible = true;
                         lPassToConfirmation.Visible = true;
-                        tLogin.ReadOnly = true;
+                        tLogin.Enabled = false;
                     }
                     else
                     {
@@ -189,10 +193,12 @@ namespace Pakerator
                             if (isadmin)
                             {
                                 loginResult = AutoryzationType.Administartor;
+                                setUserListReg(tLogin.Text);
                             }
                             else
                             {
                                 loginResult = AutoryzationType.Uzytkownik;
+                                setUserListReg(tLogin.Text);
                             }
                         }
                         else
@@ -401,6 +407,46 @@ namespace Pakerator
         {
             System.Diagnostics.Process.Start("https://drive.google.com/drive/u/0/folders/187lxq5W6cFT7s2bkd1_A10PziIgzbXzF");
             Application.Exit();
+        }
+
+        private void getUsersListReg()
+        {
+            RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator");
+            try
+            {
+                logList = (String)rejestr.GetValue("LoginList");
+                if (logList != null)
+                {
+                    String[] strlist = logList.Split(',');
+                    tLogin.Items.AddRange(strlist);
+                }
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("Błąd odczytu z rejestru listy podpowiedzi użytkowników. Jeżeli błąd się powtarza skontaktuj się z Administratorem. " + System.Environment.NewLine + er.Message);
+                //throw;
+            }
+        }
+        private void setUserListReg(String strLogin)
+        {
+            if ((logList != null && !logList.Contains(strLogin)) || (logList == null && strLogin.Length > 0))
+            {
+                RegistryKey rejestr = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Infido\\Pakerator", true);
+                try
+                {
+                    if (logList == null)
+                        logList = strLogin;
+                    else
+                        logList = strLogin + "," + logList;
+
+                    rejestr.SetValue("LoginList", logList);
+                }
+                catch (Exception er)
+                {
+                    MessageBox.Show("Błąd zapisu do rejestru listy podpowiedzi użytkowników: " + er.Message);
+                    //throw;
+                }
+            }
         }
     }
 }
