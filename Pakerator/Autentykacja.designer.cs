@@ -142,6 +142,7 @@
             this.linkLabelInstalatorGdrive.TabIndex = 9;
             this.linkLabelInstalatorGdrive.TabStop = true;
             this.linkLabelInstalatorGdrive.Text = "Instalator pakeratora";
+            this.linkLabelInstalatorGdrive.Click += new System.EventHandler(this.linkLabelInstalatorGdrive_Click);
             // 
             // Autentykacja
             // 
