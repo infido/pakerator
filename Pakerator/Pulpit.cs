@@ -77,6 +77,19 @@ namespace Pakerator
                 setDictonary(magazyny);
                 setCMagazynFromReg();
                 setSetingsOfStores();
+
+                if (magazyny.Contains("CENTR"))
+                {
+                    kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Enabled = true;
+                    zamówieniaNaPortaluWwwToolStripMenuItem.Enabled = true;
+                    raportRozchodówZZamówieńWwwToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    kontrolaTowarowNaDokSprzedazyToolStripMenuItemGorneMenu.Enabled = false;
+                    zamówieniaNaPortaluWwwToolStripMenuItem.Enabled = false;
+                    raportRozchodówZZamówieńWwwToolStripMenuItem.Enabled = false;
+                }
                 setLog("ENTRY", "999 Logowanie do systemu Wersja:" + Application.ProductVersion + "; user: " + polaczenie.getCurrentUser() + "; ustawiono kontekst: " + magNazwa, "", "", "", 0, "");
                 chkTableLOGSKAN();
             }

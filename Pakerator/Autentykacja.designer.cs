@@ -141,7 +141,7 @@
             this.tLogin.Location = new System.Drawing.Point(115, 12);
             this.tLogin.Name = "tLogin";
             this.tLogin.Size = new System.Drawing.Size(102, 21);
-            this.tLogin.TabIndex = 10;
+            this.tLogin.TabIndex = 1;
             // 
             // Autentykacja
             // 
