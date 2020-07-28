@@ -4,7 +4,7 @@
   <description asmv2:iconFile="wood_box_opened.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Pakerator" version="1.34.0.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="Pakerator" version="2.1.0.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="Pakerator.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LibKonfIAI.dll" size="140288">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LibKonfIAI.dll" size="141312">
       <assemblyIdentity name="LibKonfIAI" version="1.10.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QvZ+hr68pZDElGyXNDtXESontpONWC0DVyNe+fKmvX8=</dsig:DigestValue>
+        <dsig:DigestValue>0cdYT3Ez9PAWfg9I6DLwH41BZrOQbjNZi8mNvGIj+24=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="1807872">
-      <assemblyIdentity name="Pakerator" version="1.34.0.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="2255360">
+      <assemblyIdentity name="Pakerator" version="2.1.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/F8CUiNCG1PjKgciW1gWBOfbcYuXwP8r4/ejddz6dOU=</dsig:DigestValue>
+        <dsig:DigestValue>n1fTS+Mxwzwfcy1n8cgbqI6fNhnyd7gBXTF+SsIN8pA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -162,13 +162,13 @@
       <dsig:DigestValue>JMNSEzSpvVCPXCRfRjP3tURmZK3l99OcPxnLHhARVnk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="PakeratorChangeLog.txt" size="3995">
+  <file name="PakeratorChangeLog.txt" size="4539">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>TEe4wJbODttlY3jyQJcLnB9+9Wh2mPREsebmXDG1keg=</dsig:DigestValue>
+      <dsig:DigestValue>NDW5lNknxdNUOt/nbl1v26agroLBF8vZksCqJ+vXXr0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="wood_box_opened.ico" size="432254">

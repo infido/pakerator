@@ -57,3 +57,4 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Dokument
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\LibKonfIAI.dll
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\LibKonfIAI.pdb
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\bin\Debug\LibKonfIAI.dll.config
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Debug\Pakerator.Autentykacja.resources

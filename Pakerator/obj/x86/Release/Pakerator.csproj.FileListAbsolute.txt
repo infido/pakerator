@@ -63,3 +63,4 @@ C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.applic
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.csproj.CopyComplete
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.exe
 C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.pdb
+C:\Users\jacek\Source\Repos\pakerator\Pakerator\obj\x86\Release\Pakerator.Autentykacja.resources

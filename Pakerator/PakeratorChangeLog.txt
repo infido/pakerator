@@ -1,4 +1,16 @@
-﻿Wersja 1.34 (23-07-2020)
+﻿Wersja 2.1 (28-07-2020)
+* Obsługa płatności "Saldo klienta" z podziału zamówienia na www
+* Autoryzacja użytkownikiem i hasłem
+* Ograniczenie listy magazynów wg uprawnień
+* Funkcjonalność zmiany hasła
+
+Wersja 1.35 (25-07-2020)
+* Obsługa szczegółowych sposobów płatności dla przedpłat i pobrań (dla Księgowości)
+* Dodanie na widoku zamówień z www kolumny FormyPlatnosci
+* Filtrowanie w raporcie rozchodów z zamówień www po wpisywaniu kolejnych znaków
+* Zapisywanie w uwagach na dok. sprzed. nazwy kuriera
+
+Wersja 1.34 (23-07-2020)
 * Usuwanie z NIP kresek
 * Dodanie opcji na liście dokumentów dla magazynu pomijanie zaliczek
 
