@@ -840,23 +840,30 @@ namespace Pakerator
             //}
             else
             {
-                string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, polaczenieRaks3000, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
-                dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value = res;
-                MessageBox.Show("Wynik: " + res, "Wynik operacji zapisywania do RaksSQL");
-                Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "INFO", "Zapis zamówienia z IAI " + dataGridView1Naglowki.CurrentRow.Cells["OrderSerialNumber"].Value.ToString()
-                                            + " do dokumentu sprzedaży: " + res, "", "", dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString(), 0, "", 0, magNazLoc, magID,
-                                            dataGridView1Naglowki.CurrentRow.Cells["ClientPhone1"].Value.ToString(), 0, 0);
-                bool isDebugMode = false;
-#if DEBUG
-                isDebugMode = true;
-#endif
-                if (isDebugMode == false)
+                bool odbiorWlasny = dataGridView1Naglowki.CurrentRow.Cells["CourierName"].Value.ToString().Equals("Odbiór osobisty") ? true : false;
+                if (odbiorWlasny && MessageBox.Show("Czy zapisać do RaksSQL zamówienie z odbiorem osobistym?", "Odbiór osobisty", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    odbiorWlasny = false;
+
+                if (odbiorWlasny == false)
                 {
-                    if (res.StartsWith("OK"))
+                    string res = RaksService.saveNewOrderAsInvoiceToRaks(polaczenieFB, polaczenieRaks3000, dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), magID);
+                    dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value = res;
+                    MessageBox.Show("Wynik: " + res, "Wynik operacji zapisywania do RaksSQL");
+                    Pulpit.putLog(polaczenie, polaczenie.getCurrentUser(), "INFO", "Zapis zamówienia z IAI " + dataGridView1Naglowki.CurrentRow.Cells["OrderSerialNumber"].Value.ToString()
+                                                + " do dokumentu sprzedaży: " + res, "", "", dataGridView1Naglowki.CurrentRow.Cells["raksNumer"].Value.ToString(), 0, "", 0, magNazLoc, magID,
+                                                dataGridView1Naglowki.CurrentRow.Cells["ClientPhone1"].Value.ToString(), 0, 0);
+                    bool isDebugMode = false;
+#if DEBUG
+                    isDebugMode = true;
+#endif
+                    if (isDebugMode == false)
                     {
-                        OrdersIAI.setIAIapiStatus(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), dataGridView1Naglowki.CurrentRow.Cells["statusStanowRaks"].Value.ToString());
-                        dataGridView1Naglowki.CurrentRow.Cells["ApiFlag"].Value = apiFlagType.registered_pos;
-                        
+                        if (res.StartsWith("OK"))
+                        {
+                            OrdersIAI.setIAIapiStatus(dataGridView1Naglowki.CurrentRow.Cells["orderId"].Value.ToString(), dataGridView1Naglowki.CurrentRow.Cells["statusStanowRaks"].Value.ToString());
+                            dataGridView1Naglowki.CurrentRow.Cells["ApiFlag"].Value = apiFlagType.registered_pos;
+
+                        }
                     }
                 }
             }
