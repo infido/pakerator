@@ -290,7 +290,9 @@
                   </>
                   <head ></>
                   <headtext ></>
-                  <dlgtext >Wersja 2.1 (28-07-2020)
+                  <dlgtext >Wersja 2.2 (31-07-2020)
+* Dodatkowy komunikat z pytaniem czy zapisać do Raks zamówienie z odbiorem osobistym
+Wersja 2.1 (28-07-2020)
 * Obsługa płatności "Saldo klienta" z podziału zamówienia na www
 * Autoryzacja użytkownikiem i hasłem
 * Ograniczenie listy magazynów wg uprawnień

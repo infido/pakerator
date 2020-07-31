@@ -181,9 +181,16 @@ namespace LibKonfIAI
         private static void SaveLogMsgInToLogEvent(string appName, string type, string msg)
         {
             EventLog appLog = new System.Diagnostics.EventLog();
-            appLog.Source = CreateEventSource(appName);
-            appLog.WriteEntry(msg);
-            appLog.Log = type;
+            try
+            {
+                appLog.Source = CreateEventSource(appName);
+                appLog.WriteEntry(msg);
+                appLog.Log = type;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Nie można zapisać do Windows events następującego komunikatu: " + msg + System.Environment.NewLine + "Zgłaszany błąd: " + ex.Message);
+            }
         }
 
         private static string CreateEventSource(string currentAppName)
