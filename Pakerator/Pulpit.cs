@@ -1492,6 +1492,36 @@ namespace Pakerator
             }
         }
 
+        private void od3DniTemuPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(3, 16);
+        }
+
+        private void od4DniTemuPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(4, 16);
+        }
+
+        private void od5DniTemuPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(5, 16);
+        }
+
+        private void od6DniTemuPo1600ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(6, 16);
+        }
+
+        private void ostatnie14DniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(14, 0);
+        }
+
+        private void ostatnie21DniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getRaportRozchodowWgZamowienZwww(21, 0);
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 
