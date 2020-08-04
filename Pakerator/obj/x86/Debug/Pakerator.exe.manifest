@@ -4,7 +4,7 @@
   <description asmv2:iconFile="wood_box_opened.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Pakerator" version="2.1.0.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="Pakerator" version="2.3.0.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="Pakerator.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="2290176">
-      <assemblyIdentity name="Pakerator" version="2.1.0.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pakerator.exe" size="2292224">
+      <assemblyIdentity name="Pakerator" version="2.3.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>hEJ0Im5nw4PvzaWqwcxj1g+Jl82T2rHfUQXKbZsa20Y=</dsig:DigestValue>
+        <dsig:DigestValue>yDS809HbF2IBEJJtTK7GN2s68uTXypZyGDIIx0IeZY4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -162,13 +162,13 @@
       <dsig:DigestValue>JMNSEzSpvVCPXCRfRjP3tURmZK3l99OcPxnLHhARVnk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="PakeratorChangeLog.txt" size="4539">
+  <file name="PakeratorChangeLog.txt" size="4751">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>NDW5lNknxdNUOt/nbl1v26agroLBF8vZksCqJ+vXXr0=</dsig:DigestValue>
+      <dsig:DigestValue>O7wW/KKKisW1rpyynwtFlAPelPFbJliwtqkbX4rDbm0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="wood_box_opened.ico" size="432254">

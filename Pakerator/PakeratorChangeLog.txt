@@ -1,4 +1,7 @@
-﻿Wersja 2.2 (31-07-2020)
+﻿Wersja 2.3 (04-08-2020)
+* Dodanie kolejnych przedziałów czasu do raportu rozchodów wg www
+
+Wersja 2.2 (31-07-2020)
 * Dodatkowy komunikat z pytaniem czy zapisać do Raks zamówienie z odbiorem osobistym
 
 Wersja 2.1 (28-07-2020)
