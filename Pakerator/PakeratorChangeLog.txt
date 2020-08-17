@@ -1,4 +1,7 @@
-﻿Wersja 2.3 (04-08-2020)
+﻿Wersja 2.4 (17-08-2020)
+* Poprawa rozpoznania i uzupełnienia zapisu pola sposób zapłaty
+
+Wersja 2.3 (04-08-2020)
 * Dodanie kolejnych przedziałów czasu do raportu rozchodów wg www
 
 Wersja 2.2 (31-07-2020)
