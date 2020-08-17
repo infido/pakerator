@@ -246,6 +246,7 @@ namespace LibKonfIAI
 
                                 //To działa tylko na ID
                                 int idTypuPlatnosci = 0;
+                                string platnoscDoUwag = "";
                                 if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("prepaid"))
                                 {
                                     string nazwaUzytychPlatnosci="";
@@ -267,15 +268,22 @@ namespace LibKonfIAI
                                     {
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Płatność złożona") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Płatność złożona' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                        platnoscDoUwag = "Płatność: Płatność złożona";
                                     }
                                     else
                                     {
                                         idTypuPlatnosci = GetIDtypuPlatnosci(polaczenieFB, nazwaUzytychPlatnosci);
                                         sql += idTypuPlatnosci + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         if (idTypuPlatnosci == 2)
+                                        {
                                             sql += "'Płatność złożona' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                            platnoscDoUwag = "Płatność: Płatność złożona";
+                                        }
                                         else
+                                        {
                                             sql += "'" + nazwaUzytychPlatnosci + "' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                            platnoscDoUwag = "Płatność: " + nazwaUzytychPlatnosci;
+                                        }
                                     }
                                 }
                                 else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("tradecredit"))
@@ -284,18 +292,25 @@ namespace LibKonfIAI
                                     {
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 3 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Przelew 3 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
-                                    }else if (response.Results[0].orderDetails.payments.orderPaymentDays <= 7)
+                                        platnoscDoUwag = "Płatność: Przelew 3 dni";
+                                    }
+                                    else if (response.Results[0].orderDetails.payments.orderPaymentDays <= 7)
                                     {
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 7 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Przelew 7 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
-                                    }else if (response.Results[0].orderDetails.payments.orderPaymentDays <= 14)
+                                        platnoscDoUwag = "Płatność: Przelew 7 dni";
+                                    }
+                                    else if (response.Results[0].orderDetails.payments.orderPaymentDays <= 14)
                                     {
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 14 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Przelew 14 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
-                                    }else 
+                                        platnoscDoUwag = "Płatność: Przelew 14 dni";
+                                    }
+                                    else 
                                     {
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Przelew 21 dni") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Przelew 21 dni' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                        platnoscDoUwag = "Płatność: Przelew 21 dni";
                                     }
                                 }
                                 else if (response.Results[0].orderDetails.payments.orderPaymentType.Equals("cash_on_delivery"))
@@ -305,17 +320,20 @@ namespace LibKonfIAI
                                     if (idTypuPlatnosci != 2)
                                     {
                                         sql += idTypuPlatnosci + ", "; //ID_SPOSOBU_PLATNOSCI 
-                                        sql += "'Pobranie" + nazwaKuriera + "' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                        sql += "'Pobranie " + nazwaKuriera + "' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                        platnoscDoUwag = "Płatność: Pobranie " + nazwaKuriera;
                                     }
                                     else
                                     {
                                         sql += GetIDtypuPlatnosci(polaczenieFB, "Pobranie") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                         sql += "'Pobranie' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                        platnoscDoUwag = "Płatność: Pobranie ";
                                     }
                                 }else
                                 {
                                     sql += GetIDtypuPlatnosci(polaczenieFB, "Płatność złożona") + ", "; //ID_SPOSOBU_PLATNOSCI 
                                     sql += "'Płatność złożona' ,"; //NAZWA_SPOSOBU_PLATNOSCI
+                                    platnoscDoUwag = "Płatność: Płatność złożona";
                                 }
                                 
 
@@ -344,6 +362,7 @@ namespace LibKonfIAI
                                         sql += "; kwota: " + item.paymentValue.ToString("C") + "; " + GetIdentyfikatorPlatonsciZIAI(item.paymentNumber) + System.Environment.NewLine;
                                     }
                                     sql += System.Environment.NewLine;
+                                    sql += platnoscDoUwag + System.Environment.NewLine;
                                     sql += "Nazwa kuriera: " + response.Results[0].orderDetails.dispatch.courierName.ToString() + System.Environment.NewLine;
                                     sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
                                     sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C");
@@ -351,7 +370,8 @@ namespace LibKonfIAI
                                 }
                                 else
                                 {
-                                    sql += "'Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
+                                    sql += "'" + platnoscDoUwag + System.Environment.NewLine;
+                                    sql += "Koszt wysyłki: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderDeliveryCost.ToString("C") + System.Environment.NewLine;
                                     sql += "Nazwa kuriera: " + response.Results[0].orderDetails.dispatch.courierName.ToString() + System.Environment.NewLine;
                                     sql += "Koszt ubezpieczenia: " + response.Results[0].orderDetails.payments.orderBaseCurrency.orderInsuranceCost.ToString("C");
                                     sql += System.Environment.NewLine + response.Results[0].orderDetails.clientNoteToOrder + "',"; //UWAGI
